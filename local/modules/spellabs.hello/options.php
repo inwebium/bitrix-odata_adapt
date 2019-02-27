@@ -7,7 +7,7 @@ $RIGHT = $APPLICATION->GetGroupRight($module_id);
 
 if($RIGHT >= "R"):
 $arAllOptions = [
-    ["SIMPLE_TEXT", "Текст.", [text], "Foo"],
+    ["SIMPLE_TEXT", "Текст.", [text], ""],
 ];
 
 $aTabs = [

@@ -33,19 +33,20 @@ Class spellabs_hello extends CModule
     function DoInstall()
     {
         global $DOCUMENT_ROOT, $APPLICATION;
-        // Install events
-        RegisterModuleDependences("iblock","OnBeforeProlog","spellabs.hello","CMainSpellabsHello","OnBeforePrologHandler");
+
+        RegisterModuleDependences("main", "OnAfterEpilog", $this->MODULE_ID, "CMainSpellabsHello", "OnAfterEpilogHandler");
         RegisterModule($this->MODULE_ID);
-        $APPLICATION->IncludeAdminFile("Установка модуля spellabs.hello", $DOCUMENT_ROOT."/bitrix/modules/spellabs.hello/install/step.php");
+        $APPLICATION->IncludeAdminFile("Установка модуля spellabs.hello", $DOCUMENT_ROOT."/local/modules/spellabs.hello/install/step.php");
         return true;
     }
 
     function DoUninstall()
     {
         global $DOCUMENT_ROOT, $APPLICATION;
-        UnRegisterModuleDependences("iblock","OnBeforeProlog","spellabs.hello","CMainSpellabsHello","OnBeforePrologHandler");
+        
+        UnRegisterModuleDependences("main", "OnAfterEpilog", $this->MODULE_ID, "CMainSpellabsHello", "OnAfterEpilogHandler");
         UnRegisterModule($this->MODULE_ID);
-        $APPLICATION->IncludeAdminFile("Деинсталляция модуля spellabs.hello", $DOCUMENT_ROOT."/bitrix/modules/spellabs.hello/install/unstep.php");
+        $APPLICATION->IncludeAdminFile("Деинсталляция модуля spellabs.hello", $DOCUMENT_ROOT."/local/modules/spellabs.hello/install/unstep.php");
         return true;
     }
 }
