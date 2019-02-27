@@ -24,7 +24,7 @@ if($REQUEST_METHOD=="POST" && strlen($Update.$Apply.$RestoreDefaults) > 0 && $RI
     
     if(strlen($RestoreDefaults)>0)
     {
-        COption::RemoveOption("WE_ARE_CLOSED_TEXT");
+        COption::RemoveOption("SIMPLE_TEXT");
     }
     else
     {
