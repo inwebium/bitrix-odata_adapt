@@ -33,6 +33,14 @@ class spellabs_portal extends \CModule
 	function DoInstall()
 	{
 		global $DOCUMENT_ROOT, $APPLICATION;
+        
+        /*
+         * Так как могут быть установлены/не установлены разные модули, 
+         * то нужно сделать проверку на их наличие. Если чего-то будет не 
+         * хватать, то наверно нужно либо отдавать ошибку. Или сделать все 
+         * универсальней и добавить в таком случае возможность настроить 
+         * соответствие инфоблоков сущностям из портала spellabs?
+         */
 		
 		$this->InstallFiles();
 		$this->InstallDB();
@@ -44,6 +52,20 @@ class spellabs_portal extends \CModule
 	function InstallFiles()
 	{
         // Копирование нужных файлов (компоненты, другие нужные файлы, может .js или какие-нибудь php-библиотеки)
+        // Копирование компонентов
+        CopyDirFiles(
+			$_SERVER["DOCUMENT_ROOT"] . "/local/modules/spellabs.portal/install/components",
+			$_SERVER["DOCUMENT_ROOT"] . "/local/components",
+			true, true
+		);
+        
+        // Копирование страниц
+        CopyDirFiles(
+			$_SERVER["DOCUMENT_ROOT"] . "/local/modules/spellabs.portal/install/pages",
+			$_SERVER["DOCUMENT_ROOT"] . "",
+			true, true
+		);
+        
 		return true;
 	}
 	
