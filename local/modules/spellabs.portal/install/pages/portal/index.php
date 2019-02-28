@@ -6,7 +6,7 @@
 require($_SERVER['DOCUMENT_ROOT'] . '/bitrix/modules/main/include/prolog_before.php');
 //Содержимое тега title + можно заданное значение вывести с помощью $APPLICATION->ShowTitle()
 $APPLICATION->SetTitle("Spellabs Portal test");
-$APPLICATION->RestartBuffer();
+//$APPLICATION->RestartBuffer();
 $APPLICATION->ShowHead();
 ?>
 <div><? $APPLICATION->ShowPanel(); ?></div>
