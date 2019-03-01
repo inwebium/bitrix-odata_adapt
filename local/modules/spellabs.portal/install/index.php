@@ -66,6 +66,13 @@ class spellabs_portal extends \CModule
 			true, true
 		);
         
+        // Копирование js-скриптов
+        CopyDirFiles(
+			$_SERVER["DOCUMENT_ROOT"] . "/local/modules/spellabs.portal/install/js",
+			$_SERVER["DOCUMENT_ROOT"] . "/local/js",
+			true, true
+		);
+        
         //Добавление правила в urlrewrire
         CUrlRewriter::Add([
             'CONDITION' => '#(.*)#',
@@ -113,6 +120,8 @@ class spellabs_portal extends \CModule
 	
 	function UnInstallFiles()
 	{
+        // Можно добавить удаление установленых файлов
+        
         CUrlRewriter::Delete([
             'SITE_ID' => 's1',
             'CONDITION' => '#(.*)#',

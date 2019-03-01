@@ -7,12 +7,20 @@ require($_SERVER['DOCUMENT_ROOT'] . '/bitrix/modules/main/include/prolog_before.
 
 //Содержимое тега title + можно заданное значение вывести с помощью $APPLICATION->ShowTitle()
 $APPLICATION->SetTitle("Spellabs Portal test");
+// Подключаем некую библиотеку и т.п.
+$APPLICATION->AddHeadScript('/local/js/spellabs.example.js');
 // Выводит все, что должно быть в <head> (в т.ч. разные битриксовые скрипты/стили)
 $APPLICATION->ShowHead();
 ?>
+
 <div><? $APPLICATION->ShowPanel(); ?></div>
 <h1><? $APPLICATION->ShowTitle(); ?></h1>
-Страница установлена с помощью модуля <? echo CSPMain::GetModuleId() . ' ' . CSPMain::GetModuleVersion(); ?>
+<div>Страница установлена с помощью модуля <? echo CSPMain::GetModuleId() . ' ' . CSPMain::GetModuleVersion(); ?></div>
+
+<label for="js-input-iblock_id">IBLOCK_ID=</label><input type="text" id="js-input-iblock_id" value="1" />
+<div id="js-container-test">response must be here</div>
+<button type="submit" id="js-test_call">sl.test.call</button>
+
 <?
 // Эпилог с визуальной частью (обычно футер)
 //require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");
