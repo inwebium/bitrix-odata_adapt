@@ -1,4 +1,5 @@
 <?
+// WIP!
 $_SERVER["DOCUMENT_ROOT"] = 'C:\xampp\htdocs\test.bitrix.dev10.spellabs.com';
 $userId = 1;
 $moduleId = 'spellabs.portal';
@@ -6,6 +7,7 @@ $lang = 'ru';
 $isInstall = true;
 $isUninstall = false;
 $isClear = false;
+$isInstallingEventsEnabled = false;
 
 ini_set("max_execution_time", 0);
 ini_set("display_errors", 1);
@@ -128,4 +130,55 @@ if(($isUninstall || $isInstall || $isClear) && $isAdmin)
 if (strlen($errorMessage) > 0)
 {
     echo "\nERROR: \n" . $errorMessageFull . "\n\n";
+}
+
+function OnModuleInstalledEvent($id, $installed, $Module)
+{
+    if (!$isInstallingEventsEnabled)
+    {
+        return false;
+    }
+    
+	foreach(GetModuleEvents("main", "OnModuleInstalled", true) as $arEvent)
+	{
+		ExecuteModuleEventEx($arEvent, array($id, $installed));
+	}
+
+	$cModules = COption::GetOptionString("main", "mp_modules_date", "");
+	$arModules = array();
+	if (strlen($cModules) > 0)
+    {
+        $arModules = unserialize($cModules);
+    }
+
+    if($installed == "Y")
+	{
+		$arModules[] = array("ID" => $id, "NAME" => htmlspecialcharsbx($Module->MODULE_NAME), "TMS" => time());
+		if (count($arModules) > 3)
+        {
+            $arModules = array_slice($arModules, -3);
+        }
+
+        COption::SetOptionString("main", "mp_modules_date", serialize($arModules));
+	}
+	else
+	{
+		foreach($arModules as $arid => $val)
+		{
+			if ($val["ID"] == $id)
+            {
+                unset($arModules[$arid]);
+            }
+        }
+		if (count($arModules) > 0)
+        {
+            COption::SetOptionString("main", "mp_modules_date", serialize($arModules));
+        }
+        else
+        {
+            COption::RemoveOption("main", "mp_modules_date");
+        }
+
+        $_SESSION["MP_MOD_DELETED"] = array("ID" => $id, "NAME" => $Module->MODULE_NAME);
+	}
 }
