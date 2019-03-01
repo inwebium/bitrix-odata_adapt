@@ -4,9 +4,10 @@
 
 // Служебная часть пролога - без вывода (header.php), только события и т.п.
 require($_SERVER['DOCUMENT_ROOT'] . '/bitrix/modules/main/include/prolog_before.php');
+
 //Содержимое тега title + можно заданное значение вывести с помощью $APPLICATION->ShowTitle()
 $APPLICATION->SetTitle("Spellabs Portal test");
-//$APPLICATION->RestartBuffer();
+// Выводит все, что должно быть в <head> (в т.ч. разные битриксовые скрипты/стили)
 $APPLICATION->ShowHead();
 ?>
 <div><? $APPLICATION->ShowPanel(); ?></div>

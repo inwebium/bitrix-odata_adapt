@@ -66,6 +66,15 @@ class spellabs_portal extends \CModule
 			true, true
 		);
         
+        //Добавление правила в urlrewrire
+        CUrlRewriter::Add([
+            'CONDITION' => '#(.*)#',
+            'RULE' => '',
+            'ID' => '',
+            'PATH' => '/portal/index.php',
+            'SORT' => 1,
+        ]);
+        
 		return true;
 	}
 	
@@ -80,7 +89,7 @@ class spellabs_portal extends \CModule
 	function InstallEvents()
 	{
         // Регистрация обработчиков событий (например "перед выводом пролога", "после сохранения элемента")
-        RegisterModuleDependences("main", "OnProlog", "spellabs.portal", "CSPMain", "OnPrologHandler");
+        RegisterModuleDependences("main", "OnProlog", "spellabs.portal", "CSPHandlers", "OnPrologHandler");
 		return true;
 	}
 	
@@ -104,12 +113,23 @@ class spellabs_portal extends \CModule
 	
 	function UnInstallFiles()
 	{
+        CUrlRewriter::Delete([
+            'SITE_ID' => 's1',
+            'CONDITION' => '#(.*)#',
+            'ID' => '',
+            'PATH' => '/portal/index.php',
+        ]);
 		return true;
 	}
 	
 	function UnInstallEvents()
 	{
+        // Для уверенности сейчас думаю нужно оставлять все удаления обработчиков
+        // На время разработки
         UnRegisterModuleDependences("main", "OnProlog", "spellabs.portal", "CSPMain", "OnPrologHandler");
+        UnRegisterModuleDependences("main", "OnBeforeProlog", "spellabs.portal", "CSPHandlers", "OnBeforePrologHandler");
+        UnRegisterModuleDependences("main", "OnPageStart", "spellabs.portal", "CSPHandlers", "OnPageStartHandler");
+        UnRegisterModuleDependences("main", "OnProlog", "spellabs.portal", "CSPHandlers", "OnPrologHandler");
 		return true;
 	} 
 }

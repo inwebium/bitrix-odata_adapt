@@ -4,7 +4,8 @@ global $DB, $MESS, $APPLICATION;
 CModule::AddAutoloadClasses(
 	"spellabs.portal",
 	[
-        "CSPMain" => "classes/general/CSPMain.php",
+        'CSPMain' => 'classes/general/CSPMain.php',
+        'CSPHandlers' => 'classes/handlers/CSPHandlers.php',
         'SPEventManager' => 'classes/extend/SPEventManager.php',
     ]
 );

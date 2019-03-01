@@ -1,5 +1,4 @@
 <?
-namespace Spellabs\Portal\Extend;
 
 /**
  * Description of SPEventManager
@@ -8,7 +7,18 @@ namespace Spellabs\Portal\Extend;
  */
 class SPEventManager extends \Bitrix\Main\EventManager
 {
-    public function findEventHandlers(array $filter = null)
+    public static function getInstance()
+    {
+        if (!isset(self::$instance))
+        {
+            $c = __CLASS__;
+            self::$instance = new $c;
+        }
+
+        return self::$instance;
+    }
+    
+    public function findEventsHandlers(array $filter = null)
     {
         if (!$this->isHandlersLoaded)
         {

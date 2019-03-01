@@ -8,5 +8,28 @@
  */
 class CSPHandlers
 {
-    
+    /**
+     * Обработчик для OnProlog. Проверит URI запроса, если начинается с /bitrix 
+     * или /portal то пройдет как обычно, иначе - редирект на /portal/
+     * 
+     * @todo В дальнейшем нужно будет учесть моменты связанные с ajax
+     * @return boolean
+     */
+    public static function OnPrologHandler()
+    {
+        $requestUri = $_SERVER['REQUEST_URI'];
+        
+        $isBitrixUri = strpos($requestUri, '/bitrix') === 0;
+        $isPortalUri = strpos($requestUri, '/portal') === 0;
+        
+        if ($isBitrixUri || $isPortalUri)
+        {
+            return true;
+        }
+        else
+        {
+            LocalRedirect('/portal/');
+        }
+        
+    }
 }
