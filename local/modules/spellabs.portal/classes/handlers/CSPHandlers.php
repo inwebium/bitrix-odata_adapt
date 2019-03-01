@@ -21,8 +21,9 @@ class CSPHandlers
         
         $isBitrixUri = strpos($requestUri, '/bitrix') === 0;
         $isPortalUri = strpos($requestUri, '/portal') === 0;
+        $isLocalUri  = strpos($requestUri, '/local')  === 0;
         
-        if ($isBitrixUri || $isPortalUri)
+        if ($isBitrixUri || $isPortalUri || $isLocalUri || empty($requestUri))
         {
             return true;
         }
