@@ -2,7 +2,7 @@
 global $DB, $MESS, $APPLICATION;
 
 CModule::AddAutoloadClasses(
-	"spellabs.portal",
+    'spellabs.portal',
 	[
         'CSPMain' => 'classes/general/CSPMain.php',
         'CSPHandlers' => 'classes/handlers/CSPHandlers.php',
