@@ -266,6 +266,14 @@ class spellabs_portal extends \CModule
         foreach ($editFormsSettings as $iblockCode => $arFormSettings)
         {
             $iblockId = $this->GetIblockId($iblockCode);
+            
+            $arCreatedProperties = [];
+            $resProperties = CIBlockProperty::GetList(['SORT' => 'ASC', 'NAME' => 'ASC'], ['IBLOCK_ID' => $iblockId]);
+            while ($arProperty = $resProperties->GetNext())
+            {
+                $arCreatedProperties[] = 'PROPERTY_' . $arProperty['ID'] . '--#--' . $arProperty['NAME'];
+            }
+            
             $strFields = [];
             
             foreach ($arFormSettings as $tabKey => $arTabSettings)
@@ -277,10 +285,13 @@ class spellabs_portal extends \CModule
                     $arFields[] = $code . '--#--' . $name;
                 }
                 
-                $strFields = implode('--,--', $arFields);
+                $arStrFields = array_merge($arFields, $arCreatedProperties);
+                
+                $strFields[] = implode('--,--', $arStrFields);
+                
             }
             
-            $arSettings = ['tabs' => implode('--;--', $strFields)];
+            $arSettings = ['tabs' => implode('--;--', $strFields) . '--;--'];
 
             // Применяем настройки для всех пользователей
             $result = CUserOptions::SetOption("form", "form_element_".$iblockId, $arSettings, true, false);
