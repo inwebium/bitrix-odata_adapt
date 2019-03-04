@@ -1,0 +1,73 @@
+{
+	"sl_sitemap": {
+		"a": {
+			"edit1": "Элемент",
+			"ID": "ID",
+			"NAME": "Название",
+			"DATE_CREATE": "Создано",
+			"CREATED_USER_NAME": "Кем создано",
+			"TIMESTAMP_X": "Изменено",
+			"USER_NAME": "Кем изменено",
+			"IBLOCK_ELEMENT_PROPERTY": "Значения свойств"
+		}
+	},
+	"sl_service_templates": {
+		"a": {
+			"edit1": "Элемент",
+			"ID": "ID",
+			"NAME": "Название",
+			"DATE_CREATE": "Создано",
+			"CREATED_USER_NAME": "Кем создано",
+			"TIMESTAMP_X": "Изменено",
+			"USER_NAME": "Кем изменено",
+			"ACTIVE": "Активен",
+			"IBLOCK_ELEMENT_PROPERTY": "Значения свойств"
+		}
+	},
+	"sl_banners": {
+		"a": {
+			"edit1": "Баннер",
+			"ID": "ID",
+			"NAME": "Название",
+			"DATE_CREATE": "Создано",
+			"CREATED_USER_NAME": "Кем создано",
+			"TIMESTAMP_X": "Изменено",
+			"USER_NAME": "Кем изменено",
+            "ACTIVE": "Активен",
+            "ACTIVE_FROM": "Дата начала отображения",
+            "ACTIVE_TO": "Дата окончания отображения",
+			"IBLOCK_ELEMENT_PROPERTY": "Значения свойств"
+		}
+	},
+	"sl_news": {
+		"a": {
+			"edit1": "Новость",
+			"ID": "ID",
+			"NAME": "Название",
+			"DATE_CREATE": "Создано",
+			"CREATED_USER_NAME": "Кем создано",
+			"TIMESTAMP_X": "Изменено",
+			"USER_NAME": "Кем изменено",
+            "ACTIVE_FROM": "Дата публикации",
+            "IBLOCK_SECTION_ID": "Рубрика",
+            "PREVIEW_TEXT": "Анонс",
+            "DETAIL_TEXT": "Текст новости",
+			"IBLOCK_ELEMENT_PROPERTY": "Значения свойств"
+		}
+	},
+	"sl_survey": {
+		"a": {
+			"edit1": "Опрос",
+			"ID": "ID",
+			"NAME": "Название",
+			"DATE_CREATE": "Создано",
+			"CREATED_USER_NAME": "Кем создано",
+			"TIMESTAMP_X": "Изменено",
+			"USER_NAME": "Кем изменено",
+            "ACTIVE": "Активен",
+            "ACTIVE_FROM": "Дата начала опроса",
+            "ACTIVE_TO": "Дата окончания опроса",
+			"IBLOCK_ELEMENT_PROPERTY": "Значения свойств"
+		}
+	}
+}
