@@ -1,0 +1,42 @@
+{
+    "UF_SL_USER_POSITION": {
+        "ENTITY_ID": "USER",
+        "USER_TYPE_ID": "iblock_element",
+        "XML_ID": "slLookupPosition",
+        "SORT": 10,
+        "MULTIPLE": "N",
+        "MANDATORY": "N",
+        "SHOW_FILTER": "S",
+        "SHOW_IN_LIST": "",
+        "EDIT_IN_LIST": "",
+        "IS_SEARCHABLE": "Y",
+        "SETTINGS": {
+            "IBLOCK_TYPE_ID": "spellabs",
+            "IBLOCK_ID": "#sl_positions#",
+            "DEFAULT_VALUE": "",
+            "DISPLAY": "LIST",
+            "LIST_HEIGHT": 5,
+            "ACTIVE_FILTER": "Y"
+        },
+        "EDIT_FORM_LABEL": {
+            "ru": "Должность",
+            "en": "Position"
+        },
+        "LIST_COLUMN_LABEL": {
+            "ru": "Должность",
+            "en": "Position"      
+        },
+        "LIST_FILTER_LABEL": {
+            "ru": "Должность",
+            "en": "Position"
+        },
+        "ERROR_MESSAGE": {
+            "ru": "Ошибка выбора должности",
+            "en": "Error in position choose"
+        },
+        "HELP_MESSAGE": {
+            "ru": "",
+            "en": ""
+        }
+    }
+}
