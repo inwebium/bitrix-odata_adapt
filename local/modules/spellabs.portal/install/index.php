@@ -171,6 +171,11 @@ class spellabs_portal extends \CModule
      */
 	function UnInstallFiles()
 	{
+        DeleteDirFiles(
+            $_SERVER["DOCUMENT_ROOT"] . "/local/modules/spellabs.portal/install/js", 
+            $_SERVER["DOCUMENT_ROOT"] . "/local/js", 
+            array("index.php")
+        );
         
         CUrlRewriter::Delete([
             'SITE_ID' => 's1',
