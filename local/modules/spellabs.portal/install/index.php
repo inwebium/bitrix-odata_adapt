@@ -51,10 +51,15 @@ class spellabs_portal extends \CModule
 		
 		$APPLICATION->IncludeAdminFile(GetMessage("SPPORTAL_INSTALL_TITLE"), $_SERVER['DOCUMENT_ROOT']."/local/modules/spellabs.portal/install/step.php");
 	}
-
+    
+    /**
+     * Копирование нужных файлов (компоненты, другие нужные файлы, 
+     * может .js или какие-нибудь php-библиотеки)
+     * 
+     * @return boolean
+     */
 	function InstallFiles()
 	{
-        // Копирование нужных файлов (компоненты, другие нужные файлы, может .js или какие-нибудь php-библиотеки)
         // Копирование компонентов
         CopyDirFiles(
 			$_SERVER["DOCUMENT_ROOT"] . "/local/modules/spellabs.portal/install/components",
@@ -88,11 +93,15 @@ class spellabs_portal extends \CModule
 		return true;
 	}
 	
+    /**
+     * Регистрация модуля и прочие действия с БД
+     * 
+     * @return boolean
+     */
 	function InstallDB()
 	{
-        // Регистрация модуля
 		RegisterModule("spellabs.portal");
-		// Другие действия с БД, имеющаяся структура битрикса неприкосновенна
+        
         if (!CModule::IncludeModule("iblock"))
         {
             die();
@@ -102,12 +111,17 @@ class spellabs_portal extends \CModule
         $this->CreateIblocks();
         $this->CreateProperties();
         $this->SetupEditForms();
+        
 		return true;
 	}
 	
+    /**
+     * Регистрация обработчиков событий (например "перед выводом пролога", "после сохранения элемента")
+     * 
+     * @return boolean
+     */
 	function InstallEvents()
 	{
-        // Регистрация обработчиков событий (например "перед выводом пролога", "после сохранения элемента")
         RegisterModuleDependences("main", "OnProlog", "spellabs.portal", "CSPHandlers", "OnPrologHandler");
 		return true;
 	}
@@ -123,16 +137,36 @@ class spellabs_portal extends \CModule
 		$APPLICATION->IncludeAdminFile(GetMessage("SPPORTAL_UNINSTALL_TITLE"), $_SERVER['DOCUMENT_ROOT']."/local/modules/spellabs.portal/install/unstep.php");
 	}
 	
+    /**
+     * Действия с БД при удалении модуля
+     * 
+     * @return boolean
+     */
 	function UnInstallDB()
 	{
 		UnRegisterModule("spellabs.portal");
-
+        
+        // Удалим тип инфоблоков spellabs, за ним удалятся и все связанные инфоблоки
+        $DB->StartTransaction();
+        
+        if(!CIBlockType::Delete('spellabs'))
+        {
+            $DB->Rollback();
+            echo "\nERROR: Failed to delete Iblock type = spellabs\n\n";
+        }
+        $DB->Commit();
+        
 		return true;
 	}
 	
+    /**
+     * Действия с файловой структурой при удалении модуля
+     * 
+     * @todo Добавить удаление установленных файлов
+     * @return boolean
+     */
 	function UnInstallFiles()
 	{
-        // Можно добавить удаление установленых файлов
         
         CUrlRewriter::Delete([
             'SITE_ID' => 's1',
@@ -140,9 +174,15 @@ class spellabs_portal extends \CModule
             'ID' => '',
             'PATH' => '/portal/index.php',
         ]);
+        
 		return true;
 	}
 	
+    /**
+     * Удаление зарегистрированных обработчиков событий
+     * 
+     * @return boolean
+     */
 	function UnInstallEvents()
 	{
         // Для уверенности сейчас думаю нужно оставлять все удаления обработчиков
@@ -154,6 +194,11 @@ class spellabs_portal extends \CModule
 		return true;
 	}
     
+    /**
+     * Возвращает путь к текущему файлу
+     * 
+     * @return string Абсолютный путь к файлу
+     */
     private function GetPath()
     {
         $path = str_replace("\\", "/", __FILE__);
@@ -161,6 +206,12 @@ class spellabs_portal extends \CModule
         return $path;
     }
   
+    /**
+     * Создаст тип инфоблоков
+     * 
+     * @global CDatabase $DB
+     * @return bool
+     */
     private function CreateIblockType()
     {
         global $DB;
@@ -201,6 +252,11 @@ class spellabs_portal extends \CModule
         }
     }
     
+    /**
+     * Создаст инфоблоки из конфига conf/iblock.json
+     * 
+     * @global CDatabase $DB
+     */
     private function CreateIblocks()
     {
         global $DB;
@@ -228,6 +284,11 @@ class spellabs_portal extends \CModule
         }
     }
     
+    /**
+     * Создаст свойства инфоблоков из конфига conf/property.json
+     * 
+     * @global CDatabase $DB
+     */
     private function CreateProperties()
     {
         global $DB;
@@ -259,6 +320,10 @@ class spellabs_portal extends \CModule
         }
     }
     
+    /**
+     * Настроит формы редактирования элементов инфоблоков по конфигу conf/editform.json
+     * 
+     */
     private function SetupEditForms()
     {
         $editFormsSettings = json_decode(file_get_contents($this->GetPath() . "/conf/editform.json"), true);
