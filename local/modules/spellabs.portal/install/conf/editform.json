@@ -1,0 +1,95 @@
+{
+	"sl_sitemap": {
+		"a": {
+			"edit1": "Элемент",
+			"ID": "ID",
+			"NAME": "Название",
+            "CODE": "Код",
+			"DATE_CREATE": "Создано",
+			"TIMESTAMP_X": "Изменено",
+			"IBLOCK_ELEMENT_PROP_VALUE": "--Значения свойств"
+		}
+	},
+	"sl_service_templates": {
+		"a": {
+			"edit1": "Элемент",
+			"ID": "ID",
+			"NAME": "Название",
+            "CODE": "Код",
+			"DATE_CREATE": "Создано",
+			"TIMESTAMP_X": "Изменено",
+			"ACTIVE": "Активен",
+			"IBLOCK_ELEMENT_PROP_VALUE": "--Значения свойств"
+		}
+	},
+	"sl_banners": {
+		"a": {
+			"edit1": "Баннер",
+			"ID": "ID",
+			"NAME": "Название",
+            "CODE": "Код",
+			"DATE_CREATE": "Создано",
+			"TIMESTAMP_X": "Изменено",
+            "ACTIVE": "Активен",
+            "ACTIVE_FROM": "Дата начала отображения",
+            "ACTIVE_TO": "Дата окончания отображения",
+			"IBLOCK_ELEMENT_PROP_VALUE": "--Значения свойств"
+		}
+	},
+	"sl_news": {
+		"a": {
+			"edit1": "Новость",
+			"ID": "ID",
+			"NAME": "Название",
+            "CODE": "Код",
+			"DATE_CREATE": "Создано",
+			"TIMESTAMP_X": "Изменено",
+            "ACTIVE_FROM": "Дата публикации",
+            "SECTIONS": "Рубрика",
+            "PREVIEW_TEXT": "Анонс",
+            "DETAIL_TEXT": "Текст новости",
+			"IBLOCK_ELEMENT_PROP_VALUE": "--Значения свойств"
+		}
+	},
+	"sl_survey": {
+		"a": {
+			"edit1": "Опрос",
+			"ID": "ID",
+			"NAME": "Название",
+            "CODE": "Код",
+			"DATE_CREATE": "Создано",
+			"TIMESTAMP_X": "Изменено",
+            "ACTIVE": "Активен",
+            "SECTIONS": "Тип опроса",
+            "ACTIVE_FROM": "Дата начала опроса",
+            "ACTIVE_TO": "Дата окончания опроса",
+			"IBLOCK_ELEMENT_PROP_VALUE": "--Значения свойств"
+		}
+	},
+	"sl_positions": {
+		"a": {
+			"edit1": "Должность",
+			"ID": "ID",
+			"NAME": "Название",
+            "CODE": "Код",
+			"DATE_CREATE": "Создано",
+			"TIMESTAMP_X": "Изменено",
+            "ACTIVE": "Активен",
+			"IBLOCK_ELEMENT_PROP_VALUE": "--Значения свойств"
+		}
+	},
+    "sl_thanks": {
+		"a": {
+			"edit1": "Благодарность",
+			"ID": "ID",
+			"NAME": "Название типа благодарности, автора и адресата",
+            "CODE": "Код",
+			"DATE_CREATE": "Создано",
+			"TIMESTAMP_X": "Изменено",
+            "ACTIVE": "Активен",
+            "SECTIONS": "Тип благодарности",
+            "DETAIL_TEXT": "Комментарий",
+			"IBLOCK_ELEMENT_PROP_VALUE": "--Значения свойств"
+		}
+	}
+}
