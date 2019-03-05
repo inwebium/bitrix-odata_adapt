@@ -64,5 +64,17 @@
             "ACTIVE_TO": "Дата окончания опроса",
 			"IBLOCK_ELEMENT_PROP_VALUE": "--Значения свойств"
 		}
+	},
+	"sl_positions": {
+		"a": {
+			"edit1": "Должность",
+			"ID": "ID",
+			"NAME": "Название",
+            "CODE": "Код",
+			"DATE_CREATE": "Создано",
+			"TIMESTAMP_X": "Изменено",
+            "ACTIVE": "Активен",
+			"IBLOCK_ELEMENT_PROP_VALUE": "--Значения свойств"
+		}
 	}
 }
