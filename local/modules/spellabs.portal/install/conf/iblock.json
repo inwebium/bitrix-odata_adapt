@@ -202,6 +202,10 @@
 			},
             "IBLOCK_SECTION_ID": {
                 "IS_REQUIRED": "Y"
+            },
+            "ACTIVE_FROM": {
+                "IS_REQUIRED": "Y",
+                "DEFAULT_VALUE": "=now"
             }
 		},
 		"ELEMENT_NAME": "Опрос",

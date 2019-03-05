@@ -404,6 +404,13 @@ class spellabs_portal extends \CModule
             
             $regExpMatches = [];
             
+            if (preg_match('/#([a-zA-Z0-9_]*)#/', $arSettings['ENTITY_ID'], $regExpMatches))
+            {
+                $arSettings['ENTITY_ID'] = str_replace($regExpMatches[0], GetIblockId($regExpMatches[1]), $arSettings['ENTITY_ID']);
+            }
+            
+            $regExpMatches = [];
+            
             if (isset($arSettings['SETTINGS']['IBLOCK_ID']) && preg_match('/^#([a-zA-Z0-9_]*)#$/', $arSettings['SETTINGS']['IBLOCK_ID'], $regExpMatches))
             {
                 $arSettings['SETTINGS']['IBLOCK_ID'] = str_replace(

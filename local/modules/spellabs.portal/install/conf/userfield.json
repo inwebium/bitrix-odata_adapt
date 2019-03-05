@@ -38,5 +38,45 @@
             "ru": "",
             "en": ""
         }
+    },
+    "UF_SL_THANKSTYPE_COLOR": {
+        "ENTITY_ID": "IBLOCK_#sl_thanks#_SECTION",
+        "USER_TYPE_ID": "string",
+        "XML_ID": "slColor",
+        "SORT": 10,
+        "MULTIPLE": "N",
+        "MANDATORY": "N",
+        "SHOW_FILTER": "S",
+        "SHOW_IN_LIST": "",
+        "EDIT_IN_LIST": "",
+        "IS_SEARCHABLE": "Y",
+        "SETTINGS": {
+            "DEFAULT_VALUE": "",
+            "SIZE": 11,
+            "ROWS": 1,
+            "MIN_LENGTH": 0,
+            "MAX_LENGTH": 0,
+            "REGEXP": ""
+        },
+        "EDIT_FORM_LABEL": {
+            "ru": "Цвет подложки",
+            "en": "Background color"
+        },
+        "LIST_COLUMN_LABEL": {
+            "ru": "Цвет подложки",
+            "en": "Background color"      
+        },
+        "LIST_FILTER_LABEL": {
+            "ru": "Цвет подложки",
+            "en": "Background color"
+        },
+        "ERROR_MESSAGE": {
+            "ru": "Ошибка при заполнении цвета подложки",
+            "en": "Error in completing background color"
+        },
+        "HELP_MESSAGE": {
+            "ru": "",
+            "en": ""
+        }
     }
 }
