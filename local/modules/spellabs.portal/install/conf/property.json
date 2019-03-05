@@ -66,7 +66,7 @@
 			"SORT": 10000,
 			"PROPERTY_TYPE": "F",
 			"MULTIPLE": "Y",
-			"FILE_TYPE": "jpg,jpeg,gif,png,svg",
+			"FILE_TYPE": "",
 			"SEARCHABLE": "N",
 			"FILTRABLE": "N"
 		}
@@ -183,7 +183,7 @@
 			"SORT": 10000,
 			"PROPERTY_TYPE": "F",
 			"MULTIPLE": "Y",
-			"FILE_TYPE": "jpg,jpeg,gif,png,svg",
+			"FILE_TYPE": "",
 			"SEARCHABLE": "N",
 			"FILTRABLE": "N"
 		}
@@ -243,7 +243,7 @@
 			"SORT": 10000,
 			"PROPERTY_TYPE": "F",
 			"MULTIPLE": "Y",
-			"FILE_TYPE": "jpg,jpeg,gif,png,svg",
+			"FILE_TYPE": "",
 			"SEARCHABLE": "N",
 			"FILTRABLE": "N"
 		}
@@ -257,7 +257,7 @@
 			"SORT": 10000,
 			"PROPERTY_TYPE": "F",
 			"MULTIPLE": "Y",
-			"FILE_TYPE": "jpg,jpeg,gif,png,svg",
+			"FILE_TYPE": "",
 			"SEARCHABLE": "N",
 			"FILTRABLE": "N"
 		}
@@ -324,9 +324,61 @@
 			"SORT": 10000,
 			"PROPERTY_TYPE": "F",
 			"MULTIPLE": "Y",
-			"FILE_TYPE": "jpg,jpeg,gif,png,svg",
+			"FILE_TYPE": "",
 			"SEARCHABLE": "N",
 			"FILTRABLE": "N"
 		}
-	}
+	},
+    "sl_positions": {
+        "SL_ATTACHMENTS": {
+			"XML_ID": "slAttachments",
+			"NAME": "Вложения",
+			"ACTIVE": "Y",
+			"IS_REQUIRED": "N",
+			"SORT": 10000,
+			"PROPERTY_TYPE": "F",
+			"MULTIPLE": "Y",
+			"FILE_TYPE": "",
+			"SEARCHABLE": "N",
+			"FILTRABLE": "N"
+		}
+    },
+    "sl_thanks": {
+        "SL_AUTHOR": {
+            "XML_ID": "Author",
+			"NAME": "Автор",
+            "ACTIVE": "Y",
+            "IS_REQUIRED": "Y",
+			"SORT": 10,
+			"PROPERTY_TYPE": "S",
+			"MULTIPLE": "N",
+			"SEARCHABLE": "Y",
+			"FILTRABLE": "Y",
+            "USER_TYPE": "employee"
+        },
+        "SL_LOOKUP_TO": {
+            "XML_ID": "slLookupTo",
+			"NAME": "Адресат",
+            "ACTIVE": "Y",
+            "IS_REQUIRED": "Y",
+			"SORT": 20,
+			"PROPERTY_TYPE": "S",
+			"MULTIPLE": "N",
+			"SEARCHABLE": "Y",
+			"FILTRABLE": "Y",
+            "USER_TYPE": "employee"
+        },
+        "SL_ATTACHMENTS": {
+			"XML_ID": "slAttachments",
+			"NAME": "Вложения",
+			"ACTIVE": "Y",
+			"IS_REQUIRED": "N",
+			"SORT": 10000,
+			"PROPERTY_TYPE": "F",
+			"MULTIPLE": "Y",
+			"FILE_TYPE": "",
+			"SEARCHABLE": "N",
+			"FILTRABLE": "N"
+		}
+    }
 }

@@ -45,7 +45,7 @@
 			"DATE_CREATE": "Создано",
 			"TIMESTAMP_X": "Изменено",
             "ACTIVE_FROM": "Дата публикации",
-            "IBLOCK_SECTION_ID": "Рубрика",
+            "SECTION": "Рубрика",
             "PREVIEW_TEXT": "Анонс",
             "DETAIL_TEXT": "Текст новости",
 			"IBLOCK_ELEMENT_PROP_VALUE": "--Значения свойств"
@@ -60,6 +60,7 @@
 			"DATE_CREATE": "Создано",
 			"TIMESTAMP_X": "Изменено",
             "ACTIVE": "Активен",
+            "SECTION": "Тип опроса",
             "ACTIVE_FROM": "Дата начала опроса",
             "ACTIVE_TO": "Дата окончания опроса",
 			"IBLOCK_ELEMENT_PROP_VALUE": "--Значения свойств"
@@ -74,6 +75,20 @@
 			"DATE_CREATE": "Создано",
 			"TIMESTAMP_X": "Изменено",
             "ACTIVE": "Активен",
+			"IBLOCK_ELEMENT_PROP_VALUE": "--Значения свойств"
+		}
+	},
+    "sl_thanks": {
+		"a": {
+			"edit1": "Благодарность",
+			"ID": "ID",
+			"NAME": "Название типа благодарности, автора и адресата",
+            "CODE": "Код",
+			"DATE_CREATE": "Создано",
+			"TIMESTAMP_X": "Изменено",
+            "ACTIVE": "Активен",
+            "SECTION": "Тип благодарности",
+            "DETAIL_TEXT": "Комментарий",
 			"IBLOCK_ELEMENT_PROP_VALUE": "--Значения свойств"
 		}
 	}
