@@ -111,6 +111,7 @@ class spellabs_portal extends \CModule
         $this->CreateIblocks();
         $this->CreateProperties();
         $this->SetupEditForms();
+        $this->SetupUserFields();
         
 		return true;
 	}
@@ -144,7 +145,8 @@ class spellabs_portal extends \CModule
      */
 	function UnInstallDB()
 	{
-		UnRegisterModule("spellabs.portal");
+        global $DB;
+        UnRegisterModule("spellabs.portal");
         
         // Удалим тип инфоблоков spellabs, за ним удалятся и все связанные инфоблоки
         $DB->StartTransaction();
@@ -155,6 +157,8 @@ class spellabs_portal extends \CModule
             echo "\nERROR: Failed to delete Iblock type = spellabs\n\n";
         }
         $DB->Commit();
+        
+        $this->DeleteUserFields();
         
 		return true;
 	}
@@ -381,5 +385,81 @@ class spellabs_portal extends \CModule
         }
         
         return $result;
+    }
+    
+    /**
+     * Создание пользовательских полей (свойства пользователей, разделов инфоблоков)
+     * 
+     * @global CDatabase $DB
+     */
+    private function SetupUserFields()
+    {
+        global $DB;
+        $arUserFields = json_decode(file_get_contents($this->GetPath() . "/conf/userfield.json"), true);
+        
+        foreach ($arUserFields as $fieldName => $arSettings)
+        {
+            $newUserField = new CUserTypeEntity();
+            $arSettings['FIELD_NAME'] = $fieldName;
+            
+            $regExpMatches = [];
+            
+            if (isset($arSettings['SETTINGS']['IBLOCK_ID']) && preg_match('/^#([a-zA-Z0-9_]*)#$/', $arSettings['SETTINGS']['IBLOCK_ID'], $regExpMatches))
+            {
+                $arSettings['SETTINGS']['IBLOCK_ID'] = str_replace(
+                    $regExpMatches[0], 
+                    $this->GetIblockId($regExpMatches[1]), 
+                    $arSettings['SETTINGS']['IBLOCK_ID']
+                    );
+            }
+            
+            $DB->StartTransaction();
+
+            $result = $newUserFieldId = $newUserField->Add($arSettings);
+
+            if (!$result)
+            {
+                $DB->Rollback();
+                echo "\nERROR (SetupUserFields " . $fieldName . "): " . $newProperty->LAST_ERROR . "\n\n";
+            }
+            else
+            {
+                $DB->Commit();
+            }
+        }
+    }
+    
+    /**
+     * Удалит пользовательские поля согласно conf/userfield.json
+     * 
+     * @global CDatabase $DB
+     */
+    private function DeleteUserFields()
+    {
+        global $DB;
+        $arUserFields = json_decode(file_get_contents($this->GetPath() . "/conf/userfield.json"), true);
+        $userTypeEntity = new CUserTypeEntity();
+        
+        foreach ($arUserFields as $fieldName => $arSettings)
+        {
+            $userFieldEntity = CUSerTypeEntity::GetList(['ID' => 'ASC'], ['FIELD_NAME' => $fieldName]);
+            
+            if ($arUserField = $userFieldEntity->GetNext())
+            {
+                $DB->StartTransaction();
+
+                $result = $userTypeEntity->Delete($arUserField['ID']);
+
+                if (!$result)
+                {
+                    $DB->Rollback();
+                    echo "\nERROR (DeleteUserFields " . $fieldName . "): " . $userTypeEntity->LAST_ERROR . "\n\n";
+                }
+                else
+                {
+                    $DB->Commit();
+                }
+            }
+        }      
     }
 }
