@@ -33,7 +33,7 @@ class spellabs_portal extends \CModule
         $this->PARTNER_URI = 'https://spellabs.ru';
 	}
 
-	function DoInstall()
+	function DoInstall(bool $isShell = false)
 	{
 		global $DOCUMENT_ROOT, $APPLICATION;
         
@@ -47,9 +47,12 @@ class spellabs_portal extends \CModule
 		
 		$this->InstallFiles();
 		$this->InstallDB();
-        $this->InstallEvents();
+        //$this->InstallEvents();
 		
-		$APPLICATION->IncludeAdminFile(GetMessage("SPPORTAL_INSTALL_TITLE"), $_SERVER['DOCUMENT_ROOT']."/local/modules/spellabs.portal/install/step.php");
+        if (!$isShell)
+        {
+            $APPLICATION->IncludeAdminFile(GetMessage("SPPORTAL_INSTALL_TITLE"), $_SERVER['DOCUMENT_ROOT']."/local/modules/spellabs.portal/install/step.php");
+        }
 	}
     
     /**
@@ -100,7 +103,7 @@ class spellabs_portal extends \CModule
      */
 	function InstallDB()
 	{
-		RegisterModule("spellabs.portal");
+		RegisterModule($this->MODULE_ID);
         
         if (!CModule::IncludeModule("iblock"))
         {
@@ -127,7 +130,7 @@ class spellabs_portal extends \CModule
 		return true;
 	}
 	
-	function DoUninstall()
+	function DoUninstall(bool $isShell = false)
 	{
 		global $DOCUMENT_ROOT, $APPLICATION;
 		
@@ -135,7 +138,10 @@ class spellabs_portal extends \CModule
 		$this->UnInstallDB();
         $this->UnInstallEvents();
 		
-		$APPLICATION->IncludeAdminFile(GetMessage("SPPORTAL_UNINSTALL_TITLE"), $_SERVER['DOCUMENT_ROOT']."/local/modules/spellabs.portal/install/unstep.php");
+        if (!$isShell)
+        {
+            $APPLICATION->IncludeAdminFile(GetMessage("SPPORTAL_UNINSTALL_TITLE"), $_SERVER['DOCUMENT_ROOT']."/local/modules/spellabs.portal/install/unstep.php");
+        }
 	}
 	
     /**
@@ -219,45 +225,58 @@ class spellabs_portal extends \CModule
      * Создаст тип инфоблоков
      * 
      * @global CDatabase $DB
+     * @global CCacheManager $CACHE_MANAGER
      * @return bool
      */
     private function CreateIblockType()
     {
-        global $DB;
-        $slIblockType = new CIBlockType;
-        $arIblockTypeFields = [
-            'ID' => 'spellabs',
-            'SECTIONS' => 'Y',
-            'IN_RSS' => 'N',
-            'SORT' => 1,
-            'LANG' => [
-                'ru' => [
-                    'NAME' => 'Spellabs',
-                    'SECTION_NAME' => 'Разделы',
-                    'ELEMENT_NAME' => 'Элементы',
-                ],
-                'en' => [
-                    'NAME' => 'Spellabs',
-                    'SECTION_NAME' => 'Sections',
-                    'ELEMENT_NAME' => 'Elements',
-                ],
-            ],
-        ];
+        global $DB, $CACHE_MANAGER;
         
-        $DB->StartTransaction();
-
-        $result = $slIblockType->Add($arIblockTypeFields);
-
-        if (!$result)
+        $CACHE_MANAGER->cleanDir("b_iblock_type");
+        $resIblockType = CIBlockType::GetByID('spellabs');
+        
+        if ($resIblockType->GetNext())
         {
-            $DB->Rollback();
-            echo "\nERROR (CreateIblockType): " . $slIblockType->LAST_ERROR . "\n\n";
-            die();
+            echo "\nNOTICE (CreateIblockType): IBlockType spellabs already exists\n\n";
         }
         else
         {
-            $DB->Commit();
-            return $result;
+            $slIblockType = new CIBlockType;
+            $arIblockTypeFields = [
+                'ID' => 'spellabs',
+                'SECTIONS' => 'Y',
+                'IN_RSS' => 'N',
+                'SORT' => 1,
+                'LANG' => [
+                    'ru' => [
+                        'NAME' => 'Spellabs',
+                        'SECTION_NAME' => 'Разделы',
+                        'ELEMENT_NAME' => 'Элементы',
+                    ],
+                    'en' => [
+                        'NAME' => 'Spellabs',
+                        'SECTION_NAME' => 'Sections',
+                        'ELEMENT_NAME' => 'Elements',
+                    ],
+                ],
+            ];
+
+            $DB->StartTransaction();
+
+            $result = $slIblockType->Add($arIblockTypeFields);
+
+            if (!$result)
+            {
+                $DB->Rollback();
+                echo "\nERROR (CreateIblockType): " . $slIblockType->LAST_ERROR . "\n\n";
+                die();
+            }
+            else
+            {
+                $DB->Commit();
+                $CACHE_MANAGER->cleanDir("b_iblock_type");
+                return $result;
+            }
         }
     }
     
@@ -411,7 +430,7 @@ class spellabs_portal extends \CModule
             
             if (preg_match('/#([a-zA-Z0-9_]*)#/', $arSettings['ENTITY_ID'], $regExpMatches))
             {
-                $arSettings['ENTITY_ID'] = str_replace($regExpMatches[0], GetIblockId($regExpMatches[1]), $arSettings['ENTITY_ID']);
+                $arSettings['ENTITY_ID'] = str_replace($regExpMatches[0], $this->GetIblockId($regExpMatches[1]), $arSettings['ENTITY_ID']);
             }
             
             $regExpMatches = [];

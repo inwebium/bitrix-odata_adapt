@@ -95,7 +95,7 @@ class CSPAutoInstall implements ArrayAccess
                 CEventLog::Log("INFO", "MP_MODULE_INSTALLED", "main", $this->Id);
             }
 
-            if($this->Module->DoInstall() !== false)
+            if($this->Module->DoInstall(true) !== false)
             {
                 echo "Module " . $this->Id . " is installed.\n";
             }
@@ -138,7 +138,7 @@ class CSPAutoInstall implements ArrayAccess
                 CEventLog::Log("INFO", "MP_MODULE_UNINSTALLED", "main", $this->Id);
             }
 
-            if($this->Module->DoUninstall() !== false)
+            if($this->Module->DoUninstall(true) !== false)
             {
                 echo "Module " . $this->Id . " is uninstalled.\n";
             }
