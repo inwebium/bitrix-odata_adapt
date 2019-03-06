@@ -5,6 +5,7 @@ class CSPAutoInstall implements ArrayAccess
     private $Module;
     private $Id;
     private $conf;
+    private $stdout;
     
     /**
      * Конструктор, заполнит нужные себе поля и т.д.
@@ -12,14 +13,15 @@ class CSPAutoInstall implements ArrayAccess
      * @param array $_conf
      * @return $this
      */
-    function __construct(array &$_conf)
+    function __construct(array &$_conf, &$_stdout)
     {
+        $this->stdout = $_stdout;
         $this->conf = $_conf;
         $this->Id = str_replace("\\", "", str_replace("/", "", $this->conf['moduleId']));
         
         if (!$this->Module = CModule::CreateModuleObject($this->Id))
         {
-            echo "\nERROR: \nError while creating module object with module id=" . $this->Id . ".\n\n";
+            fwrite($this->stdout, "\nERROR: \nError while creating module object with module id=" . $this->Id . ".\n\n");
         }
         else
         {
@@ -41,27 +43,29 @@ class CSPAutoInstall implements ArrayAccess
     {
         global $APPLICATION, $USER, $DB;
         
-        echo "Authorizing user with id=" . $this->conf['userId'] . "\n";
+        fwrite($this->stdout, "Authorizing user with id=" . $this->conf['userId'] . "\n");
         $isAuthorized = $USER->Authorize($this->conf['userId']);
 
         if (!$isAuthorized)
         {
-            die("ERROR: \nFailed to authrize user with id=" . $this->conf['userId']); 
+            fwrite($this->stdout, "ERROR: \nFailed to authrize user with id=" . $this->conf['userId']);
+            die(); 
         }
         else
         {
-            echo "User with id=" . $this->conf['userId'] . " authorized\n";
+            fwrite($this->stdout, "User with id=" . $this->conf['userId'] . " authorized\n");
         }
         
         $isAdmin = $USER->CanDoOperation('edit_other_settings');
 
         if ($isAdmin)
         {
-            echo "User is administrator. Continuing.\n";
+            fwrite($this->stdout, "User is administrator. Continuing.\n");
         }
         else
         {
-            die("\nERROR: given userId isn't administrator.\n\n");
+            fwrite($this->stdout, "\nERROR: given userId isn't administrator.\n\n");
+            die();
         }
         
         return $this;
@@ -81,7 +85,7 @@ class CSPAutoInstall implements ArrayAccess
         
         if (!$this->Module->IsInstalled())
         {
-            echo "Module " . $this->Id . " is not installed. Begin install.\n";
+            fwrite($this->stdout, "Module " . $this->Id . " is not installed. Begin install.\n");
 
             if (strtolower($DB->type)=="mysql" && defined("MYSQL_TABLE_TYPE") && strlen(MYSQL_TABLE_TYPE)>0)
             {
@@ -97,7 +101,7 @@ class CSPAutoInstall implements ArrayAccess
 
             if($this->Module->DoInstall(true) !== false)
             {
-                echo "Module " . $this->Id . " is installed.\n";
+                fwrite($this->stdout, "Module " . $this->Id . " is installed.\n");
             }
             else
             {
@@ -111,7 +115,7 @@ class CSPAutoInstall implements ArrayAccess
         }
         else
         {
-            echo "Module " . $this->Id . " must be uninstalled first.\n";
+            fwrite($this->stdout, "Module " . $this->Id . " must be uninstalled first.\n");
         }
         
         return $this;
@@ -131,7 +135,7 @@ class CSPAutoInstall implements ArrayAccess
         
         if ($this->Module->IsInstalled())
         {
-            echo "Module " . $this->Id . " is installed. Begin uninstall.\n";
+            fwrite($this->stdout, "Module " . $this->Id . " is installed. Begin uninstall.\n");
             $this->OnModuleInstalledEvent('N');
             if (COption::GetOptionString("main", "event_log_marketplace", "Y") === "Y")
             {
@@ -140,7 +144,7 @@ class CSPAutoInstall implements ArrayAccess
 
             if($this->Module->DoUninstall(true) !== false)
             {
-                echo "Module " . $this->Id . " is uninstalled.\n";
+                fwrite($this->stdout, "Module " . $this->Id . " is uninstalled.\n");
             }
             else
             {
@@ -154,7 +158,7 @@ class CSPAutoInstall implements ArrayAccess
         }
         else
         {
-            echo "Module " . $this->Id . " must be installed first.\n";
+            fwrite($this->stdout, "Module " . $this->Id . " must be installed first.\n");
         }
 
         return $this;
@@ -173,7 +177,7 @@ class CSPAutoInstall implements ArrayAccess
         
         if (!$this->Module->IsInstalled())
         {
-            echo "Module " . $id . " is not installed. Begin clear.\n";
+            fwrite($this->stdout, "Module " . $id . " is not installed. Begin clear.\n");
 
             if(strlen($this->Module->MODULE_ID) > 0 && ($mdir = getLocalPath("modules/" . $this->Module->MODULE_ID)) !== false)
             {
@@ -183,12 +187,12 @@ class CSPAutoInstall implements ArrayAccess
                     CEventLog::Log("INFO", "MP_MODULE_DELETED", "main", $this->Id);
                 }
                 DeleteDirFilesEx($mdir . "/");
-                echo "Module " . $this->Id . " removed.\n";
+                fwrite($this->stdout, "Module " . $this->Id . " removed.\n");
             }
         }
         else
         {
-            echo "Module " . $this->Id . " must be uninstalled first.\n";
+            fwrite($this->stdout, "Module " . $this->Id . " must be uninstalled first.\n");
         }
         
         return $this;
@@ -208,6 +212,31 @@ class CSPAutoInstall implements ArrayAccess
         
         $this->UnInstall();
         $this->Install();
+        
+        return $this;
+    }
+    
+    /**
+     * Если модуль не установлен, то установит его. Иначе (модуль установлен)
+     * переустановит его ($this->ReInstall)
+     * 
+     * @global CMain $APPLICATION
+     * @global CUser $USER
+     * @global CDatabase $DB
+     * @return $this
+     */
+    public function Deploy()
+    {
+        global $APPLICATION, $USER, $DB;
+        
+        if (!$this->Module->IsInstalled())
+        {
+            $this->Install();
+        }
+        else
+        {
+            $this->ReInstall();
+        }
         
         return $this;
     }

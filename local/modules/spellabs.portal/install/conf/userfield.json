@@ -7,8 +7,8 @@
         "MULTIPLE": "N",
         "MANDATORY": "N",
         "SHOW_FILTER": "S",
-        "SHOW_IN_LIST": "",
-        "EDIT_IN_LIST": "",
+        "SHOW_IN_LIST": "Y",
+        "EDIT_IN_LIST": "Y",
         "IS_SEARCHABLE": "Y",
         "SETTINGS": {
             "IBLOCK_TYPE_ID": "spellabs",
@@ -39,7 +39,7 @@
             "en": ""
         }
     },
-    "UF_SL_THANKSTYPE_COLOR": {
+    "UF_SL_THANKS_CLR": {
         "ENTITY_ID": "IBLOCK_#sl_thanks#_SECTION",
         "USER_TYPE_ID": "string",
         "XML_ID": "slColor",

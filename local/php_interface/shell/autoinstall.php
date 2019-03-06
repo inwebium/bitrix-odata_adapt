@@ -10,6 +10,7 @@
  * uninstall - модуль установлен в битриксе, удалить
  * clear - модуль удален в битриксе, удалить файлы в local/modules/IdМодуля
  * reinstall - модуль установлен в битриксе, сначала удалит, потом заново установит
+ * deploy - если модуль не установлен, то установит, а если установлен, то reinstall
  * 
  * Так же скрипту можно передать аргументы из командной строки. E.g.:
  * Находясь в папке = DocumentRoot
@@ -26,9 +27,19 @@
 ini_set("max_execution_time", 0);
 ini_set("display_errors", 1);
 
-$_SERVER["DOCUMENT_ROOT"] = 'C:\xampp\htdocs\test.bitrix.dev10.spellabs.com';
-
+$scriptDir = '/local/php_interface/shell';
 $arPath = pathinfo(__FILE__);
+$absolutepath = str_replace("\\", "/", $arPath['dirname']);
+$stdout = fopen('php://stdout', 'w');
+
+if (strpos($absolutepath, $scriptDir) === false)
+{
+    fwrite($stdout, "\nERROR: autoinstall script must be in " . $scriptDir . "\n\n");
+    die();
+}
+
+$docRoot = str_replace($scriptDir, '', $absolutepath);
+$_SERVER["DOCUMENT_ROOT"] = $docRoot;
 
 define("STOP_STATISTICS", true);
 define("NO_KEEP_STATISTIC", 'Y');
@@ -38,7 +49,7 @@ define("NO_AGENT_CHECK", true);
 define("NOT_CHECK_PERMISSIONS", true);
 //define("BX_BUFFER_USED", true);
 
-echo "HELLO\n";
+fwrite($stdout, "HELLO\n");
 
 require_once($_SERVER["DOCUMENT_ROOT"] . '/bitrix/modules/main/include/prolog_admin_before.php');
 require_once($arPath['dirname'] . '/classes/CSPAutoInstall.php');
@@ -54,7 +65,7 @@ if (count($argv) > 1)
     $conf['userId'] = isset($argv[3]) ? $argv[3] : $conf['userId'];
 }
 
-$autoInstaller = new CSPAutoInstall($conf);
+$autoInstaller = new CSPAutoInstall($conf, $stdout);
 
 $autoInstaller->Authorize();
 
@@ -72,9 +83,14 @@ switch ($autoInstaller['action'])
     case 'reinstall':
         $autoInstaller->ReInstall();
         break;
+    case 'deploy':
+        $autoInstaller->Deploy();
+        break;
     default:
-        die("\nERROR: unsupported action type.\n\n");
+        fwrite($stdout, "\nERROR: unsupported action type.\n\n");
+        die();
         break;
 }
 
-echo "Script end.\n\n";
+fwrite($stdout, "Script finished.\n\n");
+fclose($stdout);
