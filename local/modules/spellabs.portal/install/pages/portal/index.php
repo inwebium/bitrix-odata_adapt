@@ -17,10 +17,21 @@ $APPLICATION->ShowHead();
 <h1><? $APPLICATION->ShowTitle(); ?></h1>
 <div>Страница установлена с помощью модуля <? echo CSPMain::GetModuleId() . ' ' . CSPMain::GetModuleVersion(); ?></div>
 
-<label for="js-input-iblock_id">IBLOCK_ID=</label><input type="text" id="js-input-iblock_id" value="1" />
-<div id="js-container-test">response must be here</div>
-<button type="submit" id="js-test_call">sl.test.call</button>
-
+<p>Далее будет вызван компонент</p>
+<?$APPLICATION->IncludeComponent(
+	"spellabs:portal.test",
+	"",
+	Array(
+		"ELEMENTS_COUNT" => "10",
+		"IBLOCK_ID" => "122",
+		"IBLOCK_TYPE" => "sl_test",
+		"SORT_BY1" => "ACTIVE_FROM",
+		"SORT_BY2" => "SORT",
+		"SORT_ORDER1" => "DESC",
+		"SORT_ORDER2" => "ASC"
+	)
+);?>
+<p>Компонент закончился</p>
 <?
 // Эпилог с визуальной частью (обычно футер)
 //require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");

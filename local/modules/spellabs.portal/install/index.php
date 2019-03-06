@@ -47,7 +47,7 @@ class spellabs_portal extends \CModule
 		
 		$this->InstallFiles();
 		$this->InstallDB();
-        //$this->InstallEvents();
+        $this->InstallEvents();
 		
         if (!$isShell)
         {
