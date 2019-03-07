@@ -295,6 +295,9 @@ class spellabs_portal extends \CModule
             $newIblock = new CIBlock;
             $iblockParams['IBLOCK_TYPE_ID'] = 'spellabs';
             $iblockParams['CODE'] = $iblockCode;
+            
+            $arPermissions = $iblockParams['PERMISSIONS'];
+            unset($iblockParams['PERMISSIONS']);
 
             $DB->StartTransaction();
 
@@ -308,6 +311,7 @@ class spellabs_portal extends \CModule
             else
             {
                 $DB->Commit();
+                CIBlock::SetPermission($result, $arPermissions);
             }
         }
     }
