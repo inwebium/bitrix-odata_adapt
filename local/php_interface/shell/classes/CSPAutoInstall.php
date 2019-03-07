@@ -22,6 +22,7 @@ class CSPAutoInstall implements ArrayAccess
         if (!$this->Module = CModule::CreateModuleObject($this->Id))
         {
             fwrite($this->stdout, "\nERROR: \nError while creating module object with module id=" . $this->Id . ".\n\n");
+            die();
         }
         else
         {

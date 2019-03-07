@@ -14,12 +14,12 @@
  * 
  * Так же скрипту можно передать аргументы из командной строки. E.g.:
  * Находясь в папке = DocumentRoot
- * php -f local/php_interface/shell/autoinstall.php spellabs.portal uninstall 1
+ * php -f local/php_interface/shell/autoinstall.php -m="spellabs.portal" -a="uninstall" -u=1
  * 
- * Где аргументы должны идти строго в порядке:
- * 1 - IdМодуля,
- * 2 - Действие,
- * 3 - IdПользователя
+ * Где аргументами служат ключи
+ * -m(--module) - IdМодуля,
+ * -a(--action) - Действие,
+ * -u(--user) - IdПользователя
  * 
  * Переданные аргументы имеют больший приоритет над параметрами из .json файла
  */
@@ -57,12 +57,46 @@ global $DB, $USER, $APPLICATION;
 
 $conf = json_decode(file_get_contents($arPath['dirname'] . '/' . $arPath['filename'] . '.json'), true);
 
-// Перезапишем
-if (count($argv) > 1)
+$argumentsAssoc = [
+    'action' => [
+        "a", "action"
+    ],
+    'moduleId' => [
+        "m", "module"
+    ],
+    'userId' => [
+        "u", "user"
+    ]
+];
+
+$shortOpts = '';
+$longOpts = [];
+foreach ($argumentsAssoc as $confParam => $arKeys)
 {
-    $conf['moduleId'] = $argv[1];
-    $conf['action'] = isset($argv[2]) ? $argv[2] : $conf['action'];
-    $conf['userId'] = isset($argv[3]) ? $argv[3] : $conf['userId'];
+    $shortOpts .= $arKeys[0] . '::';
+    $longOpts[] = $arKeys[1] . '::';
+}
+
+// Перезапишем
+$arguments = getopt($shortOpts, $longOpts);
+
+if (count($arguments) > 0)
+{
+    foreach ($arguments as $key => $value)
+    {
+        if (in_array($key, $argumentsAssoc['action']))
+        {
+            $conf['action'] = $value;
+        }
+        if (in_array($key, $argumentsAssoc['moduleId']))
+        {
+            $conf['moduleId'] = $value;
+        }
+        if (in_array($key, $argumentsAssoc['userId']))
+        {
+            $conf['userId'] = $value;
+        }
+    }
 }
 
 $autoInstaller = new CSPAutoInstall($conf, $stdout);

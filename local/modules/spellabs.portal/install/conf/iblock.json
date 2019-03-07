@@ -39,7 +39,11 @@
 		"SECTIONS_NAME": "Разделы",
 		"SECTION_ADD": "Добавить раздел",
 		"SECTION_EDIT": "Изменить раздел",
-		"SECTION_DELETE": "Удалить раздел"
+		"SECTION_DELETE": "Удалить раздел",
+        "PERMISSIONS": {
+            "1": "X",
+            "2": "R"
+        }
 	},
 	"sl_service_templates": {
 		"LID": "s1",
@@ -81,7 +85,11 @@
 		"SECTIONS_NAME": "Разделы",
 		"SECTION_ADD": "Добавить раздел",
 		"SECTION_EDIT": "Изменить раздел",
-		"SECTION_DELETE": "Удалить раздел"
+		"SECTION_DELETE": "Удалить раздел",
+        "PERMISSIONS": {
+            "1": "X",
+            "2": "R"
+        }
 	},
 	"sl_banners": {
 		"LID": "s1",
@@ -123,7 +131,11 @@
 		"SECTIONS_NAME": "Разделы",
 		"SECTION_ADD": "Добавить раздел",
 		"SECTION_EDIT": "Изменить раздел",
-		"SECTION_DELETE": "Удалить раздел"
+		"SECTION_DELETE": "Удалить раздел",
+        "PERMISSIONS": {
+            "1": "X",
+            "2": "R"
+        }
 	},
 	"sl_news": {
 		"LID": "s1",
@@ -168,7 +180,11 @@
 		"SECTIONS_NAME": "Рубрики",
 		"SECTION_ADD": "Добавить рубрику",
 		"SECTION_EDIT": "Изменить рубрику",
-		"SECTION_DELETE": "Удалить рубрику"
+		"SECTION_DELETE": "Удалить рубрику",
+        "PERMISSIONS": {
+            "1": "X",
+            "2": "R"
+        }
 	},
 	"sl_survey": {
 		"LID": "s1",
@@ -217,7 +233,11 @@
 		"SECTIONS_NAME": "Типы опросов",
 		"SECTION_ADD": "Добавить тип опросов",
 		"SECTION_EDIT": "Изменить тип опросов",
-		"SECTION_DELETE": "Удалить тип опросов"
+		"SECTION_DELETE": "Удалить тип опросов",
+        "PERMISSIONS": {
+            "1": "X",
+            "2": "R"
+        }
 	},
     "sl_positions": {
         "LID": "s1",
@@ -259,7 +279,11 @@
 		"SECTIONS_NAME": "Разделы",
 		"SECTION_ADD": "Добавить раздел",
 		"SECTION_EDIT": "Изменить раздел",
-		"SECTION_DELETE": "Удалить раздел"
+		"SECTION_DELETE": "Удалить раздел",
+        "PERMISSIONS": {
+            "1": "X",
+            "2": "R"
+        }
     },
     "sl_thanks": {
         "LID": "s1",
@@ -304,6 +328,10 @@
 		"SECTIONS_NAME": "Типы благодарностей",
 		"SECTION_ADD": "Добавить тип благодарности",
 		"SECTION_EDIT": "Изменить тип благодарности",
-		"SECTION_DELETE": "Удалить тип благодарности"
+		"SECTION_DELETE": "Удалить тип благодарности",
+        "PERMISSIONS": {
+            "1": "X",
+            "2": "R"
+        }
     }
 }
