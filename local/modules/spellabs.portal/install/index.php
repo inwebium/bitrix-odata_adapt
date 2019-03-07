@@ -51,7 +51,7 @@ class spellabs_portal extends \CModule
 		
         if (!$isShell)
         {
-            $APPLICATION->IncludeAdminFile(GetMessage("SPPORTAL_INSTALL_TITLE"), $_SERVER['DOCUMENT_ROOT']."/local/modules/spellabs.portal/install/step.php");
+            $APPLICATION->IncludeAdminFile(GetMessage("SPPORTAL_INSTALL_TITLE"), $_SERVER['DOCUMENT_ROOT']."/local/modules/" . $this->MODULE_ID . "/install/step.php");
         }
 	}
     
@@ -65,21 +65,21 @@ class spellabs_portal extends \CModule
 	{
         // Копирование компонентов
         CopyDirFiles(
-			$_SERVER["DOCUMENT_ROOT"] . "/local/modules/spellabs.portal/install/components",
+			$_SERVER["DOCUMENT_ROOT"] . "/local/modules/" . $this->MODULE_ID . "/install/components",
 			$_SERVER["DOCUMENT_ROOT"] . "/local/components",
 			true, true
 		);
         
         // Копирование страниц
         CopyDirFiles(
-			$_SERVER["DOCUMENT_ROOT"] . "/local/modules/spellabs.portal/install/pages",
+			$_SERVER["DOCUMENT_ROOT"] . "/local/modules/" . $this->MODULE_ID . "/install/pages",
 			$_SERVER["DOCUMENT_ROOT"] . "",
 			true, true
 		);
         
         // Копирование js-скриптов
         CopyDirFiles(
-			$_SERVER["DOCUMENT_ROOT"] . "/local/modules/spellabs.portal/install/js",
+			$_SERVER["DOCUMENT_ROOT"] . "/local/modules/" . $this->MODULE_ID . "/install/js",
 			$_SERVER["DOCUMENT_ROOT"] . "/local/js",
 			true, true
 		);
@@ -126,7 +126,7 @@ class spellabs_portal extends \CModule
      */
 	function InstallEvents()
 	{
-        RegisterModuleDependences("main", "OnProlog", "spellabs.portal", "CSPHandlers", "OnPrologHandler");
+        RegisterModuleDependences("main", "OnProlog", $this->MODULE_ID, "CSPHandlers", "OnPrologHandler");
 		return true;
 	}
 	
@@ -140,7 +140,7 @@ class spellabs_portal extends \CModule
 		
         if (!$isShell)
         {
-            $APPLICATION->IncludeAdminFile(GetMessage("SPPORTAL_UNINSTALL_TITLE"), $_SERVER['DOCUMENT_ROOT']."/local/modules/spellabs.portal/install/unstep.php");
+            $APPLICATION->IncludeAdminFile(GetMessage("SPPORTAL_UNINSTALL_TITLE"), $_SERVER['DOCUMENT_ROOT']."/local/modules/" . $this->MODULE_ID . "/install/unstep.php");
         }
 	}
 	
@@ -152,7 +152,7 @@ class spellabs_portal extends \CModule
 	function UnInstallDB()
 	{
         global $DB;
-        UnRegisterModule("spellabs.portal");
+        UnRegisterModule($this->MODULE_ID);
         
         // Удалим тип инфоблоков spellabs, за ним удалятся и все связанные инфоблоки
         $DB->StartTransaction();
@@ -178,7 +178,7 @@ class spellabs_portal extends \CModule
 	function UnInstallFiles()
 	{
         DeleteDirFiles(
-            $_SERVER["DOCUMENT_ROOT"] . "/local/modules/spellabs.portal/install/js", 
+            $_SERVER["DOCUMENT_ROOT"] . "/local/modules/" . $this->MODULE_ID . "/install/js", 
             $_SERVER["DOCUMENT_ROOT"] . "/local/js", 
             array("index.php")
         );
@@ -202,10 +202,10 @@ class spellabs_portal extends \CModule
 	{
         // Для уверенности сейчас думаю нужно оставлять все удаления обработчиков
         // На время разработки
-        UnRegisterModuleDependences("main", "OnProlog", "spellabs.portal", "CSPMain", "OnPrologHandler");
-        UnRegisterModuleDependences("main", "OnBeforeProlog", "spellabs.portal", "CSPHandlers", "OnBeforePrologHandler");
-        UnRegisterModuleDependences("main", "OnPageStart", "spellabs.portal", "CSPHandlers", "OnPageStartHandler");
-        UnRegisterModuleDependences("main", "OnProlog", "spellabs.portal", "CSPHandlers", "OnPrologHandler");
+        UnRegisterModuleDependences("main", "OnProlog", $this->MODULE_ID, "CSPMain", "OnPrologHandler");
+        UnRegisterModuleDependences("main", "OnBeforeProlog", $this->MODULE_ID, "CSPHandlers", "OnBeforePrologHandler");
+        UnRegisterModuleDependences("main", "OnPageStart", $this->MODULE_ID, "CSPHandlers", "OnPageStartHandler");
+        UnRegisterModuleDependences("main", "OnProlog", $this->MODULE_ID, "CSPHandlers", "OnPrologHandler");
 		return true;
 	}
     
