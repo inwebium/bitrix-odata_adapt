@@ -1,1 +1,237 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[9],{cE1i:function(t,l,n){"use strict";n.r(l);var e=n("CcnG"),o=function(){},i=n("pMnS"),s=n("vQGG"),a=n("xhmP"),r=n("PbJ5"),u=n("C2Hq"),c=n("ukqQ"),p=n("Ip0R"),d=n("ZYCi"),h=n("nAuW"),m=n("cuj7"),y=n("wd/R"),b=n("LvDl"),g=n("IS4z"),M=n("mrSG"),_=n("F/XL"),f=n("psW0"),P=n("WkfL"),x=n("Cdqi"),k=function(t){function l(l){var n=t.call(this)||this;return n.sharepointService=l,n}return Object(M.c)(l,t),l.prototype.getListRelativePath=function(){return""},l.prototype.getListTitle=function(){return"\u0421\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a\u0438"},l.prototype.getSelect=function(){return"Id,Title,slIndexNumber,slLookupDepartment/Id,slLookupDepartment/Title,slTabNumber,slLogin,slFirstName,slLastName,slFatherName,slPositionName,slParentPositionName,slPositionId,slParentPositionId,slDepartmentCode,slRootDepartmentId,slRootLookupDepartment/Id,slRootLookupDepartment/Title,slRootDepartmentImage,slEmail,slPhoneInternal,slMobile,slBirthdayMonth,slBirthdayDay,slCity,slOfficeNumber,slStartWorkDate,slEndWorkDate,slManagerEmployeeId,slDeputyEmployeeId,slLookupDeputy/Id,slLookupDeputy/Title,slLookupManager/Id,slLookupManager/Title,slSecretaryEmployeeId,slLookupSecretary/Id,slLookupSecretary/Title,slAddress,slIsManager,slStructureIds,slStructureTitles,LikedBy/Id,LikedBy/Title,slFullName,slIsEmergency,slReason,slCompany"},l.prototype.getExpand=function(){return"slLookupDepartment,slRootLookupDepartment,slLookupDeputy,slLookupManager,slLookupSecretary,LikedBy"},l.prototype.getOrderBy=function(){return[["slFullName",!0]]},l.prototype.getTop=function(){return 10},l.prototype.isMock=function(){return!1},l.prototype.getMockItems=function(){return[{id:1,title:"\u0410\u0432\u0430\u0442\u0430\u0440\u043a\u0438\u043d \u041a\u043e\u043d\u0441\u0442\u0430\u043d\u0442\u0438\u043d \u0412\u0438\u043a\u0442\u043e\u0440\u043e\u0432\u0438\u0447",positionName:"\u041c\u0435\u043d\u0435\u0434\u0436\u0435\u0440 \u043e\u0442\u0434\u0435\u043b\u0430 \u0434\u0438\u0437\u0430\u0439\u043d\u0430",email:"test@spellabs.ru"},{id:2,title:"\u0410\u0432\u0430\u0442\u0430\u0440\u043a\u0438\u043d \u041a\u043e\u043d\u0441\u0442\u0430\u043d\u0442\u0438\u043d \u0412\u0438\u043a\u0442\u043e\u0440\u043e\u0432\u0438\u0447",positionName:"\u041c\u0435\u043d\u0435\u0434\u0436\u0435\u0440 \u043e\u0442\u0434\u0435\u043b\u0430 \u0434\u0438\u0437\u0430\u0439\u043d\u0430",email:"test@spellabs.ru"}]},l.prototype.convertListItemToEntity=function(t){var l={id:t.Id,title:t.Title,indexNumber:t.slIndexNumber,tabNumber:t.slTabNumber,login:t.slLogin,firstName:t.slFirstName,lastName:t.slLastName,fatherName:t.slFatherName,positionName:t.slPositionName,parentPositionName:t.slParentPositionName,positionId:t.slPositionId,parentPositionId:t.slParentPositionId,departmentCode:t.slDepartmentCode,rootDepartmentImage:t.slRootDepartmentImage,email:t.slEmail,phoneInternal:t.slPhoneInternal,mobile:t.slMobile,birthdayMonth:t.slBirthdayMonth,birthdayDay:t.slBirthdayDay,city:t.slCity,officeNumber:t.slOfficeNumber,startWorkDate:t.slStartWorkDate&&new Date(t.slStartWorkDate),endWorkDate:t.slEndWorkDate&&new Date(t.slEndWorkDate),address:t.slAddress,isManager:t.isManager,structureTitles:t.slStructureTitles,photo:"/_layouts/15/userphoto.aspx?size=L&username="+t.slLogin,fullName:t.slFullName,profileRoute:["/phonebook",t.Id],likedByIds:[],reason:t.slReason,company:t.slCompany};return null!=t.slLookupDepartment&&(l.lookupDepartmentId=t.slLookupDepartment.Id,l.lookupDepartmentTitle=t.slLookupDepartment.Title),null!=t.slRootLookupDepartment&&(l.rootLookupDepartmentId=t.slRootLookupDepartment.Id,l.rootLookupDepartmentTitle=t.slRootLookupDepartment.Title),null!=t.slLookupDeputy&&(l.lookupDeputyId=t.slLookupDeputy.Id,l.lookupDeputyTitle=t.slLookupDeputy.Title),null!=t.slLookupManager&&(l.lookupManagerId=t.slLookupManager.Id,l.lookupManagerTitle=t.slLookupManager.Title),null!=t.slLookupSecretary&&(l.lookupSecretaryId=t.slLookupSecretary.Id,l.lookupSecretaryTitle=t.slLookupSecretary.Title),t.slBirthdayMonth&&t.slBirthdayDay&&(l.birthdayTitle=this.formatDate(t.slBirthdayMonth,t.slBirthdayDay),l.birthdayTitleRelative=this.formatDateWithOutReltive(t.slBirthdayMonth,t.slBirthdayDay)),l.startWorkDate&&(l.startWorkDateTitle=y(l.startWorkDate).calendar(null,{sameDay:"[\u0421\u0435\u0433\u043e\u0434\u043d\u044f]",nextDay:"[\u0417\u0430\u0432\u0442\u0440\u0430]",nextWeek:"D MMMM",lastDay:"[\u0412\u0447\u0435\u0440\u0430]",lastWeek:"D MMMM",sameElse:"L"})),t.LikedBy&&(l.likedByIds=t.LikedBy.map(function(t){return t.Id})),l.startWorkDate&&(l.startdayTitleRelative=y(l.startWorkDate).calendar(null,{sameDay:"D MMMM",nextDay:"D MMMM",nextWeek:"D MMMM",lastDay:"D MMMM",lastWeek:"D MMMM",sameElse:"D MMMM"})),l},l.prototype.convertEntityToListItem=function(t){throw new Error("Method not implemented.")},l.prototype.getCurrentEmployee=function(){return this.getItems({filter:"slLogin eq '"+this.sharepointService.getCurrentUserContext().userLoginName+"'",top:1}).pipe(Object(f.a)(function(t){return Object(_.a)(t[0])}))},l.prototype.formatDate=function(t,l){var n=(new Date).getFullYear();return y(l+"."+t+"."+n,"DD.MM.YYYY").calendar(null,{sameDay:"[\u0421\u0435\u0433\u043e\u0434\u043d\u044f]",nextDay:"[\u0417\u0430\u0432\u0442\u0440\u0430]",nextWeek:"D MMMM",lastDay:"[\u0412\u0447\u0435\u0440\u0430]",lastWeek:"D MMMM",sameElse:"D MMMM"})},l.prototype.formatDateWithOutReltive=function(t,l){var n=(new Date).getFullYear();return y(l+"."+t+"."+n,"DD.MM.YYYY").calendar(null,{sameDay:"D MMMM",nextDay:"D MMMM",nextWeek:"D MMMM",lastDay:"D MMMM",lastWeek:"D MMMM",sameElse:"D MMMM"})},l.ngInjectableDef=e.V({factory:function(){return new l(e.Z(x.a))},token:l,providedIn:"root"}),l}(P.a),O=function(){function t(t,l,n){this.route=t,this.employeesService=l,this.sidebarService=n,this.pages=[],this.index=0,this.employees=[],this.birthdays=[],this.hasPrev=!1,this.hasNext=!1,this.days=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],this.months=Array.apply(0,Array(12)).map(function(t,l){return y().month(l).format("MMMM")}),this.sidebarService.handleSetSettings({showSidebar:!1,bgColor:"#fff"}),this.month=(new Date).getMonth()}return t.prototype.ngOnInit=function(){this.pages.push(this.route.snapshot.data.birthdays),this.employees=this.route.snapshot.data.birthdays.items,this.birthdays=this.getBirthdaysForEmployees(this.employees),this.hasNext=this.route.snapshot.data.birthdays.hasNext},t.prototype.getBirthdaysPagetByMonth=function(t){var l=this;this.month=null==t?this.month:t,this.index=0,this.employees=[],this.pages=[],this.birthdays=[],this.hasPrev=!1,this.hasNext=!1,this.employeesService.getItemsPaged({filter:"(slBirthdayMonth eq "+(this.month+1)+")",orderBy:[["slBirthdayDay",!0]]}).subscribe(function(t){l.employees=t.items,l.birthdays=l.getBirthdaysForEmployees(l.employees),l.hasNext=t.hasNext,l.pages.push(t)})},t.prototype.getNext=function(){var t=this;this.hasNext&&(this.index===this.pages.length-1?this.pages[this.index].getNext().subscribe(function(l){t.index++,t.employees=l.items,t.birthdays=t.getBirthdaysForEmployees(l.items),t.hasNext=l.hasNext,t.hasPrev=!0,t.pages.push(l)}):(this.index++,this.employees=this.pages[this.index].items,this.birthdays=this.getBirthdaysForEmployees(this.employees),this.hasNext=this.pages[this.index].hasNext,this.hasPrev=!0))},t.prototype.getPrev=function(){this.hasPrev&&(this.index--,this.employees=this.pages[this.index].items,this.birthdays=this.getBirthdaysForEmployees(this.employees),this.hasNext=!0,this.hasPrev=this.index>0)},t.prototype.getBirthdaysForEmployees=function(t){var l=[],n=b.groupBy(t,function(t){return t.birthdayTitleRelative});for(var e in n)if(n.hasOwnProperty(e)){var o=e.split(" ");2===o.length&&l.push({birthday:o[0],birthmonth:o[1],employees:n[e]})}return l},t}(),C=e.qb({encapsulation:0,styles:[["#s4-bodyContainer[_ngcontent-%COMP%]{padding:0}@-webkit-keyframes shine-avatar{0%{background-position:-30px}100%,40%{background-position:210px}}@keyframes shine-avatar{0%{background-position:-30px}100%,40%{background-position:210px}}.l-page-header[_ngcontent-%COMP%]{padding-bottom:40px}.l-birthdays[_ngcontent-%COMP%]{box-sizing:border-box;padding-left:25px}.l-birthdays[_ngcontent-%COMP%]   .l-birthdays__month-list[_ngcontent-%COMP%]{box-sizing:border-box;margin-bottom:20px;height:30px;text-transform:capitalize}.l-birthdays[_ngcontent-%COMP%]   .l-birthdays__day-list[_ngcontent-%COMP%]{margin-bottom:60px}.l-birthdays[_ngcontent-%COMP%]   .l-birthdays__day-list[_ngcontent-%COMP%]   .reset[_ngcontent-%COMP%]{display:inline-block;font-size:16px;color:#898888;margin-right:30px;cursor:pointer}.l-birthdays[_ngcontent-%COMP%]   .l-birthdays__day-list[_ngcontent-%COMP%]   .day[_ngcontent-%COMP%]{display:inline-block;width:24px;height:24px;border:1px solid #898888;border-radius:100%;margin-right:20px;margin-bottom:10px;font-size:14px;color:#707070;line-height:24px;text-align:center;cursor:pointer}.l-birthdays[_ngcontent-%COMP%]   .l-birthdays__day-list[_ngcontent-%COMP%]   .day.active[_ngcontent-%COMP%]{color:#050505;border-color:#da402b}.l-birthdays[_ngcontent-%COMP%]   .l-birthdays__calendar[_ngcontent-%COMP%]{border-left:2px solid #f1f1f4}.l-birthdays[_ngcontent-%COMP%]   .l-birthdays__calendar[_ngcontent-%COMP%]   .l-birthdays__day[_ngcontent-%COMP%]{box-sizing:border-box;padding-left:10%;position:relative;border-top:3px dotted #707070}.l-birthdays[_ngcontent-%COMP%]   .l-birthdays__calendar[_ngcontent-%COMP%]   .l-birthdays__day[_ngcontent-%COMP%]   .date[_ngcontent-%COMP%]{position:absolute;left:-27px;top:-27px}.l-birthdays[_ngcontent-%COMP%]   .l-birthdays__calendar[_ngcontent-%COMP%]   .l-birthdays__day[_ngcontent-%COMP%]   .date[_ngcontent-%COMP%]   .day[_ngcontent-%COMP%], .l-birthdays[_ngcontent-%COMP%]   .l-birthdays__calendar[_ngcontent-%COMP%]   .l-birthdays__day[_ngcontent-%COMP%]   .date[_ngcontent-%COMP%]   .month[_ngcontent-%COMP%]{display:inline-block;vertical-align:middle}.l-birthdays[_ngcontent-%COMP%]   .l-birthdays__calendar[_ngcontent-%COMP%]   .l-birthdays__day[_ngcontent-%COMP%]   .day[_ngcontent-%COMP%]{background-color:#f1f1f4;border-radius:100%;width:50px;height:50px;line-height:50px;color:#050505;font-size:20px;font-weight:900;box-sizing:border-box;text-align:center}.l-birthdays[_ngcontent-%COMP%]   .l-birthdays__calendar[_ngcontent-%COMP%]   .l-birthdays__day[_ngcontent-%COMP%]   .month[_ngcontent-%COMP%]{color:#707070;font-size:16px;padding-right:15px;box-sizing:border-box;padding-left:12px;background-color:#fff;text-transform:capitalize}.l-birthdays[_ngcontent-%COMP%]   .l-birthdays__calendar[_ngcontent-%COMP%]   .l-birthdays__day[_ngcontent-%COMP%]:first-of-type{border-top:0}.navigation[_ngcontent-%COMP%]{margin:35px 0;text-align:center}.m-employees-list[_ngcontent-%COMP%]   .m-employees-list__item[_ngcontent-%COMP%]{display:table;width:100%}.m-employees-list[_ngcontent-%COMP%]   .m-employees-list__item[_ngcontent-%COMP%]   .avatar[_ngcontent-%COMP%]{display:table-cell;box-sizing:border-box;vertical-align:middle;width:90px;padding:14px 23px 14px 34px}.m-employees-list[_ngcontent-%COMP%]   .m-employees-list__item[_ngcontent-%COMP%]   .body[_ngcontent-%COMP%]{vertical-align:middle;display:table-cell}.m-employees-list[_ngcontent-%COMP%]   .m-employees-list__item[_ngcontent-%COMP%]   .body[_ngcontent-%COMP%]   .name[_ngcontent-%COMP%]{color:#050505;font-size:22px;line-height:24px;font-weight:700;margin-bottom:10px}.m-employees-list[_ngcontent-%COMP%]   .m-employees-list__item[_ngcontent-%COMP%]   .body[_ngcontent-%COMP%]   .position[_ngcontent-%COMP%]{color:#050505;font-size:16px;line-height:20px}.m-employees-list[_ngcontent-%COMP%]   .m-employees-list__item[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]{display:none;box-sizing:border-box;padding-left:25px;vertical-align:middle}.m-employees-list[_ngcontent-%COMP%]   .m-employees-list__item[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .mail[_ngcontent-%COMP%], .m-employees-list[_ngcontent-%COMP%]   .m-employees-list__item[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .profile[_ngcontent-%COMP%], .m-employees-list[_ngcontent-%COMP%]   .m-employees-list__item[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .structure[_ngcontent-%COMP%]{display:inline-block;border-radius:100%;background-color:#fff;width:50px;height:50px;margin-right:25px;background-position:center;background-repeat:no-repeat;background-size:26px 26px}.m-employees-list[_ngcontent-%COMP%]   .m-employees-list__item[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .profile[_ngcontent-%COMP%]{background-image:url(/local/js/assets/icons/icon-profile.svg)}.m-employees-list[_ngcontent-%COMP%]   .m-employees-list__item[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .mail[_ngcontent-%COMP%]{background-image:url(/local/js/assets/icons/icon-letter-black.svg)}.m-employees-list[_ngcontent-%COMP%]   .m-employees-list__item[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .structure[_ngcontent-%COMP%]{background-image:url(/local/js/assets/icons/icon-struct-black.svg)}"]],data:{}});function v(t){return e.Mb(0,[(t()(),e.sb(0,0,null,null,2,"app-filters-item",[],null,[[null,"change"]],function(t,l,n){var e=!0;return"change"===l&&(e=!1!==t.component.getBirthdaysPagetByMonth(t.context.index)&&e),e},s.b,s.a)),e.rb(1,114688,[[1,4]],0,a.a,[r.a],{active:[0,"active"]},{change:"change"}),(t()(),e.Kb(2,0,[" "," "]))],function(t,l){t(l,1,0,l.component.month===l.context.index)},function(t,l){t(l,2,0,l.context.$implicit)})}function D(t){return e.Mb(0,[(t()(),e.sb(0,0,null,null,1,"div",[["class","day"]],[[2,"active",null]],[[null,"click"]],function(t,l,n){var e=!0,o=t.component;return"click"===l&&(e=!1!==(o.active=o.active===t.context.$implicit?null:t.context.$implicit)&&e),e},null,null)),(t()(),e.Kb(1,null,[" "," "]))],null,function(t,l){t(l,0,0,l.component.active===l.context.$implicit),t(l,1,0,l.context.$implicit)})}function I(t){return e.Mb(0,[(t()(),e.sb(0,0,null,null,8,"div",[["class","m-employees-list__item"]],null,null,null,null,null)),(t()(),e.sb(1,0,null,null,2,"div",[["class","avatar"]],null,null,null,null,null)),(t()(),e.sb(2,0,null,null,1,"app-user-thumb",[],null,null,null,u.b,u.a)),e.rb(3,245760,null,0,c.a,[p.c,e.B],{photo:[0,"photo"],width:[1,"width"],height:[2,"height"],route:[3,"route"]},null),(t()(),e.sb(4,0,null,null,4,"div",[["class","body"]],null,null,null,null,null)),(t()(),e.sb(5,0,null,null,1,"div",[["class","name"]],null,null,null,null,null)),(t()(),e.Kb(6,null,[" "," "])),(t()(),e.sb(7,0,null,null,1,"div",[["class","position"]],null,null,null,null,null)),(t()(),e.Kb(8,null,["",""]))],function(t,l){t(l,3,0,l.context.$implicit.photo,"90px","90px",l.context.$implicit.profileRoute)},function(t,l){t(l,6,0,l.context.$implicit.fullName),t(l,8,0,l.context.$implicit.positionName)})}function L(t){return e.Mb(0,[(t()(),e.sb(0,0,null,null,9,"div",[["class","l-birthdays__day"]],null,null,null,null,null)),(t()(),e.sb(1,0,null,null,4,"div",[["class","date"]],null,null,null,null,null)),(t()(),e.sb(2,0,null,null,1,"div",[["class","day"]],null,null,null,null,null)),(t()(),e.Kb(3,null,["",""])),(t()(),e.sb(4,0,null,null,1,"div",[["class","month"]],null,null,null,null,null)),(t()(),e.Kb(5,null,["",""])),(t()(),e.sb(6,0,null,null,3,"div",[["class","employees"]],null,null,null,null,null)),(t()(),e.sb(7,0,null,null,2,"div",[["class","m-employees-list"]],null,null,null,null,null)),(t()(),e.jb(16777216,null,null,1,null,I)),e.rb(9,278528,null,0,p.j,[e.R,e.O,e.u],{ngForOf:[0,"ngForOf"]},null)],function(t,l){t(l,9,0,l.context.$implicit.employees)},function(t,l){t(l,3,0,l.context.$implicit.birthday),t(l,5,0,l.context.$implicit.birthmonth)})}function N(t){return e.Mb(0,[(t()(),e.sb(0,0,null,null,5,"div",[["class","navigation"]],null,null,null,null,null)),(t()(),e.sb(1,0,null,null,4,"div",[["class","m-page-nav"]],null,null,null,null,null)),(t()(),e.sb(2,0,null,null,1,"a",[["class","to-begin"]],[[2,"disabled",null]],[[null,"click"]],function(t,l,n){var e=!0,o=t.component;return"click"===l&&(e=!1!==(o.hasPrev&&o.getBirthdaysPagetByMonth())&&e),e},null,null)),(t()(),e.Kb(-1,null,["\u0412 \u043d\u0430\u0447\u0430\u043b\u043e"])),(t()(),e.sb(4,0,null,null,0,"input",[["class","prev-page"],["type","button"]],[[2,"disabled",null]],[[null,"click"]],function(t,l,n){var e=!0;return"click"===l&&(e=!1!==t.component.getPrev()&&e),e},null,null)),(t()(),e.sb(5,0,null,null,0,"input",[["class","next-page"],["type","button"]],[[2,"disabled",null]],[[null,"click"]],function(t,l,n){var e=!0;return"click"===l&&(e=!1!==t.component.getNext()&&e),e},null,null))],null,function(t,l){var n=l.component;t(l,2,0,!n.hasPrev),t(l,4,0,!n.hasPrev),t(l,5,0,!n.hasNext)})}function B(t){return e.Mb(0,[(t()(),e.sb(0,0,null,null,10,"div",[["class","l-page-header"]],null,null,null,null,null)),(t()(),e.sb(1,0,null,null,7,"div",[["class","l-breadcrumbs"]],null,null,null,null,null)),(t()(),e.sb(2,0,null,null,4,"div",[["class","l-breadcrumb"]],null,null,null,null,null)),(t()(),e.sb(3,0,null,null,3,"a",[],[[1,"target",0],[8,"href",4]],[[null,"click"]],function(t,l,n){var o=!0;return"click"===l&&(o=!1!==e.Cb(t,4).onClick(n.button,n.ctrlKey,n.metaKey,n.shiftKey)&&o),o},null,null)),e.rb(4,671744,null,0,d.o,[d.m,d.a,p.h],{routerLink:[0,"routerLink"]},null),e.Db(5,1),(t()(),e.Kb(-1,null,["\u0413\u043b\u0430\u0432\u043d\u0430\u044f"])),(t()(),e.sb(7,0,null,null,1,"div",[["class","l-breadcrumb"]],null,null,null,null,null)),(t()(),e.Kb(-1,null,["\u0414\u043d\u0438 \u0440\u043e\u0436\u0434\u0435\u043d\u0438\u044f"])),(t()(),e.sb(9,0,null,null,1,"div",[["class","title"]],null,null,null,null,null)),(t()(),e.Kb(-1,null,["\u0414\u043d\u0438 \u0440\u043e\u0436\u0434\u0435\u043d\u0438\u044f"])),(t()(),e.sb(11,0,null,null,19,"div",[["class","l-page"]],null,null,null,null,null)),(t()(),e.sb(12,0,null,null,18,"div",[["class","l-page-inner"]],null,null,null,null,null)),(t()(),e.sb(13,0,null,null,17,"div",[["class","l-page__content"]],null,null,null,null,null)),(t()(),e.sb(14,0,null,null,16,"div",[["class","l-birthdays"]],null,null,null,null,null)),(t()(),e.sb(15,0,null,null,5,"div",[["class","l-birthdays__month-list"]],null,null,null,null,null)),(t()(),e.sb(16,0,null,null,4,"app-filters",[],null,null,null,h.b,h.a)),e.rb(17,1228800,null,1,m.a,[r.a],null,null),e.Ib(603979776,1,{filterItems:1}),(t()(),e.jb(16777216,null,0,1,null,v)),e.rb(20,278528,null,0,p.j,[e.R,e.O,e.u],{ngForOf:[0,"ngForOf"]},null),(t()(),e.sb(21,0,null,null,4,"div",[["class","l-birthdays__day-list"]],null,null,null,null,null)),(t()(),e.sb(22,0,null,null,1,"div",[["class","reset"]],null,null,null,null,null)),(t()(),e.Kb(-1,null,["\u0421\u0435\u0433\u043e\u0434\u043d\u044f"])),(t()(),e.jb(16777216,null,null,1,null,D)),e.rb(25,278528,null,0,p.j,[e.R,e.O,e.u],{ngForOf:[0,"ngForOf"]},null),(t()(),e.sb(26,0,null,null,2,"div",[["class","l-birthdays__calendar"]],null,null,null,null,null)),(t()(),e.jb(16777216,null,null,1,null,L)),e.rb(28,278528,null,0,p.j,[e.R,e.O,e.u],{ngForOf:[0,"ngForOf"]},null),(t()(),e.jb(16777216,null,null,1,null,N)),e.rb(30,16384,null,0,p.k,[e.R,e.O],{ngIf:[0,"ngIf"]},null)],function(t,l){var n=l.component;t(l,4,0,t(l,5,0,"/company")),t(l,20,0,n.months),t(l,25,0,n.days),t(l,28,0,n.birthdays),t(l,30,0,n.hasPrev||n.hasNext)},function(t,l){t(l,3,0,e.Cb(l,4).target,e.Cb(l,4).href)})}var T=e.ob("app-birthdays-page",O,function(t){return e.Mb(0,[(t()(),e.sb(0,0,null,null,1,"app-birthdays-page",[],null,null,null,B,C)),e.rb(1,114688,null,0,O,[d.a,k,g.a],null,null)],function(t,l){t(l,1,0)},null)},{},{},[]),S=function(){function t(t){this.employeesService=t}return t.prototype.resolve=function(t,l){var n=(new Date).getMonth()+1;return this.employeesService.getItemsPaged({filter:"slBirthdayMonth eq "+n,orderBy:[["slBirthdayDay",!0],["slFullName",!0]]})},t}(),w=n("gIcY"),F={animation:"fadeAnimation",title:"\u0414\u043d\u0438 \u0440\u043e\u0436\u0434\u0435\u043d\u0438\u044f"},R=function(){},W=n("PCNd");n.d(l,"BirthdaysModuleNgFactory",function(){return E});var E=e.pb(o,[],function(t){return e.zb([e.Ab(512,e.k,e.eb,[[8,[i.a,T]],[3,e.k],e.z]),e.Ab(4608,p.m,p.l,[e.w,[2,p.y]]),e.Ab(4608,S,S,[k]),e.Ab(4608,w.p,w.p,[]),e.Ab(1073742336,p.b,p.b,[]),e.Ab(1073742336,d.p,d.p,[[2,d.v],[2,d.m]]),e.Ab(1073742336,R,R,[]),e.Ab(1073742336,w.n,w.n,[]),e.Ab(1073742336,w.d,w.d,[]),e.Ab(1073742336,W.a,W.a,[]),e.Ab(1073742336,o,o,[]),e.Ab(1024,d.k,function(){return[[{path:"",component:O,resolve:{birthdays:S},data:F}]]},[])])})}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[9],{
+
+/***/ "./src/app/mediagallery/components/mediagallery-page/mediagallery-page.component.html":
+/*!********************************************************************************************!*\
+  !*** ./src/app/mediagallery/components/mediagallery-page/mediagallery-page.component.html ***!
+  \********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"l-page-header\">\r\n  <div class=\"l-breadcrumbs\">\r\n    <div class=\"l-breadcrumb\"><a [routerLink]=\"['/company']\">Главная</a></div>\r\n    <div class=\"l-breadcrumb\">Медиагалерея</div>\r\n  </div>\r\n  <div class=\"title\">\r\n    Медиагалерея\r\n  </div>\r\n</div>\r\n<div class=\"l-page\">\r\n  <div class=\"l-page-inner\">\r\n    <div class=\"l-page__content\">\r\n      <div class=\"l-mediagallery\">\r\n        <a [routerLink]=\"['photo']\" class=\"photogallery-card\" [ngStyle]=\"{ 'background-image': 'url(' + prepareLink(photoUrl) + ')' }\">\r\n          <div class=\"gradient\"></div>\r\n          <div class=\"content\">\r\n            <div class=\"title\">\r\n              Фотогалерея\r\n            </div>\r\n            <div class=\"items-counter\">\r\n              <ng-container *ngIf=\"albumsTotal > 0\">\r\n                {{albumsTotal}} {{getEnding(albumsTotal, ['альбом', 'альбома', 'альбомов'])}}\r\n              </ng-container>\r\n              <ng-container *ngIf=\"albumsTotal === 0\">\r\n                Нет альбомов\r\n              </ng-container>\r\n            </div>\r\n          </div>\r\n        </a>\r\n        <a [routerLink]=\"['video', 'search']\" class=\"videogallery-card\">\r\n          <ng-container *ngIf=\"video && video.isIFrame\">\r\n            <iframe [src]=\"video.videoUrl | iframeVideo\"></iframe>\r\n          </ng-container>\r\n          <ng-container *ngIf=\"video && !video.isIFrame\">\r\n            <video src=\"{{video.videoUrl}}\"></video>\r\n          </ng-container>\r\n          <div class=\"gradient\"></div>\r\n          <div class=\"content\">\r\n            <div class=\"title\">\r\n              Видеогалерея\r\n            </div>\r\n            <div class=\"items-counter\">\r\n              <ng-container *ngIf=\"albumsTotal > 0\">\r\n                {{videosTotal}} видео\r\n              </ng-container>\r\n              <ng-container *ngIf=\"albumsTotal === 0\">\r\n                Нет видео\r\n              </ng-container>\r\n            </div>\r\n          </div>\r\n        </a>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/mediagallery/components/mediagallery-page/mediagallery-page.component.scss":
+/*!********************************************************************************************!*\
+  !*** ./src/app/mediagallery/components/mediagallery-page/mediagallery-page.component.scss ***!
+  \********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.l-page-header {\n  padding-bottom: 40px; }\n\n.l-mediagallery {\n  width: 90%;\n  padding-left: 25px; }\n\n.l-mediagallery .photogallery-card,\n  .l-mediagallery .videogallery-card {\n    position: relative;\n    display: inline-block;\n    width: 49%;\n    background-repeat: no-repeat;\n    background-size: cover;\n    background-position: center; }\n\n.l-mediagallery .photogallery-card video, .l-mediagallery .photogallery-card iframe,\n    .l-mediagallery .videogallery-card video,\n    .l-mediagallery .videogallery-card iframe {\n      position: absolute;\n      top: 0;\n      width: 100%;\n      height: 100%; }\n\n.l-mediagallery .photogallery-card:before,\n    .l-mediagallery .videogallery-card:before {\n      display: block;\n      content: \" \";\n      width: 100%;\n      padding-bottom: 60.60606061%; }\n\n.l-mediagallery .photogallery-card > .content,\n    .l-mediagallery .videogallery-card > .content {\n      position: absolute;\n      top: 0;\n      left: 0;\n      right: 0;\n      bottom: 0; }\n\n.l-mediagallery .photogallery-card .content,\n    .l-mediagallery .videogallery-card .content {\n      padding: 30px 40px;\n      box-sizing: border-box;\n      background-repeat: no-repeat;\n      background-size: 30% 30%;\n      background-position: center; }\n\n.l-mediagallery .photogallery-card .gradient,\n    .l-mediagallery .videogallery-card .gradient {\n      position: absolute;\n      left: 0;\n      top: 0;\n      width: 100%;\n      height: 100%;\n      background: linear-gradient(to bottom, rgba(5, 5, 5, 0.7), rgba(88, 88, 88, 0)); }\n\n.l-mediagallery .photogallery-card .title,\n    .l-mediagallery .videogallery-card .title {\n      color: #FFFFFF;\n      font-size: 34px;\n      font-weight: bold;\n      margin-bottom: 7px; }\n\n.l-mediagallery .photogallery-card .items-counter,\n    .l-mediagallery .videogallery-card .items-counter {\n      color: #FFFFFF;\n      font-size: 22px; }\n\n.l-mediagallery .photogallery-card {\n    margin-right: 2%; }\n\n.l-mediagallery .photogallery-card .content {\n      background-image: url(/local/js/assets/icons/icon-photo.svg); }\n\n.l-mediagallery .videogallery-card .content {\n    background-image: url(/local/js/assets/icons/icon-play.svg); }\n"
+
+/***/ }),
+
+/***/ "./src/app/mediagallery/components/mediagallery-page/mediagallery-page.component.ts":
+/*!******************************************************************************************!*\
+  !*** ./src/app/mediagallery/components/mediagallery-page/mediagallery-page.component.ts ***!
+  \******************************************************************************************/
+/*! exports provided: MediagalleryPageComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MediagalleryPageComponent", function() { return MediagalleryPageComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/sidebar/sidebar.service */ "./src/app/services/sidebar/sidebar.service.ts");
+/* harmony import */ var src_app_services_photo_library_photo_library_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/photo-library/photo-library.service */ "./src/app/services/photo-library/photo-library.service.ts");
+/* harmony import */ var src_app_services_images_images_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/images/images.service */ "./src/app/services/images/images.service.ts");
+/* harmony import */ var src_app_services_videos_videos_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/videos/videos.service */ "./src/app/services/videos/videos.service.ts");
+/* harmony import */ var src_app_constants_content_types__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/constants/content-types */ "./src/app/constants/content-types.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+var MediagalleryPageComponent = /** @class */ (function () {
+    function MediagalleryPageComponent(sidebarService, photoLibraryService, imagesService, videosService) {
+        this.sidebarService = sidebarService;
+        this.photoLibraryService = photoLibraryService;
+        this.imagesService = imagesService;
+        this.videosService = videosService;
+        this.albumsTotal = null;
+        this.videosTotal = null;
+        this.photoUrl = null;
+        this.video = null;
+        this.sidebarService.handleSetSettings({ showSidebar: false, bgColor: '#fff' });
+    }
+    MediagalleryPageComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.photoLibraryService.getItems({ filter: "ContentType eq '" + encodeURI(src_app_constants_content_types__WEBPACK_IMPORTED_MODULE_5__["contentTypes"].album) + "'", top: 5000 })
+            .subscribe(function (items) { return _this.albumsTotal = items.length; });
+        this.photoLibraryService.getRandomItems({ top: 1, filter: "ContentType eq '" + encodeURI(src_app_constants_content_types__WEBPACK_IMPORTED_MODULE_5__["contentTypes"].photo) + "'" })
+            .subscribe(function (photos) {
+            if (photos.length > 0) {
+                _this.photoUrl = photos[0].url;
+            }
+        });
+        this.videosService.getItems().subscribe(function (items) {
+            _this.videosTotal = items.length;
+            if (items.length > 0) {
+                var i = Math.floor(Math.random() * items.length);
+                _this.video = items[i];
+            }
+        });
+    };
+    MediagalleryPageComponent.prototype.getEnding = function (number, endings) {
+        var ending;
+        number = number % 100;
+        if (number >= 11 && number <= 19) {
+            ending = endings[2];
+        }
+        else {
+            var i = number % 10;
+            switch (i) {
+                case (1):
+                    ending = endings[0];
+                    break;
+                case (2):
+                case (3):
+                case (4):
+                    ending = endings[1];
+                    break;
+                default: ending = endings[2];
+            }
+        }
+        return ending;
+    };
+    MediagalleryPageComponent.prototype.prepareLink = function (link) {
+        return this.imagesService.prepareBackgroundUrl(link);
+    };
+    MediagalleryPageComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-mediagallery-page',
+            template: __webpack_require__(/*! ./mediagallery-page.component.html */ "./src/app/mediagallery/components/mediagallery-page/mediagallery-page.component.html"),
+            styles: [__webpack_require__(/*! ./mediagallery-page.component.scss */ "./src/app/mediagallery/components/mediagallery-page/mediagallery-page.component.scss")]
+        }),
+        __metadata("design:paramtypes", [src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_1__["SidebarService"],
+            src_app_services_photo_library_photo_library_service__WEBPACK_IMPORTED_MODULE_2__["PhotoLibraryService"],
+            src_app_services_images_images_service__WEBPACK_IMPORTED_MODULE_3__["ImagesService"],
+            src_app_services_videos_videos_service__WEBPACK_IMPORTED_MODULE_4__["VideosService"]])
+    ], MediagalleryPageComponent);
+    return MediagalleryPageComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/mediagallery/mediagallery-routing.module.ts":
+/*!*************************************************************!*\
+  !*** ./src/app/mediagallery/mediagallery-routing.module.ts ***!
+  \*************************************************************/
+/*! exports provided: MediagalleryRoutingModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MediagalleryRoutingModule", function() { return MediagalleryRoutingModule; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _components_mediagallery_page_mediagallery_page_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/mediagallery-page/mediagallery-page.component */ "./src/app/mediagallery/components/mediagallery-page/mediagallery-page.component.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+var routes = [
+    {
+        path: '',
+        component: _components_mediagallery_page_mediagallery_page_component__WEBPACK_IMPORTED_MODULE_2__["MediagalleryPageComponent"],
+        data: { animation: 'fadeAnimation', title: 'Медиагалерея' }
+    },
+    {
+        path: 'photo',
+        loadChildren: '../photogallery/photogallery.module#PhotogalleryModule'
+    },
+    {
+        path: 'video',
+        loadChildren: '../videogallery/videogallery.module#VideogalleryModule'
+    },
+];
+var MediagalleryRoutingModule = /** @class */ (function () {
+    function MediagalleryRoutingModule() {
+    }
+    MediagalleryRoutingModule = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
+            imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forChild(routes)],
+            exports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]]
+        })
+    ], MediagalleryRoutingModule);
+    return MediagalleryRoutingModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/mediagallery/mediagallery.module.ts":
+/*!*****************************************************!*\
+  !*** ./src/app/mediagallery/mediagallery.module.ts ***!
+  \*****************************************************/
+/*! exports provided: MediagalleryModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MediagalleryModule", function() { return MediagalleryModule; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _components_mediagallery_page_mediagallery_page_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/mediagallery-page/mediagallery-page.component */ "./src/app/mediagallery/components/mediagallery-page/mediagallery-page.component.ts");
+/* harmony import */ var _mediagallery_routing_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./mediagallery-routing.module */ "./src/app/mediagallery/mediagallery-routing.module.ts");
+/* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../shared/shared.module */ "./src/app/shared/shared.module.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+
+
+
+var MediagalleryModule = /** @class */ (function () {
+    function MediagalleryModule() {
+    }
+    MediagalleryModule = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
+            declarations: [
+                _components_mediagallery_page_mediagallery_page_component__WEBPACK_IMPORTED_MODULE_4__["MediagalleryPageComponent"]
+            ],
+            imports: [
+                _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
+                _mediagallery_routing_module__WEBPACK_IMPORTED_MODULE_5__["MediagalleryRoutingModule"],
+                _shared_shared_module__WEBPACK_IMPORTED_MODULE_6__["SharedModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"],
+                _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"]
+            ]
+        })
+    ], MediagalleryModule);
+    return MediagalleryModule;
+}());
+
+
+
+/***/ })
+
+}]);
+//# sourceMappingURL=9.js.map

@@ -1,1 +1,710 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[8],{PbJ5:function(n,l,t){"use strict";t.d(l,"a",function(){return o});var e=t("CcnG"),o=function(){function n(){this.changeActiveItem=new e.n}return n.prototype.handleChangeActiveItem=function(){this.changeActiveItem.emit()},n.ngInjectableDef=e.V({factory:function(){return new n},token:n,providedIn:"root"}),n}()},cuj7:function(n,l,t){"use strict";t.d(l,"a",function(){return e}),t("xhmP"),t("PbJ5");var e=function(){function n(n){this.filterService=n,this.height="100%",this.reset=null,this.resetSubscription=null}return n.prototype.resetActiveItems=function(){this.filterItems.toArray().forEach(function(n){n.active=!1})},n.prototype.ngAfterContentInit=function(){var n=this;this.filterService.changeActiveItem.subscribe(function(){n.resetActiveItems()}),0===this.filterItems.filter(function(n){return!0===n.active}).length&&(this.filterItems.first.active=!0),this.reset&&(this.resetSubscription=this.reset.subscribe(function(){n.filterItems.forEach(function(n){n.active=!1}),n.filterItems.first.active=!0}))},n.prototype.ngOnDestroy=function(){null!=this.resetSubscription&&this.resetSubscription.unsubscribe()},n}()},nAuW:function(n,l,t){"use strict";var e=t("CcnG");t("cuj7"),t("PbJ5"),t.d(l,"a",function(){return o}),t.d(l,"b",function(){return i});var o=e.qb({encapsulation:0,styles:[[".sl-filters[_ngcontent-%COMP%]{height:100%;font-size:0}"]],data:{}});function i(n){return e.Mb(0,[(n()(),e.sb(0,0,null,null,1,"div",[["class","sl-filters"]],[[4,"height",null]],null,null,null,null)),e.Bb(null,0)],null,function(n,l){n(l,0,0,l.component.height)})}},"sa+U":function(n,l,t){"use strict";t.r(l);var e=t("CcnG"),o=function(){},i=t("pMnS"),c=t("C2Hq"),u=t("ukqQ"),s=t("Ip0R"),r=t("ZYCi"),a=function(){function n(){this.shown=!1}return n.prototype.ngOnInit=function(){},n.prototype.copy=function(n){n.select(),document.execCommand("copy"),n.setSelectionRange(0,0),this.shown=!1},n}(),p=e.qb({encapsulation:0,styles:[["#s4-bodyContainer[_ngcontent-%COMP%]{padding:0}@-webkit-keyframes shine-avatar{0%{background-position:-30px}100%,40%{background-position:210px}}@keyframes shine-avatar{0%{background-position:-30px}100%,40%{background-position:210px}}.close-dialog[_ngcontent-%COMP%]{position:absolute;top:50%;left:100%;-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%);transform:translateY(-50%)}.close-dialog[_ngcontent-%COMP%]   .inner[_ngcontent-%COMP%]{background-color:#fff;box-shadow:0 3px 3px rgba(0,0,0,.25);width:500px;box-sizing:border-box}.close-dialog[_ngcontent-%COMP%]   .inner[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]{position:relative;padding:15px;border-bottom:1px solid #dedede}.close-dialog[_ngcontent-%COMP%]   .inner[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .close[_ngcontent-%COMP%]{position:absolute;top:0;right:0}.close-dialog[_ngcontent-%COMP%]   .inner[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .close[_ngcontent-%COMP%]   .btn-close[_ngcontent-%COMP%]{background-size:30%}.close-dialog[_ngcontent-%COMP%]   .inner[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .text[_ngcontent-%COMP%]{font-size:18px;line-height:20px;text-align:left}.close-dialog[_ngcontent-%COMP%]   .inner[_ngcontent-%COMP%]   .body[_ngcontent-%COMP%]{text-align:right;padding:20px;box-sizing:border-box}.close-dialog[_ngcontent-%COMP%]   .inner[_ngcontent-%COMP%]   .body[_ngcontent-%COMP%]   input[type=button][_ngcontent-%COMP%]{height:35px;line-height:33px;text-transform:lowercase;min-width:0;padding:0 25px;font-weight:400}.close-dialog[_ngcontent-%COMP%]   .inner[_ngcontent-%COMP%]   .body[_ngcontent-%COMP%]   input[type=text][_ngcontent-%COMP%]{padding:0 10px;margin:0;border:1px solid #828282;min-width:0;background-color:transparent;cursor:pointer;float:left;width:80%;box-sizing:border-box;height:35px;line-height:33px;color:#000;font-size:12px}.close-dialog[_ngcontent-%COMP%]   .inner[_ngcontent-%COMP%]   .body[_ngcontent-%COMP%]   input[type=text][_ngcontent-%COMP%]:focus{outline:0}.control[_ngcontent-%COMP%]{height:30px;width:30px}.control[_ngcontent-%COMP%]   input[type=button][_ngcontent-%COMP%]{padding:0;margin:0;border:0;min-width:0;background-color:transparent;width:100%;height:100%;background-repeat:no-repeat;background-position:center;background-size:90%;cursor:pointer}.control[_ngcontent-%COMP%]   input[type=button][_ngcontent-%COMP%]:focus{outline:0}.control[_ngcontent-%COMP%]   input[type=button].connections[_ngcontent-%COMP%]{background-image:url(/local/js/assets/icons/icon-connections.svg)}.control[_ngcontent-%COMP%] + .control[_ngcontent-%COMP%]{margin-top:25px}"]],data:{}});function g(n){return e.Mb(0,[(n()(),e.sb(0,0,null,null,9,"div",[["class","close-dialog"]],null,null,null,null,null)),(n()(),e.sb(1,0,null,null,8,"div",[["class","inner"]],null,null,null,null,null)),(n()(),e.sb(2,0,null,null,4,"div",[["class","header"]],null,null,null,null,null)),(n()(),e.sb(3,0,null,null,1,"div",[["class","close"]],null,null,null,null,null)),(n()(),e.sb(4,0,null,null,0,"input",[["class","btn btn-close"],["type","button"]],null,[[null,"click"]],function(n,l,t){var e=!0;return"click"===l&&(e=0!=(n.component.shown=!1)&&e),e},null,null)),(n()(),e.sb(5,0,null,null,1,"div",[["class","text"]],null,null,null,null,null)),(n()(),e.Kb(-1,null,[" \u0421\u043a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u0441\u0441\u044b\u043b\u043a\u0443 \u043d\u0430 \u043f\u0440\u043e\u0444\u0438\u043b\u044c \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f "])),(n()(),e.sb(7,0,null,null,2,"div",[["class","body"]],null,null,null,null,null)),(n()(),e.sb(8,0,[["copyinput",1]],null,0,"input",[["type","text"]],[[8,"value",0]],null,null,null,null)),(n()(),e.sb(9,0,null,null,0,"input",[["class","btn btn-default is-transparent red"],["type","button"],["value","\u041e\u043a"]],null,[[null,"click"]],function(n,l,t){var o=!0;return"click"===l&&(o=!1!==n.component.copy(e.Cb(n,8))&&o),o},null,null))],null,function(n,l){n(l,8,0,e.ub(1,"",l.component.link,""))})}function d(n){return e.Mb(0,[(n()(),e.sb(0,0,null,null,1,"div",[["class","control"]],null,null,null,null,null)),(n()(),e.sb(1,0,null,null,0,"input",[["class","connections"],["type","button"]],null,[[null,"click"]],function(n,l,t){var e=!0;return"click"===l&&(e=0!=(n.component.shown=!0)&&e),e},null,null)),(n()(),e.jb(16777216,null,null,1,null,g)),e.rb(3,16384,null,0,s.k,[e.R,e.O],{ngIf:[0,"ngIf"]},null)],function(n,l){n(l,3,0,l.component.shown)},null)}var b=function(){function n(){this.parentElement=null,this.change=new e.n,this.trees=[]}return n.prototype.ngOnInit=function(){},n.prototype.ngAfterViewInit=function(){var n=this;this.treeElements.forEach(function(l){l.parentElement=n})},n.prototype.collapseExpandedChildren=function(n){var l=this;n.parentElements.toArray().forEach(function(n){n.nativeElement.className="parent"}),n.treeElements.toArray().forEach(function(n){l.collapseExpandedChildren(n)})},n.prototype.resetActiveElements=function(n){var l=this;n.titleElements.toArray().forEach(function(n){n.nativeElement.className="title"}),n.treeElements.toArray().forEach(function(n){l.resetActiveElements(n)})},n.prototype.selectItem=function(n,l){if(!n.classList.contains("is-current-item")){var t=this.getRootElement();this.resetActiveElements(t),n.className+=" is-current-item",t.change.emit(l)}},n.prototype.toggleChildren=function(n){n.classList.contains("is-expanded")?n.className="parent":(this.collapseExpandedChildren(this),n.className+=" is-expanded")},n.prototype.getRootElement=function(){for(var n=this;null!=n.parentElement;)n=n.parentElement;return n},n}(),_=e.qb({encapsulation:0,styles:[["@charset \"UTF-8\";.parent[_ngcontent-%COMP%]{position:relative;padding-left:25px;padding-bottom:0;margin-left:15px;float:left;clear:both}.parent[_ngcontent-%COMP%]:after, .parent[_ngcontent-%COMP%]:before{content:'';position:absolute;left:-1px;width:1px;background:#88969e}.parent[_ngcontent-%COMP%]:before{top:0;height:17px}.parent[_ngcontent-%COMP%]:after{top:17px;bottom:0}.parent[_ngcontent-%COMP%]:first-of-type:before, .parent[_ngcontent-%COMP%]:last-of-type:after{background:0 0}.title[_ngcontent-%COMP%]{position:relative;display:inline-block;vertical-align:middle;margin:7px 0;line-height:20px;padding-right:20px;font-size:16px;color:#050505}.title.is-current-item[_ngcontent-%COMP%], .title.is-current-item[_ngcontent-%COMP%]   a[_ngcontent-%COMP%]{color:#dd1e25}.title[_ngcontent-%COMP%] > .counter[_ngcontent-%COMP%]{display:inline-block;margin-left:5px;border-radius:20px;border:1px solid #ee2a24;padding:0 5px;font-size:10px;color:#444;line-height:14px;box-sizing:border-box;min-width:16px;text-align:center}.title[_ngcontent-%COMP%]   a[_ngcontent-%COMP%]{color:#000;border:1px solid transparent;border-left:0;border-right:0;text-decoration:none!important;cursor:pointer}.is-active-item[_ngcontent-%COMP%] > .title[_ngcontent-%COMP%]   a[_ngcontent-%COMP%], .title[_ngcontent-%COMP%]   a[_ngcontent-%COMP%]:hover{color:#dd1e25}.title[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]{display:none;position:absolute;top:50%;margin-top:-41px;left:100%;box-sizing:border-box;background-color:#fff;border:1px solid #e60028;border-radius:0;z-index:1000}.title[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]:after, .title[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]:before{content:'';position:absolute;top:50%;margin-top:-10px;left:-11px;width:0;height:0;border-style:solid;border-width:10px 10px 10px 0;border-color:transparent #e60028 transparent transparent}.title[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]:after{left:-10px;border-color:transparent #fff transparent transparent}.title[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   b[_ngcontent-%COMP%]{cursor:pointer;width:100%;white-space:nowrap;font-weight:400;display:inline-block;padding:3px 10px;box-sizing:border-box}.title[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   b[_ngcontent-%COMP%]:hover{color:#fff;background-color:#999}.title[_ngcontent-%COMP%]:hover > .controls[_ngcontent-%COMP%]{display:block}.title.tree-selected[_ngcontent-%COMP%]   a[_ngcontent-%COMP%]{font-weight:700;border-bottom-color:#000}.child-group[_ngcontent-%COMP%]{display:none}.child-group[_ngcontent-%COMP%]:after{content:'';display:block;clear:both}.is-expanded[_ngcontent-%COMP%] > .child-group[_ngcontent-%COMP%]{display:block}.button[_ngcontent-%COMP%]{position:absolute;top:17px;left:-5px;bottom:0;margin-top:-5px;height:9px;width:9px;z-index:1;border-radius:100%;background-color:#fff;border:1px solid #95989a;box-sizing:border-box}.button[onclick][_ngcontent-%COMP%]{cursor:pointer}.button[_ngcontent-%COMP%]   input[type=button][_ngcontent-%COMP%]{position:relative;z-index:100;cursor:pointer;width:100%;height:100%;padding:0;margin:0;border:0;background:0 0;min-width:0;vertical-align:top}.child-group[_ngcontent-%COMP%] + .button[_ngcontent-%COMP%]{left:-10px;margin-top:-10px;height:19px;width:19px;border-radius:0;border:1px solid #bababa}.child-group[_ngcontent-%COMP%] + .button[_ngcontent-%COMP%]:after, .child-group[_ngcontent-%COMP%] + .button[_ngcontent-%COMP%]:before{content:'';display:inline-block;position:absolute;background-color:#050505}.child-group[_ngcontent-%COMP%] + .button[_ngcontent-%COMP%]:before{top:9px;left:3px;right:3px;height:1px;margin-top:-1px}.child-group[_ngcontent-%COMP%] + .button[_ngcontent-%COMP%]:after{top:3px;bottom:3px;width:1px;left:9px;margin-left:-1px}.is-expanded[_ngcontent-%COMP%] > .button[_ngcontent-%COMP%]:after{display:none}"]],data:{}});function h(n){return e.Mb(0,[(n()(),e.sb(0,0,null,null,2,"div",[["class","child-group"]],null,null,null,null,null)),(n()(),e.sb(1,0,null,null,1,"app-tree-menu-node",[],null,null,null,m,_)),e.rb(2,4308992,[[3,4],["recurciveElement",4]],0,b,[],{trees:[0,"trees"]},null)],function(n,l){n(l,2,0,l.parent.context.$implicit.childrens)},null)}function C(n){return e.Mb(0,[(n()(),e.sb(0,0,[[1,0],["parentElement",1]],null,6,"div",[["class","parent"]],null,null,null,null,null)),(n()(),e.sb(1,0,[[2,0],["titleElement",1]],null,2,"div",[["class","title"]],null,[[null,"click"]],function(n,l,t){var o=!0;return"click"===l&&(o=!1!==n.component.selectItem(e.Cb(n,1),n.context.$implicit.value)&&o),o},null,null)),(n()(),e.sb(2,0,null,null,1,"a",[],null,null,null,null,null)),(n()(),e.Kb(3,null,["",""])),(n()(),e.jb(16777216,null,null,1,null,h)),e.rb(5,16384,null,0,s.k,[e.R,e.O],{ngIf:[0,"ngIf"]},null),(n()(),e.sb(6,0,null,null,0,"div",[["class","button"]],null,[[null,"click"]],function(n,l,t){var o=!0;return"click"===l&&(o=!1!==n.component.toggleChildren(e.Cb(n,0))&&o),o},null,null))],function(n,l){n(l,5,0,l.context.$implicit.childrens)},function(n,l){n(l,3,0,l.context.$implicit.value.title)})}function m(n){return e.Mb(0,[e.Ib(671088640,1,{parentElements:1}),e.Ib(671088640,2,{titleElements:1}),e.Ib(671088640,3,{treeElements:1}),(n()(),e.jb(16777216,null,null,1,null,C)),e.rb(4,278528,null,0,s.j,[e.R,e.O,e.u],{ngForOf:[0,"ngForOf"]},null)],function(n,l){n(l,4,0,l.component.trees)},null)}var O=function(){function n(){this.change=new e.n,this.items=[],this.trees=[]}return n.prototype.ngOnInit=function(){this.trees=this.getTreeOfArray(this.items)},n.prototype.select=function(n){this.change.emit(n)},n.prototype.getTreeOfArray=function(n){for(var l=[],t={},e=[],o=0;o<n.length;o+=1)t[(i={value:n[o],childrens:[]}).value.id]=o,l.push(i);for(o=0;o<l.length;o+=1){var i;null!=(i=l[o]).value.parentId?l[t[i.value.parentId]].childrens.push(i):e.push(i)}return e},n}(),M=e.qb({encapsulation:0,styles:[[""]],data:{}});function P(n){return e.Mb(0,[e.Ib(402653184,1,{treeElements:0}),(n()(),e.sb(1,0,null,null,1,"app-tree-menu-node",[],null,[[null,"change"]],function(n,l,t){var e=!0;return"change"===l&&(e=!1!==n.component.select(t)&&e),e},m,_)),e.rb(2,4308992,[[1,4],["treeRootElement",4]],0,b,[],{trees:[0,"trees"]},{change:"change"})],function(n,l){n(l,2,0,l.component.trees)},null)}var y=t("nAuW"),f=t("cuj7"),x=t("PbJ5"),v=t("vQGG"),k=t("xhmP"),w=t("bne5"),I=t("67Y/"),E=t("Gi3i"),z=t("aCgD"),K=t("IS4z"),S=t("Cdqi"),j=function(){function n(n,l,t,e){this.employeesService=n,this.route=l,this.sidebarService=t,this.sharepointService=e,this.department=null,this.myDepartmentId=null,this.hasNext=!1,this.employees=[],this.userId=null,this.currentEmployee=null,this.subscription=null,this.filter=null,this.isFavorite=!1,this.sidebarService.handleSetSettings({showSidebar:!1,bgColor:"#fff"}),this.userId=this.sharepointService.getCurrentUserContext().userId}return n.prototype.ngAfterViewInit=function(){var n=this;this.subscription=Object(w.a)(this.searchRef.nativeElement,"keyup").pipe(Object(I.a)(function(n){return n.target.value}),Object(E.a)(1e3)).subscribe(function(l){n.filter=l,n.searchEmployee()})},n.prototype.ngOnInit=function(){this.userId=this.route.snapshot.data.userId,this.departments=this.route.snapshot.data.departments,this.currentEmployee=this.route.snapshot.data.currentEmployee,this.createPage(this.route.snapshot.data.employees)},n.prototype.ngOnDestroy=function(){null!=this.subscription&&this.subscription.unsubscribe()},n.prototype.clickOutSide=function(n){this.employeeCardElements.toArray().forEach(function(l){l.nativeElement.contains(n.target)||(l.nativeElement.className="employee")})},n.prototype.toggleCard=function(n){var l=n;this.employeeCardElements.toArray().forEach(function(n){n.nativeElement.className="employee"}),l.classList.contains("is-expanded")?l.className="employee":l.className+=" is-expanded"},n.prototype.getAllEmployees=function(n){this.myDepartmentId=null,this.isFavorite=!1,this.searchEmployee()},n.prototype.getLikedEmployees=function(n){this.myDepartmentId=null,this.isFavorite=!0,this.searchEmployee()},n.prototype.getMyEmployees=function(n){this.myDepartmentId=this.currentEmployee.lookupDepartmentId,this.isFavorite=!1,this.searchEmployee()},n.prototype.getEmergencyEmployees=function(n){var l=this;this.searchRef.nativeElement.value=null,this.employeesService.getItemsPaged({filter:"slIsEmergency eq 1"}).subscribe(function(n){return l.createPage(n)})},n.prototype.getEmployeesByDepartment=function(n){this.department=n,this.searchEmployee()},n.prototype.toggleLike=function(n){var l=this;this.isLikedEmployee(n)?(this.employeesService.removeLike({id:n.id}),n.likedByIds=n.likedByIds.filter(function(n){return n!==l.userId})):(this.employeesService.addLike({id:n.id}),n.likedByIds.push(this.userId))},n.prototype.isLikedEmployee=function(n){return n.likedByIds&&n.likedByIds.indexOf(this.userId)>=0||!1},n.prototype.getNextEmployees=function(){var n=this;this.page.getNext().subscribe(function(l){return n.addPage(l)})},n.prototype.searchEmployee=function(){var n=this,l=this.filter,t=null;null!=this.department&&(t="substringof(' "+this.department.id+" ',slStructureIds)");var e="";if(l&&""!==l){for(var o=0,i=l.split(" ");o<i.length;o++){var c=i[o];e+="(substringof('"+c+"',slFullName) or substringof('"+c+"',slPositionName)) and "}e=e.slice(0,-5)}null==t?""!==e&&(t=e):""!==e&&(t+=" and ("+e+")"),this.myDepartmentId&&(null==t?t="":t+=" and ",t+="substringof(' "+this.myDepartmentId+" ',slStructureIds)"),this.department&&(null==t?t="":t+=" and ",t+="substringof(' "+this.department.id+" ',slStructureIds)"),this.isFavorite&&(null==t?t="":t+=" and ",t+="LikedBy/Id eq "+this.userId),this.employeesService.getItemsPaged({filter:t}).subscribe(function(l){return n.createPage(l)})},n.prototype.createPage=function(n){this.page=n,this.hasNext=n.hasNext,this.employees=n.items},n.prototype.addPage=function(n){this.page=n,this.hasNext=n.hasNext,this.employees=this.employees.concat(n.items)},n.prototype.getEmployeeLink=function(n){return window.location.protocol+"//"+window.location.host+this.sharepointService.getCurrentUserContext().webServerRelativeUrl+"/PortalPages/home.aspx#/phonebook/"+n.id},n}(),A=e.qb({encapsulation:0,styles:[["#s4-bodyContainer[_ngcontent-%COMP%]{padding:0}@-webkit-keyframes shine-avatar{0%{background-position:-30px}100%,40%{background-position:210px}}@keyframes shine-avatar{0%{background-position:-30px}100%,40%{background-position:210px}}.load-more[_ngcontent-%COMP%]{text-align:center;margin:15px auto}.l-phonebook[_ngcontent-%COMP%]{display:table;table-layout:fixed;width:100%;border-collapse:collapse}.l-phonebook__content[_ngcontent-%COMP%], .l-phonebook__navigation[_ngcontent-%COMP%]{display:table-cell;vertical-align:top;width:auto}.l-phonebook__navigation[_ngcontent-%COMP%]{width:380px}.l-phonebook__content[_ngcontent-%COMP%]   .empty-employee-list[_ngcontent-%COMP%]{font-size:16px;-ms-flex-direction:row;flex-direction:row;-ms-flex-wrap:wrap;flex-wrap:wrap;-ms-flex-align:center;align-items:center;box-sizing:border-box}.l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]{margin-left:-35px}.l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]{margin-bottom:10px}.l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee.is-expanded[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]{display:-ms-flexbox!important;display:flex!important}.l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee.is-expanded[_ngcontent-%COMP%]   .body[_ngcontent-%COMP%], .l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee.is-expanded[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]{background-color:#f1f1f4}.l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee.is-expanded[_ngcontent-%COMP%]   .body[_ngcontent-%COMP%]{display:-ms-flexbox;display:flex}.l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]:last-child{margin-bottom:0}.l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]{position:relative;display:-ms-flexbox;display:flex;-ms-flex-direction:row;flex-direction:row;-ms-flex-wrap:wrap;flex-wrap:wrap;-ms-flex-align:center;align-items:center;padding:15px 35px;box-sizing:border-box;cursor:pointer}.l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%] + .body[_ngcontent-%COMP%]{border-top:3px solid #fff}.l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]:hover{background-color:#f1f1f4}.l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]:hover   .controls[_ngcontent-%COMP%]{display:-ms-flexbox;display:flex}.l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .photo[_ngcontent-%COMP%]{margin-right:25px}.l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .info[_ngcontent-%COMP%]{max-width:37%}.l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .info[_ngcontent-%COMP%]   .title[_ngcontent-%COMP%]{font-weight:600}.l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .info[_ngcontent-%COMP%]   .position[_ngcontent-%COMP%], .l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .info[_ngcontent-%COMP%]   .title[_ngcontent-%COMP%]{font-size:22px;color:#050505}.l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .info[_ngcontent-%COMP%]   .position[_ngcontent-%COMP%] + .position[_ngcontent-%COMP%], .l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .info[_ngcontent-%COMP%]   .title[_ngcontent-%COMP%] + .position[_ngcontent-%COMP%]{margin-top:10px}.l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .info[_ngcontent-%COMP%]   .position[_ngcontent-%COMP%]{font-size:16px}.l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]{position:absolute;right:50px;display:none;-ms-flex-direction:row;flex-direction:row}.l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .control[_ngcontent-%COMP%]{padding:0 12.5px;box-sizing:border-box;position:relative}.l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .control[_ngcontent-%COMP%]   a[_ngcontent-%COMP%], .l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .control[_ngcontent-%COMP%]   input[type=button][_ngcontent-%COMP%]{text-decoration:none;display:block;width:50px;height:50px;border-radius:100%;background-color:#fff;background-repeat:no-repeat;background-position:center;background-size:90%;padding:0;margin:0;border:none;box-sizing:border-box}.l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .control[_ngcontent-%COMP%]   a.profile[_ngcontent-%COMP%], .l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .control[_ngcontent-%COMP%]   input[type=button].profile[_ngcontent-%COMP%]{background-image:url(/local/js/assets/icons/icon-profile-black.svg)}.l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .control[_ngcontent-%COMP%]   a.email[_ngcontent-%COMP%], .l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .control[_ngcontent-%COMP%]   input[type=button].email[_ngcontent-%COMP%]{background-image:url(/local/js/assets/icons/icon-email-black.svg)}.l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .control[_ngcontent-%COMP%]   a.connection[_ngcontent-%COMP%], .l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .control[_ngcontent-%COMP%]   input[type=button].connection[_ngcontent-%COMP%]{background-image:url(/local/js/assets/icons/icon-connection-black.svg)}.l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .control[_ngcontent-%COMP%]   a.cell[_ngcontent-%COMP%], .l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .control[_ngcontent-%COMP%]   input[type=button].cell[_ngcontent-%COMP%]{background-image:url(/local/js/assets/icons/icon-cell-black.svg)}.l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .control[_ngcontent-%COMP%]   a.message[_ngcontent-%COMP%], .l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .control[_ngcontent-%COMP%]   input[type=button].message[_ngcontent-%COMP%]{background-image:url(/local/js/assets/icons/icon-message-black.svg)}.l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .body[_ngcontent-%COMP%]{display:none;box-sizing:border-box;position:relative;min-height:220px;-ms-flex-direction:row;flex-direction:row;font-size:16px;color:#050505;padding:25px 25px 25px 145px}.l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .body[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]{position:absolute;width:145px;top:25px;left:0;bottom:0;display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center;-ms-flex-direction:column;flex-direction:column}.l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .body[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .control[_ngcontent-%COMP%]{height:30px;width:30px}.l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .body[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .control[_ngcontent-%COMP%]   input[type=button][_ngcontent-%COMP%]{padding:0;margin:0;border:0;min-width:0;background-color:transparent;width:100%;height:100%;background-repeat:no-repeat;background-position:center;background-size:90%;cursor:pointer}.l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .body[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .control[_ngcontent-%COMP%]   input[type=button][_ngcontent-%COMP%]:focus{outline:0}.l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .body[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .control[_ngcontent-%COMP%]   input[type=button].like[_ngcontent-%COMP%]{background-image:url(/local/js/assets/icons/icon-like.svg)}.l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .body[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .control[_ngcontent-%COMP%]   input[type=button].favorite[_ngcontent-%COMP%]{background-image:url(/local/js/assets/icons/icon-favorite.svg)}.l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .body[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .control[_ngcontent-%COMP%]   input[type=button].favorite-black[_ngcontent-%COMP%]{background-image:url(/local/js/assets/icons/icon-favorite-black.svg)}.l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .body[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .control[_ngcontent-%COMP%]   input[type=button].connections[_ngcontent-%COMP%]{background-image:url(/local/js/assets/icons/icon-connections.svg)}.l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .body[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .control[_ngcontent-%COMP%] + .control[_ngcontent-%COMP%]{margin-top:25px}.l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .body[_ngcontent-%COMP%]   .left-side[_ngcontent-%COMP%]{min-width:250px}.l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .body[_ngcontent-%COMP%]   .right-side[_ngcontent-%COMP%]{padding-left:8%}.l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .body[_ngcontent-%COMP%]   .row[_ngcontent-%COMP%] + .row[_ngcontent-%COMP%]{margin-top:12px}.l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .body[_ngcontent-%COMP%]   .row[_ngcontent-%COMP%]   .title[_ngcontent-%COMP%]{margin-bottom:12px}.l-phonebook__content[_ngcontent-%COMP%]   .employee-list[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .body[_ngcontent-%COMP%]   .row[_ngcontent-%COMP%]   a[_ngcontent-%COMP%]{color:#dd1e25;text-decoration:none}.l-phonebook__content-header[_ngcontent-%COMP%]{margin-bottom:45px;position:relative;min-height:47px}.l-phonebook__content-header[_ngcontent-%COMP%]   .search[_ngcontent-%COMP%], .l-phonebook__content-header[_ngcontent-%COMP%]   .tabs-phonebook[_ngcontent-%COMP%]{display:inline-block;vertical-align:bottom}.l-phonebook__content-header[_ngcontent-%COMP%]   .search[_ngcontent-%COMP%] + .tabs-phonebook[_ngcontent-%COMP%], .l-phonebook__content-header[_ngcontent-%COMP%]   .tabs-phonebook[_ngcontent-%COMP%] + .tabs-phonebook[_ngcontent-%COMP%]{margin-left:15%;height:35px;box-sizing:border-box}.l-phonebook__content-header[_ngcontent-%COMP%]   .search[_ngcontent-%COMP%]{width:35%;min-width:380px}.l-phonebook__content-header[_ngcontent-%COMP%]   .search[_ngcontent-%COMP%]   input[type=text][_ngcontent-%COMP%]{padding:0 60px 0 15px;margin:0;border:1px solid #bcbcbc;min-width:0;background-color:transparent;cursor:pointer;width:100%;height:47px;line-height:47px;box-sizing:border-box;color:#898888;background-repeat:no-repeat;background-position:right 15px center;background-image:url(/local/js/assets/icons/icon-search-red.svg);background-size:30px;font-size:16px}.l-phonebook__content-header[_ngcontent-%COMP%]   .search[_ngcontent-%COMP%]   input[type=text][_ngcontent-%COMP%]:focus{outline:0}@media screen and (max-width:1440px){.l-phonebook__content-header[_ngcontent-%COMP%]   .tabs-phonebook[_ngcontent-%COMP%]{margin-top:30px;margin-left:0!important;padding:0!important;display:block}}"]],data:{}});function L(n){return e.Mb(0,[(n()(),e.sb(0,0,null,null,1,"div",[["class","empty-employee-list"]],null,null,null,null,null)),(n()(),e.Kb(-1,null,[" \u0420\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442\u044b \u043d\u0435 \u043d\u0430\u0439\u0434\u0435\u043d\u044b "]))],null,null)}function N(n){return e.Mb(0,[(n()(),e.sb(0,0,null,null,1,"div",[["class","control"]],null,null,null,null,null)),(n()(),e.sb(1,0,null,null,0,"a",[["class","email"]],[[8,"href",4]],null,null,null,null))],null,function(n,l){n(l,1,0,e.ub(1,"mailto:",l.parent.context.$implicit.email,""))})}function R(n){return e.Mb(0,[(n()(),e.sb(0,0,[[1,0],["employeeCardElement",1]],null,56,"div",[["class","employee"]],null,null,null,null,null)),(n()(),e.sb(1,0,null,null,20,"div",[["class","header"]],null,[[null,"click"]],function(n,l,t){var o=!0;return"click"===l&&(o=!1!==n.component.toggleCard(e.Cb(n,0))&&o),o},null,null)),(n()(),e.sb(2,0,null,null,2,"div",[["class","photo"]],null,null,null,null,null)),(n()(),e.sb(3,0,null,null,1,"app-user-thumb",[],null,null,null,c.b,c.a)),e.rb(4,245760,null,0,u.a,[s.c,e.B],{photo:[0,"photo"],width:[1,"width"],height:[2,"height"],active:[3,"active"],route:[4,"route"]},null),(n()(),e.sb(5,0,null,null,4,"div",[["class","info"]],null,null,null,null,null)),(n()(),e.sb(6,0,null,null,1,"div",[["class","title"]],null,null,null,null,null)),(n()(),e.Kb(7,null,["",""])),(n()(),e.sb(8,0,null,null,1,"div",[["class","position"]],null,null,null,null,null)),(n()(),e.Kb(9,null,["",""])),(n()(),e.sb(10,0,null,null,11,"div",[["class","controls"]],null,null,null,null,null)),(n()(),e.sb(11,0,null,null,2,"div",[["class","control"]],null,null,null,null,null)),(n()(),e.sb(12,0,null,null,1,"a",[["class","profile"]],[[1,"target",0],[8,"href",4]],[[null,"click"]],function(n,l,t){var o=!0;return"click"===l&&(o=!1!==e.Cb(n,13).onClick(t.button,t.ctrlKey,t.metaKey,t.shiftKey)&&o),o},null,null)),e.rb(13,671744,null,0,r.o,[r.m,r.a,s.h],{routerLink:[0,"routerLink"]},null),(n()(),e.sb(14,0,null,null,1,"div",[["class","control"],["style","display: none"]],null,null,null,null,null)),(n()(),e.sb(15,0,null,null,0,"input",[["class","cell"],["type","button"]],null,null,null,null,null)),(n()(),e.sb(16,0,null,null,1,"div",[["class","control"],["style","display: none"]],null,null,null,null,null)),(n()(),e.sb(17,0,null,null,0,"input",[["class","message"],["type","button"]],null,null,null,null,null)),(n()(),e.jb(16777216,null,null,1,null,N)),e.rb(19,16384,null,0,s.k,[e.R,e.O],{ngIf:[0,"ngIf"]},null),(n()(),e.sb(20,0,null,null,1,"div",[["class","control"],["style","display: none"]],null,null,null,null,null)),(n()(),e.sb(21,0,null,null,0,"input",[["class","connection"],["type","button"]],null,null,null,null,null)),(n()(),e.sb(22,0,null,null,34,"div",[["class","body"]],null,null,null,null,null)),(n()(),e.sb(23,0,null,null,9,"div",[["class","controls"]],null,null,null,null,null)),(n()(),e.sb(24,0,null,null,3,"div",[["class","control"]],null,null,null,null,null)),(n()(),e.sb(25,0,null,null,2,"input",[["type","button"]],null,[[null,"click"]],function(n,l,t){var e=!0;return"click"===l&&(e=!1!==n.component.toggleLike(n.context.$implicit)&&e),e},null,null)),e.rb(26,278528,null,0,s.i,[e.u,e.v,e.l,e.F],{ngClass:[0,"ngClass"]},null),e.Fb(27,{favorite:0,"favorite-black":1}),(n()(),e.sb(28,0,null,null,1,"div",[["class","control"],["style","display: none"]],null,null,null,null,null)),(n()(),e.sb(29,0,null,null,0,"input",[["class","like"],["type","button"]],null,null,null,null,null)),(n()(),e.sb(30,0,null,null,2,"div",[["class","control"]],null,null,null,null,null)),(n()(),e.sb(31,0,null,null,1,"app-share-contact",[],null,null,null,d,p)),e.rb(32,114688,null,0,a,[],{link:[0,"link"]},null),(n()(),e.sb(33,0,null,null,17,"div",[["class","left-side"]],null,null,null,null,null)),(n()(),e.sb(34,0,null,null,1,"div",[["class","row"]],null,null,null,null,null)),(n()(),e.Kb(35,null,[" \u0414\u0435\u043d\u044c \u0440\u043e\u0436\u0434\u0435\u043d\u0438\u044f "," "])),(n()(),e.sb(36,0,null,null,2,"div",[["class","row"]],null,null,null,null,null)),(n()(),e.Kb(37,null,[" \u0420\u0430\u0431\u043e\u0442\u0430\u0435\u0442 \u0441 "," "])),e.Gb(38,2),(n()(),e.sb(39,0,null,null,1,"div",[["class","row"]],null,null,null,null,null)),(n()(),e.Kb(40,null,[" \u0412\u043d\u0443\u0442\u0440\u0435\u043d\u043d\u0438\u0439 \u0442\u0435\u043b\u0435\u0444\u043e\u043d: "," "])),(n()(),e.sb(41,0,null,null,1,"div",[["class","row"]],null,null,null,null,null)),(n()(),e.Kb(42,null,["\u041c\u043e\u0431. \u0442\u0435\u043b\u0435\u0444\u043e\u043d: ",""])),(n()(),e.sb(43,0,null,null,3,"div",[["class","row"]],null,null,null,null,null)),(n()(),e.Kb(-1,null,[" E-mail: "])),(n()(),e.sb(45,0,null,null,1,"a",[],[[8,"href",4]],null,null,null,null)),(n()(),e.Kb(46,null,["",""])),(n()(),e.sb(47,0,null,null,1,"div",[["class","row"]],null,null,null,null,null)),(n()(),e.Kb(48,null,[" \u0420\u0430\u0441\u043f\u043e\u043b\u043e\u0436\u0435\u043d\u0438\u0435 \u043e\u0444\u0438\u0441\u0430: "," "])),(n()(),e.sb(49,0,null,null,1,"div",[["class","row"]],null,null,null,null,null)),(n()(),e.Kb(50,null,[" \u041d\u043e\u043c\u0435\u0440 \u043a\u0430\u0431\u0438\u043d\u0435\u0442\u0430: "," "])),(n()(),e.sb(51,0,null,null,5,"div",[["class","right-side"]],null,null,null,null,null)),(n()(),e.sb(52,0,null,null,4,"div",[["class","row"]],null,null,null,null,null)),(n()(),e.sb(53,0,null,null,1,"div",[["class","title"]],null,null,null,null,null)),(n()(),e.Kb(-1,null,["\u041f\u0440\u044f\u043c\u0430\u044f \u0441\u0442\u0440\u0443\u043a\u0442\u0443\u0440\u0430 \u043f\u043e\u0434\u0447\u0438\u043d\u0435\u043d\u0438\u044f:"])),(n()(),e.sb(55,0,null,null,1,"div",[["class","text"]],null,null,null,null,null)),(n()(),e.Kb(56,null,["",""]))],function(n,l){var t=l.component;n(l,4,0,l.context.$implicit.photo,"90px","90px",null==l.context.$implicit.reason||""===l.context.$implicit.reason,l.context.$implicit.profileRoute),n(l,13,0,l.context.$implicit.profileRoute),n(l,19,0,l.context.$implicit.email),n(l,26,0,n(l,27,0,!0,t.isLikedEmployee(l.context.$implicit))),n(l,32,0,t.getEmployeeLink(l.context.$implicit))},function(n,l){n(l,7,0,l.context.$implicit.fullName),n(l,9,0,l.context.$implicit.positionName),n(l,12,0,e.Cb(l,13).target,e.Cb(l,13).href),n(l,35,0,l.context.$implicit.birthdayTitle),n(l,37,0,e.Lb(l,37,0,n(l,38,0,e.Cb(l.parent.parent,0),l.context.$implicit.startWorkDate,"dd.MM.yyyy"))),n(l,40,0,l.context.$implicit.phoneInternal),n(l,42,0,l.context.$implicit.mobile),n(l,45,0,e.ub(1,"mailto:",l.context.$implicit.email,"")),n(l,46,0,l.context.$implicit.email),n(l,48,0,l.context.$implicit.city),n(l,50,0,l.context.$implicit.officeNumber),n(l,56,0,l.context.$implicit.structureTitles)})}function $(n){return e.Mb(0,[(n()(),e.sb(0,0,null,null,2,"div",[["class","employee-list"]],null,null,null,null,null)),(n()(),e.jb(16777216,null,null,1,null,R)),e.rb(2,278528,null,0,s.j,[e.R,e.O,e.u],{ngForOf:[0,"ngForOf"]},null)],function(n,l){n(l,2,0,l.component.employees)},null)}function B(n){return e.Mb(0,[(n()(),e.sb(0,0,null,null,1,"div",[["class","load-more"]],null,null,null,null,null)),(n()(),e.sb(1,0,null,null,0,"input",[["_ngcontent-c12",""],["class","btn btn-default"],["type","button"],["value","E\u0449\u0435"]],null,[[null,"click"]],function(n,l,t){var e=!0;return"click"===l&&(e=!1!==n.component.getNextEmployees()&&e),e},null,null))],null,null)}function D(n){return e.Mb(0,[e.Eb(0,s.d,[e.w]),e.Ib(671088640,1,{employeeCardElements:1}),e.Ib(402653184,2,{searchRef:0}),(n()(),e.sb(3,0,null,null,10,"div",[["class","l-page-header"]],null,null,null,null,null)),(n()(),e.sb(4,0,null,null,7,"div",[["class","l-breadcrumbs"]],null,null,null,null,null)),(n()(),e.sb(5,0,null,null,4,"div",[["class","l-breadcrumb"]],null,null,null,null,null)),(n()(),e.sb(6,0,null,null,3,"a",[],[[1,"target",0],[8,"href",4]],[[null,"click"]],function(n,l,t){var o=!0;return"click"===l&&(o=!1!==e.Cb(n,7).onClick(t.button,t.ctrlKey,t.metaKey,t.shiftKey)&&o),o},null,null)),e.rb(7,671744,null,0,r.o,[r.m,r.a,s.h],{routerLink:[0,"routerLink"]},null),e.Db(8,1),(n()(),e.Kb(-1,null,["\u0413\u043b\u0430\u0432\u043d\u0430\u044f"])),(n()(),e.sb(10,0,null,null,1,"div",[["class","l-breadcrumb"]],null,null,null,null,null)),(n()(),e.Kb(-1,null,["\u0422\u0435\u043b\u0435\u0444\u043e\u043d\u043d\u044b\u0439 \u0441\u043f\u0440\u0430\u0432\u043e\u0447\u043d\u0438\u043a"])),(n()(),e.sb(12,0,null,null,1,"div",[["class","title"]],null,null,null,null,null)),(n()(),e.Kb(-1,null,["\u0422\u0435\u043b\u0435\u0444\u043e\u043d\u043d\u044b\u0439 \u0441\u043f\u0440\u0430\u0432\u043e\u0447\u043d\u0438\u043a"])),(n()(),e.sb(14,0,null,null,34,"div",[["class","l-page is-fill"]],null,null,null,null,null)),(n()(),e.sb(15,0,null,null,33,"div",[["class","l-page-inner"]],null,null,null,null,null)),(n()(),e.sb(16,0,null,null,32,"div",[["class","l-page__content"]],null,null,null,null,null)),(n()(),e.sb(17,0,null,null,31,"div",[["class","l-phonebook"]],null,null,null,null,null)),(n()(),e.sb(18,0,null,null,3,"div",[["class","l-phonebook__navigation"]],null,null,null,null,null)),(n()(),e.sb(19,0,null,null,2,"div",[["class","m-hierarchy-menu"]],null,null,null,null,null)),(n()(),e.sb(20,0,null,null,1,"app-tree-menu",[],null,[[null,"change"]],function(n,l,t){var e=!0;return"change"===l&&(e=!1!==n.component.getEmployeesByDepartment(t)&&e),e},P,M)),e.rb(21,114688,null,0,O,[],{items:[0,"items"]},{change:"change"}),(n()(),e.sb(22,0,null,null,26,"div",[["class","l-phonebook__content"]],null,null,null,null,null)),(n()(),e.sb(23,0,null,null,18,"div",[["class","l-phonebook__content-header"]],null,null,null,null,null)),(n()(),e.sb(24,0,null,null,1,"div",[["class","search"]],null,null,null,null,null)),(n()(),e.sb(25,0,[[2,0],["searchRef",1]],null,0,"input",[["placeholder","\u041f\u043e\u0438\u0441\u043a \u043f\u043e \u0441\u043f\u0440\u0430\u0432\u043e\u0447\u043d\u0438\u043a\u0443"],["type","text"]],null,null,null,null,null)),(n()(),e.sb(26,0,null,null,15,"div",[["class","tabs-phonebook"]],null,null,null,null,null)),(n()(),e.sb(27,0,null,null,14,"app-filters",[],null,null,null,y.b,y.a)),e.rb(28,1228800,null,1,f.a,[x.a],null,null),e.Ib(603979776,3,{filterItems:1}),(n()(),e.sb(30,0,null,0,2,"app-filters-item",[],null,[[null,"change"]],function(n,l,t){var e=!0;return"change"===l&&(e=!1!==n.component.getAllEmployees(t)&&e),e},v.b,v.a)),e.rb(31,114688,[[3,4]],0,k.a,[x.a],null,{change:"change"}),(n()(),e.Kb(-1,0,[" \u0412\u0441\u0435 "])),(n()(),e.sb(33,0,null,0,2,"app-filters-item",[["style","display: none"]],null,[[null,"change"]],function(n,l,t){var e=!0;return"change"===l&&(e=!1!==n.component.getEmergencyEmployees(t)&&e),e},v.b,v.a)),e.rb(34,114688,[[3,4]],0,k.a,[x.a],null,{change:"change"}),(n()(),e.Kb(-1,0,[" \u042d\u043a\u0441\u0442\u0440\u0435\u043d\u043d\u044b\u0435 "])),(n()(),e.sb(36,0,null,0,2,"app-filters-item",[],null,[[null,"change"]],function(n,l,t){var e=!0;return"change"===l&&(e=!1!==n.component.getMyEmployees(t)&&e),e},v.b,v.a)),e.rb(37,114688,[[3,4]],0,k.a,[x.a],null,{change:"change"}),(n()(),e.Kb(-1,0,[" \u041c\u043e\u0435 \u043f\u043e\u0434\u0440\u0430\u0437\u0434\u0435\u043b\u0435\u043d\u0438\u0435 "])),(n()(),e.sb(39,0,null,0,2,"app-filters-item",[],null,[[null,"change"]],function(n,l,t){var e=!0;return"change"===l&&(e=!1!==n.component.getLikedEmployees(t)&&e),e},v.b,v.a)),e.rb(40,114688,[[3,4]],0,k.a,[x.a],null,{change:"change"}),(n()(),e.Kb(-1,0,[" \u0418\u0437\u0431\u0440\u0430\u043d\u043d\u044b\u0435 "])),(n()(),e.sb(42,0,null,null,4,"div",[["class","l-phonebook__content-body"]],null,null,null,null,null)),(n()(),e.jb(16777216,null,null,1,null,L)),e.rb(44,16384,null,0,s.k,[e.R,e.O],{ngIf:[0,"ngIf"]},null),(n()(),e.jb(16777216,null,null,1,null,$)),e.rb(46,16384,null,0,s.k,[e.R,e.O],{ngIf:[0,"ngIf"]},null),(n()(),e.jb(16777216,null,null,1,null,B)),e.rb(48,16384,null,0,s.k,[e.R,e.O],{ngIf:[0,"ngIf"]},null)],function(n,l){var t=l.component;n(l,7,0,n(l,8,0,"/company")),n(l,21,0,t.departments),n(l,31,0),n(l,34,0),n(l,37,0),n(l,40,0),n(l,44,0,0===t.employees.length),n(l,46,0,t.employees.length>0),n(l,48,0,t.hasNext)},function(n,l){n(l,6,0,e.Cb(l,7).target,e.Cb(l,7).href)})}var F=e.ob("app-phonebook-page",j,function(n){return e.Mb(0,[(n()(),e.sb(0,0,null,null,1,"app-phonebook-page",[],null,[["document","click"]],function(n,l,t){var o=!0;return"document:click"===l&&(o=!1!==e.Cb(n,1).clickOutSide(t)&&o),o},D,A)),e.rb(1,4440064,null,0,j,[z.a,r.a,K.a,S.a],null,null)],function(n,l){n(l,1,0)},null)},{},{},[]),q=function(){function n(n){this.employeesService=n,this.inline=!1,this.manager=null,this.deputy=null}return n.prototype.ngOnChanges=function(n){var l=this,t=n.employee.currentValue;t&&(t.lookupManagerId?this.employeesService.getItem({id:t.lookupManagerId}).subscribe(function(n){return l.manager=n}):this.manager=null,t.lookupDeputyId?this.employeesService.getItem({id:t.lookupDeputyId}).subscribe(function(n){return l.deputy=n}):this.deputy=null)},n}(),G=e.qb({encapsulation:0,styles:[["#s4-bodyContainer[_ngcontent-%COMP%]{padding:0}@-webkit-keyframes shine-avatar{0%{background-position:-30px}100%,40%{background-position:210px}}@keyframes shine-avatar{0%{background-position:-30px}100%,40%{background-position:210px}}.department-heads.is-inline[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]{display:block}.department-heads.is-inline[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]:last-child{margin-bottom:0}.department-heads.is-inline[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]:last-child   .inner[_ngcontent-%COMP%]{border-bottom:0}.department-heads[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]{box-sizing:border-box;margin-bottom:35px;padding-bottom:35px;border-bottom:2px dotted #95989a}.department-heads[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]:last-child{margin-bottom:0;padding-bottom:0;border-bottom:0}.department-heads[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .inner[_ngcontent-%COMP%]{display:table;width:100%}.department-heads[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .inner[_ngcontent-%COMP%]   .avatar[_ngcontent-%COMP%]{display:table-cell;width:100px;text-align:center}.department-heads[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .inner[_ngcontent-%COMP%]   .info[_ngcontent-%COMP%]{display:table-cell;vertical-align:middle;padding-left:25px}.department-heads[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .inner[_ngcontent-%COMP%]   .info[_ngcontent-%COMP%]   .title[_ngcontent-%COMP%]{font-size:16px;color:#050505;text-transform:uppercase;margin-bottom:5px}.department-heads[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .inner[_ngcontent-%COMP%]   .info[_ngcontent-%COMP%]   .name[_ngcontent-%COMP%]{line-height:18px;font-size:22px;font-weight:600;color:#050505;margin-bottom:5px}@media (min-width:1366px){.department-heads[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .inner[_ngcontent-%COMP%]   .info[_ngcontent-%COMP%]   .name[_ngcontent-%COMP%]{font-size:calc(.01083032 * 100vw + 1.20577617px);line-height:calc(.01083032 * 100vw + 3.20577617px)}}@media (min-width:1920px){.department-heads[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .inner[_ngcontent-%COMP%]   .info[_ngcontent-%COMP%]   .name[_ngcontent-%COMP%]{font-size:22px;line-height:24px}}.department-heads[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]   .inner[_ngcontent-%COMP%]   .info[_ngcontent-%COMP%]   .position[_ngcontent-%COMP%]{font-size:16px;color:#050505}"]],data:{}});function J(n){return e.Mb(0,[(n()(),e.sb(0,0,null,null,11,"div",[["class","employee"]],null,null,null,null,null)),(n()(),e.sb(1,0,null,null,10,"div",[["class","inner"]],null,null,null,null,null)),(n()(),e.sb(2,0,null,null,2,"div",[["class","avatar"]],null,null,null,null,null)),(n()(),e.sb(3,0,null,null,1,"app-user-thumb",[],null,null,null,c.b,c.a)),e.rb(4,245760,null,0,u.a,[s.c,e.B],{photo:[0,"photo"],width:[1,"width"],height:[2,"height"],active:[3,"active"],route:[4,"route"]},null),(n()(),e.sb(5,0,null,null,6,"div",[["class","info"]],null,null,null,null,null)),(n()(),e.sb(6,0,null,null,1,"div",[["class","title"]],null,null,null,null,null)),(n()(),e.Kb(-1,null,[" \u0420\u0423\u041a\u041e\u0412\u041e\u0414\u0418\u0422\u0415\u041b\u042c "])),(n()(),e.sb(8,0,null,null,1,"div",[["class","name"]],null,null,null,null,null)),(n()(),e.Kb(9,null,[" "," "])),(n()(),e.sb(10,0,null,null,1,"div",[["class","position"]],null,null,null,null,null)),(n()(),e.Kb(11,null,[" "," "]))],function(n,l){var t=l.component;n(l,4,0,t.manager.photo,"90px","90px",null==t.manager.reason||""===t.manager.reason,t.manager.profileRoute)},function(n,l){var t=l.component;n(l,9,0,t.manager.fullName||"\u041d\u0435\u0442 \u0424\u0418\u041e"),n(l,11,0,t.manager.positionName||"\u041d\u0435\u0442 \u0434\u043e\u043b\u0436\u043d\u043e\u0441\u0442\u0438")})}function U(n){return e.Mb(0,[(n()(),e.sb(0,0,null,null,11,"div",[["class","employee"]],null,null,null,null,null)),(n()(),e.sb(1,0,null,null,10,"div",[["class","inner"]],null,null,null,null,null)),(n()(),e.sb(2,0,null,null,2,"div",[["class","avatar"]],null,null,null,null,null)),(n()(),e.sb(3,0,null,null,1,"app-user-thumb",[],null,null,null,c.b,c.a)),e.rb(4,245760,null,0,u.a,[s.c,e.B],{photo:[0,"photo"],width:[1,"width"],height:[2,"height"],active:[3,"active"],route:[4,"route"]},null),(n()(),e.sb(5,0,null,null,6,"div",[["class","info"]],null,null,null,null,null)),(n()(),e.sb(6,0,null,null,1,"div",[["class","title"]],null,null,null,null,null)),(n()(),e.Kb(-1,null,[" \u0417\u0410\u041c\u0415\u0421\u0422\u0418\u0422\u0415\u041b\u042c "])),(n()(),e.sb(8,0,null,null,1,"div",[["class","name"]],null,null,null,null,null)),(n()(),e.Kb(9,null,[" "," "])),(n()(),e.sb(10,0,null,null,1,"div",[["class","position"]],null,null,null,null,null)),(n()(),e.Kb(11,null,[" "," "]))],function(n,l){var t=l.component;n(l,4,0,t.deputy.photo,"90px","90px",null==t.deputy.reason||""===t.deputy.reason,t.deputy.profileRoute)},function(n,l){var t=l.component;n(l,9,0,t.deputy.fullName||"\u041d\u0435\u0442 \u0424\u0418\u041e"),n(l,11,0,t.deputy.positionName||"\u041d\u0435\u0442 \u0434\u043e\u043b\u0436\u043d\u043e\u0441\u0442\u0438")})}function T(n){return e.Mb(0,[(n()(),e.sb(0,0,null,null,4,"div",[["class","department-heads"]],[[2,"is-inline",null]],null,null,null,null)),(n()(),e.jb(16777216,null,null,1,null,J)),e.rb(2,16384,null,0,s.k,[e.R,e.O],{ngIf:[0,"ngIf"]},null),(n()(),e.jb(16777216,null,null,1,null,U)),e.rb(4,16384,null,0,s.k,[e.R,e.O],{ngIf:[0,"ngIf"]},null)],function(n,l){n(l,2,0,l.component.manager),n(l,4,0,!1)},function(n,l){n(l,0,0,l.component.inline)})}var Y=function(){function n(n,l,t,e){this.route=n,this.sidebarService=l,this.employeesService=t,this.sharepointService=e,this.employeeSubscription=null,this.thanksList=[{reward:{title:"\u0417\u0430 \u043e\u043f\u0435\u0440\u0430\u0442\u0438\u0432\u043d\u043e\u0435 \u0440\u0435\u0448\u0435\u043d\u0438\u0435 \u0432\u043e\u043f\u0440\u043e\u0441\u0430",icon:"assets/icons/thanks/icon-1.svg"},count:2,employees:[{id:1,photo:"assets/photos/photo-female.png"},{id:1,photo:"assets/photos/photo-male.png"}]},{reward:{title:"\u0417\u0430 \u0432\u0435\u0436\u043b\u0438\u0432\u043e\u0441\u0442\u044c",icon:"assets/icons/thanks/icon-2.svg"},count:15,employees:[{id:1,photo:"assets/photos/photo-female.png"},{id:1,photo:"assets/photos/photo-male.png"}]},{reward:{title:"\u0417\u0430 \u0440\u0435\u0448\u0435\u043d\u0438\u0435 \u043d\u0435\u0442\u0440\u0438\u0432\u0438\u0430\u043b\u044c\u043d\u043e\u0439 \u0437\u0430\u0434\u0430\u0447\u0438",icon:"assets/icons/thanks/icon-3.svg"},count:22,employees:[{id:1,photo:"assets/photos/photo-female.png"},{id:1,photo:"assets/photos/photo-male.png"}]},{reward:{title:"\u0417\u0430 \u043e\u043f\u0435\u0440\u0430\u0442\u0438\u0432\u043d\u043e\u0435 \u0440\u0435\u0448\u0435\u043d\u0438\u0435 \u0432\u043e\u043f\u0440\u043e\u0441\u0430",icon:"assets/icons/thanks/icon-4.svg"},count:5,employees:[{id:1,photo:"assets/photos/photo-female.png"},{id:1,photo:"assets/photos/photo-male.png"}]},{reward:{title:"\u0417\u0430 \u0432\u0435\u0436\u043b\u0438\u0432\u043e\u0441\u0442\u044c",icon:"assets/icons/thanks/icon-5.svg"},count:8,employees:[{id:1,photo:"assets/photos/photo-female.png"},{id:1,photo:"assets/photos/photo-male.png"}]}],this.sidebarService.handleSetSettings({showSidebar:!1,bgColor:"#fff"}),this.userId=this.sharepointService.getCurrentUserContext().userId}return n.prototype.getEmployeeLink=function(n){return window.location.protocol+"//"+window.location.host+this.sharepointService.getCurrentUserContext().webServerRelativeUrl+"/PortalPages/home.aspx#/phonebook/"+n.id},n.prototype.ngOnInit=function(){var n=this;this.userId=this.route.snapshot.data.userId,this.employeeSubscription=this.route.data.pipe(Object(I.a)(function(n){return n.employee})).subscribe(function(l){return n.employee=l})},n.prototype.toggleLike=function(){var n=this;this.employee.likedByIds.indexOf(this.userId)>=0?(this.employeesService.removeLike({id:this.employee.id}),this.employee.likedByIds=this.employee.likedByIds.filter(function(l){return l!==n.userId})):(this.employeesService.addLike({id:this.employee.id}),this.employee.likedByIds.push(this.userId))},n.prototype.ngOnDestroy=function(){null!=this.employeeSubscription&&this.employeeSubscription.unsubscribe()},n}(),V=e.qb({encapsulation:0,styles:[["#s4-bodyContainer[_ngcontent-%COMP%]{padding:0}@-webkit-keyframes shine-avatar{0%{background-position:-30px}100%,40%{background-position:210px}}@keyframes shine-avatar{0%{background-position:-30px}100%,40%{background-position:210px}}.employee-card[_ngcontent-%COMP%]{margin-left:25px;margin-bottom:35px;margin-right:-2%}.employee-card[_ngcontent-%COMP%]:last-child{margin-bottom:0}.employee-card[_ngcontent-%COMP%]   .body[_ngcontent-%COMP%], .employee-card[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]{background-color:#f1f1f4;display:-ms-flexbox;display:flex;-ms-flex-direction:row;flex-direction:row}.employee-card[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]{-ms-flex-wrap:wrap;flex-wrap:wrap;-ms-flex-align:center;align-items:center;padding:30px 35px;box-sizing:border-box;cursor:pointer}.employee-card[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .photo[_ngcontent-%COMP%]{margin-right:25px}.employee-card[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .info[_ngcontent-%COMP%]{max-width:55%}.employee-card[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .info[_ngcontent-%COMP%]   .title[_ngcontent-%COMP%]{font-weight:600}.employee-card[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .info[_ngcontent-%COMP%]   .position[_ngcontent-%COMP%], .employee-card[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .info[_ngcontent-%COMP%]   .title[_ngcontent-%COMP%]{font-size:22px;color:#050505}.employee-card[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .info[_ngcontent-%COMP%]   .position[_ngcontent-%COMP%] + .position[_ngcontent-%COMP%], .employee-card[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .info[_ngcontent-%COMP%]   .title[_ngcontent-%COMP%] + .position[_ngcontent-%COMP%]{margin-top:10px}.employee-card[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .info[_ngcontent-%COMP%]   .position[_ngcontent-%COMP%]{font-size:16px}.employee-card[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]{position:absolute;right:75px;display:-ms-flexbox;display:flex;-ms-flex-direction:row;flex-direction:row}.employee-card[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .control[_ngcontent-%COMP%]{padding:0 12.5px;box-sizing:border-box}.employee-card[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .control[_ngcontent-%COMP%]   a[_ngcontent-%COMP%], .employee-card[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .control[_ngcontent-%COMP%]   input[type=button][_ngcontent-%COMP%]{text-decoration:none;display:block;width:50px;height:50px;border-radius:100%;background-color:#fff;background-repeat:no-repeat;background-position:center;background-size:90%;padding:0;margin:0;border:none;box-sizing:border-box}.employee-card[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .control[_ngcontent-%COMP%]   a.cell[_ngcontent-%COMP%], .employee-card[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .control[_ngcontent-%COMP%]   input[type=button].cell[_ngcontent-%COMP%]{background-image:url(/local/js/assets/icons/icon-cell-black.svg)}.employee-card[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .control[_ngcontent-%COMP%]   a.message[_ngcontent-%COMP%], .employee-card[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .control[_ngcontent-%COMP%]   input[type=button].message[_ngcontent-%COMP%]{background-image:url(/local/js/assets/icons/icon-message-black.svg)}.employee-card[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .control[_ngcontent-%COMP%]   a.profile[_ngcontent-%COMP%], .employee-card[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .control[_ngcontent-%COMP%]   input[type=button].profile[_ngcontent-%COMP%]{background-image:url(/local/js/assets/icons/icon-profile-black.svg)}.employee-card[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .control[_ngcontent-%COMP%]   a.email[_ngcontent-%COMP%], .employee-card[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .control[_ngcontent-%COMP%]   input[type=button].email[_ngcontent-%COMP%]{background-image:url(/local/js/assets/icons/icon-email-black.svg)}.employee-card[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .control[_ngcontent-%COMP%]   a.connection[_ngcontent-%COMP%], .employee-card[_ngcontent-%COMP%]   .header[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .control[_ngcontent-%COMP%]   input[type=button].connection[_ngcontent-%COMP%]{background-image:url(/local/js/assets/icons/icon-connection-black.svg)}.employee-card[_ngcontent-%COMP%]   .body[_ngcontent-%COMP%]{box-sizing:border-box;position:relative;min-height:220px;font-size:16px;color:#050505;padding:25px 25px 25px 145px}.employee-card[_ngcontent-%COMP%]   .body[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]{position:absolute;width:145px;top:25px;left:0;bottom:0;display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center;-ms-flex-direction:column;flex-direction:column}.employee-card[_ngcontent-%COMP%]   .body[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .control[_ngcontent-%COMP%]{height:30px;width:30px}.employee-card[_ngcontent-%COMP%]   .body[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .control[_ngcontent-%COMP%]   input[type=button][_ngcontent-%COMP%]{padding:0;margin:0;border:0;min-width:0;background-color:transparent;width:100%;height:100%;background-repeat:no-repeat;background-position:center;background-size:90%;cursor:pointer}.employee-card[_ngcontent-%COMP%]   .body[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .control[_ngcontent-%COMP%]   input[type=button][_ngcontent-%COMP%]:focus{outline:0}.employee-card[_ngcontent-%COMP%]   .body[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .control[_ngcontent-%COMP%]   input[type=button].like[_ngcontent-%COMP%]{background-image:url(/local/js/assets/icons/icon-like.svg)}.employee-card[_ngcontent-%COMP%]   .body[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .control[_ngcontent-%COMP%]   input[type=button].favorite[_ngcontent-%COMP%]{background-image:url(/local/js/assets/icons/icon-favorite.svg)}.employee-card[_ngcontent-%COMP%]   .body[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .control[_ngcontent-%COMP%]   input[type=button].favorite-black[_ngcontent-%COMP%]{background-image:url(/local/js/assets/icons/icon-favorite-black.svg)}.employee-card[_ngcontent-%COMP%]   .body[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .control[_ngcontent-%COMP%]   input[type=button].connections[_ngcontent-%COMP%]{background-image:url(/local/js/assets/icons/icon-connections.svg)}.employee-card[_ngcontent-%COMP%]   .body[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .control[_ngcontent-%COMP%] + .control[_ngcontent-%COMP%]{margin-top:25px}.employee-card[_ngcontent-%COMP%]   .body[_ngcontent-%COMP%]   .left-side[_ngcontent-%COMP%]{min-width:250px}.employee-card[_ngcontent-%COMP%]   .body[_ngcontent-%COMP%]   .right-side[_ngcontent-%COMP%]{padding-left:8%}.employee-card[_ngcontent-%COMP%]   .body[_ngcontent-%COMP%]   .row[_ngcontent-%COMP%] + .row[_ngcontent-%COMP%]{margin-top:12px}.employee-card[_ngcontent-%COMP%]   .body[_ngcontent-%COMP%]   .row[_ngcontent-%COMP%]   .title[_ngcontent-%COMP%]{margin-bottom:12px}.employee-card[_ngcontent-%COMP%]   .body[_ngcontent-%COMP%]   .row[_ngcontent-%COMP%]   a[_ngcontent-%COMP%]{color:#dd1e25;text-decoration:none}.additional-info[_ngcontent-%COMP%]{margin-left:25px;font-size:0;padding:0 35px;box-sizing:border-box}.additional-info[_ngcontent-%COMP%]   .left-side[_ngcontent-%COMP%], .additional-info[_ngcontent-%COMP%]   .right-side[_ngcontent-%COMP%]{display:inline-block;vertical-align:top;width:50%;box-sizing:border-box}.additional-info[_ngcontent-%COMP%]   .left-side[_ngcontent-%COMP%]{padding-right:35px}.additional-info[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%]{font-size:16px;font-weight:600;color:#050505;margin-bottom:35px}.additional-info[_ngcontent-%COMP%]   .thanks-list[_ngcontent-%COMP%]   .thanks[_ngcontent-%COMP%]{position:relative;display:table;table-layout:auto;height:55px;width:100%;border-collapse:collapse;box-sizing:border-box}.additional-info[_ngcontent-%COMP%]   .thanks-list[_ngcontent-%COMP%]   .thanks[_ngcontent-%COMP%]   .count[_ngcontent-%COMP%], .additional-info[_ngcontent-%COMP%]   .thanks-list[_ngcontent-%COMP%]   .thanks[_ngcontent-%COMP%]   .employees[_ngcontent-%COMP%], .additional-info[_ngcontent-%COMP%]   .thanks-list[_ngcontent-%COMP%]   .thanks[_ngcontent-%COMP%]   .info[_ngcontent-%COMP%]{display:table-cell;vertical-align:middle;box-sizing:border-box;width:auto}.additional-info[_ngcontent-%COMP%]   .thanks-list[_ngcontent-%COMP%]   .thanks[_ngcontent-%COMP%] + .thanks[_ngcontent-%COMP%]{margin-top:25px}.additional-info[_ngcontent-%COMP%]   .thanks-list[_ngcontent-%COMP%]   .thanks[_ngcontent-%COMP%]   .count[_ngcontent-%COMP%]{width:65px;font-size:34px;color:#898888;text-align:center;padding:0 5px;box-sizing:border-box}.additional-info[_ngcontent-%COMP%]   .thanks-list[_ngcontent-%COMP%]   .thanks[_ngcontent-%COMP%]   .reward[_ngcontent-%COMP%]{display:table;table-layout:fixed;height:100%;width:100%;border-collapse:collapse}.additional-info[_ngcontent-%COMP%]   .thanks-list[_ngcontent-%COMP%]   .thanks[_ngcontent-%COMP%]   .reward[_ngcontent-%COMP%]   .icon[_ngcontent-%COMP%], .additional-info[_ngcontent-%COMP%]   .thanks-list[_ngcontent-%COMP%]   .thanks[_ngcontent-%COMP%]   .reward[_ngcontent-%COMP%]   .text[_ngcontent-%COMP%]{display:table-cell;vertical-align:middle;box-sizing:border-box;font-size:14px;color:#4d4e4d;width:auto}.additional-info[_ngcontent-%COMP%]   .thanks-list[_ngcontent-%COMP%]   .thanks[_ngcontent-%COMP%]   .reward[_ngcontent-%COMP%]   .icon[_ngcontent-%COMP%]{width:55px}.additional-info[_ngcontent-%COMP%]   .thanks-list[_ngcontent-%COMP%]   .thanks[_ngcontent-%COMP%]   .reward[_ngcontent-%COMP%]   .icon[_ngcontent-%COMP%]   i[_ngcontent-%COMP%]{display:block;height:100%;border-radius:100%;background-color:#dedfe0}.additional-info[_ngcontent-%COMP%]   .thanks-list[_ngcontent-%COMP%]   .thanks[_ngcontent-%COMP%]   .reward[_ngcontent-%COMP%]   .text[_ngcontent-%COMP%]{padding-left:15px}.additional-info[_ngcontent-%COMP%]   .thanks-list[_ngcontent-%COMP%]   .thanks[_ngcontent-%COMP%]   .reward[_ngcontent-%COMP%]   .text[_ngcontent-%COMP%]   span[_ngcontent-%COMP%]{display:block;max-width:150px}.additional-info[_ngcontent-%COMP%]   .thanks-list[_ngcontent-%COMP%]   .thanks[_ngcontent-%COMP%]   .employees[_ngcontent-%COMP%]{width:145px;font-size:0}.additional-info[_ngcontent-%COMP%]   .thanks-list[_ngcontent-%COMP%]   .thanks[_ngcontent-%COMP%]   .employees[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%]{display:inline-block;vertical-align:middle}.additional-info[_ngcontent-%COMP%]   .thanks-list[_ngcontent-%COMP%]   .thanks[_ngcontent-%COMP%]   .employees[_ngcontent-%COMP%]   .employee[_ngcontent-%COMP%] + .employee[_ngcontent-%COMP%]{margin-left:-10px}"]],data:{}});function W(n){return e.Mb(0,[(n()(),e.sb(0,0,null,null,1,"div",[["class","control"]],null,null,null,null,null)),(n()(),e.sb(1,0,null,null,0,"a",[["class","email"]],[[8,"href",4]],null,null,null,null))],null,function(n,l){n(l,1,0,e.ub(1,"","mailto:"+l.component.employee.email,""))})}function Q(n){return e.Mb(0,[(n()(),e.sb(0,0,null,null,2,"div",[["class","employee"]],null,null,null,null,null)),(n()(),e.sb(1,0,null,null,1,"app-user-thumb",[],null,null,null,c.b,c.a)),e.rb(2,245760,null,0,u.a,[s.c,e.B],{photo:[0,"photo"],showStatus:[1,"showStatus"]},null)],function(n,l){n(l,2,0,l.context.$implicit.photo,!1)},null)}function Z(n){return e.Mb(0,[(n()(),e.sb(0,0,null,null,12,"div",[["class","thanks"]],null,null,null,null,null)),(n()(),e.sb(1,0,null,null,6,"div",[["class","info"]],null,null,null,null,null)),(n()(),e.sb(2,0,null,null,5,"div",[["class","reward"]],null,null,null,null,null)),(n()(),e.sb(3,0,null,null,1,"div",[["class","icon"]],null,null,null,null,null)),(n()(),e.sb(4,0,null,null,0,"i",[],[[4,"backgroundImage",null]],null,null,null,null)),(n()(),e.sb(5,0,null,null,2,"div",[["class","text"]],null,null,null,null,null)),(n()(),e.sb(6,0,null,null,1,"span",[],null,null,null,null,null)),(n()(),e.Kb(7,null,[" "," "])),(n()(),e.sb(8,0,null,null,2,"div",[["class","employees"]],null,null,null,null,null)),(n()(),e.jb(16777216,null,null,1,null,Q)),e.rb(10,278528,null,0,s.j,[e.R,e.O,e.u],{ngForOf:[0,"ngForOf"]},null),(n()(),e.sb(11,0,null,null,1,"div",[["class","count"]],null,null,null,null,null)),(n()(),e.Kb(12,null,["+",""]))],function(n,l){n(l,10,0,l.context.$implicit.employees)},function(n,l){n(l,4,0,"url("+l.context.$implicit.reward.icon+")"),n(l,7,0,l.context.$implicit.reward.title),n(l,12,0,l.context.$implicit.count)})}function H(n){return e.Mb(0,[(n()(),e.sb(0,0,null,null,68,"div",[["class","l-page"]],null,null,null,null,null)),(n()(),e.sb(1,0,null,null,67,"div",[["class","l-page-inner"]],null,null,null,null,null)),(n()(),e.sb(2,0,null,null,66,"div",[["class","l-page__content"]],null,null,null,null,null)),(n()(),e.sb(3,0,null,null,53,"div",[["class","employee-card"]],null,null,null,null,null)),(n()(),e.sb(4,0,null,null,17,"div",[["class","header"]],null,null,null,null,null)),(n()(),e.sb(5,0,null,null,2,"div",[["class","photo"]],null,null,null,null,null)),(n()(),e.sb(6,0,null,null,1,"app-user-thumb",[],null,null,null,c.b,c.a)),e.rb(7,245760,null,0,u.a,[s.c,e.B],{photo:[0,"photo"],width:[1,"width"],height:[2,"height"],active:[3,"active"],route:[4,"route"],hasZoom:[5,"hasZoom"],hasModalPhoto:[6,"hasModalPhoto"]},null),(n()(),e.sb(8,0,null,null,4,"div",[["class","info"]],null,null,null,null,null)),(n()(),e.sb(9,0,null,null,1,"div",[["class","title"]],null,null,null,null,null)),(n()(),e.Kb(10,null,["",""])),(n()(),e.sb(11,0,null,null,1,"div",[["class","position"]],null,null,null,null,null)),(n()(),e.Kb(12,null,["",""])),(n()(),e.sb(13,0,null,null,8,"div",[["class","controls"]],null,null,null,null,null)),(n()(),e.sb(14,0,null,null,1,"div",[["class","control"],["style","display: none"]],null,null,null,null,null)),(n()(),e.sb(15,0,null,null,0,"input",[["class","cell"],["type","button"]],null,null,null,null,null)),(n()(),e.sb(16,0,null,null,1,"div",[["class","control"],["style","display: none"]],null,null,null,null,null)),(n()(),e.sb(17,0,null,null,0,"input",[["class","message"],["type","button"]],null,null,null,null,null)),(n()(),e.jb(16777216,null,null,1,null,W)),e.rb(19,16384,null,0,s.k,[e.R,e.O],{ngIf:[0,"ngIf"]},null),(n()(),e.sb(20,0,null,null,1,"div",[["class","control"],["style","display: none"]],null,null,null,null,null)),(n()(),e.sb(21,0,null,null,0,"input",[["class","connection"],["type","button"]],null,null,null,null,null)),(n()(),e.sb(22,0,null,null,34,"div",[["class","body"]],null,null,null,null,null)),(n()(),e.sb(23,0,null,null,9,"div",[["class","controls"]],null,null,null,null,null)),(n()(),e.sb(24,0,null,null,3,"div",[["class","control"]],null,null,null,null,null)),(n()(),e.sb(25,0,null,null,2,"input",[["type","button"]],null,[[null,"click"]],function(n,l,t){var e=!0;return"click"===l&&(e=!1!==n.component.toggleLike()&&e),e},null,null)),e.rb(26,278528,null,0,s.i,[e.u,e.v,e.l,e.F],{ngClass:[0,"ngClass"]},null),e.Fb(27,{favorite:0,"favorite-black":1}),(n()(),e.sb(28,0,null,null,1,"div",[["class","control"],["style","display: none"]],null,null,null,null,null)),(n()(),e.sb(29,0,null,null,0,"input",[["class","like"],["type","button"]],null,null,null,null,null)),(n()(),e.sb(30,0,null,null,2,"div",[["class","control"]],null,null,null,null,null)),(n()(),e.sb(31,0,null,null,1,"app-share-contact",[],null,null,null,d,p)),e.rb(32,114688,null,0,a,[],{link:[0,"link"]},null),(n()(),e.sb(33,0,null,null,17,"div",[["class","left-side"]],null,null,null,null,null)),(n()(),e.sb(34,0,null,null,1,"div",[["class","row"]],null,null,null,null,null)),(n()(),e.Kb(35,null,["\u0414\u0435\u043d\u044c \u0440\u043e\u0436\u0434\u0435\u043d\u0438\u044f ",""])),(n()(),e.sb(36,0,null,null,2,"div",[["class","row"]],null,null,null,null,null)),(n()(),e.Kb(37,null,[" \u0420\u0430\u0431\u043e\u0442\u0430\u0435\u0442 \u0441 "," "])),e.Gb(38,2),(n()(),e.sb(39,0,null,null,1,"div",[["class","row"]],null,null,null,null,null)),(n()(),e.Kb(40,null,[" \u0412\u043d\u0443\u0442\u0440\u0435\u043d\u043d\u0438\u0439 \u0442\u0435\u043b\u0435\u0444\u043e\u043d: "," "])),(n()(),e.sb(41,0,null,null,1,"div",[["class","row"]],null,null,null,null,null)),(n()(),e.Kb(42,null,["\u041c\u043e\u0431. \u0442\u0435\u043b\u0435\u0444\u043e\u043d: ",""])),(n()(),e.sb(43,0,null,null,3,"div",[["class","row"]],null,null,null,null,null)),(n()(),e.Kb(-1,null,[" E-mail: "])),(n()(),e.sb(45,0,null,null,1,"a",[],[[8,"href",4]],null,null,null,null)),(n()(),e.Kb(46,null,["",""])),(n()(),e.sb(47,0,null,null,1,"div",[["class","row"]],null,null,null,null,null)),(n()(),e.Kb(48,null,["\u0420\u0430\u0441\u043f\u043e\u043b\u043e\u0436\u0435\u043d\u0438\u0435 \u043e\u0444\u0438\u0441\u0430: ",""])),(n()(),e.sb(49,0,null,null,1,"div",[["class","row"]],null,null,null,null,null)),(n()(),e.Kb(50,null,["\u041d\u043e\u043c\u0435\u0440 \u043a\u0430\u0431\u0438\u043d\u0435\u0442\u0430: ",""])),(n()(),e.sb(51,0,null,null,5,"div",[["class","right-side"]],null,null,null,null,null)),(n()(),e.sb(52,0,null,null,4,"div",[["class","row"]],null,null,null,null,null)),(n()(),e.sb(53,0,null,null,1,"div",[["class","title"]],null,null,null,null,null)),(n()(),e.Kb(-1,null,["\u041f\u0440\u044f\u043c\u0430\u044f \u0441\u0442\u0440\u0443\u043a\u0442\u0443\u0440\u0430 \u043f\u043e\u0434\u0447\u0438\u043d\u0435\u043d\u0438\u044f:"])),(n()(),e.sb(55,0,null,null,1,"div",[["class","text"]],null,null,null,null,null)),(n()(),e.Kb(56,null,["",""])),(n()(),e.sb(57,0,null,null,11,"div",[["class","additional-info"]],null,null,null,null,null)),(n()(),e.sb(58,0,null,null,4,"div",[["class","left-side"]],null,null,null,null,null)),(n()(),e.sb(59,0,null,null,1,"h3",[],null,null,null,null,null)),(n()(),e.Kb(-1,null,["\u0411\u043b\u0438\u0436\u0430\u0439\u0448\u0435\u0435 \u043e\u043a\u0440\u0443\u0436\u0435\u043d\u0438\u0435"])),(n()(),e.sb(61,0,null,null,1,"app-department-heads",[],null,null,null,T,G)),e.rb(62,573440,null,0,q,[z.a],{inline:[0,"inline"],employee:[1,"employee"]},null),(n()(),e.sb(63,0,null,null,5,"div",[["class","right-side"],["style","display: none"]],null,null,null,null,null)),(n()(),e.sb(64,0,null,null,1,"h3",[],null,null,null,null,null)),(n()(),e.Kb(-1,null,["\u0411\u043b\u0430\u0433\u043e\u0434\u0430\u0440\u043d\u043e\u0441\u0442\u0438"])),(n()(),e.sb(66,0,null,null,2,"div",[["class","thanks-list"]],null,null,null,null,null)),(n()(),e.jb(16777216,null,null,1,null,Z)),e.rb(68,278528,null,0,s.j,[e.R,e.O,e.u],{ngForOf:[0,"ngForOf"]},null)],function(n,l){var t=l.component;n(l,7,0,t.employee.photo,"110px","110px",null==t.employee.reason||""===t.employee.reason,t.employee.profileRoute,!0,!0),n(l,19,0,t.employee.email),n(l,26,0,n(l,27,0,!0,t.employee.likedByIds.indexOf(t.userId)>=0)),n(l,32,0,t.getEmployeeLink(t.employee)),n(l,62,0,!0,t.employee),n(l,68,0,t.thanksList)},function(n,l){var t=l.component;n(l,10,0,t.employee.fullName),n(l,12,0,t.employee.positionName),n(l,35,0,t.employee.birthdayTitle),n(l,37,0,e.Lb(l,37,0,n(l,38,0,e.Cb(l.parent,0),t.employee.startWorkDate,"dd.MM.yyyy"))),n(l,40,0,t.employee.phoneInternal),n(l,42,0,t.employee.mobile),n(l,45,0,e.ub(1,"mailto:",t.employee.email,"")),n(l,46,0,t.employee.email),n(l,48,0,t.employee.city),n(l,50,0,t.employee.officeNumber),n(l,56,0,t.employee.structureTitles)})}function X(n){return e.Mb(0,[e.Eb(0,s.d,[e.w]),(n()(),e.sb(1,0,null,null,15,"div",[["class","l-page-header"]],null,null,null,null,null)),(n()(),e.sb(2,0,null,null,12,"div",[["class","l-breadcrumbs"]],null,null,null,null,null)),(n()(),e.sb(3,0,null,null,4,"div",[["class","l-breadcrumb"]],null,null,null,null,null)),(n()(),e.sb(4,0,null,null,3,"a",[],[[1,"target",0],[8,"href",4]],[[null,"click"]],function(n,l,t){var o=!0;return"click"===l&&(o=!1!==e.Cb(n,5).onClick(t.button,t.ctrlKey,t.metaKey,t.shiftKey)&&o),o},null,null)),e.rb(5,671744,null,0,r.o,[r.m,r.a,s.h],{routerLink:[0,"routerLink"]},null),e.Db(6,1),(n()(),e.Kb(-1,null,["\u0413\u043b\u0430\u0432\u043d\u0430\u044f"])),(n()(),e.sb(8,0,null,null,4,"div",[["class","l-breadcrumb"]],null,null,null,null,null)),(n()(),e.sb(9,0,null,null,3,"a",[],[[1,"target",0],[8,"href",4]],[[null,"click"]],function(n,l,t){var o=!0;return"click"===l&&(o=!1!==e.Cb(n,10).onClick(t.button,t.ctrlKey,t.metaKey,t.shiftKey)&&o),o},null,null)),e.rb(10,671744,null,0,r.o,[r.m,r.a,s.h],{routerLink:[0,"routerLink"]},null),e.Db(11,1),(n()(),e.Kb(-1,null,["\u0422\u0435\u043b\u0435\u0444\u043e\u043d\u043d\u044b\u0439 \u0441\u043f\u0440\u0430\u0432\u043e\u0447\u043d\u0438\u043a"])),(n()(),e.sb(13,0,null,null,1,"div",[["class","l-breadcrumb"]],null,null,null,null,null)),(n()(),e.Kb(-1,null,["\u041f\u0440\u043e\u0444\u0438\u043b\u044c \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a\u0430"])),(n()(),e.sb(15,0,null,null,1,"div",[["class","title"]],null,null,null,null,null)),(n()(),e.Kb(-1,null,["\u041f\u0440\u043e\u0444\u0438\u043b\u044c \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a\u0430"])),(n()(),e.jb(16777216,null,null,1,null,H)),e.rb(18,16384,null,0,s.k,[e.R,e.O],{ngIf:[0,"ngIf"]},null)],function(n,l){var t=l.component;n(l,5,0,n(l,6,0,"/company")),n(l,10,0,n(l,11,0,"/phonebook")),n(l,18,0,t.employee)},function(n,l){n(l,4,0,e.Cb(l,5).target,e.Cb(l,5).href),n(l,9,0,e.Cb(l,10).target,e.Cb(l,10).href)})}var nn=e.ob("app-profile-page",Y,function(n){return e.Mb(0,[(n()(),e.sb(0,0,null,null,1,"app-profile-page",[],null,null,null,X,V)),e.rb(1,245760,null,0,Y,[r.a,K.a,z.a,S.a],null,null)],function(n,l){n(l,1,0)},null)},{thanksList:"thanksList"},{},[]),ln=function(){function n(n){this.employeesService=n}return n.prototype.resolve=function(n,l){return this.employeesService.getItemsPaged()},n}(),tn=t("sBl0"),en=t("G0b6"),on=function(){function n(n){this.employeesService=n}return n.prototype.resolve=function(n,l){return this.employeesService.getCurrentEmployee()},n}(),cn=t("+NRz"),un=function(){function n(n){this.employeesService=n}return n.prototype.resolve=function(n,l){return this.employeesService.getItem({id:n.params.id})},n}(),sn=t("gIcY"),rn={animation:"fadeAnimation",title:"\u0422\u0435\u043b\u0435\u0444\u043e\u043d\u043d\u044b\u0439 \u0441\u043f\u0440\u0430\u0432\u043e\u0447\u043d\u0438\u043a"},an={animation:"fadeAnimation",title:"\u041f\u0440\u043e\u0444\u0438\u043b\u044c \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f"},pn=function(){},gn=t("PCNd");t.d(l,"PhonebookModuleNgFactory",function(){return dn});var dn=e.pb(o,[],function(n){return e.zb([e.Ab(512,e.k,e.eb,[[8,[i.a,F,nn]],[3,e.k],e.z]),e.Ab(4608,s.m,s.l,[e.w,[2,s.y]]),e.Ab(4608,ln,ln,[z.a]),e.Ab(4608,tn.a,tn.a,[en.a]),e.Ab(4608,on,on,[z.a]),e.Ab(4608,cn.a,cn.a,[S.a]),e.Ab(4608,un,un,[z.a]),e.Ab(4608,sn.p,sn.p,[]),e.Ab(1073742336,s.b,s.b,[]),e.Ab(1073742336,r.p,r.p,[[2,r.v],[2,r.m]]),e.Ab(1073742336,pn,pn,[]),e.Ab(1073742336,sn.n,sn.n,[]),e.Ab(1073742336,sn.d,sn.d,[]),e.Ab(1073742336,gn.a,gn.a,[]),e.Ab(1073742336,o,o,[]),e.Ab(1024,r.k,function(){return[[{path:"",component:j,resolve:{employees:ln,departments:tn.a,currentEmployee:on,userId:cn.a},data:rn},{path:":id",component:Y,resolve:{employee:un,userId:cn.a},data:an}]]},[])])})},vQGG:function(n,l,t){"use strict";var e=t("CcnG");t("xhmP"),t("PbJ5"),t.d(l,"a",function(){return o}),t.d(l,"b",function(){return i});var o=e.qb({encapsulation:0,styles:[[".sl-filters__item[_ngcontent-%COMP%]{height:100%;display:inline-block;font-size:16px;color:#768692;padding:0 10px;border:none;border-bottom:2px solid transparent;box-sizing:border-box;margin:0 20px 0 0;background-color:transparent;cursor:pointer}.sl-filters__item.is-current-item[_ngcontent-%COMP%]{color:#000;border-color:#da402b}.sl-filters__item[_ngcontent-%COMP%]:focus{outline:0}"]],data:{}});function i(n){return e.Mb(0,[(n()(),e.sb(0,0,null,null,1,"div",[["class","sl-filters__item"]],[[2,"is-current-item",null]],[[null,"click"]],function(n,l,t){var e=!0;return"click"===l&&(e=!1!==n.component.selectItem()&&e),e},null,null)),e.Bb(null,0)],null,function(n,l){n(l,0,0,l.component.active)})}},xhmP:function(n,l,t){"use strict";t.d(l,"a",function(){return o});var e=t("CcnG"),o=(t("PbJ5"),function(){function n(n){this.filterService=n,this.active=!1,this.change=new e.n}return n.prototype.selectItem=function(){this.filterService.handleChangeActiveItem(),this.active=!0,this.change.emit()},n.prototype.ngOnInit=function(){},n}())}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[8],{
+
+/***/ "./src/app/news/components/news-card-gallery/news-card-gallery.component.html":
+/*!************************************************************************************!*\
+  !*** ./src/app/news/components/news-card-gallery/news-card-gallery.component.html ***!
+  \************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"l-news-card-carousel\">\r\n  <div class=\"content\">\r\n    <ngsl-carousel [timing]=\"600\" [dots]=\"false\" [infinity]=\"false\" [perView]=\"items.length && items.length > 3 ? 3 : items.length\" [margin]=\"10\">\r\n      <div class=\"list\">\r\n        <ng-container *ngFor=\"let item of items; let i = index\">\r\n          <ng-container *ngslCarouselItem>\r\n            <div class=\"photo\" (click)=\"ngslGallery.handleToggleGallery(i, $event)\">\r\n              <div\r\n                class=\"content\"\r\n                [ngStyle]=\"{'background-image': 'url(' + prepareLink(item) + ')'}\"\r\n              ></div>\r\n            </div>\r\n          </ng-container>\r\n        </ng-container>\r\n      </div>\r\n    </ngsl-carousel>\r\n    <ngsl-gallery #ngslGallery=\"ngsl-gallery\">\r\n      <ng-container *ngFor=\"let item of items; let i = index\">\r\n        <div id=\"i\" class=\"m-albom-popup\" *ngslGalleryItem>\r\n          <div class=\"m-news-gallery-popup\">\r\n            <div class=\"content\">\r\n              <div class=\"photo\" [style.backgroundImage]=\"'url(' + item + ')'\"></div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </ng-container>\r\n    </ngsl-gallery>\r\n  </div>\r\n</div>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/news/components/news-card-gallery/news-card-gallery.component.scss":
+/*!************************************************************************************!*\
+  !*** ./src/app/news/components/news-card-gallery/news-card-gallery.component.scss ***!
+  \************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.l-news-card-carousel {\n  position: relative; }\n\n.l-news-card-carousel:before {\n    display: block;\n    content: \" \";\n    width: 100%;\n    padding-bottom: 25%; }\n\n.l-news-card-carousel > .content {\n    position: absolute;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0; }\n\n.photo {\n  height: 100%;\n  padding: 0px;\n  box-sizing: border-box;\n  cursor: pointer; }\n\n.photo .content {\n    height: 100%;\n    background-repeat: no-repeat;\n    background-position: center;\n    background-size: cover; }\n\n.m-news-gallery-popup {\n  position: relative; }\n\n.m-news-gallery-popup:before {\n    display: block;\n    content: \" \";\n    width: 100%;\n    padding-bottom: 71.42857143%; }\n\n.m-news-gallery-popup > .content {\n    position: absolute;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0; }\n\n.m-news-gallery-popup .content {\n    padding: 15px;\n    box-sizing: border-box;\n    background-color: #fff; }\n\n.m-news-gallery-popup .title {\n    font-size: 14px;\n    color: #fff;\n    font-weight: 600;\n    position: absolute;\n    z-index: 10;\n    bottom: -50px;\n    height: 35px;\n    line-height: 35px;\n    display: inline-block;\n    background-color: #000;\n    padding: 0 15px;\n    border-radius: 15px;\n    left: 50%;\n    -webkit-transform: translateX(-50%);\n        -ms-transform: translateX(-50%);\n            transform: translateX(-50%); }\n\n.m-news-gallery-popup .photo {\n    height: 100%;\n    background-size: cover;\n    background-position: center;\n    background-repeat: no-repeat;\n    position: relative; }\n\n.m-news-gallery-popup .photo .controls {\n      position: absolute;\n      left: 0;\n      right: 0;\n      bottom: 0;\n      transition: bottom 0.3s;\n      padding: 15px 20px;\n      box-sizing: border-box;\n      height: 135px;\n      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.01) 0%, rgba(46, 46, 46, 0.8) 100%);\n      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#03000000', endColorstr='#cc585858', GradientType=0); }\n\n.m-news-gallery-popup .photo .controls .control {\n        position: absolute;\n        right: 20px;\n        bottom: 15px; }\n\n.m-news-gallery-popup .photo .controls .control .btn-download {\n          z-index: 100; }\n\n.m-news-gallery-popup .photo .controls .control .btn-download span {\n            text-transform: uppercase;\n            font-weight: 400; }\n"
+
+/***/ }),
+
+/***/ "./src/app/news/components/news-card-gallery/news-card-gallery.component.ts":
+/*!**********************************************************************************!*\
+  !*** ./src/app/news/components/news-card-gallery/news-card-gallery.component.ts ***!
+  \**********************************************************************************/
+/*! exports provided: NewsCardGalleryComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NewsCardGalleryComponent", function() { return NewsCardGalleryComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var NewsCardGalleryComponent = /** @class */ (function () {
+    function NewsCardGalleryComponent() {
+        this.items = [];
+    }
+    NewsCardGalleryComponent.prototype.ngOnInit = function () {
+    };
+    NewsCardGalleryComponent.prototype.prepareLink = function (link) {
+        return link && link.replace(/\(/gi, '\\(').replace(/\)/gi, '\\)') || null;
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Array)
+    ], NewsCardGalleryComponent.prototype, "items", void 0);
+    NewsCardGalleryComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-news-card-gallery',
+            template: __webpack_require__(/*! ./news-card-gallery.component.html */ "./src/app/news/components/news-card-gallery/news-card-gallery.component.html"),
+            styles: [__webpack_require__(/*! ./news-card-gallery.component.scss */ "./src/app/news/components/news-card-gallery/news-card-gallery.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], NewsCardGalleryComponent);
+    return NewsCardGalleryComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/news/components/news-card-page/news-card-page.component.html":
+/*!******************************************************************************!*\
+  !*** ./src/app/news/components/news-card-page/news-card-page.component.html ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"l-page-header\">\r\n  <div class=\"l-breadcrumbs\">\r\n    <div class=\"l-breadcrumb\"><a [routerLink]=\"['/company']\">Главная</a></div>\r\n    <div class=\"l-breadcrumb\"><a [routerLink]=\"['/news']\">Новости</a></div>\r\n    <div class=\"l-breadcrumb\" appNgslDotdotdot>{{ item.title }}</div>\r\n  </div>\r\n  <div class=\"title\">{{ item.title }}</div>\r\n</div>\r\n<div class=\"l-page\">\r\n  <div class=\"l-page-inner\">\r\n    <div class=\"l-page__content\">\r\n      <div class=\"l-news-card\">\r\n        <div class=\"body\">\r\n          <div class=\"description\">\r\n            <div class=\"date\">\r\n              {{ item.newsPublicationDate | date: 'dd.MM.yyyy' }}\r\n            </div>\r\n            <div class=\"controls\">\r\n              <div class=\"views\">{{ this.item.viewsCount || 0 }}</div>\r\n              <div [ngClass]=\"{'likes': !hasLike(), 'likes-on': hasLike()}\" (click)=\"toggleLike()\">{{\r\n                this.item.likesCount }}</div>\r\n            </div>\r\n            <div class=\"text\" [innerHTML]=\"item.newsBody\"></div>\r\n          </div>\r\n        </div>\r\n        <div class=\"photo\" [ngStyle]=\"{'background-image': 'url(' + prepareLink(item.imageUrl) + ')'}\">\r\n        </div>\r\n        <div class=\"gallery\">\r\n          <div class=\"title\"><span>Галерея</span></div>\r\n          <div class=\"carousel\" *ngIf=\"item.attachmentFiles.length > 0\">\r\n            <app-news-card-gallery [items]=\"item.attachmentFiles\"></app-news-card-gallery>\r\n          </div>\r\n        </div>\r\n        <div class=\"button\">\r\n          <a [routerLink]=\"['/news']\" class=\"btn btn-to-back\">\r\n            <i></i> К списку новостей\r\n          </a>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <app-button-up></app-button-up>\r\n</div>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/news/components/news-card-page/news-card-page.component.scss":
+/*!******************************************************************************!*\
+  !*** ./src/app/news/components/news-card-page/news-card-page.component.scss ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.l-breadcrumb:last-child {\n  max-width: 450px;\n  max-height: 16px; }\n\n.l-news-card {\n  max-width: 1065px;\n  padding-left: 25px;\n  padding-top: 0;\n  box-sizing: border-box; }\n\n.photo {\n  display: inline-block;\n  background-repeat: no-repeat;\n  background-position: center;\n  background-size: cover;\n  width: 350px;\n  height: 230px;\n  position: relative;\n  vertical-align: top; }\n\n.body {\n  display: inline-block;\n  width: calc(100% - 350px);\n  padding-right: 30px;\n  box-sizing: border-box; }\n\n.description {\n  min-height: 250px; }\n\n.description .text {\n    margin-bottom: 35px;\n    color: #050505;\n    font-size: 14px;\n    line-height: 26px;\n    line-height: 34px; }\n\n@media (min-width: 1440px) {\n      .description .text {\n        font-size: calc( 0.00833333 * 100vw + 2px);\n        line-height: calc( 0.00833333 * 100vw + 14px); } }\n\n@media (min-width: 1920px) {\n      .description .text {\n        font-size: 18px;\n        line-height: 30px; } }\n\n.description .date {\n    font-size: 16px;\n    font-family: Arial, Helvetica, sans-serif;\n    margin-bottom: 15px;\n    display: inline-block;\n    text-transform: uppercase;\n    color: #050505; }\n\n.description .controls {\n    display: inline-block; }\n\n.description .controls .views,\n    .description .controls .comments,\n    .description .controls .likes,\n    .description .controls .likes-on {\n      display: inline-block;\n      background-size: 25px 16px;\n      background-repeat: no-repeat;\n      background-position: left;\n      padding-left: 35px;\n      font-size: 16px;\n      color: #000000;\n      margin-left: 25px; }\n\n.description .controls .views {\n      background-image: url(\"/local/js/assets/icons/icon-news-eye.svg\"); }\n\n.description .controls .likes {\n      background-image: url(\"/local/js/assets/icons/icon-news-like-thin.svg\");\n      cursor: pointer; }\n\n.description .controls .likes-on {\n      background-image: url(\"/local/js/assets/icons/icon-news-like-on.svg\");\n      cursor: pointer; }\n\n.gallery .title {\n  position: relative;\n  box-sizing: border-box;\n  margin-bottom: 20px; }\n\n.gallery .title:before {\n    position: absolute;\n    content: \"\";\n    display: block;\n    left: 130px;\n    right: 0;\n    bottom: 0;\n    height: 1px;\n    background-color: #B7BAB7; }\n\n.gallery .title span {\n    font-size: 24px;\n    line-height: 18px;\n    color: #050505;\n    font-weight: 600; }\n\n.button {\n  margin: 30px 0; }\n"
+
+/***/ }),
+
+/***/ "./src/app/news/components/news-card-page/news-card-page.component.ts":
+/*!****************************************************************************!*\
+  !*** ./src/app/news/components/news-card-page/news-card-page.component.ts ***!
+  \****************************************************************************/
+/*! exports provided: NewsCardPageComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NewsCardPageComponent", function() { return NewsCardPageComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/sidebar/sidebar.service */ "./src/app/services/sidebar/sidebar.service.ts");
+/* harmony import */ var src_app_services_news_news_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/news/news.service */ "./src/app/services/news/news.service.ts");
+/* harmony import */ var src_app_services_news_comments_news_comments_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/news-comments/news-comments.service */ "./src/app/services/news-comments/news-comments.service.ts");
+/* harmony import */ var src_app_services_news_views_news_views_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/news-views/news-views.service */ "./src/app/services/news-views/news-views.service.ts");
+/* harmony import */ var src_app_constants_groups__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/constants/groups */ "./src/app/constants/groups.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+var NewsCardPageComponent = /** @class */ (function () {
+    function NewsCardPageComponent(route, sidebarService, newsService, newsCommentsService, newsViewsService) {
+        this.route = route;
+        this.sidebarService = sidebarService;
+        this.newsService = newsService;
+        this.newsCommentsService = newsCommentsService;
+        this.newsViewsService = newsViewsService;
+        this.isAdmin = false;
+        this.sidebarService.handleSetSettings({ showSidebar: false, bgColor: '#fff' });
+    }
+    NewsCardPageComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.item = this.route.snapshot.data.newsCard;
+        this.userId = this.route.snapshot.data.userId;
+        var currentGroups = this.route.snapshot.data.groups;
+        if (currentGroups.indexOf(src_app_constants_groups__WEBPACK_IMPORTED_MODULE_6__["groups"].administrator) >= 0) {
+            this.isAdmin = true;
+        }
+        this.getComments(this.item.id);
+        this.newsViewsService.getItems({ filter: "slLookupNews/Id eq " + this.item.id })
+            .subscribe(function (views) {
+            if (views && views.length > 0) {
+                _this.item.viewsCount = views[0].count;
+                if (views[0].userIds.every(function (id) { return id !== _this.userId; })) {
+                    _this.newsViewsService.addLike({ id: views[0].id });
+                }
+            }
+            else {
+                _this.newsViewsService.createItem({
+                    id: undefined,
+                    title: _this.item.title,
+                    newsLookupId: _this.item.id
+                })
+                    .subscribe(function (view) { return _this.newsViewsService.addLike({ id: view.id }); });
+            }
+        });
+    };
+    NewsCardPageComponent.prototype.createComment = function (comment) {
+        var _this = this;
+        this.newsCommentsService.createItem({
+            id: undefined,
+            title: this.item.title,
+            newsLookupId: this.item.id,
+            comment: comment
+        }).subscribe(function () { return _this.getComments(_this.item.id); });
+    };
+    NewsCardPageComponent.prototype.editComment = function (comment) {
+        var _this = this;
+        this.newsCommentsService.updateItem({
+            id: comment[0],
+            title: this.item.title,
+            newsLookupId: this.item.id,
+            comment: comment[1]
+        }).subscribe(function () { return _this.getComments(_this.item.id); });
+    };
+    NewsCardPageComponent.prototype.deleteComment = function (id) {
+        var _this = this;
+        this.newsCommentsService.deleteItem({ id: id, title: '' })
+            .subscribe(function () { return _this.getComments(_this.item.id); });
+    };
+    NewsCardPageComponent.prototype.getComments = function (newsId) {
+        var _this = this;
+        this.newsCommentsService.getItems({ filter: "slLookupNews/Id eq " + this.item.id })
+            .subscribe(function (comments) { return _this.comments = comments; });
+    };
+    NewsCardPageComponent.prototype.toggleLike = function () {
+        var _this = this;
+        if (this.item.likedByIds.indexOf(this.userId) >= 0) {
+            this.newsService.removeLike({ id: this.item.id }).subscribe();
+            this.item.likesCount--;
+            this.item.likedByIds = this.item.likedByIds.filter(function (l) { return l !== _this.userId; });
+        }
+        else {
+            this.newsService.addLike({ id: this.item.id }).subscribe();
+            this.item.likesCount++;
+            this.item.likedByIds.push(this.userId);
+        }
+    };
+    NewsCardPageComponent.prototype.hasLike = function () {
+        return this.item.likedByIds.indexOf(this.userId) >= 0;
+    };
+    NewsCardPageComponent.prototype.prepareLink = function (link) {
+        return link && link.replace(/\(/gi, '\\(').replace(/\)/gi, '\\)') || null;
+    };
+    NewsCardPageComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-news-card-page',
+            template: __webpack_require__(/*! ./news-card-page.component.html */ "./src/app/news/components/news-card-page/news-card-page.component.html"),
+            styles: [__webpack_require__(/*! ./news-card-page.component.scss */ "./src/app/news/components/news-card-page/news-card-page.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"],
+            src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_2__["SidebarService"],
+            src_app_services_news_news_service__WEBPACK_IMPORTED_MODULE_3__["NewsService"],
+            src_app_services_news_comments_news_comments_service__WEBPACK_IMPORTED_MODULE_4__["NewsCommentsService"],
+            src_app_services_news_views_news_views_service__WEBPACK_IMPORTED_MODULE_5__["NewsViewsService"]])
+    ], NewsCardPageComponent);
+    return NewsCardPageComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/news/components/news-page/news-page.component.html":
+/*!********************************************************************!*\
+  !*** ./src/app/news/components/news-page/news-page.component.html ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"l-page-header\">\r\n  <div class=\"l-breadcrumbs\">\r\n    <div class=\"l-breadcrumb\"><a [routerLink]=\"['/company']\">Главная</a></div>\r\n    <div class=\"l-breadcrumb\">Новости</div>\r\n  </div>\r\n  <div class=\"title\">Новости</div>\r\n</div>\r\n<div class=\"l-page\">\r\n  <div class=\"l-page-inner\">\r\n    <div class=\"l-page__content\">\r\n      <div class=\"l-news\">\r\n        <div class=\"l-new-categories\">\r\n          <app-filters>\r\n            <app-filters-item (click)=\"filterByRubricId()\">\r\n              Все\r\n            </app-filters-item>\r\n            <app-filters-item *ngFor=\"let rubric of rubrics\" (click)=\"filterByRubricId(rubric.id)\">\r\n              {{ rubric.title }}\r\n            </app-filters-item>\r\n          </app-filters>\r\n        </div>\r\n        <div class=\"l-news__item\" *ngFor=\"let item of news\">\r\n          <div class=\"m-news-card\">\r\n            <div class=\"admin-controls\">\r\n              <app-admin-controls [item]=\"item\" (create)=\"create()\" (edit)=\"edit($event)\" (remove)=\"remove($event)\"></app-admin-controls>\r\n            </div>\r\n            <div class=\"thumb\" [routerLink]=\"['/news/' + item.id]\" [ngStyle]=\"{'background-image': 'url(' + prepareLink(item.imageUrl) + ')'}\">\r\n            </div>\r\n            <div class=\"content\">\r\n              <a class=\"title\" [routerLink]=\"['/news/' + item.id]\" appNgslDotdotdot>{{ item.title }}</a>\r\n              <div class=\"date\">{{ item.newsPublicationDateTitle }}</div>\r\n              <div class=\"controls\">\r\n                <div class=\"views\">{{ item.viewsCount }}</div>\r\n                <div [ngClass]=\"{'likes': !hasLike(item), 'likes-on': hasLike(item)}\"\r\n                     (click)=\"toggleLike(item)\">{{ item.likesCount }}</div>\r\n              </div>\r\n              <div class=\"text\" appNgslDotdotdot [innerHTML]=\"item.newsBody\"></div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n        <div class=\"l-news__navigation\">\r\n          <input type=\"button\" value=\"В начало\" class=\"go-to-start\" (click)=\"hasPrev && filterNews()\" [class.disabled]=\"!hasPrev\" />\r\n          <input type=\"button\" class=\"go-to-left\" (click)=\"getPrevNews()\" [class.disabled]=\"!hasPrev\" />\r\n          <input type=\"button\" class=\"go-to-right\" (click)=\"getNextNews()\" [class.disabled]=\"!hasNext\" />\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/news/components/news-page/news-page.component.scss":
+/*!********************************************************************!*\
+  !*** ./src/app/news/components/news-page/news-page.component.scss ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.l-news {\n  max-width: 1065px;\n  padding: 50px 25px;\n  box-sizing: border-box;\n  position: relative; }\n\n.l-news .l-new-categories {\n    height: 30px;\n    position: absolute;\n    top: -30px; }\n\n.l-news .l-news__navigation {\n    margin-top: 80px;\n    text-align: center; }\n\n.l-news .l-news__navigation .go-to-start,\n    .l-news .l-news__navigation .go-to-left,\n    .l-news .l-news__navigation .go-to-right {\n      margin: 0;\n      padding: 0;\n      border: none;\n      min-width: 0;\n      vertical-align: middle;\n      cursor: pointer; }\n\n.l-news .l-news__navigation .go-to-start {\n      color: #768692;\n      font-size: 18px;\n      background: none;\n      margin-right: 35px; }\n\n.l-news .l-news__navigation .go-to-left,\n    .l-news .l-news__navigation .go-to-right {\n      width: 50px;\n      height: 50px;\n      background-color: #768692;\n      background-size: 27px 27px;\n      background-repeat: no-repeat;\n      background-position: center;\n      background-image: url(/local/js/assets/icons/icon-arrow-right-white-thin.svg); }\n\n.l-news .l-news__navigation .go-to-left {\n      -webkit-transform: rotate(180deg);\n          -ms-transform: rotate(180deg);\n              transform: rotate(180deg);\n      margin-right: 25px; }\n\n.l-news .l-news__navigation .disabled {\n      opacity: 0.4; }\n\n.l-news__item {\n  margin-bottom: 50px; }\n\n.m-news-card {\n  padding-left: 340px;\n  box-sizing: border-box;\n  position: relative;\n  min-height: 200px; }\n\n.m-news-card .thumb {\n    position: absolute;\n    left: 0;\n    top: 0;\n    width: 300px;\n    height: 200px;\n    background-repeat: no-repeat;\n    background-position: center;\n    background-size: cover;\n    cursor: pointer; }\n\n.m-news-card .thumb:hover {\n      opacity: 0.9; }\n\n.m-news-card .content .date {\n    display: inline-block;\n    font-size: 16px;\n    color: #050505;\n    margin-bottom: 10px;\n    text-transform: uppercase; }\n\n.m-news-card .content .controls {\n    display: inline-block;\n    font-size: 16px;\n    color: #050505;\n    margin-left: 25px; }\n\n.m-news-card .content .controls .views,\n    .m-news-card .content .controls .likes,\n    .m-news-card .content .controls .likes-on {\n      display: inline-block;\n      background-repeat: no-repeat;\n      background-position: left;\n      padding-left: 35px; }\n\n.m-news-card .content .controls .views {\n      background-image: url(/local/js/assets/icons/icon-news-eye-black.svg);\n      background-size: 27px 15px;\n      margin-right: 25px; }\n\n.m-news-card .content .controls .likes {\n      background-image: url(/local/js/assets/icons/icon-news-like-thin.svg);\n      background-size: 18px 18px;\n      padding-left: 25px;\n      cursor: pointer; }\n\n.m-news-card .content .controls .likes-on {\n      background-image: url(\"/local/js/assets/icons/icon-like-red-on.svg\");\n      background-size: 18px 18px;\n      cursor: pointer; }\n\n.m-news-card .content .title {\n    display: block;\n    text-decoration: none;\n    color: #050505;\n    font-weight: bold;\n    margin-bottom: 15px;\n    font-size: 22px;\n    line-height: 32px;\n    max-height: 64px; }\n\n@media screen and (max-width: 1440px) {\n      .m-news-card .content .title {\n        font-size: 18px;\n        line-height: 28px;\n        max-height: 56px; } }\n\n.m-news-card .content .title:hover {\n      color: #dd1e25; }\n\n.m-news-card .content .text {\n    color: #050505;\n    font-size: 16px;\n    line-height: 30px;\n    max-height: 120px; }\n\n@media screen and (max-width: 1440px) {\n      .m-news-card .content .text {\n        font-size: 14px;\n        line-height: 28px;\n        max-height: 112px; } }\n"
+
+/***/ }),
+
+/***/ "./src/app/news/components/news-page/news-page.component.ts":
+/*!******************************************************************!*\
+  !*** ./src/app/news/components/news-page/news-page.component.ts ***!
+  \******************************************************************/
+/*! exports provided: NewsPageComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NewsPageComponent", function() { return NewsPageComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var src_app_services_news_news_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/news/news.service */ "./src/app/services/news/news.service.ts");
+/* harmony import */ var src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/sidebar/sidebar.service */ "./src/app/services/sidebar/sidebar.service.ts");
+/* harmony import */ var src_app_services_news_views_news_views_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/news-views/news-views.service */ "./src/app/services/news-views/news-views.service.ts");
+/* harmony import */ var src_app_services_news_comments_news_comments_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/news-comments/news-comments.service */ "./src/app/services/news-comments/news-comments.service.ts");
+/* harmony import */ var src_app_services_portal_portal_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/portal/portal.service */ "./src/app/services/portal/portal.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+var NewsPageComponent = /** @class */ (function () {
+    function NewsPageComponent(newsService, route, sidebarService, newsViewsService, newsCommentsService, sharepointService) {
+        this.newsService = newsService;
+        this.route = route;
+        this.sidebarService = sidebarService;
+        this.newsViewsService = newsViewsService;
+        this.newsCommentsService = newsCommentsService;
+        this.sharepointService = sharepointService;
+        this.rubrics = [];
+        this.top = 10;
+        this.pages = [];
+        this.index = 0;
+        this.news = [];
+        this.hasPrev = false;
+        this.hasNext = false;
+        this.rubricId = null;
+        this.userId = null;
+        this.sidebarService.handleSetSettings({ showSidebar: false, bgColor: '#fff' });
+    }
+    NewsPageComponent.prototype.ngOnInit = function () {
+        this.rubrics = this.route.snapshot.data.newsRubrics;
+        this.pages.push(this.route.snapshot.data.news);
+        this.news = this.route.snapshot.data.news.items;
+        this.loadViewsAndComments(this.news);
+        this.hasNext = this.route.snapshot.data.news.hasNext;
+        this.userId = this.route.snapshot.data.userId;
+    };
+    NewsPageComponent.prototype.getNextNews = function () {
+        var _this = this;
+        if (this.hasNext) {
+            if (this.index === (this.pages.length - 1)) {
+                this.pages[this.index]
+                    .getNext()
+                    .subscribe(function (page) {
+                    _this.index++;
+                    _this.news = page.items;
+                    _this.hasNext = page.hasNext;
+                    _this.hasPrev = true;
+                    _this.pages.push(page);
+                    _this.loadViewsAndComments(_this.news);
+                });
+            }
+            else {
+                this.index++;
+                this.news = this.pages[this.index].items;
+                this.hasNext = this.pages[this.index].hasNext;
+                this.hasPrev = true;
+            }
+        }
+    };
+    NewsPageComponent.prototype.getPrevNews = function () {
+        if (this.hasPrev) {
+            this.index--;
+            this.news = this.pages[this.index].items;
+            this.hasNext = true;
+            this.hasPrev = this.index > 0;
+        }
+    };
+    NewsPageComponent.prototype.filterByRubricId = function (id) {
+        this.rubricId = id;
+        this.filterNews();
+    };
+    NewsPageComponent.prototype.filterNews = function () {
+        var _this = this;
+        var filter = (this.rubricId && "slNewsRubricLookup/Id eq " + this.rubricId + " and ") || '';
+        this.index = 0;
+        this.news = [];
+        this.pages = [];
+        this.hasPrev = false;
+        this.hasNext = false;
+        this.newsService
+            .getItemsPaged({
+            filter: filter + "slNewsPublicationDate le datetime'" + new Date().toISOString() + "'",
+            top: this.top
+        })
+            .subscribe(function (page) {
+            _this.pages.push(page);
+            _this.news = page.items;
+            _this.hasNext = page.hasNext;
+            _this.loadViewsAndComments(_this.news);
+        });
+    };
+    NewsPageComponent.prototype.loadViewsAndComments = function (news) {
+        var _this = this;
+        var filter = '';
+        if (news.length > 0) {
+            for (var _i = 0, news_1 = news; _i < news_1.length; _i++) {
+                var n = news_1[_i];
+                filter += "slLookupNews/Id eq " + n.id + " or ";
+            }
+            filter = filter.slice(0, -4);
+            this.newsCommentsService.getItems({ filter: filter, top: 5000 })
+                .subscribe(function (comments) {
+                var _loop_1 = function (n) {
+                    n.commentsCount = comments.filter(function (c) { return c.newsLookupId === n.id; }).length;
+                };
+                for (var _i = 0, _a = _this.news; _i < _a.length; _i++) {
+                    var n = _a[_i];
+                    _loop_1(n);
+                }
+            });
+            this.newsViewsService.getItems({ filter: filter, top: 5000 })
+                .subscribe(function (views) {
+                var _loop_2 = function (n) {
+                    var view = views.filter(function (c) { return c.newsLookupId === n.id; });
+                    if (view && view.length > 0) {
+                        n.viewsCount = view[0].count;
+                    }
+                    else {
+                        n.viewsCount = 0;
+                    }
+                };
+                for (var _i = 0, _a = _this.news; _i < _a.length; _i++) {
+                    var n = _a[_i];
+                    _loop_2(n);
+                }
+            });
+        }
+    };
+    NewsPageComponent.prototype.toggleLike = function (item) {
+        var _this = this;
+        if (item.likedByIds.indexOf(this.userId) >= 0) {
+            this.newsService.removeLike({ id: item.id }).subscribe();
+            item.likedByIds = item.likedByIds.filter(function (l) { return l !== _this.userId; });
+            item.likesCount--;
+        }
+        else {
+            this.newsService.addLike({ id: item.id }).subscribe();
+            item.likedByIds.push(this.userId);
+            item.likesCount++;
+        }
+    };
+    NewsPageComponent.prototype.hasLike = function (item) {
+        return item.likedByIds.indexOf(this.userId) >= 0;
+    };
+    NewsPageComponent.prototype.prepareLink = function (link) {
+        return link && link.replace(/\(/gi, '\\(').replace(/\)/gi, '\\)') || null;
+    };
+    NewsPageComponent.prototype.create = function () {
+        window.location.href = this.sharepointService.getCurrentUserContext().webServerRelativeUrl
+            + '/Lists/slNews/NewForm.aspx?Source='
+            + encodeURIComponent(window.location.href);
+    };
+    NewsPageComponent.prototype.edit = function (item) {
+        window.location.href = this.sharepointService.getCurrentUserContext().webServerRelativeUrl
+            + ("/Lists/slNews/EditForm.aspx?ID=" + item.id + "&Source=")
+            + encodeURIComponent(window.location.href);
+    };
+    NewsPageComponent.prototype.remove = function (item) {
+        var _this = this;
+        this.newsService.recycleItem(item)
+            .subscribe(function () { return _this.filterByRubricId(); });
+    };
+    NewsPageComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-news-page',
+            template: __webpack_require__(/*! ./news-page.component.html */ "./src/app/news/components/news-page/news-page.component.html"),
+            styles: [__webpack_require__(/*! ./news-page.component.scss */ "./src/app/news/components/news-page/news-page.component.scss")]
+        }),
+        __metadata("design:paramtypes", [src_app_services_news_news_service__WEBPACK_IMPORTED_MODULE_2__["NewsService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"],
+            src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_3__["SidebarService"],
+            src_app_services_news_views_news_views_service__WEBPACK_IMPORTED_MODULE_4__["NewsViewsService"],
+            src_app_services_news_comments_news_comments_service__WEBPACK_IMPORTED_MODULE_5__["NewsCommentsService"],
+            src_app_services_portal_portal_service__WEBPACK_IMPORTED_MODULE_6__["PortalService"]])
+    ], NewsPageComponent);
+    return NewsPageComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/news/news-routing.module.ts":
+/*!*********************************************!*\
+  !*** ./src/app/news/news-routing.module.ts ***!
+  \*********************************************/
+/*! exports provided: NewsRoutingModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NewsRoutingModule", function() { return NewsRoutingModule; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _components_news_page_news_page_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/news-page/news-page.component */ "./src/app/news/components/news-page/news-page.component.ts");
+/* harmony import */ var _components_news_card_page_news_card_page_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/news-card-page/news-card-page.component */ "./src/app/news/components/news-card-page/news-card-page.component.ts");
+/* harmony import */ var src_app_services_news_rubrics_news_rubrics_resolver__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/news-rubrics/news-rubrics.resolver */ "./src/app/services/news-rubrics/news-rubrics.resolver.ts");
+/* harmony import */ var src_app_services_news_news_resolver__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/news/news.resolver */ "./src/app/services/news/news.resolver.ts");
+/* harmony import */ var src_app_services_security_current_user_id_resolver__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/security/current-user-id.resolver */ "./src/app/services/security/current-user-id.resolver.ts");
+/* harmony import */ var src_app_services_news_news_card_resolver__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/news/news-card.resolver */ "./src/app/services/news/news-card.resolver.ts");
+/* harmony import */ var src_app_services_security_groups_resolver__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/security/groups.resolver */ "./src/app/services/security/groups.resolver.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+
+
+
+
+
+var routes = [
+    {
+        path: '',
+        component: _components_news_page_news_page_component__WEBPACK_IMPORTED_MODULE_2__["NewsPageComponent"],
+        resolve: { news: src_app_services_news_news_resolver__WEBPACK_IMPORTED_MODULE_5__["NewsResolver"], newsRubrics: src_app_services_news_rubrics_news_rubrics_resolver__WEBPACK_IMPORTED_MODULE_4__["NewsRubricsResolver"], userId: src_app_services_security_current_user_id_resolver__WEBPACK_IMPORTED_MODULE_6__["CurrentUserIdResolver"] },
+        data: { animation: 'fadeAnimation', title: 'Новости' }
+    },
+    {
+        path: ':id',
+        component: _components_news_card_page_news_card_page_component__WEBPACK_IMPORTED_MODULE_3__["NewsCardPageComponent"],
+        resolve: { newsCard: src_app_services_news_news_card_resolver__WEBPACK_IMPORTED_MODULE_7__["NewsCardResolver"], userId: src_app_services_security_current_user_id_resolver__WEBPACK_IMPORTED_MODULE_6__["CurrentUserIdResolver"], groups: src_app_services_security_groups_resolver__WEBPACK_IMPORTED_MODULE_8__["GroupsResolver"] },
+        data: { animation: 'fadeAnimation', title: 'Новости' }
+    }
+];
+var NewsRoutingModule = /** @class */ (function () {
+    function NewsRoutingModule() {
+    }
+    NewsRoutingModule = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
+            imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forChild(routes)],
+            providers: [src_app_services_news_news_resolver__WEBPACK_IMPORTED_MODULE_5__["NewsResolver"], src_app_services_news_rubrics_news_rubrics_resolver__WEBPACK_IMPORTED_MODULE_4__["NewsRubricsResolver"], src_app_services_security_current_user_id_resolver__WEBPACK_IMPORTED_MODULE_6__["CurrentUserIdResolver"], src_app_services_security_groups_resolver__WEBPACK_IMPORTED_MODULE_8__["GroupsResolver"], src_app_services_news_news_card_resolver__WEBPACK_IMPORTED_MODULE_7__["NewsCardResolver"]],
+            exports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]]
+        })
+    ], NewsRoutingModule);
+    return NewsRoutingModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/news/news.module.ts":
+/*!*************************************!*\
+  !*** ./src/app/news/news.module.ts ***!
+  \*************************************/
+/*! exports provided: NewsModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NewsModule", function() { return NewsModule; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _news_routing_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./news-routing.module */ "./src/app/news/news-routing.module.ts");
+/* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../shared/shared.module */ "./src/app/shared/shared.module.ts");
+/* harmony import */ var _components_news_card_gallery_news_card_gallery_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/news-card-gallery/news-card-gallery.component */ "./src/app/news/components/news-card-gallery/news-card-gallery.component.ts");
+/* harmony import */ var _components_news_card_page_news_card_page_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/news-card-page/news-card-page.component */ "./src/app/news/components/news-card-page/news-card-page.component.ts");
+/* harmony import */ var _components_news_page_news_page_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/news-page/news-page.component */ "./src/app/news/components/news-page/news-page.component.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+
+
+
+
+
+var NewsModule = /** @class */ (function () {
+    function NewsModule() {
+    }
+    NewsModule = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
+            declarations: [
+                _components_news_card_gallery_news_card_gallery_component__WEBPACK_IMPORTED_MODULE_6__["NewsCardGalleryComponent"],
+                _components_news_card_page_news_card_page_component__WEBPACK_IMPORTED_MODULE_7__["NewsCardPageComponent"],
+                _components_news_page_news_page_component__WEBPACK_IMPORTED_MODULE_8__["NewsPageComponent"]
+            ],
+            imports: [
+                _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
+                _news_routing_module__WEBPACK_IMPORTED_MODULE_4__["NewsRoutingModule"],
+                _shared_shared_module__WEBPACK_IMPORTED_MODULE_5__["SharedModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"],
+                _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"]
+            ]
+        })
+    ], NewsModule);
+    return NewsModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/news-rubrics/news-rubrics.resolver.ts":
+/*!****************************************************************!*\
+  !*** ./src/app/services/news-rubrics/news-rubrics.resolver.ts ***!
+  \****************************************************************/
+/*! exports provided: NewsRubricsResolver */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NewsRubricsResolver", function() { return NewsRubricsResolver; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _news_rubrics_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./news-rubrics.service */ "./src/app/services/news-rubrics/news-rubrics.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var NewsRubricsResolver = /** @class */ (function () {
+    function NewsRubricsResolver(newsRubricsService) {
+        this.newsRubricsService = newsRubricsService;
+    }
+    NewsRubricsResolver.prototype.resolve = function (route, state) {
+        return this.newsRubricsService.getItems();
+    };
+    NewsRubricsResolver = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __metadata("design:paramtypes", [_news_rubrics_service__WEBPACK_IMPORTED_MODULE_1__["NewsRubricsService"]])
+    ], NewsRubricsResolver);
+    return NewsRubricsResolver;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/news/news-card.resolver.ts":
+/*!*****************************************************!*\
+  !*** ./src/app/services/news/news-card.resolver.ts ***!
+  \*****************************************************/
+/*! exports provided: NewsCardResolver */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NewsCardResolver", function() { return NewsCardResolver; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _news_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./news.service */ "./src/app/services/news/news.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var NewsCardResolver = /** @class */ (function () {
+    function NewsCardResolver(newsService) {
+        this.newsService = newsService;
+    }
+    NewsCardResolver.prototype.resolve = function (route, state) {
+        var id = route.params.id;
+        return this.newsService.getItem({ id: id });
+    };
+    NewsCardResolver = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __metadata("design:paramtypes", [_news_service__WEBPACK_IMPORTED_MODULE_1__["NewsService"]])
+    ], NewsCardResolver);
+    return NewsCardResolver;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/news/news.resolver.ts":
+/*!************************************************!*\
+  !*** ./src/app/services/news/news.resolver.ts ***!
+  \************************************************/
+/*! exports provided: NewsResolver */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NewsResolver", function() { return NewsResolver; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _news_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./news.service */ "./src/app/services/news/news.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var NewsResolver = /** @class */ (function () {
+    function NewsResolver(newsService) {
+        this.newsService = newsService;
+    }
+    NewsResolver.prototype.resolve = function (route, state) {
+        return this.newsService.getItemsPaged({ filter: "slNewsPublicationDate le datetime'" + new Date().toISOString() + "'" });
+    };
+    NewsResolver = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __metadata("design:paramtypes", [_news_service__WEBPACK_IMPORTED_MODULE_1__["NewsService"]])
+    ], NewsResolver);
+    return NewsResolver;
+}());
+
+
+
+/***/ })
+
+}]);
+//# sourceMappingURL=8.js.map

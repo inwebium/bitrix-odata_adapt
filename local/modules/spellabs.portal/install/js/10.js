@@ -1,1 +1,499 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[10],{bL1X:function(n,l,t){"use strict";t.r(l);var e=t("CcnG"),i=function(){},s=t("pMnS"),o=t("vQGG"),u=t("xhmP"),a=t("PbJ5"),r=t("C2Hq"),c=t("ukqQ"),h=t("Ip0R"),p=t("ZYCi"),d=t("nAuW"),g=t("cuj7"),b=t("wd/R"),m=t("LvDl"),y=t("aCgD"),_=t("IS4z"),f=function(){function n(n,l,t){var e=this;this.route=n,this.employeesService=l,this.sidebarService=t,this.pages=[],this.index=0,this.employees=[],this.birthdays=[],this.hasPrev=!1,this.hasNext=!1,this.quater=Math.floor((new Date).getMonth()/3),this.month=(new Date).getMonth()-3*this.quater,this.months=Array.apply(0,Array(3)).map(function(n,l){return b().month(l+3*e.quater).format("MMMM")}),this.sidebarService.handleSetSettings({showSidebar:!1,bgColor:"#fff"})}return n.prototype.ngOnInit=function(){this.pages.push(this.route.snapshot.data.newEmployees),this.employees=this.route.snapshot.data.newEmployees.items,this.birthdays=this.getBirthdaysForEmployees(this.employees),this.hasNext=this.route.snapshot.data.newEmployees.hasNext},n.prototype.getMonthFirstDay=function(n){return b(new Date((new Date).getFullYear(),n,1))},n.prototype.getMonthLastDay=function(n){return b(new Date((new Date).getFullYear(),n,1)).endOf("month")},n.prototype.getBirthdaysPagetByMonth=function(n){var l=this;this.month=null==n?this.month:n,this.index=0,this.employees=[],this.pages=[],this.birthdays=[],this.hasPrev=!1,this.hasNext=!1;var t=this.getMonthFirstDay(this.month+3*this.quater).toISOString(),e=this.getMonthLastDay(this.month+3*this.quater).toISOString();this.employeesService.getItemsPaged({filter:"(slStartWorkDate ge datetime'"+t+"') and (slStartWorkDate le datetime'"+e+"')",orderBy:[["slStartWorkDate",!1]]}).subscribe(function(n){l.employees=n.items,l.birthdays=l.getBirthdaysForEmployees(l.employees),l.hasNext=n.hasNext,l.pages.push(n)})},n.prototype.getNext=function(){var n=this;this.hasNext&&(this.index===this.pages.length-1?this.pages[this.index].getNext().subscribe(function(l){n.index++,n.employees=l.items,n.birthdays=n.getBirthdaysForEmployees(l.items),n.hasNext=l.hasNext,n.hasPrev=!0,n.pages.push(l)}):(this.index++,this.employees=this.pages[this.index].items,this.birthdays=this.getBirthdaysForEmployees(this.employees),this.hasNext=this.pages[this.index].hasNext,this.hasPrev=!0))},n.prototype.getPrev=function(){this.hasPrev&&(this.index--,this.employees=this.pages[this.index].items,this.birthdays=this.getBirthdaysForEmployees(this.employees),this.hasNext=!0,this.hasPrev=this.index>0)},n.prototype.getBirthdaysForEmployees=function(n){var l=[],t=m.groupBy(n,function(n){return n.startdayTitleRelative});for(var e in t)if(t.hasOwnProperty(e)){var i=e.split(" ");2===i.length&&l.push({birthday:i[0],birthmonth:i[1],employees:t[e]})}return l},n}(),M=e.qb({encapsulation:0,styles:[["#s4-bodyContainer[_ngcontent-%COMP%]{padding:0}@-webkit-keyframes shine-avatar{0%{background-position:-30px}100%,40%{background-position:210px}}@keyframes shine-avatar{0%{background-position:-30px}100%,40%{background-position:210px}}.l-birthdays[_ngcontent-%COMP%]{box-sizing:border-box;padding-left:25px}.l-birthdays[_ngcontent-%COMP%]   .l-birthdays__month-list[_ngcontent-%COMP%]{box-sizing:border-box;margin-bottom:60px;height:30px;text-align:center}.l-birthdays[_ngcontent-%COMP%]   .l-birthdays__calendar[_ngcontent-%COMP%]{border-left:2px solid #fafafa}.l-birthdays[_ngcontent-%COMP%]   .l-birthdays__calendar[_ngcontent-%COMP%]   .l-birthdays__day[_ngcontent-%COMP%]{box-sizing:border-box;padding-left:10%;position:relative;border-top:2px dotted #898888}.l-birthdays[_ngcontent-%COMP%]   .l-birthdays__calendar[_ngcontent-%COMP%]   .l-birthdays__day[_ngcontent-%COMP%]   .date[_ngcontent-%COMP%]{position:absolute;left:-27px;top:-27px}.l-birthdays[_ngcontent-%COMP%]   .l-birthdays__calendar[_ngcontent-%COMP%]   .l-birthdays__day[_ngcontent-%COMP%]   .date[_ngcontent-%COMP%]   .day[_ngcontent-%COMP%], .l-birthdays[_ngcontent-%COMP%]   .l-birthdays__calendar[_ngcontent-%COMP%]   .l-birthdays__day[_ngcontent-%COMP%]   .date[_ngcontent-%COMP%]   .month[_ngcontent-%COMP%]{display:inline-block;vertical-align:middle}.l-birthdays[_ngcontent-%COMP%]   .l-birthdays__calendar[_ngcontent-%COMP%]   .l-birthdays__day[_ngcontent-%COMP%]   .day[_ngcontent-%COMP%]{background-color:#fafafa;border-radius:100%;width:50px;height:50px;line-height:50px;color:#050505;font-size:20px;font-weight:900;box-sizing:border-box;text-align:center}.l-birthdays[_ngcontent-%COMP%]   .l-birthdays__calendar[_ngcontent-%COMP%]   .l-birthdays__day[_ngcontent-%COMP%]   .month[_ngcontent-%COMP%]{color:#404041;font-size:16px;padding-right:15px;box-sizing:border-box;padding-left:12px;background-color:#fff;text-transform:capitalize}.l-birthdays[_ngcontent-%COMP%]   .l-birthdays__calendar[_ngcontent-%COMP%]   .l-birthdays__day[_ngcontent-%COMP%]:first-of-type{border-top:0}.navigation[_ngcontent-%COMP%]{margin:35px 0;text-align:center}.m-employees-list[_ngcontent-%COMP%]   .m-employees-list__item[_ngcontent-%COMP%]{display:table;width:100%}.m-employees-list[_ngcontent-%COMP%]   .m-employees-list__item[_ngcontent-%COMP%]   .avatar[_ngcontent-%COMP%]{display:table-cell;box-sizing:border-box;vertical-align:middle;width:90px;padding:14px 23px 14px 34px}.m-employees-list[_ngcontent-%COMP%]   .m-employees-list__item[_ngcontent-%COMP%]   .body[_ngcontent-%COMP%]{vertical-align:middle;display:table-cell}.m-employees-list[_ngcontent-%COMP%]   .m-employees-list__item[_ngcontent-%COMP%]   .body[_ngcontent-%COMP%]   .name[_ngcontent-%COMP%]{color:#050505;font-size:22px;line-height:24px}.m-employees-list[_ngcontent-%COMP%]   .m-employees-list__item[_ngcontent-%COMP%]   .body[_ngcontent-%COMP%]   .position[_ngcontent-%COMP%]{color:#050505;font-size:16px;line-height:20px}.m-employees-list[_ngcontent-%COMP%]   .m-employees-list__item[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]{display:none;box-sizing:border-box;padding-left:25px;vertical-align:middle}.m-employees-list[_ngcontent-%COMP%]   .m-employees-list__item[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .mail[_ngcontent-%COMP%], .m-employees-list[_ngcontent-%COMP%]   .m-employees-list__item[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .profile[_ngcontent-%COMP%], .m-employees-list[_ngcontent-%COMP%]   .m-employees-list__item[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .structure[_ngcontent-%COMP%]{display:inline-block;border-radius:100%;background-color:#fff;width:50px;height:50px;margin-right:25px;background-position:center;background-repeat:no-repeat;background-size:26px 26px}.m-employees-list[_ngcontent-%COMP%]   .m-employees-list__item[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .profile[_ngcontent-%COMP%]{background-image:url(/local/js/assets/icons/icon-profile.svg)}.m-employees-list[_ngcontent-%COMP%]   .m-employees-list__item[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .mail[_ngcontent-%COMP%]{background-image:url(/local/js/assets/icons/icon-letter-black.svg)}.m-employees-list[_ngcontent-%COMP%]   .m-employees-list__item[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   .structure[_ngcontent-%COMP%]{background-image:url(/local/js/assets/icons/icon-struct-black.svg)}"]],data:{}});function P(n){return e.Mb(0,[(n()(),e.sb(0,0,null,null,2,"app-filters-item",[],null,[[null,"change"]],function(n,l,t){var e=!0;return"change"===l&&(e=!1!==n.component.getBirthdaysPagetByMonth(n.context.index)&&e),e},o.b,o.a)),e.rb(1,114688,[[1,4]],0,u.a,[a.a],{active:[0,"active"]},{change:"change"}),(n()(),e.Kb(2,0,[" "," "]))],function(n,l){n(l,1,0,l.component.month===l.context.index)},function(n,l){n(l,2,0,l.context.$implicit)})}function x(n){return e.Mb(0,[(n()(),e.sb(0,0,null,null,8,"div",[["class","m-employees-list__item"]],null,null,null,null,null)),(n()(),e.sb(1,0,null,null,2,"div",[["class","avatar"]],null,null,null,null,null)),(n()(),e.sb(2,0,null,null,1,"app-user-thumb",[],null,null,null,r.b,r.a)),e.rb(3,245760,null,0,c.a,[h.c,e.B],{photo:[0,"photo"],width:[1,"width"],height:[2,"height"],route:[3,"route"]},null),(n()(),e.sb(4,0,null,null,4,"div",[["class","body"]],null,null,null,null,null)),(n()(),e.sb(5,0,null,null,1,"div",[["class","name"]],null,null,null,null,null)),(n()(),e.Kb(6,null,[" "," "])),(n()(),e.sb(7,0,null,null,1,"div",[["class","position"]],null,null,null,null,null)),(n()(),e.Kb(8,null,["",""]))],function(n,l){n(l,3,0,l.context.$implicit.photo,"90px","90px",l.context.$implicit.profileRoute)},function(n,l){n(l,6,0,l.context.$implicit.fullName),n(l,8,0,l.context.$implicit.positionName)})}function O(n){return e.Mb(0,[(n()(),e.sb(0,0,null,null,9,"div",[["class","l-birthdays__day"]],null,null,null,null,null)),(n()(),e.sb(1,0,null,null,4,"div",[["class","date"]],null,null,null,null,null)),(n()(),e.sb(2,0,null,null,1,"div",[["class","day"]],null,null,null,null,null)),(n()(),e.Kb(3,null,["",""])),(n()(),e.sb(4,0,null,null,1,"div",[["class","month"]],null,null,null,null,null)),(n()(),e.Kb(5,null,["",""])),(n()(),e.sb(6,0,null,null,3,"div",[["class","employees"]],null,null,null,null,null)),(n()(),e.sb(7,0,null,null,2,"div",[["class","m-employees-list"]],null,null,null,null,null)),(n()(),e.jb(16777216,null,null,1,null,x)),e.rb(9,278528,null,0,h.j,[e.R,e.O,e.u],{ngForOf:[0,"ngForOf"]},null)],function(n,l){n(l,9,0,l.context.$implicit.employees)},function(n,l){n(l,3,0,l.context.$implicit.birthday),n(l,5,0,l.context.$implicit.birthmonth)})}function C(n){return e.Mb(0,[(n()(),e.sb(0,0,null,null,5,"div",[["class","navigation"]],null,null,null,null,null)),(n()(),e.sb(1,0,null,null,4,"div",[["class","m-page-nav"]],null,null,null,null,null)),(n()(),e.sb(2,0,null,null,1,"a",[["class","to-begin"]],[[2,"disabled",null]],[[null,"click"]],function(n,l,t){var e=!0,i=n.component;return"click"===l&&(e=!1!==(i.hasPrev&&i.getBirthdaysPagetByMonth())&&e),e},null,null)),(n()(),e.Kb(-1,null,["\u0412 \u043d\u0430\u0447\u0430\u043b\u043e"])),(n()(),e.sb(4,0,null,null,0,"input",[["class","prev-page"],["type","button"]],[[2,"disabled",null]],[[null,"click"]],function(n,l,t){var e=!0;return"click"===l&&(e=!1!==n.component.getPrev()&&e),e},null,null)),(n()(),e.sb(5,0,null,null,0,"input",[["class","next-page"],["type","button"]],[[2,"disabled",null]],[[null,"click"]],function(n,l,t){var e=!0;return"click"===l&&(e=!1!==n.component.getNext()&&e),e},null,null))],null,function(n,l){var t=l.component;n(l,2,0,!t.hasPrev),n(l,4,0,!t.hasPrev),n(l,5,0,!t.hasNext)})}function v(n){return e.Mb(0,[(n()(),e.sb(0,0,null,null,10,"div",[["class","l-page-header"]],null,null,null,null,null)),(n()(),e.sb(1,0,null,null,7,"div",[["class","l-breadcrumbs"]],null,null,null,null,null)),(n()(),e.sb(2,0,null,null,4,"div",[["class","l-breadcrumb"]],null,null,null,null,null)),(n()(),e.sb(3,0,null,null,3,"a",[],[[1,"target",0],[8,"href",4]],[[null,"click"]],function(n,l,t){var i=!0;return"click"===l&&(i=!1!==e.Cb(n,4).onClick(t.button,t.ctrlKey,t.metaKey,t.shiftKey)&&i),i},null,null)),e.rb(4,671744,null,0,p.o,[p.m,p.a,h.h],{routerLink:[0,"routerLink"]},null),e.Db(5,1),(n()(),e.Kb(-1,null,["\u0413\u043b\u0430\u0432\u043d\u0430\u044f"])),(n()(),e.sb(7,0,null,null,1,"div",[["class","l-breadcrumb"]],null,null,null,null,null)),(n()(),e.Kb(-1,null,["\u041d\u043e\u0432\u044b\u0435 \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a\u0438"])),(n()(),e.sb(9,0,null,null,1,"div",[["class","title"]],null,null,null,null,null)),(n()(),e.Kb(-1,null,["\u041d\u043e\u0432\u044b\u0435 \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a\u0438"])),(n()(),e.sb(11,0,null,null,14,"div",[["class","l-page"]],null,null,null,null,null)),(n()(),e.sb(12,0,null,null,13,"div",[["class","l-page-inner"]],null,null,null,null,null)),(n()(),e.sb(13,0,null,null,12,"div",[["class","l-page__content"]],null,null,null,null,null)),(n()(),e.sb(14,0,null,null,11,"div",[["class","l-birthdays"]],null,null,null,null,null)),(n()(),e.sb(15,0,null,null,5,"div",[["class","l-birthdays__month-list"]],null,null,null,null,null)),(n()(),e.sb(16,0,null,null,4,"app-filters",[],null,null,null,d.b,d.a)),e.rb(17,1228800,null,1,g.a,[a.a],null,null),e.Ib(603979776,1,{filterItems:1}),(n()(),e.jb(16777216,null,0,1,null,P)),e.rb(20,278528,null,0,h.j,[e.R,e.O,e.u],{ngForOf:[0,"ngForOf"]},null),(n()(),e.sb(21,0,null,null,2,"div",[["class","l-birthdays__calendar"]],null,null,null,null,null)),(n()(),e.jb(16777216,null,null,1,null,O)),e.rb(23,278528,null,0,h.j,[e.R,e.O,e.u],{ngForOf:[0,"ngForOf"]},null),(n()(),e.jb(16777216,null,null,1,null,C)),e.rb(25,16384,null,0,h.k,[e.R,e.O],{ngIf:[0,"ngIf"]},null)],function(n,l){var t=l.component;n(l,4,0,n(l,5,0,"/company")),n(l,20,0,t.months),n(l,23,0,t.birthdays),n(l,25,0,t.hasPrev||t.hasNext)},function(n,l){n(l,3,0,e.Cb(l,4).target,e.Cb(l,4).href)})}var k=e.ob("app-new-employees-page",f,function(n){return e.Mb(0,[(n()(),e.sb(0,0,null,null,1,"app-new-employees-page",[],null,null,null,v,M)),e.rb(1,114688,null,0,f,[p.a,y.a,_.a],null,null)],function(n,l){n(l,1,0)},null)},{},{},[]),w=function(){function n(n){this.employeesService=n}return n.prototype.resolve=function(n,l){var t=b().startOf("month").toISOString();return this.employeesService.getItemsPaged({filter:"slStartWorkDate ge datetime'"+t+"'",orderBy:[["slStartWorkDate",!1]]})},n}(),N=t("gIcY"),S={animation:"fadeAnimation",title:"\u041d\u043e\u0432\u044b\u0435 \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a\u0438"},D=function(){},F=t("PCNd");t.d(l,"NewEmployeesModuleNgFactory",function(){return z});var z=e.pb(i,[],function(n){return e.zb([e.Ab(512,e.k,e.eb,[[8,[s.a,k]],[3,e.k],e.z]),e.Ab(4608,h.m,h.l,[e.w,[2,h.y]]),e.Ab(4608,w,w,[y.a]),e.Ab(4608,N.p,N.p,[]),e.Ab(1073742336,h.b,h.b,[]),e.Ab(1073742336,p.p,p.p,[[2,p.v],[2,p.m]]),e.Ab(1073742336,D,D,[]),e.Ab(1073742336,N.n,N.n,[]),e.Ab(1073742336,N.d,N.d,[]),e.Ab(1073742336,F.a,F.a,[]),e.Ab(1073742336,i,i,[]),e.Ab(1024,p.k,function(){return[[{path:"",component:f,resolve:{newEmployees:w},data:S}]]},[])])})}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[10],{
+
+/***/ "./src/app/photogallery/components/photoalbum-page/photoalbum-page.component.html":
+/*!****************************************************************************************!*\
+  !*** ./src/app/photogallery/components/photoalbum-page/photoalbum-page.component.html ***!
+  \****************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"l-page-header\">\r\n  <div class=\"l-breadcrumbs\">\r\n    <div class=\"l-breadcrumb\"><a [routerLink]=\"['/']\">Главная</a></div>\r\n    <div class=\"l-breadcrumb\"><a [routerLink]=\"['../../']\">Медиагалерея</a></div>\r\n    <div class=\"l-breadcrumb\"><a [routerLink]=\"['../']\">Фотогалерея</a></div>\r\n    <div class=\"l-breadcrumb\">{{ album.title }}</div>\r\n  </div>\r\n  <div class=\"title\">{{ album.title }}</div>\r\n</div>\r\n<div class=\"l-page\">\r\n  <div class=\"l-page-inner\">\r\n    <div class=\"l-page__content\">\r\n      <div class=\"l-photo-album\" *ngIf=\"photos\">\r\n        <ngsl-gallery #ngslGallery=\"ngsl-gallery\" class=\"l-photo-album__list\">\r\n          <a *ngFor=\"let item of photos; let i = index\" id=\"i\" class=\"l-photo-album__item\" title=\"{{ getFileNameAndExtension(item.url).full }}\"\r\n            (click)=\"ngslGallery.handleToggleGallery(i, $event)\">\r\n            <div class=\"m-photo-album-card\">\r\n              <div class=\"photo\" [ngStyle]=\"{ 'background-image': 'url(' + prepareLink(item.url) + ')' }\">\r\n                <div class=\"controls\">\r\n                  <div class=\"control\">\r\n                    <a href=\"{{item.url}}\" download class=\"btn btn-download\" (click)=\"$event.stopPropagation()\">\r\n                      Скачать\r\n                      <span>{{ getFileNameAndExtension(item.url).ext }}</span>\r\n                      <i></i>\r\n                    </a>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n            </div>\r\n            <div class=\"m-albom-popup\" *ngslGalleryItem>\r\n              <div class=\"m-albom-popup-card\">\r\n                <div class=\"content\">\r\n                  <div class=\"photo\" [ngStyle]=\"{ 'background-image': 'url(' + prepareLink(item.url) + ')' }\">\r\n                    <div class=\"controls\">\r\n                      <div class=\"control\">\r\n                        <a href=\"{{item.url}}\" download class=\"btn btn-download\" (click)=\"$event.stopPropagation()\">\r\n                          Скачать\r\n                          <span>{{ getFileNameAndExtension(item.url).ext }}</span>\r\n                          <i></i>\r\n                        </a>\r\n                      </div>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n                <div class=\"title\">{{ getFileNameAndExtension(item.url).name }}</div>\r\n              </div>\r\n            </div>\r\n          </a>\r\n        </ngsl-gallery>\r\n        <div class=\"l-photo-album__return\">\r\n          <a [routerLink]=\"['../']\" class=\"btn btn-to-back\">\r\n            К списку альбомов\r\n            <i></i>\r\n          </a>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/photogallery/components/photoalbum-page/photoalbum-page.component.scss":
+/*!****************************************************************************************!*\
+  !*** ./src/app/photogallery/components/photoalbum-page/photoalbum-page.component.scss ***!
+  \****************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.l-photo-album {\n  max-width: 90%;\n  margin: 0 auto; }\n\n.l-photo-album__list {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-direction: row;\n      flex-direction: row;\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap;\n  -ms-flex-pack: start;\n      justify-content: start;\n  margin: 0 -15px; }\n\n.l-photo-album__item {\n  -ms-flex-preferred-size: 340px;\n      flex-basis: 340px;\n  padding: 0 15px;\n  box-sizing: content-box;\n  margin-bottom: 20px;\n  cursor: pointer; }\n\n.l-photo-album__item.image-view .m-albom-popup {\n    display: block; }\n\n.m-albom-popup {\n  height: 100%; }\n\n.m-photo-album-card {\n  position: relative; }\n\n.m-photo-album-card .photo {\n    height: 225px;\n    position: relative;\n    background-repeat: no-repeat;\n    background-position: center;\n    background-size: cover;\n    overflow: hidden; }\n\n.m-photo-album-card .photo:hover .controls {\n      bottom: 0; }\n\n.m-photo-album-card .photo .controls {\n      position: absolute;\n      left: 0;\n      right: 0;\n      bottom: -135px;\n      transition: bottom 0.3s;\n      padding: 15px 20px;\n      box-sizing: border-box;\n      height: 135px;\n      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.01) 0%, rgba(88, 88, 88, 0.8) 100%);\n      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#03000000', endColorstr='#cc585858', GradientType=0); }\n\n.m-photo-album-card .photo .controls .control {\n        position: absolute;\n        right: 20px;\n        bottom: 15px; }\n\n.m-photo-album-card .photo .controls .control .btn-download {\n          z-index: 100; }\n\n.m-photo-album-card .photo .controls .control .btn-download span {\n            text-transform: uppercase;\n            font-weight: 400; }\n\n.m-albom-popup-card {\n  position: relative; }\n\n.m-albom-popup-card:before {\n    display: block;\n    content: \" \";\n    width: 100%;\n    padding-bottom: 71.42857143%; }\n\n.m-albom-popup-card > .content {\n    position: absolute;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0; }\n\n.m-albom-popup-card .content {\n    padding: 15px;\n    box-sizing: border-box;\n    background-color: #fff; }\n\n.m-albom-popup-card .title {\n    font-size: 14px;\n    color: #fff;\n    font-weight: 600;\n    position: absolute;\n    z-index: 10;\n    bottom: -50px;\n    height: 35px;\n    line-height: 35px;\n    display: inline-block;\n    background-color: #000;\n    padding: 0 15px;\n    border-radius: 15px;\n    left: 50%;\n    -webkit-transform: translateX(-50%);\n        -ms-transform: translateX(-50%);\n            transform: translateX(-50%); }\n\n.m-albom-popup-card .photo {\n    height: 100%;\n    background-size: cover;\n    background-position: center;\n    background-repeat: no-repeat;\n    position: relative; }\n\n.m-albom-popup-card .photo .controls {\n      position: absolute;\n      left: 0;\n      right: 0;\n      bottom: 0;\n      transition: bottom 0.3s;\n      padding: 15px 20px;\n      box-sizing: border-box;\n      height: 135px;\n      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.01) 0%, rgba(46, 46, 46, 0.8) 100%);\n      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#03000000', endColorstr='#cc585858', GradientType=0); }\n\n.m-albom-popup-card .photo .controls .control {\n        position: absolute;\n        right: 20px;\n        bottom: 15px; }\n\n.m-albom-popup-card .photo .controls .control .btn-download {\n          z-index: 100; }\n\n.m-albom-popup-card .photo .controls .control .btn-download span {\n            text-transform: uppercase;\n            font-weight: 400; }\n"
+
+/***/ }),
+
+/***/ "./src/app/photogallery/components/photoalbum-page/photoalbum-page.component.ts":
+/*!**************************************************************************************!*\
+  !*** ./src/app/photogallery/components/photoalbum-page/photoalbum-page.component.ts ***!
+  \**************************************************************************************/
+/*! exports provided: PhotoalbumPageComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PhotoalbumPageComponent", function() { return PhotoalbumPageComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/sidebar/sidebar.service */ "./src/app/services/sidebar/sidebar.service.ts");
+/* harmony import */ var src_app_services_images_images_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/images/images.service */ "./src/app/services/images/images.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var PhotoalbumPageComponent = /** @class */ (function () {
+    function PhotoalbumPageComponent(route, sidebarService, imagesService) {
+        this.route = route;
+        this.sidebarService = sidebarService;
+        this.imagesService = imagesService;
+        this.photos = null;
+        this.album = null;
+        this.showSidebar = false;
+        this.sidebarService.handleSetSettings({ showSidebar: false, bgColor: '#fff' });
+    }
+    PhotoalbumPageComponent.prototype.getFileNameAndExtension = function (path) {
+        var str = path
+            .split('\\')
+            .pop()
+            .split('/')
+            .pop();
+        var ext = str.substr((Math.max(0, str.lastIndexOf('.')) || Infinity) + 1);
+        var name = str.replace('.' + ext, '');
+        return {
+            ext: ext,
+            name: name,
+            full: name + "." + ext
+        };
+    };
+    PhotoalbumPageComponent.prototype.ngOnInit = function () {
+        this.photos = this.route.snapshot.data.photos.sort(function (n1, n2) {
+            if (n1.photoIndex > n2.photoIndex) {
+                return 1;
+            }
+            if (n1.photoIndex < n2.photoIndex) {
+                return -1;
+            }
+            return 0;
+        });
+        this.album = this.route.snapshot.data.album;
+    };
+    PhotoalbumPageComponent.prototype.prepareLink = function (link) {
+        return this.imagesService.prepareBackgroundUrl(link);
+    };
+    PhotoalbumPageComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-photoalbum-page',
+            template: __webpack_require__(/*! ./photoalbum-page.component.html */ "./src/app/photogallery/components/photoalbum-page/photoalbum-page.component.html"),
+            styles: [__webpack_require__(/*! ./photoalbum-page.component.scss */ "./src/app/photogallery/components/photoalbum-page/photoalbum-page.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"],
+            src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_2__["SidebarService"],
+            src_app_services_images_images_service__WEBPACK_IMPORTED_MODULE_3__["ImagesService"]])
+    ], PhotoalbumPageComponent);
+    return PhotoalbumPageComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/photogallery/components/photogallery-page/photogallery-page.component.html":
+/*!********************************************************************************************!*\
+  !*** ./src/app/photogallery/components/photogallery-page/photogallery-page.component.html ***!
+  \********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"l-page-header\">\r\n  <div class=\"l-breadcrumbs\">\r\n    <div class=\"l-breadcrumb\"><a [routerLink]=\"['/']\">Главная</a></div>\r\n    <div class=\"l-breadcrumb\"><a [routerLink]=\"['../../']\">Медиагалерея</a></div>\r\n    <div class=\"l-breadcrumb\">Фотогалерея</div>\r\n  </div>\r\n  <div class=\"title\">Фотогалерея</div>\r\n</div>\r\n<div class=\"l-page\">\r\n  <div class=\"l-page-inner\">\r\n    <div class=\"l-page__content\">\r\n      <div class=\"l-photo-gallery\">\r\n        <div class=\"l-photo-gallery__list\">\r\n          <div class=\"l-photo-gallery__item\" *ngFor=\"let item of albums\">\r\n            <div class=\"m-photo-gallery-card\">\r\n              <div class=\"admin-controls\">\r\n                  <app-admin-controls [item]=\"item\" (create)=\"create()\" (edit)=\"edit($event)\" (remove)=\"remove($event)\">\r\n                  </app-admin-controls>\r\n              </div>\r\n              <div\r\n                class=\"photo\"\r\n                [routerLink]=\"[item.id]\"\r\n                [ngStyle]=\"{ 'background-image': 'url(' + item.albumCover + ')' }\"\r\n              ></div>\r\n              <a class=\"title\">{{ item.title }}</a>\r\n              <div class=\"description\" *ngIf=\"item.albumDescription\">{{ item.albumDescription }}</div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/photogallery/components/photogallery-page/photogallery-page.component.scss":
+/*!********************************************************************************************!*\
+  !*** ./src/app/photogallery/components/photogallery-page/photogallery-page.component.scss ***!
+  \********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.l-photo-gallery {\n  max-width: 90%;\n  margin: 0 auto; }\n\n.l-photo-gallery__list {\n  margin: 0 -15px;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap;\n  text-align: left;\n  -ms-flex-direction: row;\n      flex-direction: row; }\n\n.l-photo-gallery__item {\n  padding: 0 15px;\n  -ms-flex-preferred-size: 340px;\n      flex-basis: 340px;\n  margin-bottom: 40px; }\n\n.m-photo-gallery-card {\n  position: relative; }\n\n.m-photo-gallery-card:hover .admin-controls {\n    display: block; }\n\n.m-photo-gallery-card .photo {\n    height: 225px;\n    background-repeat: no-repeat;\n    background-position: center;\n    background-size: cover;\n    margin-bottom: 15px;\n    position: relative;\n    background-color: #e4e4e4;\n    cursor: pointer; }\n\n.m-photo-gallery-card .title {\n    display: block;\n    display: -webkit-box;\n    display: block;\n    text-overflow: ellipsis;\n    -webkit-line-clamp: 2;\n    overflow: hidden;\n    max-height: 50px;\n    text-decoration: none;\n    font-size: 22px;\n    line-height: 25px;\n    color: #000;\n    margin-bottom: 15px; }\n\n.m-photo-gallery-card .description {\n    display: block;\n    display: -webkit-box;\n    display: block;\n    text-overflow: ellipsis;\n    -webkit-line-clamp: 3;\n    overflow: hidden;\n    max-height: 60px;\n    font-size: 14px;\n    color: #636363;\n    line-height: 20px; }\n\n.admin-controls {\n  display: none; }\n"
+
+/***/ }),
+
+/***/ "./src/app/photogallery/components/photogallery-page/photogallery-page.component.ts":
+/*!******************************************************************************************!*\
+  !*** ./src/app/photogallery/components/photogallery-page/photogallery-page.component.ts ***!
+  \******************************************************************************************/
+/*! exports provided: PhotogalleryPageComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PhotogalleryPageComponent", function() { return PhotogalleryPageComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var ngx_cookie_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-cookie-service */ "./node_modules/ngx-cookie-service/index.js");
+/* harmony import */ var src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/sidebar/sidebar.service */ "./src/app/services/sidebar/sidebar.service.ts");
+/* harmony import */ var src_app_services_portal_portal_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/portal/portal.service */ "./src/app/services/portal/portal.service.ts");
+/* harmony import */ var src_app_services_photo_library_photo_library_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/photo-library/photo-library.service */ "./src/app/services/photo-library/photo-library.service.ts");
+/* harmony import */ var src_app_constants_content_types__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/constants/content-types */ "./src/app/constants/content-types.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (undefined && undefined.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+
+
+
+
+
+
+
+
+var PhotogalleryPageComponent = /** @class */ (function () {
+    function PhotogalleryPageComponent(document, route, sidebarService, sharepointService, photoLibraryService, cookieService) {
+        this.document = document;
+        this.route = route;
+        this.sidebarService = sidebarService;
+        this.sharepointService = sharepointService;
+        this.photoLibraryService = photoLibraryService;
+        this.cookieService = cookieService;
+        this.page = null;
+        this.albums = [];
+        this.showSidebar = false;
+        this.s4 = null;
+        this.isLoadingItems = false;
+        this.sidebarService.handleSetSettings({ showSidebar: false, bgColor: '#fff' });
+    }
+    PhotogalleryPageComponent.prototype.loadMore = function () {
+        var _this = this;
+        this.isLoadingItems = true;
+        this.page.getNext().subscribe(function (page) {
+            _this.page = page;
+            _this.albums = _this.albums.concat(_this.page.items);
+            _this.isLoadingItems = false;
+        });
+    };
+    PhotogalleryPageComponent.prototype.load = function () {
+        var _this = this;
+        this.photoLibraryService.getItemsPaged({ filter: "ContentType eq '" + src_app_constants_content_types__WEBPACK_IMPORTED_MODULE_7__["contentTypes"].album + "'",
+            top: 8, orderBy: [['slAlbumIndex', true]] })
+            .subscribe(function (page) {
+            _this.page = page;
+            _this.albums = page.items;
+            _this.isLoadingItems = false;
+            document.getElementById('s4-workspace').scrollTop = 0;
+        });
+    };
+    PhotogalleryPageComponent.prototype.onWorkSpaceScroll = function () {
+        if (this.s4.scrollTop >=
+            this.s4.scrollHeight - (this.s4.clientHeight + 100)) {
+            if (this.page.hasNext && !this.isLoadingItems) {
+                this.loadMore();
+            }
+        }
+    };
+    PhotogalleryPageComponent.prototype.ngOnInit = function () {
+        this.s4 = this.document.getElementById('s4-workspace');
+        this.s4.addEventListener('scroll', this.onWorkSpaceScroll.bind(this), true);
+        this.page = this.route.snapshot.data.albums;
+        this.albums = this.page.items;
+    };
+    PhotogalleryPageComponent.prototype.ngOnDestroy = function () {
+        this.s4.removeEventListener('scroll', this.onWorkSpaceScroll.bind(this), true);
+    };
+    PhotogalleryPageComponent.prototype.create = function () {
+        this.cookieService.set('splnu', '0', 1, '/');
+        window.location.href = this.sharepointService.getCurrentUserContext().webServerRelativeUrl
+            + "/slPhotoLibrary/Forms/Upload.aspx?ContentTypeId=0x012000BFB863A2672645ABBEA198EF8334172D&Source="
+            + encodeURIComponent(window.location.href);
+    };
+    PhotogalleryPageComponent.prototype.edit = function (item) {
+        this.cookieService.set('splnu', '0', 1, '/');
+        window.location.href = this.sharepointService.getCurrentUserContext().webServerRelativeUrl
+            + ("/slPhotoLibrary/Forms/EditForm.aspx?ID=" + item.id + "&Source=")
+            + encodeURIComponent(window.location.href);
+    };
+    PhotogalleryPageComponent.prototype.remove = function (item) {
+        var _this = this;
+        this.photoLibraryService.recycleItem(item)
+            .subscribe(function () { return _this.load(); });
+    };
+    PhotogalleryPageComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-photogallery-page',
+            template: __webpack_require__(/*! ./photogallery-page.component.html */ "./src/app/photogallery/components/photogallery-page/photogallery-page.component.html"),
+            styles: [__webpack_require__(/*! ./photogallery-page.component.scss */ "./src/app/photogallery/components/photogallery-page/photogallery-page.component.scss")]
+        }),
+        __param(0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(_angular_common__WEBPACK_IMPORTED_MODULE_1__["DOCUMENT"])),
+        __metadata("design:paramtypes", [Document,
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
+            src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_4__["SidebarService"],
+            src_app_services_portal_portal_service__WEBPACK_IMPORTED_MODULE_5__["PortalService"],
+            src_app_services_photo_library_photo_library_service__WEBPACK_IMPORTED_MODULE_6__["PhotoLibraryService"],
+            ngx_cookie_service__WEBPACK_IMPORTED_MODULE_3__["CookieService"]])
+    ], PhotogalleryPageComponent);
+    return PhotogalleryPageComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/photogallery/photogallery-routing.module.ts":
+/*!*************************************************************!*\
+  !*** ./src/app/photogallery/photogallery-routing.module.ts ***!
+  \*************************************************************/
+/*! exports provided: PhotogalleryRoutingModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PhotogalleryRoutingModule", function() { return PhotogalleryRoutingModule; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _components_photogallery_page_photogallery_page_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/photogallery-page/photogallery-page.component */ "./src/app/photogallery/components/photogallery-page/photogallery-page.component.ts");
+/* harmony import */ var _components_photoalbum_page_photoalbum_page_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/photoalbum-page/photoalbum-page.component */ "./src/app/photogallery/components/photoalbum-page/photoalbum-page.component.ts");
+/* harmony import */ var src_app_services_photo_library_photo_albums_resolver__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/photo-library/photo-albums.resolver */ "./src/app/services/photo-library/photo-albums.resolver.ts");
+/* harmony import */ var src_app_services_photo_library_photos_resolver__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/photo-library/photos.resolver */ "./src/app/services/photo-library/photos.resolver.ts");
+/* harmony import */ var src_app_services_photo_library_photo_album_resolver__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/photo-library/photo-album.resolver */ "./src/app/services/photo-library/photo-album.resolver.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+
+
+
+var routes = [
+    {
+        path: '',
+        component: _components_photogallery_page_photogallery_page_component__WEBPACK_IMPORTED_MODULE_2__["PhotogalleryPageComponent"],
+        resolve: { albums: src_app_services_photo_library_photo_albums_resolver__WEBPACK_IMPORTED_MODULE_4__["PhotoAlbumsResolver"] },
+        data: { animation: 'fadeAnimation', title: 'Альбомы' }
+    },
+    {
+        path: ':id',
+        component: _components_photoalbum_page_photoalbum_page_component__WEBPACK_IMPORTED_MODULE_3__["PhotoalbumPageComponent"],
+        resolve: { photos: src_app_services_photo_library_photos_resolver__WEBPACK_IMPORTED_MODULE_5__["PhotosResolver"], album: src_app_services_photo_library_photo_album_resolver__WEBPACK_IMPORTED_MODULE_6__["PhotoAlbumResolver"] },
+        data: { animation: 'fadeAnimation', title: 'Альбом' }
+    }
+];
+var PhotogalleryRoutingModule = /** @class */ (function () {
+    function PhotogalleryRoutingModule() {
+    }
+    PhotogalleryRoutingModule = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
+            imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forChild(routes)],
+            providers: [src_app_services_photo_library_photos_resolver__WEBPACK_IMPORTED_MODULE_5__["PhotosResolver"], src_app_services_photo_library_photo_album_resolver__WEBPACK_IMPORTED_MODULE_6__["PhotoAlbumResolver"], src_app_services_photo_library_photo_albums_resolver__WEBPACK_IMPORTED_MODULE_4__["PhotoAlbumsResolver"]],
+            exports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]]
+        })
+    ], PhotogalleryRoutingModule);
+    return PhotogalleryRoutingModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/photogallery/photogallery.module.ts":
+/*!*****************************************************!*\
+  !*** ./src/app/photogallery/photogallery.module.ts ***!
+  \*****************************************************/
+/*! exports provided: PhotogalleryModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PhotogalleryModule", function() { return PhotogalleryModule; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _photogallery_routing_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./photogallery-routing.module */ "./src/app/photogallery/photogallery-routing.module.ts");
+/* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../shared/shared.module */ "./src/app/shared/shared.module.ts");
+/* harmony import */ var _components_photoalbum_page_photoalbum_page_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/photoalbum-page/photoalbum-page.component */ "./src/app/photogallery/components/photoalbum-page/photoalbum-page.component.ts");
+/* harmony import */ var _components_photogallery_page_photogallery_page_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/photogallery-page/photogallery-page.component */ "./src/app/photogallery/components/photogallery-page/photogallery-page.component.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+
+
+var PhotogalleryModule = /** @class */ (function () {
+    function PhotogalleryModule() {
+    }
+    PhotogalleryModule = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
+            declarations: [
+                _components_photoalbum_page_photoalbum_page_component__WEBPACK_IMPORTED_MODULE_4__["PhotoalbumPageComponent"],
+                _components_photogallery_page_photogallery_page_component__WEBPACK_IMPORTED_MODULE_5__["PhotogalleryPageComponent"]
+            ],
+            imports: [
+                _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
+                _photogallery_routing_module__WEBPACK_IMPORTED_MODULE_2__["PhotogalleryRoutingModule"],
+                _shared_shared_module__WEBPACK_IMPORTED_MODULE_3__["SharedModule"]
+            ]
+        })
+    ], PhotogalleryModule);
+    return PhotogalleryModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/photo-library/photo-album.resolver.ts":
+/*!****************************************************************!*\
+  !*** ./src/app/services/photo-library/photo-album.resolver.ts ***!
+  \****************************************************************/
+/*! exports provided: PhotoAlbumResolver */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PhotoAlbumResolver", function() { return PhotoAlbumResolver; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _photo_library_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./photo-library.service */ "./src/app/services/photo-library/photo-library.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var PhotoAlbumResolver = /** @class */ (function () {
+    function PhotoAlbumResolver(photoLibraryService) {
+        this.photoLibraryService = photoLibraryService;
+    }
+    PhotoAlbumResolver.prototype.resolve = function (route, state) {
+        var id = route.params.id;
+        return this.photoLibraryService.getItem({ id: id });
+    };
+    PhotoAlbumResolver = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __metadata("design:paramtypes", [_photo_library_service__WEBPACK_IMPORTED_MODULE_1__["PhotoLibraryService"]])
+    ], PhotoAlbumResolver);
+    return PhotoAlbumResolver;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/photo-library/photo-albums.resolver.ts":
+/*!*****************************************************************!*\
+  !*** ./src/app/services/photo-library/photo-albums.resolver.ts ***!
+  \*****************************************************************/
+/*! exports provided: PhotoAlbumsResolver */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PhotoAlbumsResolver", function() { return PhotoAlbumsResolver; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _photo_library_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./photo-library.service */ "./src/app/services/photo-library/photo-library.service.ts");
+/* harmony import */ var src_app_constants_content_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/constants/content-types */ "./src/app/constants/content-types.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var PhotoAlbumsResolver = /** @class */ (function () {
+    function PhotoAlbumsResolver(photoLibraryService) {
+        this.photoLibraryService = photoLibraryService;
+    }
+    PhotoAlbumsResolver.prototype.resolve = function (route, state) {
+        return this.photoLibraryService.getItemsPaged({ filter: "ContentType eq '" + encodeURI(src_app_constants_content_types__WEBPACK_IMPORTED_MODULE_2__["contentTypes"].album) + "'",
+            top: 8, orderBy: [['slAlbumIndex', true]] });
+    };
+    PhotoAlbumsResolver = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __metadata("design:paramtypes", [_photo_library_service__WEBPACK_IMPORTED_MODULE_1__["PhotoLibraryService"]])
+    ], PhotoAlbumsResolver);
+    return PhotoAlbumsResolver;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/photo-library/photos.resolver.ts":
+/*!***********************************************************!*\
+  !*** ./src/app/services/photo-library/photos.resolver.ts ***!
+  \***********************************************************/
+/*! exports provided: PhotosResolver */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PhotosResolver", function() { return PhotosResolver; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _photo_library_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./photo-library.service */ "./src/app/services/photo-library/photo-library.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var PhotosResolver = /** @class */ (function () {
+    function PhotosResolver(photoLibraryService) {
+        this.photoLibraryService = photoLibraryService;
+    }
+    PhotosResolver.prototype.resolve = function (route, state) {
+        var id = route.params.id;
+        return this.photoLibraryService.getFiles(id);
+    };
+    PhotosResolver = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __metadata("design:paramtypes", [_photo_library_service__WEBPACK_IMPORTED_MODULE_1__["PhotoLibraryService"]])
+    ], PhotosResolver);
+    return PhotosResolver;
+}());
+
+
+
+/***/ })
+
+}]);
+//# sourceMappingURL=10.js.map

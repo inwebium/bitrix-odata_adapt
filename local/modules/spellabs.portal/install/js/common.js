@@ -1,1 +1,558 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[0],{"+NRz":function(t,n,e){"use strict";e.d(n,"a",function(){return r});var o=e("F/XL"),r=(e("Cdqi"),function(){function t(t){this.sharepointService=t}return t.prototype.resolve=function(t,n){return Object(o.a)(this.sharepointService.getCurrentUserContext().userId)},t}())},"/746":function(t,n,e){"use strict";var o=e("CcnG");e("ifGX"),e("Ip0R"),e.d(n,"a",function(){return r}),e.d(n,"b",function(){return i});var r=o.qb({encapsulation:0,styles:[["#s4-bodyContainer[_ngcontent-%COMP%]{padding:0}@-webkit-keyframes shine-avatar{0%{background-position:-30px}100%,40%{background-position:210px}}@keyframes shine-avatar{0%{background-position:-30px}100%,40%{background-position:210px}}input[type=button][_ngcontent-%COMP%]{-webkit-transform:scale(0);-ms-transform:scale(0);transform:scale(0);padding:0;margin:0;border:0;background-color:#768692;width:80px;height:80px;background-repeat:no-repeat;background-position:center;background-size:90%;background-image:url(/local/js/assets/icons/icon-big-arrow-left-white.svg);position:fixed;right:25px;bottom:25%;z-index:100}input[type=button][_ngcontent-%COMP%]:hover{background-color:#6b7984}input[type=button].is-visible[_ngcontent-%COMP%]{-webkit-transform:scale(1) rotate(90deg);-ms-transform:scale(1) rotate(90deg);transform:scale(1) rotate(90deg)}"]],data:{}});function i(t){return o.Mb(0,[(t()(),o.sb(0,0,null,null,0,"input",[["type","button"]],[[2,"is-visible",null]],[[null,"click"]],function(t,n,e){var o=!0;return"click"===n&&(o=!1!==t.component.scrollTo()&&o),o},null,null))],null,function(t,n){t(n,0,0,n.component.isVisible)})}},"/iSE":function(t,n,e){"use strict";e.d(n,"a",function(){return u});var o=e("mrSG"),r=e("wd/R"),i=e("WkfL"),l=e("CcnG"),u=function(t){function n(){return null!==t&&t.apply(this,arguments)||this}return Object(o.c)(n,t),n.prototype.getListTitle=function(){return"\u0421\u0441\u044b\u043b\u043a\u0438 \u043d\u0430 \u0432\u0438\u0434\u0435\u043e"},n.prototype.getListRelativePath=function(){return"lists/slVideo"},n.prototype.getSelect=function(){return"Id,Title,slVideoUrl,slIsIFrame,Created"},n.prototype.getExpand=function(){return null},n.prototype.getOrderBy=function(){return[["Created",!1]]},n.prototype.getTop=function(){return 5e3},n.prototype.convertListItemToEntity=function(t){return{id:t.Id,title:t.Title,isIFrame:t.slIsIFrame,videoUrl:t.slVideoUrl,created:new Date(t.Created),createdTitle:r(t.Created).fromNow()}},n.prototype.convertEntityToListItem=function(t){throw new Error("Method not implemented.")},n.prototype.getMockItems=function(){return[]},n.prototype.isMock=function(){return!1},n.ngInjectableDef=l.V({factory:function(){return new n},token:n,providedIn:"root"}),n}(i.a)},"/jYg":function(t,n,e){"use strict";e.d(n,"a",function(){return o});var o=function(){function t(t){this.sanitizer=t}return t.prototype.transform=function(t){return this.sanitizer.bypassSecurityTrustResourceUrl(t)},t}()},FXjk:function(t,n,e){"use strict";e.d(n,"a",function(){return r});var o=e("CcnG"),r=(e("dhB6"),function(){function t(t){this.zone=t,this.toggleGallery=new o.n,this.isVisibleGallery=!1,this.currentSlide=null,this.countItems=null,this.subscribe$=null}return t.prototype.changeSlide=function(t,n){n.stopPropagation(),t&&this.countItems-1>=this.currentSlide+1&&this.currentSlide++,!t&&this.currentSlide-1>=0&&this.currentSlide--},t.prototype.onClick=function(t){var n=this;this.zone.run(function(){n.containerRef&&!n.containerRef.nativeElement.contains(t)&&(n.isVisibleGallery=!1)})},t.prototype.closeGallery=function(){this.isVisibleGallery=!1,this.toggleGallery.emit(this.isVisibleGallery)},t.prototype.handleToggleGallery=function(t,n){n.stopPropagation(),this.currentSlide=t,this.isVisibleGallery=!this.isVisibleGallery,this.toggleGallery.emit(this.isVisibleGallery)},t.prototype.ngAfterContentInit=function(){var t=this;this.countItems=this.items.length,this.subscribe$=this.items.changes.subscribe(function(){t.countItems=t.items.length})},t.prototype.ngOnDestroy=function(){this.subscribe$.unsubscribe()},t}())},G0b6:function(t,n,e){"use strict";e.d(n,"a",function(){return l});var o=e("mrSG"),r=e("WkfL"),i=e("CcnG"),l=function(t){function n(){return null!==t&&t.apply(this,arguments)||this}return Object(o.c)(n,t),n.prototype.getListRelativePath=function(){return""},n.prototype.getListTitle=function(){return"\u0414\u0435\u043f\u0430\u0440\u0442\u0430\u043c\u0435\u043d\u0442\u044b"},n.prototype.getSelect=function(){return"Id,Title,slIndexNumber,slParentDepartment/Id,slParentDepartment/Title,slCode,slParentCode,slUnitTypeName,slLookupManager/Id,slLookupManager/Title,slLookupManager/slFullName,slLookupManager/slLogin,slLookupManager/slPositionName,slEmployeeCount,slLookupManager/slReason"},n.prototype.getExpand=function(){return"slLookupManager,slParentDepartment"},n.prototype.getOrderBy=function(){return[["slIndexNumber",!0]]},n.prototype.getTop=function(){return 5e3},n.prototype.isMock=function(){return!1},n.prototype.getMockItems=function(){return[{id:1,title:"\u0422\u0440\u0430\u043d\u0441\u043b\u043e\u043c",parentDepartmentId:null},{id:2,title:"\u0414\u0435\u043f\u0430\u0440\u0442\u0430\u043c\u0435\u043d\u0442 \u043c\u0430\u0440\u043a\u0435\u0442\u0438\u043d\u0433\u0430",parentDepartmentId:1},{id:3,title:"\u041e\u0442\u0434\u0435\u043b \u0440\u0435\u043a\u043b\u0430\u043c\u044b",parentDepartmentId:2},{id:4,title:"\u041e\u0442\u0434\u0435\u043b PR",parentDepartmentId:2},{id:5,title:"\u041e\u0442\u0434\u0435\u043b \u0434\u0438\u0437\u0430\u0439\u043d\u0430",parentDepartmentId:2},{id:6,title:"\u041e\u0442\u0434\u0435\u043b \u0440\u0430\u0437\u0440\u0430\u0431\u043e\u0442\u043a\u0438",parentDepartmentId:2},{id:7,title:"\u041e\u0442\u0434\u0435\u043b",parentDepartmentId:2},{id:8,title:"\u0414\u0435\u043f\u0430\u0440\u0442\u0430\u043c\u0435\u043d\u0442 \u043b\u043e\u0433\u0438\u0441\u0442\u0438\u043a\u0438",parentDepartmentId:1},{id:9,title:"\u0414\u0435\u043f\u0430\u0440\u0442\u0430\u043c\u0435\u043d\u0442 \u0444\u0438\u043d\u0430\u043d\u0441\u043e\u0432",parentDepartmentId:1},{id:10,title:"\u0422\u0440\u0430\u043d\u0441\u043b\u043e\u043c",parentDepartmentId:null},{id:11,title:"\u0414\u0435\u043f\u0430\u0440\u0442\u0430\u043c\u0435\u043d\u0442 \u043c\u0430\u0440\u043a\u0435\u0442\u0438\u043d\u0433\u0430",parentDepartmentId:10},{id:12,title:"\u041e\u0442\u0434\u0435\u043b \u0440\u0435\u043a\u043b\u0430\u043c\u044b",parentDepartmentId:11},{id:13,title:"\u041e\u0442\u0434\u0435\u043b PR",parentDepartmentId:11},{id:14,title:"\u041e\u0442\u0434\u0435\u043b \u0434\u0438\u0437\u0430\u0439\u043d\u0430",parentDepartmentId:11},{id:15,title:"\u041e\u0442\u0434\u0435\u043b \u0440\u0430\u0437\u0440\u0430\u0431\u043e\u0442\u043a\u0438",parentDepartmentId:11},{id:16,title:"\u041e\u0442\u0434\u0435\u043b",parentDepartmentId:11},{id:17,title:"\u0414\u0435\u043f\u0430\u0440\u0442\u0430\u043c\u0435\u043d\u0442 \u043b\u043e\u0433\u0438\u0441\u0442\u0438\u043a\u0438",parentDepartmentId:10},{id:18,title:"\u0414\u0435\u043f\u0430\u0440\u0442\u0430\u043c\u0435\u043d\u0442 \u0444\u0438\u043d\u0430\u043d\u0441\u043e\u0432",parentDepartmentId:10}]},n.prototype.convertListItemToEntity=function(t){var n={id:t.Id,title:t.Title,code:t.slCode,indexNumber:t.slIndexNumber,parentCode:t.slParentCode,unitTypeName:t.slUnitTypeName,parentId:null,parentDepartmentId:null,parentDepartmentTitle:null,employeeCount:t.slEmployeeCount};return null!=t.slParentDepartment&&(n.parentId=t.slParentDepartment.Id,n.parentDepartmentId=t.slParentDepartment.Id,n.parentDepartmentTitle=t.slParentDepartment.Title),null!=t.slLookupManager&&(n.lookupManagerId=t.slLookupManager.Id,n.lookupManagerFullName=t.slLookupManager.slFullName,n.lookupManagerPhoto="/_layouts/15/userphoto.aspx?size=L&username="+t.slLookupManager.slLogin,n.lookupManagerPosition=t.slLookupManager.slPositionName,n.lookupManagerReason=t.slLookupManager.slReason,n.profileManagerRoute=["/phonebook",t.slLookupManager.Id]),n},n.prototype.convertEntityToListItem=function(t){throw new Error("Method not implemented.")},n.ngInjectableDef=i.V({factory:function(){return new n},token:n,providedIn:"root"}),n}(r.a)},JQBr:function(t,n,e){"use strict";e("jmvC")},LFNs:function(t,n,e){"use strict";e.d(n,"a",function(){return l});var o=e("mrSG"),r=e("WkfL"),i=e("CcnG"),l=function(t){function n(){return null!==t&&t.apply(this,arguments)||this}return Object(o.c)(n,t),n.prototype.getListRelativePath=function(){return""},n.prototype.getListTitle=function(){return"\u0420\u0443\u0431\u0440\u0438\u043a\u0438 \u043d\u043e\u0432\u043e\u0441\u0442\u0435\u0439"},n.prototype.getSelect=function(){return"Id,Title"},n.prototype.getExpand=function(){return null},n.prototype.getOrderBy=function(){return[["Title",!0]]},n.prototype.getTop=function(){return 5e3},n.prototype.convertListItemToEntity=function(t){return{id:t.Id,title:t.Title}},n.prototype.convertEntityToListItem=function(t){return{Id:t.id,Title:t.title}},n.prototype.getMockItems=function(){return[{id:1,title:"\u0420\u0443\u0431\u0440\u0438\u043a\u0430 1"},{id:2,title:"\u0420\u0443\u0431\u0440\u0438\u043a\u0430 2"},{id:3,title:"\u0420\u0443\u0431\u0440\u0438\u043a\u0430 3"}]},n.prototype.isMock=function(){return!1},n.ngInjectableDef=i.V({factory:function(){return new n},token:n,providedIn:"root"}),n}(r.a)},ObQA:function(t,n,e){"use strict";e.d(n,"a",function(){return o}),e("nqBZ");var o=function(){function t(t){this.securityService=t}return t.prototype.resolve=function(t,n){return this.securityService.getCurrentUserGroups()},t}()},U5Yz:function(t,n,e){"use strict";e.d(n,"a",function(){return u});var o=e("mrSG"),r=e("F/XL"),i=e("WkfL"),l=e("CcnG"),u=function(t){function n(){return null!==t&&t.apply(this,arguments)||this}return Object(o.c)(n,t),n.prototype.getListTitle=function(){return"\u041f\u0440\u043e\u0441\u043c\u043e\u0442\u0440\u044b \u043d\u043e\u0432\u043e\u0441\u0442\u0435\u0439"},n.prototype.getListRelativePath=function(){return"/Lists/slNewsComments"},n.prototype.getSelect=function(){return"Id,Title,slLookupNews/Id,slLookupNews/Title,LikedBy/Id,LikesCount"},n.prototype.getExpand=function(){return"slLookupNews,LikedBy"},n.prototype.getOrderBy=function(){return null},n.prototype.getTop=function(){return 5e3},n.prototype.convertListItemToEntity=function(t){var n={id:t.Id,title:t.Title,newsLookupId:null,count:t.LikesCount,userIds:t.LikedBy&&t.LikedBy.map(function(t){return t.Id})||[]};return t.slLookupNews&&(n.newsLookupId=t.slLookupNews.Id),n},n.prototype.convertEntityToListItem=function(t){return{Id:t.id,Title:t.title,slLookupNewsId:t.newsLookupId}},n.prototype.getMockItems=function(){return[]},n.prototype.isMock=function(){return!1},n.prototype.getItemsByNewsId=function(t){if(t&&t.length>0){for(var n="",e=0,o=t;e<o.length;e++)n+="slLookupNews/Id eq "+o[e]+" or";return n=n.slice(0,-3),this.getItems({filter:n,top:t.length})}return Object(r.a)([])},n.ngInjectableDef=l.V({factory:function(){return new n},token:n,providedIn:"root"}),n}(i.a)},amLo:function(t,n,e){"use strict";var o=e("CcnG"),r=e("Ip0R");e("FXjk"),e.d(n,"a",function(){return i}),e.d(n,"b",function(){return p});var i=o.qb({encapsulation:0,styles:[["#s4-bodyContainer[_ngcontent-%COMP%]{padding:0}@-webkit-keyframes shine-avatar{0%{background-position:-30px}100%,40%{background-position:210px}}@keyframes shine-avatar{0%{background-position:-30px}100%,40%{background-position:210px}}.bg-cover[_ngcontent-%COMP%]{z-index:9999;position:fixed;top:0;right:0;bottom:0;left:0;background-color:rgba(5,5,5,.8);overflow:auto}.modal[_ngcontent-%COMP%]{position:absolute;left:50%;right:0;top:50%;-webkit-transform:translate3d(-50%,-50%,0);transform:translate3d(-50%,-50%,0);width:40vw;z-index:10000}.modal[_ngcontent-%COMP%] > input[type=button][_ngcontent-%COMP%]{position:absolute;top:-17.5px;right:-17.5px;padding:0;margin:0;z-index:1;width:35px;height:35px;background-color:#050505;border-radius:100%;border:1px solid #fff;box-sizing:border-box;background-repeat:no-repeat;background-position:center;background-image:url(/local/js/assets/icons/icon-close-white.svg);background-size:90%}.modal[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   input[type=button][_ngcontent-%COMP%]{padding:0;margin:0;position:absolute;top:50%;-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%);transform:translateY(-50%);width:35px;height:35px;opacity:.7;background-color:#050505;border-radius:100%;border:1px solid #fff;box-sizing:border-box;background-repeat:no-repeat;background-position:center;background-image:url(/local/js/assets/icons/icon-carousel-arrow-right-white.svg);background-size:90%}.modal[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   input[type=button][_ngcontent-%COMP%]:hover{opacity:1}.modal[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   input[type=button].prev[_ngcontent-%COMP%]{left:35px;-webkit-transform:translateY(-50%) rotate(-180deg);-ms-transform:translateY(-50%) rotate(-180deg);transform:translateY(-50%) rotate(-180deg)}.modal[_ngcontent-%COMP%]   .controls[_ngcontent-%COMP%]   input[type=button].next[_ngcontent-%COMP%]{right:35px}"]],data:{}});function l(t){return o.Mb(0,[(t()(),o.sb(0,16777216,null,null,1,null,null,null,null,null,null,null)),o.rb(1,540672,null,0,r.r,[o.R],{ngTemplateOutlet:[0,"ngTemplateOutlet"]},null),(t()(),o.jb(0,null,null,0))],function(t,n){t(n,1,0,n.parent.context.$implicit.tpl)},null)}function u(t){return o.Mb(0,[(t()(),o.sb(0,0,[["galleryItem",1]],null,2,"div",[],null,null,null,null,null)),(t()(),o.jb(16777216,null,null,1,null,l)),o.rb(2,16384,null,0,r.k,[o.R,o.O],{ngIf:[0,"ngIf"]},null)],function(t,n){t(n,2,0,n.component.currentSlide===n.context.index)},null)}function s(t){return o.Mb(0,[(t()(),o.sb(0,0,null,null,0,"input",[["class","prev"],["type","button"]],null,[[null,"click"]],function(t,n,e){var o=!0;return"click"===n&&(o=!1!==t.component.changeSlide(!1,e)&&o),o},null,null))],null,null)}function c(t){return o.Mb(0,[(t()(),o.sb(0,0,null,null,0,"input",[["class","next"],["type","button"]],null,[[null,"click"]],function(t,n,e){var o=!0;return"click"===n&&(o=!1!==t.component.changeSlide(!0,e)&&o),o},null,null))],null,null)}function a(t){return o.Mb(0,[(t()(),o.sb(0,0,[["bgCover",1]],null,9,"div",[["class","bg-cover"]],null,null,null,null,null)),(t()(),o.sb(1,0,[[1,0],["containerRef",1]],null,8,"div",[["class","modal"]],null,null,null,null,null)),(t()(),o.sb(2,0,null,null,0,"input",[["class","close"],["type","button"]],null,[[null,"click"]],function(t,n,e){var o=!0;return"click"===n&&(o=!1!==t.component.closeGallery()&&o),o},null,null)),(t()(),o.jb(16777216,null,null,1,null,u)),o.rb(4,278528,null,0,r.j,[o.R,o.O,o.u],{ngForOf:[0,"ngForOf"]},null),(t()(),o.sb(5,0,null,null,4,"div",[["class","controls"]],null,null,null,null,null)),(t()(),o.jb(16777216,null,null,1,null,s)),o.rb(7,16384,null,0,r.k,[o.R,o.O],{ngIf:[0,"ngIf"]},null),(t()(),o.jb(16777216,null,null,1,null,c)),o.rb(9,16384,null,0,r.k,[o.R,o.O],{ngIf:[0,"ngIf"]},null)],function(t,n){var e=n.component;t(n,4,0,e.items),t(n,7,0,e.currentSlide>0),t(n,9,0,e.currentSlide<e.countItems-1)},null)}function p(t){return o.Mb(0,[o.Ib(671088640,1,{containerRef:0}),o.Bb(null,0),(t()(),o.jb(16777216,null,null,1,null,a)),o.rb(3,16384,null,0,r.k,[o.R,o.O],{ngIf:[0,"ngIf"]},null)],function(t,n){t(n,3,0,n.component.isVisibleGallery)},null)}},dhB6:function(t,n,e){"use strict";e.d(n,"a",function(){return o});var o=function(){function t(t){this.tpl=t,this.isVisible=!1}return t.prototype.handleOpenGallery=function(){this.isVisible=!0},t}()},ifGX:function(t,n,e){"use strict";e.d(n,"a",function(){return o});var o=function(){function t(t){this.document=t,this.s4=null,this.isVisible=!1}return t.prototype.onWorkSpaceScroll=function(){this.isVisible=this.s4.scrollTop>=350},t.prototype.scrollTo=function(){var t=this.s4,n=t.scrollTop,e=0-n,o=function(r){var i,l,u,s=(i=r+=20,l=n,u=e,(i/=250)<1?u/2*i*i+l:-u/2*((i-=1)*(i-2)-1)+l);t.scrollTop=s,r<500&&setTimeout(function(){o(r)},20)};o(0)},t.prototype.ngOnInit=function(){this.s4=this.document.getElementById("s4-workspace"),this.s4.addEventListener("scroll",this.onWorkSpaceScroll.bind(this),!0)},t.prototype.ngOnDestroy=function(){this.s4.removeEventListener("scroll",this.onWorkSpaceScroll.bind(this),!0)},t}()},l1rk:function(t,n,e){"use strict";e.d(n,"a",function(){return c});var o=e("mrSG"),r=e("F/XL"),i=e("Cdqi"),l=e("WkfL"),u=e("CcnG"),s=e("t/Na"),c=function(t){function n(n,e){var o=t.call(this)||this;return o.http=n,o.sharepointService=e,o}return Object(o.c)(n,t),n.prototype.getListTitle=function(){return"\u0411\u0438\u0431\u043b\u0438\u043e\u0442\u0435\u043a\u0430 \u0444\u043e\u0442\u043e\u0433\u0430\u043b\u0435\u0440\u0435\u0438"},n.prototype.getListRelativePath=function(){return"slPhotoLibrary"},n.prototype.getSelect=function(){return"Id,Title,slAlbumCover,slAlbumDescription,slAlbumIndex,slPhotoIndex,File/ServerRelativeUrl,ContentType,ContentTypeId,Created"},n.prototype.getExpand=function(){return"File"},n.prototype.getOrderBy=function(){return[["Created",!1]]},n.prototype.getTop=function(){return 15},n.prototype.convertListItemToEntity=function(t){return{id:t.Id,title:t.Title,albumCover:t.slAlbumCover,albumDescription:t.slAlbumDescription,albumIndex:t.slAlbumIndex,photoIndex:t.slPhotoIndex,url:t.File&&t.File.ServerRelativeUrl}},n.prototype.convertEntityToListItem=function(t){throw new Error("Method not implemented.")},n.prototype.getMockItems=function(){return[]},n.prototype.isMock=function(){return!1},n.prototype.getFiles=function(t,n){return Object(r.a)([])},n.ngInjectableDef=u.V({factory:function(){return new n(u.Z(s.c),u.Z(i.a))},token:n,providedIn:"root"}),n}(l.a)},lDhO:function(t,n,e){"use strict";e.d(n,"a",function(){return l});var o=e("mrSG"),r=e("WkfL"),i=e("CcnG"),l=function(t){function n(){return null!==t&&t.apply(this,arguments)||this}return Object(o.c)(n,t),n.prototype.getListRelativePath=function(){return""},n.prototype.getListTitle=function(){return"\u0411\u0430\u043d\u043d\u0435\u0440\u044b"},n.prototype.getSelect=function(){return"Id,Title,slText,slUrl,slShow,slIndex,AttachmentFiles/ServerRelativeUrl"},n.prototype.getExpand=function(){return"AttachmentFiles"},n.prototype.getOrderBy=function(){return[["slIndex",!0],["Created",!1]]},n.prototype.getTop=function(){return 5},n.prototype.convertListItemToEntity=function(t){return{id:t.Id,title:t.Title,imageUrl:t.AttachmentFiles&&t.AttachmentFiles.length>0?t.AttachmentFiles[0].ServerRelativeUrl:null,isShow:t.slShow,url:t.slUrl,text:t.slText}},n.prototype.convertEntityToListItem=function(t){throw new Error("Method not implemented.")},n.prototype.getMockItems=function(){return[]},n.prototype.isMock=function(){return!1},n.ngInjectableDef=i.V({factory:function(){return new n},token:n,providedIn:"root"}),n}(r.a)},rHJy:function(t,n,e){"use strict";e.d(n,"a",function(){return s});var o=e("mrSG"),r=e("WkfL"),i=e("F/XL"),l=e("wd/R"),u=e("CcnG"),s=function(t){function n(){return null!==t&&t.apply(this,arguments)||this}return Object(o.c)(n,t),n.prototype.getListTitle=function(){return"\u041a\u043e\u043c\u043c\u0435\u043d\u0442\u0430\u0440\u0438\u0438 \u043a \u043d\u043e\u0432\u043e\u0441\u0442\u044f\u043c"},n.prototype.getListRelativePath=function(){return"/Lists/slNewsComments"},n.prototype.getSelect=function(){return"Id,Title,slComment,slLookupNews/Id,slLookupNews/Title,Created,Author/Title,Author/Name,Author/Id"},n.prototype.getExpand=function(){return"slLookupNews,Author"},n.prototype.getOrderBy=function(){return null},n.prototype.getTop=function(){return 5e3},n.prototype.convertListItemToEntity=function(t){var n={id:t.Id,title:t.Title,comment:t.slComment,newsLookupId:null,name:t.Author.Title,photo:"/_layouts/15/userphoto.aspx?size=M&username="+t.Author.Name,dateTitle:l(t.Created).calendar()};return t.slLookupNews&&(n.newsLookupId=t.slLookupNews.Id),t.Author&&(n.authorId=t.Author.Id,n.authorTitle=t.Author.Title),n},n.prototype.convertEntityToListItem=function(t){return{Id:t.id,Title:t.title,slComment:t.comment,slLookupNewsId:t.newsLookupId}},n.prototype.getMockItems=function(){return[]},n.prototype.isMock=function(){return!1},n.prototype.getItemsByNewsId=function(t){if(t&&t.length>0){for(var n="",e=0,o=t;e<o.length;e++)n+="slLookupNews/Id eq "+o[e]+" or";return n=n.slice(0,-3),this.getItems({filter:n,top:t.length})}return Object(i.a)([])},n.ngInjectableDef=u.V({factory:function(){return new n},token:n,providedIn:"root"}),n}(r.a)},sBl0:function(t,n,e){"use strict";e.d(n,"a",function(){return o}),e("G0b6");var o=function(){function t(t){this.departmentsService=t}return t.prototype.resolve=function(t,n){return this.departmentsService.getItems()},t}()},zIWb:function(t,n,e){"use strict";e.d(n,"a",function(){return o});var o={album:"\u041a\u043e\u043d\u0442\u0435\u043d\u0442\u043d\u044b\u0439 \u0442\u0438\u043f \u0430\u043b\u044c\u0431\u043e\u043c\u0430 \u0438\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0439",photo:"\u041a\u043e\u043d\u0442\u0435\u043d\u0442\u043d\u044b\u0439 \u0442\u0438\u043f \u0444\u043e\u0442\u043e"}}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["common"],{
+
+/***/ "./src/app/constants/content-types.ts":
+/*!********************************************!*\
+  !*** ./src/app/constants/content-types.ts ***!
+  \********************************************/
+/*! exports provided: contentTypes */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "contentTypes", function() { return contentTypes; });
+var contentTypes = {
+    album: 'Контентный тип альбома изображений',
+    photo: 'Контентный тип фото'
+};
+
+
+/***/ }),
+
+/***/ "./src/app/services/banners/banners.service.ts":
+/*!*****************************************************!*\
+  !*** ./src/app/services/banners/banners.service.ts ***!
+  \*****************************************************/
+/*! exports provided: BannersService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BannersService", function() { return BannersService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _list_items_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../list-items-service */ "./src/app/services/list-items-service.ts");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+var BannersService = /** @class */ (function (_super) {
+    __extends(BannersService, _super);
+    function BannersService() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    BannersService.prototype.getListRelativePath = function () {
+        return '';
+    };
+    BannersService.prototype.getListTitle = function () {
+        return 'Баннеры';
+    };
+    BannersService.prototype.getSelect = function () {
+        return 'Id,Title,slText,slUrl,slShow,slIndex,AttachmentFiles/ServerRelativeUrl';
+    };
+    BannersService.prototype.getExpand = function () {
+        return 'AttachmentFiles';
+    };
+    BannersService.prototype.getOrderBy = function () {
+        return [['slIndex', true], ['Created', false]];
+    };
+    BannersService.prototype.getTop = function () {
+        return 5;
+    };
+    BannersService.prototype.convertListItemToEntity = function (item) {
+        var banner = {
+            id: item.Id,
+            title: item.Title,
+            imageUrl: item.AttachmentFiles && item.AttachmentFiles.length > 0 ? item.AttachmentFiles[0].ServerRelativeUrl : null,
+            isShow: item.slShow,
+            url: item.slUrl,
+            text: item.slText
+        };
+        return banner;
+    };
+    BannersService.prototype.convertEntityToListItem = function (entity) {
+        throw new Error('Method not implemented.');
+    };
+    BannersService.prototype.getMockItems = function () {
+        return [];
+    };
+    BannersService.prototype.isMock = function () {
+        return false;
+    };
+    BannersService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        })
+    ], BannersService);
+    return BannersService;
+}(_list_items_service__WEBPACK_IMPORTED_MODULE_1__["ListItemsService"]));
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/departments/departments.resolver.ts":
+/*!**************************************************************!*\
+  !*** ./src/app/services/departments/departments.resolver.ts ***!
+  \**************************************************************/
+/*! exports provided: DepartmentsResolver */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DepartmentsResolver", function() { return DepartmentsResolver; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _departments_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./departments.service */ "./src/app/services/departments/departments.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var DepartmentsResolver = /** @class */ (function () {
+    function DepartmentsResolver(departmentsService) {
+        this.departmentsService = departmentsService;
+    }
+    DepartmentsResolver.prototype.resolve = function (route, state) {
+        return this.departmentsService.getItems();
+    };
+    DepartmentsResolver = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __metadata("design:paramtypes", [_departments_service__WEBPACK_IMPORTED_MODULE_1__["DepartmentsService"]])
+    ], DepartmentsResolver);
+    return DepartmentsResolver;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/departments/departments.service.ts":
+/*!*************************************************************!*\
+  !*** ./src/app/services/departments/departments.service.ts ***!
+  \*************************************************************/
+/*! exports provided: DepartmentsService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DepartmentsService", function() { return DepartmentsService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _list_items_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../list-items-service */ "./src/app/services/list-items-service.ts");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+var DepartmentsService = /** @class */ (function (_super) {
+    __extends(DepartmentsService, _super);
+    function DepartmentsService() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    DepartmentsService.prototype.getListRelativePath = function () {
+        return '';
+    };
+    DepartmentsService.prototype.getListTitle = function () {
+        return 'Департаменты';
+    };
+    DepartmentsService.prototype.getSelect = function () {
+        return 'Id,Title,slIndexNumber,slParentDepartment/Id,slParentDepartment/Title,slCode,slParentCode,'
+            + 'slUnitTypeName,slLookupManager/Id,slLookupManager/Title,slLookupManager/slFullName,'
+            + 'slLookupManager/slLogin,slLookupManager/slPositionName,slEmployeeCount,slLookupManager/slReason';
+    };
+    DepartmentsService.prototype.getExpand = function () {
+        return 'slLookupManager,slParentDepartment';
+    };
+    DepartmentsService.prototype.getOrderBy = function () {
+        return [['slIndexNumber', true]];
+    };
+    DepartmentsService.prototype.getTop = function () {
+        return 5000;
+    };
+    DepartmentsService.prototype.isMock = function () {
+        return false;
+    };
+    DepartmentsService.prototype.getMockItems = function () {
+        return [
+            { id: 1, title: 'Транслом', parentDepartmentId: null, },
+            { id: 2, title: 'Департамент маркетинга', parentDepartmentId: 1, },
+            { id: 3, title: 'Отдел рекламы', parentDepartmentId: 2, },
+            { id: 4, title: 'Отдел PR', parentDepartmentId: 2, },
+            { id: 5, title: 'Отдел дизайна', parentDepartmentId: 2, },
+            { id: 6, title: 'Отдел разработки', parentDepartmentId: 2, },
+            { id: 7, title: 'Отдел', parentDepartmentId: 2, },
+            { id: 8, title: 'Департамент логистики', parentDepartmentId: 1, },
+            { id: 9, title: 'Департамент финансов', parentDepartmentId: 1, },
+            { id: 10, title: 'Транслом', parentDepartmentId: null, },
+            { id: 11, title: 'Департамент маркетинга', parentDepartmentId: 10, },
+            { id: 12, title: 'Отдел рекламы', parentDepartmentId: 11, },
+            { id: 13, title: 'Отдел PR', parentDepartmentId: 11, },
+            { id: 14, title: 'Отдел дизайна', parentDepartmentId: 11, },
+            { id: 15, title: 'Отдел разработки', parentDepartmentId: 11, },
+            { id: 16, title: 'Отдел', parentDepartmentId: 11, },
+            { id: 17, title: 'Департамент логистики', parentDepartmentId: 10, },
+            { id: 18, title: 'Департамент финансов', parentDepartmentId: 10, }
+        ];
+    };
+    DepartmentsService.prototype.convertListItemToEntity = function (item) {
+        var department = {
+            id: item.Id,
+            title: item.Title,
+            code: item.slCode,
+            indexNumber: item.slIndexNumber,
+            parentCode: item.slParentCode,
+            unitTypeName: item.slUnitTypeName,
+            parentId: null,
+            parentDepartmentId: null,
+            parentDepartmentTitle: null,
+            employeeCount: item.slEmployeeCount
+        };
+        if (item.slParentDepartment != null) {
+            department.parentId = item.slParentDepartment.Id;
+            department.parentDepartmentId = item.slParentDepartment.Id;
+            department.parentDepartmentTitle = item.slParentDepartment.Title;
+        }
+        if (item.slLookupManager != null) {
+            department.lookupManagerId = item.slLookupManager.Id;
+            department.lookupManagerFullName = item.slLookupManager.slFullName;
+            department.lookupManagerPhoto = "/_layouts/15/userphoto.aspx?size=L&username=" + item.slLookupManager.slLogin;
+            department.lookupManagerPosition = item.slLookupManager.slPositionName;
+            department.lookupManagerReason = item.slLookupManager.slReason;
+            department.profileManagerRoute = ['/phonebook', item.slLookupManager.Id];
+        }
+        return department;
+    };
+    DepartmentsService.prototype.convertEntityToListItem = function (entity) {
+        throw new Error('Method not implemented.');
+    };
+    DepartmentsService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        })
+    ], DepartmentsService);
+    return DepartmentsService;
+}(_list_items_service__WEBPACK_IMPORTED_MODULE_1__["ListItemsService"]));
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/photo-library/photo-library.service.ts":
+/*!*****************************************************************!*\
+  !*** ./src/app/services/photo-library/photo-library.service.ts ***!
+  \*****************************************************************/
+/*! exports provided: PhotoLibraryService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PhotoLibraryService", function() { return PhotoLibraryService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _portal_portal_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../portal/portal.service */ "./src/app/services/portal/portal.service.ts");
+/* harmony import */ var _list_items_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../list-items-service */ "./src/app/services/list-items-service.ts");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var PhotoLibraryService = /** @class */ (function (_super) {
+    __extends(PhotoLibraryService, _super);
+    function PhotoLibraryService(http, sharepointService) {
+        var _this = _super.call(this) || this;
+        _this.http = http;
+        _this.sharepointService = sharepointService;
+        return _this;
+    }
+    PhotoLibraryService.prototype.getListTitle = function () {
+        return 'Библиотека фотогалереи';
+    };
+    PhotoLibraryService.prototype.getListRelativePath = function () {
+        return 'slPhotoLibrary';
+    };
+    PhotoLibraryService.prototype.getSelect = function () {
+        return 'Id,Title,slAlbumCover,slAlbumDescription,slAlbumIndex,slPhotoIndex,File/ServerRelativeUrl,ContentType,ContentTypeId,Created';
+    };
+    PhotoLibraryService.prototype.getExpand = function () {
+        return 'File';
+    };
+    PhotoLibraryService.prototype.getOrderBy = function () {
+        return [['Created', false]];
+    };
+    PhotoLibraryService.prototype.getTop = function () {
+        return 15;
+    };
+    PhotoLibraryService.prototype.convertListItemToEntity = function (item) {
+        var entity = {
+            id: item.Id,
+            title: item.Title,
+            albumCover: item.slAlbumCover,
+            albumDescription: item.slAlbumDescription,
+            albumIndex: item.slAlbumIndex,
+            photoIndex: item.slPhotoIndex,
+            url: item.File && item.File.ServerRelativeUrl
+        };
+        return entity;
+    };
+    PhotoLibraryService.prototype.convertEntityToListItem = function (entity) {
+        throw new Error('Method not implemented.');
+    };
+    PhotoLibraryService.prototype.getMockItems = function () {
+        return [];
+    };
+    PhotoLibraryService.prototype.isMock = function () {
+        return false;
+    };
+    PhotoLibraryService.prototype.getFiles = function (id, webId) {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["of"])([]);
+    };
+    PhotoLibraryService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"],
+            _portal_portal_service__WEBPACK_IMPORTED_MODULE_3__["PortalService"]])
+    ], PhotoLibraryService);
+    return PhotoLibraryService;
+}(_list_items_service__WEBPACK_IMPORTED_MODULE_4__["ListItemsService"]));
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/security/current-user-id.resolver.ts":
+/*!***************************************************************!*\
+  !*** ./src/app/services/security/current-user-id.resolver.ts ***!
+  \***************************************************************/
+/*! exports provided: CurrentUserIdResolver */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CurrentUserIdResolver", function() { return CurrentUserIdResolver; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _portal_portal_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../portal/portal.service */ "./src/app/services/portal/portal.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var CurrentUserIdResolver = /** @class */ (function () {
+    function CurrentUserIdResolver(sharepointService) {
+        this.sharepointService = sharepointService;
+    }
+    CurrentUserIdResolver.prototype.resolve = function (route, state) {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(this.sharepointService.getCurrentUserContext().userId);
+    };
+    CurrentUserIdResolver = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __metadata("design:paramtypes", [_portal_portal_service__WEBPACK_IMPORTED_MODULE_2__["PortalService"]])
+    ], CurrentUserIdResolver);
+    return CurrentUserIdResolver;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/security/groups.resolver.ts":
+/*!******************************************************!*\
+  !*** ./src/app/services/security/groups.resolver.ts ***!
+  \******************************************************/
+/*! exports provided: GroupsResolver */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GroupsResolver", function() { return GroupsResolver; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _security_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./security.service */ "./src/app/services/security/security.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var GroupsResolver = /** @class */ (function () {
+    function GroupsResolver(securityService) {
+        this.securityService = securityService;
+    }
+    GroupsResolver.prototype.resolve = function (route, state) {
+        return this.securityService.getCurrentUserGroups();
+    };
+    GroupsResolver = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __metadata("design:paramtypes", [_security_service__WEBPACK_IMPORTED_MODULE_1__["SecurityService"]])
+    ], GroupsResolver);
+    return GroupsResolver;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/videos/videos.service.ts":
+/*!***************************************************!*\
+  !*** ./src/app/services/videos/videos.service.ts ***!
+  \***************************************************/
+/*! exports provided: VideosService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VideosService", function() { return VideosService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _list_items_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../list-items-service */ "./src/app/services/list-items-service.ts");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+var VideosService = /** @class */ (function (_super) {
+    __extends(VideosService, _super);
+    function VideosService() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    VideosService.prototype.getListTitle = function () {
+        return 'Ссылки на видео';
+    };
+    VideosService.prototype.getListRelativePath = function () {
+        return 'lists/slVideo';
+    };
+    VideosService.prototype.getSelect = function () {
+        return 'Id,Title,slVideoUrl,slIsIFrame,Created';
+    };
+    VideosService.prototype.getExpand = function () {
+        return null;
+    };
+    VideosService.prototype.getOrderBy = function () {
+        return [['Created', false]];
+    };
+    VideosService.prototype.getTop = function () {
+        return 5000;
+    };
+    VideosService.prototype.convertListItemToEntity = function (item) {
+        var entity = {
+            id: item.Id,
+            title: item.Title,
+            isIFrame: item.slIsIFrame,
+            videoUrl: item.slVideoUrl,
+            created: new Date(item.Created),
+            createdTitle: moment__WEBPACK_IMPORTED_MODULE_1__(item.Created).fromNow()
+        };
+        return entity;
+    };
+    VideosService.prototype.convertEntityToListItem = function (entity) {
+        throw new Error('Method not implemented.');
+    };
+    VideosService.prototype.getMockItems = function () {
+        return [];
+    };
+    VideosService.prototype.isMock = function () {
+        return false;
+    };
+    VideosService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        })
+    ], VideosService);
+    return VideosService;
+}(_list_items_service__WEBPACK_IMPORTED_MODULE_2__["ListItemsService"]));
+
+
+
+/***/ })
+
+}]);
+//# sourceMappingURL=common.js.map
