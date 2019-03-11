@@ -622,9 +622,7 @@ var AppModule = /** @class */ (function () {
                 _this.sharepointService.showRibbon();
             }
         });
-        if (this.platformLocation.pathname.toLowerCase().indexOf('portalpages') > 0) {
-            app.bootstrap(_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]);
-        }
+        app.bootstrap(_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]);
         app.bootstrap(_core_header_header_component__WEBPACK_IMPORTED_MODULE_9__["HeaderComponent"]);
         app.bootstrap(_core_left_menu_left_menu_component__WEBPACK_IMPORTED_MODULE_11__["LeftMenuComponent"]);
         app.bootstrap(_core_footer_footer_component__WEBPACK_IMPORTED_MODULE_10__["FooterComponent"]);
