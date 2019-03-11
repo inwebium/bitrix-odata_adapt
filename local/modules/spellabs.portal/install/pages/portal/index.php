@@ -28,7 +28,7 @@ $APPLICATION->ShowHead();
 			<app-left-menu-control></app-left-menu-control>
 		</div>
 		<div class="l-body__content">
-			app-root></app-root>
+			<app-root></app-root>
 			<div><app-footer></app-footer></div>
 		</div>
 	</div>
