@@ -18,25 +18,22 @@ $APPLICATION->AddHeadScript('/local/js/main.js');
 $APPLICATION->ShowHead();
 ?>
 
-<div><? $APPLICATION->ShowPanel(); ?></div>
-<h1><? $APPLICATION->ShowTitle(); ?></h1>
-<div>Страница установлена с помощью модуля <? echo CSPMain::GetModuleId() . ' ' . CSPMain::GetModuleVersion(); ?></div>
+<div class="l-body">
+	<div><app-header></app-header></div>
+	<div class="l-body__content-area">
+		<div class="l-body__navigation s4-notdlg">
+			<div class="l-body__left-menu">
+				<app-left-menu></app-left-menu>
+			</div>
+			<app-left-menu-control></app-left-menu-control>
+		</div>
+		<div class="l-body__content">
+			app-root></app-root>
+			<div><app-footer></app-footer></div>
+		</div>
+	</div>
+</div>
 
-<p>Далее будет вызван компонент</p>
-<?$APPLICATION->IncludeComponent(
-	"spellabs:portal.test",
-	"",
-	Array(
-		"ELEMENTS_COUNT" => "10",
-		"IBLOCK_ID" => "122",
-		"IBLOCK_TYPE" => "sl_test",
-		"SORT_BY1" => "ACTIVE_FROM",
-		"SORT_BY2" => "SORT",
-		"SORT_ORDER1" => "DESC",
-		"SORT_ORDER2" => "ASC"
-	)
-);?>
-<p>Компонент закончился</p>
 <?
 // Эпилог с визуальной частью (обычно футер)
 //require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");
