@@ -8,12 +8,12 @@ require($_SERVER['DOCUMENT_ROOT'] . '/bitrix/modules/main/include/prolog_before.
 //Содержимое тега title + можно заданное значение вывести с помощью $APPLICATION->ShowTitle()
 $APPLICATION->SetTitle("Spellabs Portal test");
 // Подключаем некую библиотеку и т.п.
-$APPLICATION->SetAdditionalCSS('/styles.css');
-$APPLICATION->AddHeadScript('/runtime.js');
-$APPLICATION->AddHeadScript('/polyfills.js');
-$APPLICATION->AddHeadScript('/scripts.js');
-$APPLICATION->AddHeadScript('/vendor.js');
-$APPLICATION->AddHeadScript('/main.js');
+$APPLICATION->SetAdditionalCSS('/local/js/styles.css');
+$APPLICATION->AddHeadScript('/local/js/runtime.js');
+$APPLICATION->AddHeadScript('/local/js/polyfills.js');
+$APPLICATION->AddHeadScript('/local/js/scripts.js');
+$APPLICATION->AddHeadScript('/local/js/vendor.js');
+$APPLICATION->AddHeadScript('/local/js/main.js');
 // Выводит все, что должно быть в <head> (в т.ч. разные битриксовые скрипты/стили)
 $APPLICATION->ShowHead();
 ?>
