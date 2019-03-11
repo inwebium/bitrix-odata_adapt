@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: none;
+      }
+
+      .cls-2 {
+        stroke: #050505;
+        stroke-miterlimit: 10;
+        stroke-width: 2px;
+        fill: black;
+      }
+    </style>
+  </defs>
+  <g id="icon-favorite" transform="translate(-635.893 -594)">
+    <rect id="Rectangle_11812" data-name="Rectangle 11812" class="cls-1" width="30" height="30" transform="translate(635.893 594)"/>
+    <path id="Path_9129" data-name="Path 9129" class="cls-2" d="M14.789.96l2.789,8.551a.653.653,0,0,0,.613.46h8.98a.666.666,0,0,1,.4,1.2l-7.294,5.241a.67.67,0,0,0-.245.736l2.789,8.551a.658.658,0,0,1-1.011.736l-7.264-5.3a.7.7,0,0,0-.766,0l-7.264,5.3A.658.658,0,0,1,5.5,25.693l2.789-8.551a.64.64,0,0,0-.245-.736L.782,11.135a.662.662,0,0,1,.4-1.2h8.98a.653.653,0,0,0,.613-.46L13.532.96A.659.659,0,0,1,14.789.96Z" transform="translate(636.883 595)"/>
+  </g>
+</svg>

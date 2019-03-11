@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 70 70">
+  <g id="icon-positive" transform="translate(-1263 -299)">
+    <g id="Ellipse_1611" data-name="Ellipse 1611" transform="translate(1263 299)" fill="#dedfe0" stroke="#fff" stroke-width="2">
+      <ellipse cx="35" cy="35" rx="35" ry="35" stroke="none"/>
+      <ellipse cx="35" cy="35" rx="34" ry="34" fill="none"/>
+    </g>
+    <g id="Group_19330" data-name="Group 19330" transform="translate(1287.105 317.304)">
+      <g id="Group_18497" data-name="Group 18497" transform="translate(0 0)">
+        <g id="Group_5" data-name="Group 5" transform="translate(0)">
+          <g id="Group_121" data-name="Group 121" transform="translate(5.397 18.882)">
+            <path id="Path_8986" data-name="Path 8986" d="M4.881,0S11.8,5.976,8.315,8.619a2.514,2.514,0,0,1-3.677-.444,2.525,2.525,0,0,1-3.686.444C-2.533,6.063,4.674,0,4.674,0Z" transform="translate(9.297 9.232) rotate(180)" fill="none" stroke="#06070c" stroke-miterlimit="10" stroke-width="2" fill-rule="evenodd"/>
+          </g>
+          <g id="Group_124" data-name="Group 124">
+            <g id="Group_122" data-name="Group 122">
+              <g id="Group_120" data-name="Group 120">
+                <path id="Path_137" data-name="Path 137" d="M548.935,492.576v-7.468a2.064,2.064,0,1,0-4.121,0v12.574c0,2.8,1.18,10.638,10.358,10.638s10.062-8.231,10.062-10.638v-8.234c0-2.086-.918-2.761-1.941-2.761s-1.883.673-1.958,2.516" transform="translate(-544.814 -475.236)" fill="none" stroke="#06070c" stroke-width="2"/>
+                <path id="Path_138" data-name="Path 138" d="M548.935,499.15V487.3a2.062,2.062,0,1,0-4.121,0v5.9" transform="translate(-540.679 -483.513)" fill="none" stroke="#06070c" stroke-width="2"/>
+                <path id="Path_140" data-name="Path 140" d="M548.935,489.6v-1.841a1.925,1.925,0,0,0-2.023-2.086,1.987,1.987,0,0,0-2.1,2.086V489.6" transform="translate(-536.543 -485.67)" fill="none" stroke="#06070c" stroke-width="2"/>
+                <path id="Path_139" data-name="Path 139" d="M548.935,502.566V487.846a2.031,2.031,0,0,0-2.058-2.075,1.947,1.947,0,0,0-2.063,2.075V499.7" transform="translate(-532.407 -484.056)" fill="none" stroke="#06070c" stroke-width="2"/>
+              </g>
+            </g>
+          </g>
+        </g>
+        <path id="Path_2" data-name="Path 2" d="M0,0" transform="matrix(-0.259, 0.966, -0.966, -0.259, 22.199, 6.188)" fill="none" stroke="#06070c" stroke-width="2"/>
+      </g>
+    </g>
+  </g>
+</svg>

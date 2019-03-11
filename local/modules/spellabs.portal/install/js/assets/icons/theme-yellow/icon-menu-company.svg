@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+  <defs>
+    <style>
+      .cls-1, .cls-2, .cls-3 {
+        fill: none;
+      }
+
+      .cls-2, .cls-3 {
+        stroke: #fff;
+        stroke-width: 2px;
+      }
+
+      .cls-2 {
+        stroke-miterlimit: 10;
+      }
+
+      .cls-4 {
+        stroke: none;
+      }
+    </style>
+  </defs>
+  <g id="icon-menu-company" transform="translate(-1856 -120)">
+    <rect id="Rectangle_11579" data-name="Rectangle 11579" class="cls-1" width="50" height="50" transform="translate(1856 120)"/>
+    <g id="Group_14608" data-name="Group 14608" transform="translate(1863 125)">
+      <path id="Path_1264" data-name="Path 1264" class="cls-2" d="M40.917,40.218V3a2.479,2.479,0,0,0-2.5-2.5H22.2A2.479,2.479,0,0,0,19.7,3v9.336" transform="translate(-5.451 -0.5)"/>
+      <path id="Path_1265" data-name="Path 1265" class="cls-2" d="M24.465,16.5H3A2.479,2.479,0,0,0,.5,19V43.846H10.746V37.129h6.34v6.644h9.878V19A2.479,2.479,0,0,0,24.465,16.5Z" transform="translate(-0.5 -4.738)"/>
+      <g id="Group_14103" data-name="Group 14103" transform="translate(3.238 15.533)">
+        <g id="Rectangle_11057" data-name="Rectangle 11057" class="cls-3" transform="translate(0)">
+          <rect class="cls-4" width="5.181" height="5.181"/>
+          <rect class="cls-1" x="1" y="1" width="3.181" height="3.181"/>
+        </g>
+        <g id="Rectangle_11076" data-name="Rectangle 11076" class="cls-3" transform="translate(15.544)">
+          <rect class="cls-4" width="5.181" height="5.181"/>
+          <rect class="cls-1" x="1" y="1" width="3.181" height="3.181"/>
+        </g>
+        <g id="Rectangle_11075" data-name="Rectangle 11075" class="cls-3" transform="translate(7.772)">
+          <rect class="cls-4" width="5.181" height="5.181"/>
+          <rect class="cls-1" x="1" y="1" width="3.181" height="3.181"/>
+        </g>
+      </g>
+      <g id="Group_14105" data-name="Group 14105" transform="translate(18.783 3.875)">
+        <g id="Rectangle_11057-2" data-name="Rectangle 11057" class="cls-3" transform="translate(0)">
+          <rect class="cls-4" width="5.181" height="5.181"/>
+          <rect class="cls-1" x="1" y="1" width="3.181" height="3.181"/>
+        </g>
+        <g id="Rectangle_11075-2" data-name="Rectangle 11075" class="cls-3" transform="translate(7.772)">
+          <rect class="cls-4" width="5.181" height="5.181"/>
+          <rect class="cls-1" x="1" y="1" width="3.181" height="3.181"/>
+        </g>
+      </g>
+      <g id="Group_14104" data-name="Group 14104" transform="translate(3.238 23.305)">
+        <g id="Rectangle_11057-3" data-name="Rectangle 11057" class="cls-3" transform="translate(0)">
+          <rect class="cls-4" width="5.181" height="5.181"/>
+          <rect class="cls-1" x="1" y="1" width="3.181" height="3.181"/>
+        </g>
+        <g id="Rectangle_11076-2" data-name="Rectangle 11076" class="cls-3" transform="translate(15.544)">
+          <rect class="cls-4" width="5.181" height="5.181"/>
+          <rect class="cls-1" x="1" y="1" width="3.181" height="3.181"/>
+        </g>
+        <g id="Rectangle_11075-3" data-name="Rectangle 11075" class="cls-3" transform="translate(7.772)">
+          <rect class="cls-4" width="5.181" height="5.181"/>
+          <rect class="cls-1" x="1" y="1" width="3.181" height="3.181"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

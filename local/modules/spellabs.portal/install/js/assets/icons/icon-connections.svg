@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: none;
+      }
+
+      .cls-2 {
+        stroke: #050505;
+        stroke-width: 2px;
+      }
+
+      .cls-3 {
+        stroke: none;
+      }
+    </style>
+  </defs>
+  <g id="icon-connections" transform="translate(5.107 5)">
+    <rect id="Rectangle_11814" data-name="Rectangle 11814" class="cls-1" width="30" height="30" transform="translate(-5.108 -5)"/>
+    <g id="Group_18097" data-name="Group 18097" transform="translate(-2.107 -3)">
+      <g id="Ellipse_1619" data-name="Ellipse 1619" class="cls-2" transform="translate(0 8.863)">
+        <ellipse class="cls-3" cx="4.029" cy="4.029" rx="4.029" ry="4.029"/>
+        <ellipse class="cls-1" cx="4.029" cy="4.029" rx="3.029" ry="3.029"/>
+      </g>
+      <g id="Ellipse_1620" data-name="Ellipse 1620" class="cls-2" transform="translate(17.726)">
+        <ellipse class="cls-3" cx="4.029" cy="4.029" rx="4.029" ry="4.029"/>
+        <ellipse class="cls-1" cx="4.029" cy="4.029" rx="3.029" ry="3.029"/>
+      </g>
+      <g id="Ellipse_1621" data-name="Ellipse 1621" class="cls-2" transform="translate(17.726 17.726)">
+        <ellipse class="cls-3" cx="4.029" cy="4.029" rx="4.029" ry="4.029"/>
+        <ellipse class="cls-1" cx="4.029" cy="4.029" rx="3.029" ry="3.029"/>
+      </g>
+      <path id="Path_9092" data-name="Path 9092" class="cls-2" d="M-19612.566,20280.617l11.836-5.811" transform="translate(19619.359 -20269.322)"/>
+      <path id="Path_9093" data-name="Path 9093" class="cls-2" d="M-19612.566,20286.82l11.818,5.7" transform="translate(19619.359 -20272.459)"/>
+    </g>
+  </g>
+</svg>

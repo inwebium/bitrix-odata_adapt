@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #da402b;
+        stroke-width: 2px;
+      }
+
+      .cls-2 {
+        fill: #da402b;
+      }
+    </style>
+  </defs>
+  <g id="Group_15234" data-name="Group 15234" transform="translate(-519.378 -110.378)">
+    <g id="Group_13154" data-name="Group 13154" transform="translate(520.378 111.378)">
+      <path id="ic_error_24px" class="cls-1" d="M9,0a9,9,0,1,0,9,9A9,9,0,0,0,9,0Z" transform="translate(18 18) rotate(180)"/>
+      <g id="Group_13149" data-name="Group 13149" transform="translate(8.341 4.83)">
+        <rect id="Rectangle_11143" data-name="Rectangle 11143" class="cls-2" width="1.756" height="5.268" transform="translate(0 3.512)"/>
+        <rect id="Rectangle_11144" data-name="Rectangle 11144" class="cls-2" width="1.756" height="1.756" transform="translate(0 0)"/>
+      </g>
+    </g>
+  </g>
+</svg>

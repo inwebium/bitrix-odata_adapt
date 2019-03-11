@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 35 35">
+  <g id="icon-mrr-edit" transform="translate(-3919 -475)">
+    <rect id="Rectangle_11266" data-name="Rectangle 11266" width="35" height="35" transform="translate(3919 475)" fill="none"/>
+    <g id="Group_18595" data-name="Group 18595" transform="translate(3929.082 483.444)">
+      <g id="Group_3370" data-name="Group 3370" transform="translate(0 1.893)">
+        <path id="Path_320" data-name="Path 320" d="M10.494,5.5H.8V22.314H8.487l5.6-5.642V9.249" transform="translate(-0.8 -5.5)" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5" fill-rule="evenodd"/>
+        <path id="Path_321" data-name="Path 321" d="M26.6,35.2H21v5.642" transform="translate(-13.351 -23.953)" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5" fill-rule="evenodd"/>
+      </g>
+      <line id="Line_166" data-name="Line 166" y1="9.694" x2="9.694" transform="translate(5.491 0)" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+  <defs>
+    <style>
+      .cls-1, .cls-2, .cls-3 {
+        fill: none;
+      }
+
+      .cls-2, .cls-3 {
+        stroke: #fff;
+        stroke-width: 2px;
+      }
+
+      .cls-2 {
+        stroke-miterlimit: 10;
+      }
+
+      .cls-4 {
+        stroke: none;
+      }
+    </style>
+  </defs>
+  <g id="icon-menu-personal_area" transform="translate(-1839 -2884)">
+    <rect id="Rectangle_11581" data-name="Rectangle 11581" class="cls-1" width="50" height="50" transform="translate(1839 2884)"/>
+    <g id="Group_17059" data-name="Group 17059" transform="translate(1847 2888)">
+      <path id="Path_1264" data-name="Path 1264" class="cls-2" d="M59.871,16.262V5.872c0-3-2.8-5.372-6.352-5.372,0,0-9.452,13.8-10.76,13.8S32.052.5,32.052.5C28.5.5,25.7,2.87,25.7,5.872V17.585" transform="translate(-25.7 23.873)"/>
+      <g id="Ellipse_1387" data-name="Ellipse 1387" class="cls-3" transform="translate(7.119)">
+        <circle class="cls-4" cx="9.966" cy="9.966" r="9.966"/>
+        <circle class="cls-1" cx="9.966" cy="9.966" r="8.966"/>
+      </g>
+      <path id="Path_6625" data-name="Path 6625" class="cls-3" d="M1269.655-7156.141l3.713-8.868,4.115,8.868" transform="translate(-1256.283 7189.94)"/>
+    </g>
+  </g>
+</svg>

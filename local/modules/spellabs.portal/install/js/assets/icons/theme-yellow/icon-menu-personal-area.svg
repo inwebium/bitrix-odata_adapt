@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: none;
+      }
+
+      .cls-2 {
+        stroke: #fff;
+        stroke-width: 2px;
+      }
+    </style>
+  </defs>
+  <g id="icon-menu-personal_area" transform="translate(-1861 -292)">
+    <rect id="Rectangle_11581" data-name="Rectangle 11581" class="cls-1" width="50" height="50" transform="translate(1861 292)"/>
+    <g id="Group_17667" data-name="Group 17667" transform="translate(1836 -35)">
+      <g id="Group_17352" data-name="Group 17352" transform="translate(-0.5 -1.417)">
+        <path id="Path_8911" data-name="Path 8911" class="cls-2" d="M11209.974,10368.837v-6.039a4.874,4.874,0,0,1,2.051-3.4c2.06-1.712,9.9-6.167,9.9-6.167v-5.935a5.207,5.207,0,0,1-1.517-3.24c-.048-1.853,0-1.745,0-7.424s5.475-7.212,7.789-7.212,7.815.811,7.821,7.212,0,7.424,0,7.424-.133,2.648-1.7,3.24v5.935s8.378,5.027,9.694,6.615a5.18,5.18,0,0,1,1.388,4.122c-.049,1.5,0,4.14,0,4.14" transform="translate(-11177.474 -9998.495)"/>
+        <path id="Path_8912" data-name="Path 8912" class="cls-2" d="M11224.849,10354.343s.2,2.952,2.93,2.952,2.722-2.952,2.722-2.952" transform="translate(-11177.9 -9999.497)"/>
+        <path id="Path_8913" data-name="Path 8913" class="cls-2" d="M11226.308,10356.881l-1.044,17.319,2.34,1.843,2.48-1.843-1.044-17.319" transform="translate(-11177.284 -9999.384)"/>
+      </g>
+    </g>
+  </g>
+</svg>

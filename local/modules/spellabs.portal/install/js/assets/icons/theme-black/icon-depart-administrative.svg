@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75 75">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        opacity: 0.75;
+      }
+
+      .cls-2 {
+        fill: #dadbdd;
+      }
+
+      .cls-3 {
+        fill: #050505;
+      }
+    </style>
+  </defs>
+  <g id="icon-depart-administrative" transform="translate(-2233 -2400)">
+    <rect id="Rectangle_11579" data-name="Rectangle 11579" class="cls-1" width="75" height="75" transform="translate(2233 2400)"/>
+    <g id="Group_17066" data-name="Group 17066" transform="translate(2029 2015)">
+      <path id="Path_7558" data-name="Path 7558" class="cls-2" d="M66.8,0H30.4V66.386H77.524V11.773Zm0,0" transform="translate(187.247 389.014)"/>
+      <g id="Group_17065" data-name="Group 17065">
+        <g id="Group_17029" data-name="Group 17029">
+          <g id="Group_17028" data-name="Group 17028">
+            <path id="Path_7559" data-name="Path 7559" class="cls-3" d="M151.22,11.773H140.526V0H138.4V13.931h12.852V11.773Zm0,0" transform="translate(113.52 389.014)"/>
+            <path id="Path_7560" data-name="Path 7560" class="cls-3" d="M96.044,70.9H59.329L51.3,76.231l8.029,5.363H96.044a5.347,5.347,0,1,0,0-10.694ZM58.567,73.946v4.57L55.14,76.231Zm35.351,5.49H60.725V77.31H90.713V75.184H60.725V73.058H93.918Zm2.126,0v-6.41a3.205,3.205,0,0,1,0,6.41Zm0,0" transform="translate(172.979 340.612)"/>
+            <path id="Path_7561" data-name="Path 7561" class="cls-3" d="M0,143.178H51.408V128.2H0Zm2.126-12.82H4.252v3.205H6.378v-3.205h2.19v3.205h2.126v-3.205H12.82v5.363h2.126v-5.363h2.19v3.205h2.126v-3.205h2.126v3.205h2.126v-3.205H25.7v5.363H27.83v-5.363h2.126v3.205h2.126v-3.205h2.126v3.205h2.126v-3.205h2.126v5.363h2.126v-5.363h8.568v10.694H2.126Zm0,0" transform="translate(208 301.496)"/>
+          </g>
+          <path id="Path_7562" data-name="Path 7562" class="cls-3" d="M138.205,141.7a3.205,3.205,0,1,0,3.205,3.205,3.2,3.2,0,0,0-3.205-3.205Zm0,4.284a1.079,1.079,0,1,1,1.079-1.079,1.09,1.09,0,0,1-1.079,1.079Zm0,0" transform="translate(114.84 292.28)"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

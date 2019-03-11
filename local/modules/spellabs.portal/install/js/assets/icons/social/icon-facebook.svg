@@ -1,0 +1,15 @@
+<svg id="Group_18673" data-name="Group 18673" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #768692;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <rect id="Rectangle_11827" data-name="Rectangle 11827" class="cls-1" width="26" height="26"/>
+  <path id="facebook_2_" class="cls-2" d="M85.779,57.23V48.691h2.987l.446-3.326H85.779V43.233c0-.959.276-1.622,1.722-1.622H89.34V38.633a25.306,25.306,0,0,0-2.679-.133A4.1,4.1,0,0,0,82.2,42.9v2.459h-3v3.326h3V57.22h3.582Z" transform="translate(-71.179 -34.408)"/>
+</svg>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 85 85">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #dd1e25;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <g id="Group_18302" data-name="Group 18302" transform="translate(15768 -17323)">
+    <rect id="Rectangle_11807" data-name="Rectangle 11807" class="cls-1" width="85" height="85" transform="translate(-15768 17323)"/>
+    <path id="ic_chat_24px" class="cls-2" d="M43.852,2H6.65A4.644,4.644,0,0,0,2.023,6.65L2,48.5l9.3-9.3H43.852a4.664,4.664,0,0,0,4.65-4.65V6.65A4.664,4.664,0,0,0,43.852,2ZM11.3,18.276H39.2v4.65H11.3ZM29.9,29.9H11.3v-4.65H29.9Zm9.3-13.951H11.3V11.3H39.2Z" transform="translate(-15750.236 17342.824)"/>
+  </g>
+</svg>

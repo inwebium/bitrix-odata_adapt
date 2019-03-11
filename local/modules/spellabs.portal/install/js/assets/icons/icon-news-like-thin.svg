@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.283 18.55">
+  <defs>
+    <style>
+      .cls-1 {
+      fill: none;
+      stroke: #050505;
+      stroke-miterlimit: 10;
+      fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path id="Path_8986" data-name="Path 8986" class="cls-1" d="M9.743,18.091S-4.753,6.94,2.632,1.623a4.825,4.825,0,0,1,7.043.849A4.8,4.8,0,0,1,16.7,1.623C24.085,6.94,9.743,18.091,9.743,18.091" transform="translate(-0.033 0.063)"/>
+</svg>

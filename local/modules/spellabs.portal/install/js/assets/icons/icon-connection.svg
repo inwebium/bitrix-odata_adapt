@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 50 50">
+  <defs>
+    <style>
+      .cls-1, .cls-5 {
+        fill: none;
+      }
+
+      .cls-1 {
+        stroke: #666;
+        stroke-width: 2px;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        clip-path: url(#clip-path);
+      }
+
+      .cls-4 {
+        stroke: none;
+      }
+    </style>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_11537" data-name="Rectangle 11537" class="cls-1" width="22.769" height="7.286"/>
+    </clipPath>
+  </defs>
+  <g id="Group_18297" data-name="Group 18297" transform="translate(-8386 -181)">
+    <g id="Group_18288" data-name="Group 18288" transform="translate(56 148)">
+      <g id="Group_18287" data-name="Group 18287">
+        <g id="Group_18279" data-name="Group 18279">
+          <circle id="Ellipse_1625" data-name="Ellipse 1625" class="cls-2" cx="25" cy="25" r="25" transform="translate(8330 33)"/>
+          <g id="Group_18153" data-name="Group 18153" transform="translate(8342 43.776)">
+            <g id="Rectangle_11533" data-name="Rectangle 11533" class="cls-1" transform="translate(8.677)">
+              <rect class="cls-4" width="9.545" height="9.545" rx="1"/>
+              <rect class="cls-5" x="1" y="1" width="7.545" height="7.545"/>
+            </g>
+            <g id="Rectangle_11534" data-name="Rectangle 11534" class="cls-1" transform="translate(0 17.353)">
+              <rect class="cls-4" width="9.545" height="9.545" rx="1"/>
+              <rect class="cls-5" x="1" y="1" width="7.545" height="7.545"/>
+            </g>
+            <g id="Rectangle_11535" data-name="Rectangle 11535" class="cls-1" transform="translate(17.355 17.353)">
+              <rect class="cls-4" width="9.545" height="9.545" rx="1"/>
+              <rect class="cls-5" x="1" y="1" width="7.545" height="7.545"/>
+            </g>
+            <g id="Group_17359" data-name="Group 17359" transform="translate(2.179 10.935)">
+              <g id="Mask_Group_35" data-name="Mask Group 35" class="cls-3" transform="translate(0)">
+                <g id="Rectangle_11536" data-name="Rectangle 11536" class="cls-1" transform="translate(1.822 1.822)">
+                  <rect class="cls-4" width="19.126" height="10.018" rx="3"/>
+                  <rect class="cls-5" x="1" y="1" width="17.126" height="8.018" rx="2"/>
+                </g>
+              </g>
+            </g>
+            <path id="Path_8901" data-name="Path 8901" class="cls-1" d="M-9595.5-6278.717v4.52" transform="translate(9608.95 6287.639)"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

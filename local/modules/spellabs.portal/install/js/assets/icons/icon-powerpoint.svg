@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32.404 32.404">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #f87708;
+      }
+
+      .cls-2 {
+        fill: #fff;
+        font-size: 17px;
+        font-family: Arial-BoldMT, Arial;
+        font-weight: 700;
+      }
+    </style>
+  </defs>
+  <g id="Group_3925" data-name="Group 3925" transform="translate(0 0)">
+    <path id="Path_459" data-name="Path 459" class="cls-1" d="M1,1H33.4V33.4H1Z" transform="translate(-1 -1)"/>
+    <text id="P" class="cls-2" transform="translate(9.555 20.46)"><tspan x="0" y="0">P</tspan></text>
+  </g>
+</svg>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: none;
+      }
+
+      .cls-2 {
+        stroke: #343534;
+        stroke-width: 3px;
+      }
+    </style>
+  </defs>
+  <g id="icon-header-hamburger" transform="translate(-3812 -2479)">
+    <rect id="Rectangle_11583" data-name="Rectangle 11583" class="cls-1" width="32" height="32" transform="translate(3812 2479)"/>
+    <g id="Group_14617" data-name="Group 14617" transform="translate(2013 2450)">
+      <path id="Path_6627" data-name="Path 6627" class="cls-2" d="M6256-7417.006h24.9" transform="translate(-4453 7472.506)"/>
+      <path id="Path_6628" data-name="Path 6628" class="cls-2" d="M6256-7417.006h24.9" transform="translate(-4453 7462.506)"/>
+      <path id="Path_6629" data-name="Path 6629" class="cls-2" d="M6256-7417.006h24.9" transform="translate(-4453 7452.506)"/>
+    </g>
+  </g>
+</svg>

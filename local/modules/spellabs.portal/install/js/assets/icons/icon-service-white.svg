@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 55 55">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: none;
+      }
+
+      .cls-1 {
+        stroke: #fff;
+        stroke-width: 2px;
+      }
+    </style>
+  </defs>
+  <g id="База_знаний" data-name="База знаний" transform="translate(-6202.654 -4731.914)">
+    <g id="Group_17502" data-name="Group 17502" transform="translate(6.048 9)">
+      <path id="Path_8902" data-name="Path 8902" class="cls-1" d="M569.1,3504.568v-18.553l-25.032-13.347-24.189,13.347,24.189,13.059,25.032-13.059" transform="translate(5679.731 1257.247)"/>
+      <path id="Path_8903" data-name="Path 8903" class="cls-1" d="M523.03,3482.566v9.309l16.936,9.292,17.334-9.292v-9.706l-17.334,9.706Z" transform="translate(5684.2 1270.7)"/>
+    </g>
+    <rect id="Rectangle_11713" data-name="Rectangle 11713" class="cls-2" width="55" height="55" transform="translate(6202.654 4731.914)"/>
+  </g>
+</svg>

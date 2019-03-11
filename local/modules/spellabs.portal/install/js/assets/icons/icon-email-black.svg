@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
+  <g id="icon-email-black" transform="translate(-8179 -33)">
+    <circle id="Ellipse_255" data-name="Ellipse 255" cx="25" cy="25" r="25" transform="translate(8179 33)" fill="#fff"/>
+    <g id="Group_18281" data-name="Group 18281" transform="translate(0.445 -0.868)">
+      <g id="Group_18267" data-name="Group 18267" transform="translate(8190.555 48.701)">
+        <g id="Rectangle_11803" data-name="Rectangle 11803" fill="none" stroke="#707070" stroke-width="2">
+          <rect width="26.13" height="17.878" stroke="none"/>
+          <rect x="1" y="1" width="24.13" height="15.878" fill="none"/>
+        </g>
+        <path id="Path_9132" data-name="Path 9132" d="M8455.607,350.591l12.078,9.664,12.53-9.664" transform="translate(-8454.771 -349.778)" fill="none" stroke="#707070" stroke-width="2"/>
+      </g>
+    </g>
+  </g>
+</svg>

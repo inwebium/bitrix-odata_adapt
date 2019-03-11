@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <g id="icon-menu-arrow" transform="translate(-1841 -2144)">
+    <rect id="Rectangle_11579" data-name="Rectangle 11579" class="cls-1" width="50" height="50" transform="translate(1841 2144)"/>
+    <path id="if_icon-ios7-arrow-right_211607" class="cls-2" d="M160,97.459,161.557,96l12.885,12.035L161.557,120.07,160,118.618l11.32-10.583Z" transform="translate(1699 2060.999)"/>
+  </g>
+</svg>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 70 70">
+  <g id="icon-help" transform="translate(-1062 -299)">
+    <g id="Ellipse_1609" data-name="Ellipse 1609" transform="translate(1062 299)" fill="#dedfe0" stroke="#fff" stroke-width="2">
+      <ellipse cx="35" cy="35" rx="35" ry="35" stroke="none"/>
+      <ellipse cx="35" cy="35" rx="34" ry="34" fill="none"/>
+    </g>
+    <g id="Group_19328" data-name="Group 19328" transform="translate(1080.375 322.277)">
+      <g id="Group_18495" data-name="Group 18495" transform="translate(0 0)">
+        <g id="Group_2" data-name="Group 2">
+          <g id="Group_112" data-name="Group 112">
+            <path id="Path_129" data-name="Path 129" d="M1192.671,358.318s5.423,5.283,6.424,6.34a2.17,2.17,0,0,1-2.934,3.2c-.6-.628-12.247-12.154-13.886-14.057a10.667,10.667,0,0,1,1.135-13.706c5.1-5.17,12.018-2.509,14.033-.333" transform="translate(-1180.297 -337.105)" fill="none" stroke="#06070c" stroke-width="2"/>
+            <path id="Path_130" data-name="Path 130" d="M1310.672,347.2s-2.51,3.518-7.473-.541c-1.064,1.064-1.945,1.981-3.607,3.53s-5.026.79-5.027-1.131c-.027-.742.1-.776.509-1.172s6.905-6.967,8.445-8.386,8.978-4.927,14.468,1.626,1.57,13-3.988,17.388" transform="translate(-1285.735 -337.268)" fill="none" stroke="#06070c" stroke-width="2"/>
+            <path id="Path_131" data-name="Path 131" d="M1422.561,484.48s6.017,6.025,6.863,6.986a2.211,2.211,0,0,1,0,3.059,2.317,2.317,0,0,1-3.386-.338c-1.375-1.369-6.167-6.234-6.167-6.234" transform="translate(-1401.365 -473.096)" fill="none" stroke="#06070c" stroke-width="2"/>
+            <path id="Path_132" data-name="Path 132" d="M1429.424,532.947a2.211,2.211,0,0,1,0,3.059,2.317,2.317,0,0,1-3.386-.338c-1.375-1.369-6.167-6.234-6.167-6.234" transform="translate(-1404.301 -511.333)" fill="none" stroke="#06070c" stroke-width="2"/>
+            <path id="Path_133" data-name="Path 133" d="M1503.088,574.914a2.211,2.211,0,0,1,0,3.06,2.317,2.317,0,0,1-3.386-.338" transform="translate(-1480.977 -550.133)" fill="none" stroke="#06070c" stroke-width="2"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

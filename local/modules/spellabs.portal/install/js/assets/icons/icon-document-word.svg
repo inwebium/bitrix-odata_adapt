@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 67.115 68.984">
+  <defs>
+    <style>
+      .cls-1, .cls-4 {
+        fill: #fff;
+      }
+
+      .cls-1, .cls-2 {
+        stroke: #a09c9c;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-1, .cls-2, .cls-5 {
+        stroke-width: 2px;
+      }
+
+      .cls-2, .cls-5 {
+        fill: none;
+      }
+
+      .cls-3 {
+        fill: #321cd9;
+      }
+
+      .cls-4 {
+        font-size: 17px;
+        font-family: Arial-BoldMT, Arial;
+        font-weight: 700;
+      }
+
+      .cls-5 {
+        stroke: #95989a;
+      }
+    </style>
+  </defs>
+  <g id="Group_15047" data-name="Group 15047" transform="translate(0 0.317)">
+    <path id="Path_440" data-name="Path 440" class="cls-1" d="M50.91,67.984H1V1H35.237L50.91,15.885Z" transform="translate(15.205 -0.317)"/>
+    <path id="Path_441" data-name="Path 441" class="cls-2" d="M40.1,1V15.885H55.774" transform="translate(10.341 -1)"/>
+    <g id="Group_3923" data-name="Group 3923" transform="translate(0 23.206)">
+      <path id="Path_459" data-name="Path 459" class="cls-3" d="M1,1H33.4V33.4H1Z" transform="translate(-1 -1)"/>
+      <text id="W" class="cls-4" transform="translate(6.825 20.46)"><tspan x="0" y="0">W</tspan></text>
+    </g>
+    <path id="Path_460" data-name="Path 460" class="cls-5" d="M10928.147-9278h17.527" transform="translate(-10890.58 9302.803)"/>
+    <path id="Path_461" data-name="Path 461" class="cls-5" d="M10928.147-9278h17.527" transform="translate(-10890.58 9312.509)"/>
+    <path id="Path_462" data-name="Path 462" class="cls-5" d="M10928.147-9278h17.527" transform="translate(-10890.58 9322.215)"/>
+    <path id="Path_463" data-name="Path 463" class="cls-5" d="M10928.147-9278h17.527" transform="translate(-10890.58 9331.92)"/>
+  </g>
+</svg>

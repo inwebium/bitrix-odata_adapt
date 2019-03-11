@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35 35">
+  <defs>
+    <style>
+      .cls-1, .cls-2, .cls-3 {
+        fill: none;
+      }
+
+      .cls-2, .cls-3 {
+        stroke: #768692;
+        stroke-width: 2px;
+      }
+
+      .cls-2 {
+        stroke-miterlimit: 10;
+      }
+    </style>
+  </defs>
+  <g id="icon-header-notification" transform="translate(1058 4031)">
+    <rect id="Rectangle_11944" data-name="Rectangle 11944" class="cls-1" width="35" height="35" transform="translate(-1058 -4031)"/>
+    <g id="Group_19164" data-name="Group 19164" transform="translate(123.5 3.288)">
+      <path id="Path_9617" data-name="Path 9617" class="cls-2" d="M10.178,26.217H28.761L24.907,18.7V10.626A10.126,10.126,0,0,0,14.781.5h0A10.126,10.126,0,0,0,4.655,10.626V18.7L.8,26.217h9.378" transform="translate(-1179.3 -4031.831)"/>
+      <path id="Path_9618" data-name="Path 9618" class="cls-2" d="M173.955,447.3a4.536,4.536,0,0,1-9.055,0" transform="translate(-1333.734 -4452.913)"/>
+      <path id="Path_9619" data-name="Path 9619" class="cls-3" d="M-1165.251-4031.331v-2.536" transform="translate(0.945)"/>
+    </g>
+  </g>
+</svg>

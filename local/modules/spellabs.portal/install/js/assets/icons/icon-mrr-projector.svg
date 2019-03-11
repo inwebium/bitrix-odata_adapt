@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36">
+  <g id="icon-mrr-projector" transform="translate(-1845 -1756)">
+    <rect id="Rectangle_11259" data-name="Rectangle 11259" width="36" height="36" transform="translate(1845 1756)" fill="none"/>
+    <g id="Group_18594" data-name="Group 18594" transform="translate(1849.2 1766.2)">
+      <path id="Path_306" data-name="Path 306" d="M15.8,14.175H2.3a1.523,1.523,0,0,1-1.5-1.5V3.6A1.523,1.523,0,0,1,2.3,2.1H15.539m5.586,0h3.567a1.523,1.523,0,0,1,1.5,1.5v9.067a1.523,1.523,0,0,1-1.5,1.5H21" transform="translate(0 -0.741)" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5" fill-rule="evenodd"/>
+      <circle id="Ellipse_1296" data-name="Ellipse 1296" cx="6.575" cy="6.575" r="6.575" transform="translate(11.758 0.8)" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
+      <circle id="Ellipse_1297" data-name="Ellipse 1297" cx="3.825" cy="3.825" r="3.825" transform="translate(14.508 3.55)" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
+      <g id="Group_3321" data-name="Group 3321" transform="translate(4.582 13.477)">
+        <line id="Line_151" data-name="Line 151" y1="1.504" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
+        <line id="Line_152" data-name="Line 152" y1="1.504" transform="translate(17.833)" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
+      </g>
+      <line id="Line_153" data-name="Line 153" x2="5.93" transform="translate(3.55 4.625)" fill="none" stroke="#666" stroke-miterlimit="10" stroke-width="1.5"/>
+    </g>
+  </g>
+</svg>
