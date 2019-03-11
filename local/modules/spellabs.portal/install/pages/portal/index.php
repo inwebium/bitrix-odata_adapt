@@ -18,6 +18,8 @@ $APPLICATION->AddHeadScript('/local/js/main.js');
 $APPLICATION->ShowHead();
 ?>
 
+<div><? $APPLICATION->ShowPanel(); ?></div>
+
 <div class="l-body">
 	<div><app-header></app-header></div>
 	<div class="l-body__content-area">
