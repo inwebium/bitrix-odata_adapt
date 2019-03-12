@@ -127,6 +127,7 @@ class spellabs_portal extends \CModule
 	function InstallEvents()
 	{
         RegisterModuleDependences("main", "OnProlog", $this->MODULE_ID, "CSPHandlers", "OnPrologHandler");
+        RegisterModuleDependences("iblock", "OnIBlockPropertyBuildList", $this->MODULE_ID, "PropertyUsers", "GetUserTypeDescription");
 		return true;
 	}
 	
@@ -206,6 +207,7 @@ class spellabs_portal extends \CModule
         UnRegisterModuleDependences("main", "OnBeforeProlog", $this->MODULE_ID, "CSPHandlers", "OnBeforePrologHandler");
         UnRegisterModuleDependences("main", "OnPageStart", $this->MODULE_ID, "CSPHandlers", "OnPageStartHandler");
         UnRegisterModuleDependences("main", "OnProlog", $this->MODULE_ID, "CSPHandlers", "OnPrologHandler");
+        UnRegisterModuleDependences("iblock", "OnIBlockPropertyBuildList", $this->MODULE_ID, "PropertyUsers", "GetUserTypeDescription");
 		return true;
 	}
     

@@ -296,11 +296,11 @@
             "IS_REQUIRED": "N",
             "SORT": 30,
             "PROPERTY_TYPE": "S",
-            "MULTIPLE": "M",
+            "MULTIPLE": "Y",
 			"DEFAULT_VALUE": "",
 			"SEARCHABLE": "Y",
 			"FILTRABLE": "Y",
-			"USER_TYPE": "employee"
+			"USER_TYPE": "UserID"
         },
         "SL_LINK": {
 			"XML_ID": "slLink",
