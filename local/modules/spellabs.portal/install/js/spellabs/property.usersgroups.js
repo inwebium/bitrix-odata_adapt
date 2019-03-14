@@ -1,14 +1,16 @@
-    function UsersGroupsLookup(entity_type, iblock_id, id, arSelected, variable_name, table_id, href_id, sSelect, arHighLight)
+    function UsersGroupsLookup(entity_type, iblock_id, id, arSelected, variable_name, inputId, href_id, sSelect, arHighLight, objectName, isMultiple)
     {
         this.entity_type = entity_type;
         this.iblock_id = iblock_id;
         this.id = id;
         this.arSelected = arSelected;
         this.variable_name = variable_name;
-        this.table_id = table_id;
+        this.inputId = inputId;
         this.href_id = href_id;
         this.sSelect = sSelect;
         this.arHighLight = arHighLight;
+        this.objectName = objectName;
+        this.isMultiple = isMultiple;
 
         BX.ready(BX.delegate(this.Init, this));
     }
@@ -22,6 +24,7 @@
         {
             BX.bind(heading, 'dblclick', BX.delegate(this.ShowInfo, this));
         }
+        
         BX.Access.Init(this.arHighLight);
         BX.Access.SetSelected(this.arSelected, this.variable_name);
     };
@@ -33,98 +36,49 @@
 
     UsersGroupsLookup.prototype.InsertElements = function(obSelected)
     {
-        var tbl = BX(this.table_id);
-        var targetInput = BX(tbl.getAttribute("data-target"));
-        
-        console.log(tbl.getAttribute("data-target"));
-        
-        for(var provider in obSelected)
+        var viewInput = BX(this.inputId);
+
+        var _obSelected = JSON.parse(JSON.stringify(obSelected));
+        for(var provider in _obSelected)
         {
-            if (obSelected.hasOwnProperty(provider))
+            if (_obSelected.hasOwnProperty(provider))
             {
-                for(var id in obSelected[provider])
+                for(var id in _obSelected[provider])
                 {
-                    if (obSelected[provider].hasOwnProperty(id))
+                    if (_obSelected[provider].hasOwnProperty(id))
                     {
-                        console.log(BX.Access.GetProviderName(provider));
-                        console.log(obSelected[provider][id].name);
-                        console.log(id);
+                        if (!this.isMultiple && Object.keys(this.arSelected).length > 0)
+                        {
+                            BX.Access.ClearSelection();
+                            
+                            viewInput.innerHTML = '';
+                            
+                            this.arSelected = {};
+                            this.arSelected[id] = true;
+                            
+                            var selectedVal = {};
+                            selectedVal[provider] = {};
+                            selectedVal[provider][id] = {};
+                            selectedVal[provider][id]['id'] = id;
+                            selectedVal[provider][id]['name'] = _obSelected[provider][id].name;
+                            selectedVal[provider][id]['provider'] = provider;
+                            
+                            BX.Access.AddSelection(selectedVal);
+                        }
                         
-                        var inputValue = {};
-                        inputValue[id] = true;
+
                         
-                        targetInput.value = JSON.stringify(inputValue);
-                        tbl.innerHTML = obSelected[provider][id].name + '<a href="javascript:void(0);" onclick="UsersGroupsLookup.DeleteRow(this, \''+id+'\', \''+this.variable_name+'\')" class="access-delete"></a>';
+                        viewInput.innerHTML += '<span data-id="val-' + id + '">' + 
+                                _obSelected[provider][id].name + 
+                                '<a id="delete-row-for-' + this.objectName + 
+                                '" href="javascript:void(0);" onclick="UsersGroupsLookup.DeleteItem(this, \'' + id + '\', ' + this.objectName + ');"' + 
+                                '" class="access-delete"></a>' +
+                                '</span>';
                     }
                 }
             }
         }
-        
-        
-        
-        /*for(var provider in obSelected)
-        {
-            if (obSelected.hasOwnProperty(provider))
-            {
-                for(var id in obSelected[provider])
-                {
-                    if (obSelected[provider].hasOwnProperty(id))
-                    {
-                        var cnt = tbl.rows.length;
-                        var row = tbl.insertRow(cnt-1);
-                        row.vAlign = 'top';
-                        row.insertCell(-1);
-                        row.insertCell(-1);
-                        row.cells[0].align = 'right';
-                        row.cells[0].style.textAlign = 'right';
-                        row.cells[0].style.verticalAlign = 'middle';
-                        row.cells[0].innerHTML = BX.Access.GetProviderName(provider)+' '+obSelected[provider][id].name+':'+'<input type="hidden" name="'+this.variable_name+'[][RIGHT_ID]" value=""><input type="hidden" name="'+this.variable_name+'[][GROUP_CODE]" value="'+id+'">';
-                        row.cells[1].align = 'left';
-                        row.cells[1].innerHTML = this.sSelect + ' ' + '<a href="javascript:void(0);" onclick="UsersGroupsLookup.DeleteRow(this, \''+id+'\', \''+this.variable_name+'\')" class="access-delete"></a><span title="'+BX.message('langApplyTitle')+'" id="overwrite_'+id+'"></span>';
-
-                        var parents = BX.findChildren(tbl, {'class' : this.variable_name + '_row_for_' + id}, true);
-                        if(parents)
-                        for(var i = 0; i < parents.length; i++)
-                            parents[i].className += ' iblock-strike-out';
-                    }
-                }
-            }
-        }*/
-
-        /*if(parseInt(this.id) > 0)
-        {
-            BX.ajax.loadJSON(
-                '/bitrix/admin/iblock_edit.php'+
-                '?ajax=y'+
-                '&sessid='+BX.bitrix_sessid()+
-                '&entity_type='+this.entity_type+
-                '&iblock_id='+this.iblock_id+
-                '&id='+this.id,
-                {added: obSelected},
-                function(result)
-                {
-                    if(result)
-                    {
-                        for(var id in result)
-                        {
-                            var s = parseInt(result[id][0]);
-                            var e = parseInt(result[id][1]);
-                            var mess = '';
-                            if(s > 0 && e > 0)
-                                mess = BX.message('langApply1Title');
-                            else if (s > 0)
-                                mess = BX.message('langApply2Title');
-                            else if (e > 0)
-                                mess = BX.message('langApply3Title');
-
-                            if(mess)
-                                BX('overwrite_'+id).innerHTML = '<br><input type="checkbox" name="'+this.variable_name+'[][DO_CLEAN]" value="Y" checked="checked" disabled="disabled">'+mess+' ('+(s+e)+')';
-                        }
-                    }
-                }
-            );
-        }*/
-
+        this.UpdateValue();
         BX.onCustomEvent('onAdminTabsChange');
     };
 
@@ -181,15 +135,19 @@
         inp.select();
     };
 
-    UsersGroupsLookup.DeleteRow = function(ob, id, variable_name)
+    UsersGroupsLookup.DeleteItem = function(element, code, propObject)
     {
-        var row = BX.findParent(ob, {'tag':'tr'});
-        var tbl = BX.findParent(row, {'tag':'table'});
-        var parents = BX.findChildren(tbl, {'class' : variable_name + '_row_for_' + id + ' iblock-strike-out'}, true);
-        if(parents)
-        for(var i = 0; i < parents.length; i++)
-            parents[i].className = variable_name + '_row_for_' + id;
-        row.parentNode.removeChild(row);
+        var container = BX.findParent(element, {'data-id': 'val-' + code});
+        BX.remove(container);
+        BX.Access.DeleteSelected(code, propObject.variable_name);
+        propObject.UpdateValue();
         BX.onCustomEvent('onAdminTabsChange');
-        BX.Access.DeleteSelected(id, variable_name);
+    };
+    
+    UsersGroupsLookup.prototype.UpdateValue = function()
+    {
+        BX.Access.SetSelected(this.arSelected, this.variable_name);
+        var viewInput = BX(this.inputId);
+        var targetInput = BX(viewInput.getAttribute("data-target"));
+        targetInput.value = JSON.stringify(this.arSelected);
     };
