@@ -1,4 +1,4 @@
-    function UsersGroupsLookup(entity_type, iblock_id, id, arSelected, variable_name, inputId, href_id, sSelect, arHighLight, objectName, isMultiple)
+    function UsersGroupsLookup(entity_type, iblock_id, id, arSelected, variable_name, inputId, href_id, sSelect, arHighLight, objectName, propertyId, isMultiple)
     {
         this.entity_type = entity_type;
         this.iblock_id = iblock_id;
@@ -11,6 +11,7 @@
         this.arHighLight = arHighLight;
         this.objectName = objectName;
         this.isMultiple = isMultiple;
+        this.propertyId = propertyId;
 
         BX.ready(BX.delegate(this.Init, this));
     }
@@ -64,21 +65,26 @@
                             selectedVal[provider][id]['provider'] = provider;
                             
                             BX.Access.AddSelection(selectedVal);
+                            
+                            this.UpdateValue();
+                        }
+                        else
+                        {
+                            this.UpdateValues();
                         }
                         
-
-                        
                         viewInput.innerHTML += '<span data-id="val-' + id + '">' + 
-                                _obSelected[provider][id].name + 
-                                '<a id="delete-row-for-' + this.objectName + 
-                                '" href="javascript:void(0);" onclick="UsersGroupsLookup.DeleteItem(this, \'' + id + '\', ' + this.objectName + ');"' + 
-                                '" class="access-delete"></a>' +
-                                '</span>';
+                            _obSelected[provider][id].name + 
+                            '<a id="delete-row-for-' + this.objectName + 
+                            '" href="javascript:void(0);" onclick="UsersGroupsLookup.DeleteItem(this, \'' + id + '\', ' + this.objectName + ');"' + 
+                            '" class="access-delete"></a>' +
+                            '</span>';
+                        
                     }
                 }
             }
         }
-        this.UpdateValue();
+        
         BX.onCustomEvent('onAdminTabsChange');
     };
 
@@ -140,7 +146,16 @@
         var container = BX.findParent(element, {'data-id': 'val-' + code});
         BX.remove(container);
         BX.Access.DeleteSelected(code, propObject.variable_name);
-        propObject.UpdateValue();
+        
+        if (!propObject.isMultiple)
+        {
+            propObject.UpdateValue();
+        }
+        else
+        {
+            propObject.UpdateValues();
+        }
+        
         BX.onCustomEvent('onAdminTabsChange');
     };
     
@@ -150,4 +165,51 @@
         var viewInput = BX(this.inputId);
         var targetInput = BX(viewInput.getAttribute("data-target"));
         targetInput.value = JSON.stringify(this.arSelected);
+    };
+    
+    UsersGroupsLookup.prototype.UpdateValues = function()
+    {
+        BX.Access.SetSelected(this.arSelected, this.variable_name);
+        var viewInput = BX(this.inputId);
+        var targetInputsContainer = BX(viewInput.getAttribute("data-target"));
+        
+        console.log(this.arSelected);
+        this.CreateInputs();
+        var inputsCounter = 0;
+        for (var key in this.arSelected)
+        {
+            var targetInput = BX.findChild(targetInputsContainer, {'attr':{'data-valuenum':inputsCounter}}, false, false);
+            var valueObj = {};
+            valueObj[key] = this.arSelected[key];
+            targetInput.value = JSON.stringify(valueObj);
+            inputsCounter++;
+        }
+        //targetInput.value = JSON.stringify(this.arSelected);
+    };
+    
+    UsersGroupsLookup.prototype.CreateInputs = function()
+    {
+        var viewInput = BX(this.inputId);
+        var targetInputsContainer = BX(viewInput.getAttribute("data-target"));
+        BX.cleanNode(targetInputsContainer);
+        
+        for (var i = 0; i <= Object.keys(this.arSelected).length; i++)
+        {
+            BX.append(
+                BX.create(
+                    'input',
+                    {
+                        props: {
+                            name: 'PROP[' + this.propertyId + '][n' + i + ']',
+                            type: 'hidden'
+                        },
+                        dataset: {
+                            'valuenum': i
+                        }
+                    }
+                ),
+                targetInputsContainer
+            );
+            
+        }
     };

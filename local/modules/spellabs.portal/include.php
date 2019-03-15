@@ -4,6 +4,7 @@ global $DB, $MESS, $APPLICATION;
 $arJsConfig = [
     'prop_usersgroups' => [
         'js' => '/local/js/spellabs/property.usersgroups.js',
+        'css' => '/local/js/spellabs/css/property.usersgroups.css',
         ]
 ]; 
 

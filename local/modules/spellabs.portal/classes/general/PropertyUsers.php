@@ -36,12 +36,6 @@ class PropertyUsers
 	{
 		global $APPLICATION, $USER;
         
-        $htmlResult = '';
-
-        echo '<pre>';
-        var_dump($arValue);
-        echo '</pre>';
-        
         $objectName = 'UsersGroupsLookup' . $arProperty['ID'];
         $variable_name = 'PROP' . $arProperty['ID'];
         $inputId = 'prop-' . $arProperty['ID'] . '-view';
@@ -79,10 +73,11 @@ class PropertyUsers
                     '<?=CUtil::JSEscape($sSelect)?>',
                     <?=CUtil::PhpToJsObject($arHighLight)?>,
                     '<?=CUtil::JSEscape($objectName)?>',
+                    <?=$arProperty['ID'];?>,
                     false
                     );
         </script>
-        <div id="prop-<?=$arProperty['ID'];?>-view" data-target="prop-<?=$arProperty['ID'];?>-val">
+        <div id="prop-<?=$arProperty['ID'];?>-view" data-target="prop-<?=$arProperty['ID'];?>-val" class="property-usersgroups">
             <?
             foreach ($arDecodedValue as $id => $value)
             {
@@ -91,7 +86,7 @@ class PropertyUsers
             ?>
         </div>
         <input id="prop-<?=$arProperty['ID'];?>-add" type="button" value="Изменить" />
-        <input id="prop-<?=$arProperty['ID'];?>-val" type="hidden" name="PROP[<?=$arProperty['ID'];?>][n0]" value="<?=$arSelected;?>" />
+        <input id="prop-<?=$arProperty['ID'];?>-val" type="hidden" name="PROP[<?=$arProperty['ID'];?>][n0]" value="<?=htmlspecialchars($arSelected);?>" />
         <?
     }
     
@@ -99,12 +94,6 @@ class PropertyUsers
 	{
 		global $APPLICATION, $USER;
         
-        $htmlResult = '';
-
-        echo '<pre>';
-        var_dump($arValue);
-        echo '</pre>';
-        
         $objectName = 'UsersGroupsLookup' . $arProperty['ID'];
         $variable_name = 'PROP' . $arProperty['ID'];
         $inputId = 'prop-' . $arProperty['ID'] . '-view';
@@ -117,11 +106,19 @@ class PropertyUsers
         $arNames = [];
         $arDecodedValue = [];
         
-        if (!empty($arValue['VALUE']))
+        if (count($arValues) > 0)
         {
-            $arSelected = $arValue['VALUE'];
+            foreach ($arValues as $key => $value)
+            {
+                $arValue = json_decode($value['VALUE'], true);
+                
+                foreach ($arValue as $id => $isActive)
+                {
+                    $arDecodedValue[$id] = $isActive;
+                }
+            }
             
-            $arDecodedValue = json_decode($arValue['VALUE'], true);
+            $arSelected = json_encode($arDecodedValue);
             
             $access = new CAccess();
             $arNames = $access->GetNames(array_keys($arDecodedValue));
@@ -142,22 +139,32 @@ class PropertyUsers
                     '<?=CUtil::JSEscape($sSelect)?>',
                     <?=CUtil::PhpToJsObject($arHighLight)?>,
                     '<?=CUtil::JSEscape($objectName)?>',
+                    <?=$arProperty['ID'];?>,
                     true
                     );
         </script>
-        <div id="prop-<?=$arProperty['ID'];?>-view" data-target="prop-<?=$arProperty['ID'];?>-val">
+        <div id="prop-<?=$arProperty['ID'];?>-view" data-target="prop-<?=$arProperty['ID'];?>-values" class="property-usersgroups">
             <?
-            $counter = 0;
             foreach ($arDecodedValue as $id => $value)
             {
                 echo '<span data-id="val-' . $id . '">' . $arNames[$id]['name'] . '<a href="javascript:void(0);" onclick="UsersGroupsLookup.DeleteItem(this, \'' . $id . '\', ' . $objectName . ')" class="access-delete"></a></span>';
-                echo '<input id="prop--val" type="hidden" name="PROP[][]" value="" />';
-                $counter++;
             }
             ?>
         </div>
-        <input id="prop-<?=$arProperty['ID'];?>-add" type="button" value="Изменить" />
-        <input id="prop-<?=$arProperty['ID'];?>-val" type="hidden" name="PROP[<?=$arProperty['ID'];?>][n0]" value="<?=$arSelected;?>" />
+        <input id="prop-<?=$arProperty['ID'];?>-add" type="button" value="Добавить" />
+        <div id="prop-<?=$arProperty['ID'];?>-values">
+            <?
+            $valuesCounter = 0;
+            foreach ($arDecodedValue as $$id => $value)
+            {
+                ?>
+                <input type="hidden" name="PROP[<?=$arProperty['ID'];?>][n<?=$valuesCounter;?>]" value="<?=htmlspecialchars(json_encode([$id => $value]));?>" data-valuenum="<?=$valuesCounter;?>" />
+                <?
+                $valuesCounter++;
+            }
+            ?>
+            <input type="hidden" name="PROP[<?=$arProperty['ID'];?>][n<?=$valuesCounter;?>]" value="{}" data-valuenum="<?=$valuesCounter;?>" />
+        </div>
         <?
     }
     
