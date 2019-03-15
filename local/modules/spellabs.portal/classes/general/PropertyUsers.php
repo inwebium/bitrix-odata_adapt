@@ -18,21 +18,25 @@ class PropertyUsers
 			'GetPropertyFieldHtmlMulty' => [__CLASS__, 'GetPropertyFieldHtmlMulty'],
             'ConvertToDB' => [__CLASS__, 'ConvertToDB'],
             'ConvertFromDB' => [__CLASS__, 'ConvertFromDB'],
-			/*"GetAdminListViewHTML" => [__CLASS__,"GetAdminListViewHTML"],
+            'GetAdminListViewHTML' => [__CLASS__, 'GetAdminListViewHTML'],
+			/*
+            "GetAdminFilterHTML" => [__CLASS__,'GetAdminFilterHTML'],
 			"GetPublicViewHTML" => [__CLASS__, "GetPublicViewHTML"],
 			"GetPublicEditHTML" => [__CLASS__, "GetPublicEditHTML"],
-			"GetAdminFilterHTML" => [__CLASS__,'GetAdminFilterHTML'],
+            "GetPublicFilterHTML" => [__CLASS__,'GetPublicFilterHTML'],
 			"GetSettingsHTML" => [__CLASS__,'GetSettingsHTML'],
 			"PrepareSettings" => [__CLASS__,'PrepareSettings'],
 			"AddFilterFields" => [__CLASS__,'AddFilterFields'],
-			"GetPublicFilterHTML" => [__CLASS__,'GetPublicFilterHTML'],
-			"GetUIFilterProperty" => [__CLASS__, 'GetUIFilterProperty']*/
+			"GetUIFilterProperty" => [__CLASS__, 'GetUIFilterProperty']
+             */
         ];
 	}
     
     public static function GetPropertyFieldHtml($arProperty, $arValue, $strHTMLControlName)
 	{
 		global $APPLICATION, $USER;
+        
+        $result = '';
         
         $objectName = 'UsersGroupsLookup' . $arProperty['ID'];
         $variable_name = 'PROP' . $arProperty['ID'];
@@ -57,7 +61,9 @@ class PropertyUsers
         }
         CJSCore::Init(['jquery', 'access', 'prop_usersgroups']);
         
-        $elementId = $_REQUEST['ID'];
+        $elementId = 0;
+        
+        ob_start();
         ?>
         <script>
             var <?=$objectName;?> = new UsersGroupsLookup(
@@ -86,11 +92,15 @@ class PropertyUsers
         <input id="prop-<?=$arProperty['ID'];?>-add" type="button" value="Изменить" />
         <input id="prop-<?=$arProperty['ID'];?>-val" type="hidden" name="PROP[<?=$arProperty['ID'];?>][n0]" value="<?=htmlspecialchars($arSelected);?>" />
         <?
+        $result .= ob_get_clean();
+        return $result;
     }
     
     public static function GetPropertyFieldHtmlMulty($arProperty, $arValues, $strHTMLControlName)
 	{
 		global $APPLICATION, $USER;
+        
+        $result = '';
         
         $objectName = 'UsersGroupsLookup' . $arProperty['ID'];
         $variable_name = 'PROP' . $arProperty['ID'];
@@ -123,7 +133,9 @@ class PropertyUsers
         }
         CJSCore::Init(['jquery', 'access', 'prop_usersgroups']);
         
-        $elementId = $_REQUEST['ID'];
+        $elementId = 0;
+        
+        ob_start();
         ?>
         <script>
             var <?=$objectName;?> = new UsersGroupsLookup(
@@ -164,6 +176,9 @@ class PropertyUsers
             <input type="hidden" name="PROP[<?=$arProperty['ID'];?>][n<?=$valuesCounter;?>]" value="{}" data-valuenum="<?=$valuesCounter;?>" />
         </div>
         <?
+        $result .= ob_get_clean();
+        
+        return $result;
     }
     
     function ConvertToDB($arProperty, $value)
@@ -174,5 +189,29 @@ class PropertyUsers
     function ConvertFromDB($arProperty, $value)
     {
       return $value;
+    }
+    
+    public static function GetAdminListViewHTML($arProperty, $arValue)
+    {
+        $result = '';
+        
+        if (strlen($arValue['VALUE']) > 0)
+        {
+            $arDecodedValue = json_decode($arValue['VALUE'], true);
+            
+            $access = new CAccess();
+            $arNames = $access->GetNames(array_keys($arDecodedValue));
+            
+            foreach ($arDecodedValue as $id => $value)
+            {
+                $result .= $arNames[$id]['name'];
+            }
+        }
+        else
+        {
+            $result .= '&nbsp;';
+        }
+        
+        return $result;
     }
 }
