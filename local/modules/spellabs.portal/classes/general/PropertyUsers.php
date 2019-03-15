@@ -4,8 +4,6 @@ use Bitrix\Main\Localization\Loc,
 
 Loc::loadMessages(__FILE__);
 
-//AddEventHandler('iblock', 'OnIBlockPropertyBuildList', ['PropertyUsers', 'GetUserTypeDescription']);
-
 class PropertyUsers
 {
     const USER_TYPE = 'UsersGroups';
@@ -155,7 +153,7 @@ class PropertyUsers
         <div id="prop-<?=$arProperty['ID'];?>-values">
             <?
             $valuesCounter = 0;
-            foreach ($arDecodedValue as $$id => $value)
+            foreach ($arDecodedValue as $id => $value)
             {
                 ?>
                 <input type="hidden" name="PROP[<?=$arProperty['ID'];?>][n<?=$valuesCounter;?>]" value="<?=htmlspecialchars(json_encode([$id => $value]));?>" data-valuenum="<?=$valuesCounter;?>" />
@@ -169,12 +167,12 @@ class PropertyUsers
     }
     
     function ConvertToDB($arProperty, $value)
-   {
+    {
       return $value;
-   }
+    }
 
-   function ConvertFromDB($arProperty, $value)
-   {
+    function ConvertFromDB($arProperty, $value)
+    {
       return $value;
-   }
+    }
 }
