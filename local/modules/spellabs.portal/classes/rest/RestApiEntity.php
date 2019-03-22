@@ -3,28 +3,13 @@ namespace Spellabs\Portal\Rest;
 
 abstract class RestApiEntity implements RestApiEntityInterface
 {
-    public function __construct()
-    {
-        ;
-    }
+    public abstract function __construct();
     
-    public function get()
-    {
-        ;
-    }
+    public abstract function get();
     
-    public function post()
-    {
-        ;
-    }
+    public abstract function post();
     
-    public function put()
-    {
-        ;
-    }
+    public abstract function merge();
     
-    public function delete()
-    {
-        ;
-    }
+    public abstract function delete();
 }

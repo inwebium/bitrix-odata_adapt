@@ -7,7 +7,7 @@ interface RestApiEntityInterface
     
     public function post();
     
-    public function put();
+    public function merge();
     
     public function delete();
 }

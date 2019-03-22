@@ -9,9 +9,16 @@ class RequestRouter
     
     public function __construct($apiRoot)
     {
+        $xRequestMethod = $_SERVER['REQUEST_METHOD'];
+        
+        if (isset($_SERVER['HTTP_X_HTTP_METHOD']) && !empty($_SERVER['HTTP_X_HTTP_METHOD']))
+        {
+            $xRequestMethod = $_SERVER['HTTP_X_HTTP_METHOD'];
+        }
+        
         $this
             ->setApiRoot($apiRoot)
-            ->setRequestMethod($_SERVER['REQUEST_METHOD'])
+            ->setRequestMethod($xRequestMethod)
             ->setUri(str_replace($this->getApiRoot(), '', strtok($_SERVER["REQUEST_URI"],'?')))
             ;
     }
