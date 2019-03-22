@@ -69,7 +69,7 @@ class RequestHandler
     {
         $className = $this->getRequestRouter()->getClassName();
        
-        $this->setRequestObject(new $className());
+        $this->setRequestObject(new $className($this->requestParameters));
         
         return $this;
     }
