@@ -7,6 +7,8 @@ class RequestHandler
     private $requestParser;
     /** @var RequestRouter */
     private $requestRouter;
+    /** @var RequestParameters */
+    private $requestParameters;
     /** @var RestApiEntity */
     private $requestObject;
     
@@ -15,6 +17,7 @@ class RequestHandler
         $this
             ->setRequestParser(new RequestParser($_REQUEST))
             ->setRequestRouter(new RequestRouter($apiRoot))
+            ->setRequestParameters(new RequestParameters($this->getRequestParser()))
         ;
     }
     
@@ -32,6 +35,11 @@ class RequestHandler
     {
         return $this->requestObject;
     }
+    
+    public function getRequestParameters()
+    {
+        return $this->requestParameters;
+    }
 
     private function setRequestParser(RequestParser $requestParser)
     {
@@ -48,6 +56,12 @@ class RequestHandler
     private function setRequestObject(RestApiEntity $requestObject)
     {
         $this->requestObject = $requestObject;
+        return $this;
+    }
+    
+    private function setRequestParameters(RequestParameters $requestParameters)
+    {
+        $this->requestParameters = $requestParameters;
         return $this;
     }
     

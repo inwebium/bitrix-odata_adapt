@@ -87,6 +87,35 @@ class RequestParser
         return $result;
     }
     
+    public function ParseExpand()
+    {
+        $result = false;
+        
+        if ($this->IsParamSet('expand'))
+        {
+            $result = explode(',', $this->requestParams['expand']);
+            
+            foreach ($result as $key => $fieldName)
+            {
+                $result[$key] = trim($fieldName);
+            }
+        }
+        
+        return $result;
+    }
+    
+    public function ParseTop()
+    {
+        $result = false;
+        
+        if ($this->IsParamSet('top'))
+        {
+            $result = intval($this->requestParams['top']);
+        }
+        
+        return $result;
+    }
+
     private function IsParamSet($paramName)
     {
         $result = false;

@@ -12,6 +12,7 @@ Bitrix\Main\Loader::registerAutoLoadClasses(
         'Spellabs\Portal\Rest\RestApiEntity' => 'classes/rest/RestApiEntity.php',
         'Spellabs\Portal\Rest\RequestParser' => 'classes/rest/RequestParser.php',
         'Spellabs\Portal\Rest\RequestRouter' => 'classes/rest/RequestRouter.php',
+        'Spellabs\Portal\Rest\RequestParameters' => 'classes/rest/RequestParameters.php',
         'Spellabs\Portal\Rest\RequestHandler' => 'classes/rest/RequestHandler.php',
     ]
     );
