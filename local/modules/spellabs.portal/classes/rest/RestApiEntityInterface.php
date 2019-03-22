@@ -1,7 +1,7 @@
 <?php
 namespace Spellabs\Portal\Rest;
 
-interface RestApiIblockInterface
+interface RestApiEntityInterface
 {
     public function get();
     

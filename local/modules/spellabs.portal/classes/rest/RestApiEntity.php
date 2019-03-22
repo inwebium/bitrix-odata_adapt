@@ -1,7 +1,7 @@
 <?php
 namespace Spellabs\Portal\Rest;
 
-abstract class RestApiIblock implements RestApiIblockInterface
+abstract class RestApiEntity implements RestApiEntityInterface
 {
     public function __construct()
     {

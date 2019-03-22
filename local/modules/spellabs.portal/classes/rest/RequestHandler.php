@@ -7,7 +7,7 @@ class RequestHandler
     private $requestParser;
     /** @var RequestRouter */
     private $requestRouter;
-    /** @var RestApiIblock */
+    /** @var RestApiEntity */
     private $requestObject;
     
     public function __construct($apiRoot = '/portal/rest/')
@@ -45,7 +45,7 @@ class RequestHandler
         return $this;
     }
     
-    private function setRequestObject(RestApiIblock $requestObject)
+    private function setRequestObject(RestApiEntity $requestObject)
     {
         $this->requestObject = $requestObject;
         return $this;
