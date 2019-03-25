@@ -1,12 +1,17 @@
 <?php
 namespace Spellabs\Portal\Rest;
 
-abstract class RestApiEntity implements RestApiEntityInterface
+abstract class AbstractRestApiEntity implements RestApiEntityInterface
 {
     /** @var RequestParameters */
     protected $requestParameters;
     
-    public abstract function __construct(RequestParameters $requestParameters);
+    public function __construct(RequestParameters $requestParameters)
+    {
+        $this
+            ->setRequestParameters($requestParameters)
+        ;
+    }
     
     protected function getRequestParameters()
     {

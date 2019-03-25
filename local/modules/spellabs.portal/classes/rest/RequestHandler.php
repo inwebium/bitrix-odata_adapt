@@ -9,7 +9,7 @@ class RequestHandler
     private $requestRouter;
     /** @var RequestParameters */
     private $requestParameters;
-    /** @var RestApiEntity */
+    /** @var AbstractRestApiEntity */
     private $requestObject;
     
     public function __construct($apiRoot = '/portal/rest/')
@@ -20,7 +20,9 @@ class RequestHandler
             ->setRequestParameters(new RequestParameters($this->getRequestParser()))
         ;
         
-        $this->getRequestParameters()->appendFilter($this->getRequestRouter()->getPresentedId());
+        $this->getRequestParameters()->appendFilter(
+            $this->getRequestRouter()->getPresentedId()
+            );
     }
     
     public function getRequestParser()
@@ -55,7 +57,7 @@ class RequestHandler
         return $this;
     }
     
-    private function setRequestObject(RestApiEntity $requestObject)
+    private function setRequestObject(AbstractRestApiEntity $requestObject)
     {
         $this->requestObject = $requestObject;
         return $this;

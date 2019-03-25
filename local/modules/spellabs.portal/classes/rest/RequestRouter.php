@@ -118,7 +118,7 @@ class RequestRouter
         
         if ($this->isIdPresented())
         {
-            $result = $this->getUriArray()[2];
+            $result = ['ID' => $this->getUriArray()[2]];
         }
         
         return $result;

@@ -92,6 +92,34 @@ class RequestParameters
             {
                 $compoundArray[$key] = $value;
             }
+            
+            $this->setFilter($compoundArray);
+        }
+        
+        return $this;
+    }
+    
+    /**
+     * Приклеивает и перезаписывает select
+     * 
+     * @param array $additionalSelect
+     * @return $this
+     */
+    public function appendSelect($additionalSelect = [])
+    {
+        if (is_array($additionalSelect) && count($additionalSelect) > 0)
+        {
+            $compoundArray = $this->getSelect();
+            
+            foreach ($additionalSelect as $key => $value)
+            {
+                if (!in_array($value, $compoundArray))
+                {
+                    $compoundArray[] = $value;
+                }
+            }
+            
+            $this->setSelect($compoundArray);
         }
         
         return $this;

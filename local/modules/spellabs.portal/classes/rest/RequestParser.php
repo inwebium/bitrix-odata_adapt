@@ -110,7 +110,7 @@ class RequestParser
         
         if ($this->IsParamSet('top'))
         {
-            $result = intval($this->requestParams['top']);
+            $result = ['nTopCount' => intval($this->requestParams['top'])];
         }
         
         return $result;
