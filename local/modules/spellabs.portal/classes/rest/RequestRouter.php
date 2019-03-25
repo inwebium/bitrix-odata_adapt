@@ -74,14 +74,20 @@ class RequestRouter
     public function getClassName()
     {
         $result = false;
+
+        $partsCounter = 0;
         
-        $arUri = $this->getUriArray();
-        
-        foreach ($arUri as $key => $value)
+        foreach ($this->getUriArray() as $key => $value)
         {
             $result .= ucwords($value);
+            $partsCounter++;
+            
+            if ($partsCounter >=2)
+            {
+                break;
+            }
         }
-        
+
         return $result;
     }
     
@@ -93,5 +99,28 @@ class RequestRouter
         
         return $result;
     }
-
+    
+    private function isIdPresented()
+    {
+        $result = false;
+        
+        if (isset($this->getUriArray()[2]) && is_numeric($this->getUriArray()[2]))
+        {
+            $result = true;
+        }
+        
+        return $result;
+    }
+    
+    public function getPresentedId()
+    {
+        $result = false;
+        
+        if ($this->isIdPresented())
+        {
+            $result = $this->getUriArray()[2];
+        }
+        
+        return $result;
+    }
 }

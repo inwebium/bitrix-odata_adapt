@@ -74,6 +74,26 @@ class RequestParameters
         $this->top = $top;
         return $this;
     }
-
-
+    
+    /**
+     * Приклеит дополнительные значения к фильтру. Если в фильтре уже есть 
+     * ключи из переданных, то их значения будут замещены переданными
+     * 
+     * @param array $additionalFilter
+     * @return $this
+     */
+    public function appendFilter($additionalFilter = [])
+    {
+        if (is_array($additionalFilter) && count($additionalFilter) > 0)
+        {
+            $compoundArray = $this->getFilter();
+            
+            foreach ($additionalFilter as $key => $value)
+            {
+                $compoundArray[$key] = $value;
+            }
+        }
+        
+        return $this;
+    }
 }

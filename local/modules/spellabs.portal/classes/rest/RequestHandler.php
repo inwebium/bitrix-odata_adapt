@@ -19,6 +19,8 @@ class RequestHandler
             ->setRequestRouter(new RequestRouter($apiRoot))
             ->setRequestParameters(new RequestParameters($this->getRequestParser()))
         ;
+        
+        $this->getRequestParameters()->appendFilter($this->getRequestRouter()->getPresentedId());
     }
     
     public function getRequestParser()
@@ -69,7 +71,7 @@ class RequestHandler
     {
         $className = $this->getRequestRouter()->getClassName();
        
-        $this->setRequestObject(new $className($this->requestParameters));
+        $this->setRequestObject(new $className($this->getRequestParameters()));
         
         return $this;
     }

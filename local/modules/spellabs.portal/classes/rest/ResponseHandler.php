@@ -1,49 +1,40 @@
 <?php
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace Spellabs\Portal\Rest;
 
-/**
- * Description of ResponseHandler
- *
- * @author mikhail.korneev
- */
 class ResponseHandler
 {
     /** @var ResponseHeaders */
-    private $headers;
+    private $headersHandler;
     /** @var ResponseBody */
-    private $body;
+    private $bodyHandler;
     
-    public function __construct()
+    public function __construct(array $headers = [], $format = 'json')
     {
+        $this
+            ->setHeadersHandler(new ResponseHeaders($headers))
+            ->setBodyHandler(new ResponseBody($format))
         ;
     }
 
-    public function getHeaders()
+    public function getHeadersHandler()
     {
-        return $this->headers;
+        return $this->headersHandler;
     }
 
-    public function getBody()
+    public function getBodyHandler()
     {
-        return $this->body;
+        return $this->bodyHandler;
     }
 
-    private function setHeaders($headers)
+    private function setHeadersHandler($headersHandler)
     {
-        $this->headers = $headers;
+        $this->headersHandler = $headersHandler;
         return $this;
     }
 
-    private function setBody($body)
+    private function setBodyHandler($bodyHandler)
     {
-        $this->body = $body;
+        $this->bodyHandler = $bodyHandler;
         return $this;
     }
 

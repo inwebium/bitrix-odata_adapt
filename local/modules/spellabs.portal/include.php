@@ -14,6 +14,9 @@ Bitrix\Main\Loader::registerAutoLoadClasses(
         'Spellabs\Portal\Rest\RequestRouter' => 'classes/rest/RequestRouter.php',
         'Spellabs\Portal\Rest\RequestParameters' => 'classes/rest/RequestParameters.php',
         'Spellabs\Portal\Rest\RequestHandler' => 'classes/rest/RequestHandler.php',
+        'Spellabs\Portal\Rest\ResponseHeaders' => 'classes/rest/ResponseHeaders.php',
+        'Spellabs\Portal\Rest\ResponseBody' => 'classes/rest/ResponseBody.php',
+        'Spellabs\Portal\Rest\ResponseHandler' => 'classes/rest/ResponseHandler.php',
     ]
     );
 

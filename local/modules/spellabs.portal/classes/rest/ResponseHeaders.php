@@ -6,6 +6,11 @@ class ResponseHeaders implements \ArrayAccess
     /** @var string[] */
     private $headers;
     
+    public function __construct(array $headers = [])
+    {
+        $this->setHeaders($headers);
+    }
+    
     public function getHeaders()
     {
         return $this->headers;
