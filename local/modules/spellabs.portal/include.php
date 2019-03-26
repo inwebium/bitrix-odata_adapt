@@ -8,6 +8,7 @@ Bitrix\Main\Loader::registerAutoLoadClasses(
         'CSPMain' => 'classes/general/CSPMain.php',
         'CSPHandlers' => 'classes/handlers/CSPHandlers.php',
         'SPEventManager' => 'classes/extend/SPEventManager.php',
+        'Spellabs\Portal\Rest\ParenthesesParser' => 'classes/rest/ParenthesesParser.php',
         'Spellabs\Portal\Rest\RestApiEntityInterface' => 'classes/rest/RestApiEntityInterface.php',
         'Spellabs\Portal\Rest\AbstractRestApiEntity' => 'classes/rest/AbstractRestApiEntity.php',
         'Spellabs\Portal\Rest\AbstractIblockEntity' => 'classes/rest/AbstractIblockEntity.php',
