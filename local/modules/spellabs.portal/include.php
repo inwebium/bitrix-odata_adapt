@@ -12,6 +12,7 @@ Bitrix\Main\Loader::registerAutoLoadClasses(
         'Spellabs\Portal\Rest\RestApiEntityInterface' => 'classes/rest/RestApiEntityInterface.php',
         'Spellabs\Portal\Rest\AbstractRestApiEntity' => 'classes/rest/AbstractRestApiEntity.php',
         'Spellabs\Portal\Rest\AbstractIblockEntity' => 'classes/rest/AbstractIblockEntity.php',
+        'Spellabs\Portal\Rest\RequestFilterParser' => 'classes/rest/RequestFilterParser.php',
         'Spellabs\Portal\Rest\RequestParser' => 'classes/rest/RequestParser.php',
         'Spellabs\Portal\Rest\RequestRouter' => 'classes/rest/RequestRouter.php',
         'Spellabs\Portal\Rest\RequestParameters' => 'classes/rest/RequestParameters.php',

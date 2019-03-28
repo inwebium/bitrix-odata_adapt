@@ -31,6 +31,26 @@ class RequestParser
     {
         $result = false;
         
+        
+        
+        $parenthesesParser = new ParenthesesParser();
+        
+        $parenthesesParser->parse($string);
+        
+        $arParentheses = $this->parseParentheses();
+        
+        $filterParser = new RequestFilterParser();
+        
+        $arNodes = $filterParser->parseNodes($arParentheses);
+        
+        $arFilter = $filterParser->buildFilter($arNodes);
+        
+        return $arFilter;
+        
+        
+        
+        /*die();
+        
         $logicAssoc = [
             'ne' => '!',
             'le' => '<=',
@@ -61,7 +81,7 @@ class RequestParser
                 }
                     
             }
-        }
+        }*/
         
         return $result;
     }
@@ -124,6 +144,28 @@ class RequestParser
         {
             $result = true;
         }
+        
+        return $result;
+    }
+    
+    private function parseParentheses()
+    {
+        $result = false;
+        
+        $parenthesesParser = new ParenthesesParser();
+        
+        $result = $parenthesesParser->parse($this->requestParams['filter']);
+        
+        return $result;
+    }
+    
+    private function parseNodes()
+    {
+        $result = false;
+        
+        $parenthesesParser = new ParenthesesParser();
+        
+        $result = $parenthesesParser->parse($this->requestParams['filter']);
         
         return $result;
     }

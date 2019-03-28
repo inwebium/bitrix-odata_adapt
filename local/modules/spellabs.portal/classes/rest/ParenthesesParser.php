@@ -21,10 +21,10 @@ class ParenthesesParser
             return array();
         }
         
-        if ($string[0] == '(') 
+        /*if ($string[0] == '(') 
         {
             $string = substr($string, 1, -1);
-        }
+        }*/
         
         $this->current = array();
         $this->stack = array();
