@@ -30,60 +30,17 @@ class RequestParser
     public function ParseFilter()
     {
         $result = false;
-        
-        
-        
+
         $parenthesesParser = new ParenthesesParser();
         
-        $parenthesesParser->parse($string);
-        
-        $arParentheses = $this->parseParentheses();
+        $arParentheses = $parenthesesParser->parse('(' . $this->requestParams['filter'] . ')');
         
         $filterParser = new RequestFilterParser();
         
         $arNodes = $filterParser->parseNodes($arParentheses);
-        
         $arFilter = $filterParser->buildFilter($arNodes);
         
         return $arFilter;
-        
-        
-        
-        /*die();
-        
-        $logicAssoc = [
-            'ne' => '!',
-            'le' => '<=',
-            'ge' => '>=',
-            'lt' => '<',
-            'gt' => '>',
-            'eq' => '',
-        ];
-
-        if ($this->IsParamSet('filter'))
-        {
-            $result = [];
-            
-            $arFilterStrings = explode(',', $this->requestParams['filter']);
-            
-            foreach ($arFilterStrings as $num => $filterString)
-            {
-                $filterMatches = [];
-                preg_match('/^([\w_.]+)\[(\w{2})\]=(.*)$/', $filterString, $filterMatches);
-                
-                if (count($filterMatches) == 4) // 0 - all expression, 1-2-3 - captured groups
-                {
-                    $filterKey = $logicAssoc[$filterMatches[2]] . $filterMatches[1];
-                    // TODO: filter value as string-number-... datetime? function?
-                    $filterValue = $filterMatches[3];
-                    
-                    $result[$filterKey] = $filterValue;
-                }
-                    
-            }
-        }*/
-        
-        return $result;
     }
     
     public function ParseOrder()
@@ -144,28 +101,6 @@ class RequestParser
         {
             $result = true;
         }
-        
-        return $result;
-    }
-    
-    private function parseParentheses()
-    {
-        $result = false;
-        
-        $parenthesesParser = new ParenthesesParser();
-        
-        $result = $parenthesesParser->parse($this->requestParams['filter']);
-        
-        return $result;
-    }
-    
-    private function parseNodes()
-    {
-        $result = false;
-        
-        $parenthesesParser = new ParenthesesParser();
-        
-        $result = $parenthesesParser->parse($this->requestParams['filter']);
         
         return $result;
     }

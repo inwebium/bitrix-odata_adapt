@@ -3,7 +3,7 @@ namespace Spellabs\Portal\Rest;
 
 class RequestFilterParser
 {
-    public function parseNodes(&$node, &$childKey = 0)
+    public function parseNodes(&$node)
     {
         $result = [];
 
@@ -15,12 +15,9 @@ class RequestFilterParser
             }
             else
             {
-                //$pattern = "/(([\w]+)\[(\w{2})\]=(\d+|'[^']+'|\w+))?(,|;|$)/";
-                $pattern = "/(([\w]+)\[(\w{2})\]=(\d+|'[^']+'|\w+))|(,|;|$)/"; // TODO check?
+                $pattern = "/(([\w]+)\[(\w{2})\]=(\d+|'[^']+'|\w+))|(,|;|$)/";
                 $matches = [];
                 preg_match_all($pattern, $child, $matches, PREG_SET_ORDER);
-
-                //var_dump($matches);
 
                 foreach ($matches as $matchKey => $arMatch)
                 {
@@ -76,8 +73,6 @@ class RequestFilterParser
 
             if($isLogicNode)
             {
-                //$filterPart['LOGIC'] = '';
-
                 $previousNode = $arNodes[$key-1];
                 $previousFieldName = $this->parseComparison($previousNode['comparison']) . $previousNode['field'];
                 $nextNode = $arNodes[$key+1];
@@ -94,8 +89,6 @@ class RequestFilterParser
                     // если перед этим уже разбирали И
                     if ($isLogicContinues)
                     {
-                        //$filterPart[$keyForNewField] = [];
-                        //$keyForNewField++;
                         $goDeeper = false;
                     }
                     // иначе если перед этим разбирали ИЛИ
@@ -103,16 +96,14 @@ class RequestFilterParser
                     {
                         //отберем последний элемент - он относится к текущему И
                         $prevElement = array_pop($filterPart);
-                        //$prevElement = $filterPart[$keyForNewField-1];
                         // а на его место встает массив для И
-                        //$filterPart[$keyForNewField-1] = [
                         $filterPart[] = [
                             'LOGIC' => 'AND',
                             $prevElement
                         ];
-
+                        
+                        // Для следующего элемента придется углубиться
                         $goDeeper = true;
-                        //$filterPart[$keyForNewField-1][0] = $prevElement;
                         $keyForNewField++;
                     }
                     else
@@ -136,8 +127,7 @@ class RequestFilterParser
                     // если перед этим уже разбирали ИЛИ
                     if ($isLogicContinues)
                     {
-                        //$filterPart[$keyForNewField] = [];
-                        //$keyForNewField++;
+                        ;
                     }
                     // иначе если перед этим разбирали И
                     elseif ($isOtherLogic)
@@ -150,8 +140,6 @@ class RequestFilterParser
                             'LOGIC' => 'OR',
                             $precedingSequence
                         ];
-                        //$keyForNewField = 0;
-                        //$keyForNewField = 1;
                     }
                     else
                     {
@@ -174,12 +162,10 @@ class RequestFilterParser
                 {
                     $filterPart[] = [$this->parseComparison($node['comparison']) . $node['field'] => $node['value']];
                 }
-                //$keyForNewField++;
             }
             else
             {
                 $filterPart[] = $this->buildFilter($node);
-                //$keyForNewField++;
             }
         }
 
