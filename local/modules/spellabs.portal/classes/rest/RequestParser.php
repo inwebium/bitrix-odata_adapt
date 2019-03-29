@@ -31,7 +31,7 @@ class RequestParser
     
     public function parseFilter()
     {
-        $result = false;
+        $arFilter = [];
 
         $parenthesesParser = new ParenthesesParser();
         
@@ -47,7 +47,7 @@ class RequestParser
     
     public function parseOrder()
     {
-        $result = false;
+        $result = [];
         
         if ($this->isParamSet('order'))
         {
@@ -109,11 +109,6 @@ class RequestParser
     
     public function parsePost()
     {
-        $result = false;
-        
-        echo "\nparsePost \n";
-        var_dump(json_decode($this->requestParams, true));
-        
         return json_decode($this->requestParams, true);
     }
 }
