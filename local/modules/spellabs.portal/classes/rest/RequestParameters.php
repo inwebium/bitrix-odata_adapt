@@ -1,6 +1,9 @@
 <?php
 namespace Spellabs\Portal\Rest;
 
+/**
+ * Класс параметров запроса (select, filter, top ...)
+ */
 class RequestParameters
 {
     private $select;
@@ -8,6 +11,7 @@ class RequestParameters
     private $order;
     private $expand;
     private $top;
+    private $payload;
     
     public function __construct(RequestParser $requestParser)
     {
@@ -17,6 +21,7 @@ class RequestParameters
             ->setFilter($requestParser->ParseFilter())
             ->setOrder($requestParser->ParseOrder())
             ->setTop($requestParser->ParseTop())
+            ->setPayload($requestParser->parsePost())
         ;    
     }
     
@@ -122,6 +127,17 @@ class RequestParameters
             $this->setSelect($compoundArray);
         }
         
+        return $this;
+    }
+    
+    public function getPayload()
+    {
+        return $this->payload;
+    }
+    
+    private function setPayload($payload)
+    {
+        $this->payload = $payload;
         return $this;
     }
 }

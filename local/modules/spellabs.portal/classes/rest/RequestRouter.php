@@ -71,6 +71,22 @@ class RequestRouter
         return $result;
     }
     
+    public function getRequestParameters()
+    {
+        $result = false;
+        
+        if ($this->getRequestMethod() != "GET")
+        {
+            return file_get_contents('php://input');
+        }
+        else
+        {
+            return $_REQUEST;
+        }
+        
+        return $result;
+    }
+    
     public function getClassName()
     {
         $result = false;

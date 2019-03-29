@@ -12,11 +12,21 @@ class RequestHandler
     /** @var AbstractRestApiEntity */
     private $requestObject;
     
+    /**
+     * Конструктор объекта запроса, принимает строку с корнем api на сервере
+     * 
+     * @param string $apiRoot
+     */
     public function __construct($apiRoot = '/portal/rest/')
     {
         $this
-            ->setRequestParser(new RequestParser($_REQUEST))
             ->setRequestRouter(new RequestRouter($apiRoot))
+            ->setRequestParser(
+                new RequestParser(
+                    $this->getRequestRouter()->getRequestMethod(),
+                    $this->getRequestRouter()->getRequestParameters()
+                    )
+                )
             ->setRequestParameters(new RequestParameters($this->getRequestParser()))
         ;
         
@@ -69,6 +79,11 @@ class RequestHandler
         return $this;
     }
     
+    /**
+     * Создать запрошенный через rest объект. Объект будет свойством RequestHandler.
+     * 
+     * @return $this
+     */
     public function instantiateRequestClass()
     {
         $className = $this->getRequestRouter()->getClassName();
@@ -78,6 +93,11 @@ class RequestHandler
         return $this;
     }
     
+    /**
+     * Вызвать запрошенный через rest метод объекта requestObject.
+     * 
+     * @return type
+     */
     public function callRequestMethod()
     {
         $methodName = $this->getRequestRouter()->getClassMethodName();

@@ -3,10 +3,12 @@ namespace Spellabs\Portal\Rest;
 
 class RequestParser
 {
+    private $requestMethod;
     private $requestParams;
     
-    public function __construct($requestParams)
+    public function __construct($requestMethod, $requestParams)
     {
+        $this->requestMethod = $requestMethod;
         $this->requestParams = $requestParams;
     }
     
@@ -103,5 +105,15 @@ class RequestParser
         }
         
         return $result;
+    }
+    
+    public function parsePost()
+    {
+        $result = false;
+        
+        echo "\nparsePost \n";
+        var_dump(json_decode($this->requestParams, true));
+        
+        return json_decode($this->requestParams, true);
     }
 }

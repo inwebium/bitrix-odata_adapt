@@ -3,6 +3,12 @@ namespace Spellabs\Portal\Rest;
 
 class RequestFilterParser
 {
+    /**
+     * Ищет значения вида ИМЯПОЛЯ[СРАВНЕНИЕ]=значение
+     * 
+     * @param array $node
+     * @return array
+     */
     public function parseNodes(&$node)
     {
         $result = [];
@@ -51,7 +57,13 @@ class RequestFilterParser
 
         return $result;
     }
-
+    
+    /**
+     * Строит фильтр для битриксовых GetList
+     * 
+     * @param array $arNodes
+     * @return array
+     */
     public function buildFilter($arNodes)
     {
         $previousLogicPairType = false;
@@ -172,6 +184,12 @@ class RequestFilterParser
         return $filterPart;
     }
     
+    /**
+     * Заменяет переданную строчку сравнения вида eq,ge,lt на битриксовые аналоги
+     * 
+     * @param string $string
+     * @return string
+     */
     private function parseComparison($string)
     {
         $comparisonAssoc = [
