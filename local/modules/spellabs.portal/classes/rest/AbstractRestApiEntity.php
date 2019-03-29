@@ -1,6 +1,9 @@
 <?php
 namespace Spellabs\Portal\Rest;
 
+/**
+ * Абстракция сущности доступной в rest
+ */
 abstract class AbstractRestApiEntity implements RestApiEntityInterface
 {
     /** @var RequestParameters */

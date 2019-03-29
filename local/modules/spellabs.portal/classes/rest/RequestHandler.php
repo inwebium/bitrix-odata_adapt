@@ -35,44 +35,80 @@ class RequestHandler
             );
     }
     
+    /**
+     * 
+     * @return \Spellabs\Portal\Rest\RequestParser
+     */
     public function getRequestParser()
     {
         return $this->requestParser;
     }
-
+    
+    /**
+     * 
+     * @return \Spellabs\Portal\Rest\RequestRouter
+     */
     public function getRequestRouter()
     {
         return $this->requestRouter;
     }
     
+    /**
+     * 
+     * @return \Spellabs\Portal\Rest\AbstractRestApiEntity
+     */
     public function getRequestObject()
     {
         return $this->requestObject;
     }
     
+    /**
+     * 
+     * @return \Spellabs\Portal\Rest\RequestParameters
+     */
     public function getRequestParameters()
     {
         return $this->requestParameters;
     }
-
+    
+    /**
+     * 
+     * @param \Spellabs\Portal\Rest\RequestParser $requestParser
+     * @return $this Fluent
+     */
     private function setRequestParser(RequestParser $requestParser)
     {
         $this->requestParser = $requestParser;
         return $this;
     }
-
+    
+    /**
+     * 
+     * @param \Spellabs\Portal\Rest\RequestRouter $requestRouter
+     * @return $this Fluent
+     */
     private function setRequestRouter(RequestRouter $requestRouter)
     {
         $this->requestRouter = $requestRouter;
         return $this;
     }
     
+    /**
+     * 
+     * @param \Spellabs\Portal\Rest\AbstractRestApiEntity $requestObject
+     * @return $this Fluent
+     */
     private function setRequestObject(AbstractRestApiEntity $requestObject)
     {
         $this->requestObject = $requestObject;
         return $this;
     }
     
+    /**
+     * 
+     * @param \Spellabs\Portal\Rest\RequestParameters $requestParameters
+     * @return $this Fluent
+     */
     private function setRequestParameters(RequestParameters $requestParameters)
     {
         $this->requestParameters = $requestParameters;
@@ -82,7 +118,7 @@ class RequestHandler
     /**
      * Создать запрошенный через rest объект. Объект будет свойством RequestHandler.
      * 
-     * @return $this
+     * @return $this Fluent
      */
     public function instantiateRequestClass()
     {
@@ -96,7 +132,7 @@ class RequestHandler
     /**
      * Вызвать запрошенный через rest метод объекта requestObject.
      * 
-     * @return type
+     * @return type Результат выполнения запрошенного метода объекта в RequestObject
      */
     public function callRequestMethod()
     {

@@ -3,8 +3,11 @@ namespace Spellabs\Portal\Rest;
 
 class RequestRouter
 {
+    /** @var string */
     private $apiRoot;
+    /** @var string */
     private $requestMethod;
+    /** @var string */
     private $uri;
     
     public function __construct($apiRoot)

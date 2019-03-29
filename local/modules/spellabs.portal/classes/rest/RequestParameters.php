@@ -16,11 +16,11 @@ class RequestParameters
     public function __construct(RequestParser $requestParser)
     {
         $this
-            ->setSelect($requestParser->ParseSelect())
-            ->setExpand($requestParser->ParseExpand())
-            ->setFilter($requestParser->ParseFilter())
-            ->setOrder($requestParser->ParseOrder())
-            ->setTop($requestParser->ParseTop())
+            ->setSelect($requestParser->parseSelect())
+            ->setExpand($requestParser->parseExpand())
+            ->setFilter($requestParser->parseFilter())
+            ->setOrder($requestParser->parseOrder())
+            ->setTop($requestParser->parseTop())
             ->setPayload($requestParser->parsePost())
         ;    
     }

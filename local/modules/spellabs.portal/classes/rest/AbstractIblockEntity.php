@@ -55,7 +55,7 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         $arOrder = $this->getRequestParameters()->getOrder();
         $arFilter = $this->getRequestParameters()->getFilter();
         $arNav = $this->getRequestParameters()->getTop();
-        $this->Expand();
+        $this->expand();
         $arSelect = $this->getRequestParameters()->getSelect();
 
         $arFilter['IBLOCK_ID'] = $this->getIblockId();
@@ -148,7 +148,7 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         echo 'post';
     }
     
-    protected function Expand()
+    protected function expand()
     {
         $propertiesToExpand = $this->getRequestParameters()->getExpand();
         

@@ -12,11 +12,11 @@ class RequestParser
         $this->requestParams = $requestParams;
     }
     
-    public function ParseSelect()
+    public function parseSelect()
     {
         $result = false;
         
-        if ($this->IsParamSet('select'))
+        if ($this->isParamSet('select'))
         {
             $result = explode(',', $this->requestParams['select']);
             
@@ -29,7 +29,7 @@ class RequestParser
         return $result;
     }
     
-    public function ParseFilter()
+    public function parseFilter()
     {
         $result = false;
 
@@ -45,11 +45,11 @@ class RequestParser
         return $arFilter;
     }
     
-    public function ParseOrder()
+    public function parseOrder()
     {
         $result = false;
         
-        if ($this->IsParamSet('order'))
+        if ($this->isParamSet('order'))
         {
             $result = [];
             
@@ -66,11 +66,11 @@ class RequestParser
         return $result;
     }
     
-    public function ParseExpand()
+    public function parseExpand()
     {
         $result = false;
         
-        if ($this->IsParamSet('expand'))
+        if ($this->isParamSet('expand'))
         {
             $result = explode(',', $this->requestParams['expand']);
             
@@ -83,11 +83,11 @@ class RequestParser
         return $result;
     }
     
-    public function ParseTop()
+    public function parseTop()
     {
         $result = false;
         
-        if ($this->IsParamSet('top'))
+        if ($this->isParamSet('top'))
         {
             $result = ['nTopCount' => intval($this->requestParams['top'])];
         }
@@ -95,7 +95,7 @@ class RequestParser
         return $result;
     }
 
-    private function IsParamSet($paramName)
+    private function isParamSet($paramName)
     {
         $result = false;
         
