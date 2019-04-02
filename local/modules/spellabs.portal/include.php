@@ -1,7 +1,6 @@
 <?
 global $DB, $MESS, $APPLICATION;
 
-
 Bitrix\Main\Loader::registerAutoLoadClasses(
     'spellabs.portal', 
     [
@@ -20,6 +19,7 @@ Bitrix\Main\Loader::registerAutoLoadClasses(
         'Spellabs\Portal\Rest\ResponseHeaders' => 'classes/rest/ResponseHeaders.php',
         'Spellabs\Portal\Rest\ResponseBody' => 'classes/rest/ResponseBody.php',
         'Spellabs\Portal\Rest\ResponseHandler' => 'classes/rest/ResponseHandler.php',
+        'Spellabs\Portal\Rest\IblockUtils' => 'classes/rest/IblockUtils.php',
     ]
     );
 

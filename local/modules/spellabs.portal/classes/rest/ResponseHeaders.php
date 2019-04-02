@@ -27,7 +27,7 @@ class ResponseHeaders implements \ArrayAccess
         return $this;
     }
     
-    public function setHeader(string $headerName, string $headerValue)
+    private function setHeader(string $headerName, string $headerValue)
     {
         $this->headers[$headerName] = $headerValue;
         return $this;
@@ -44,10 +44,18 @@ class ResponseHeaders implements \ArrayAccess
             $this->headers[$headerName] = $headerValue;
         }
     }
-
-    public function offsetExists($offset): bool
+    
+    public function applyHeaders()
     {
-        if (isset($this->headers) && !empty($this->headers))
+        foreach ($this->headers as $header => $value)
+        {
+            header($header . ': ' . $value, true);
+        }
+    }
+
+    public function offsetExists($offset)
+    {
+        if (isset($this->headers[$offset]) && !empty($this->headers[$offset]))
         {
             return true;
         }

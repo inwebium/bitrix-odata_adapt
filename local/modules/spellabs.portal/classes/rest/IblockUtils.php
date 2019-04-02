@@ -96,4 +96,26 @@ class IblockUtils
     {
         return self::getIblockBy('XML_ID', $xmlIdValue);
     }
+    
+    public static function getElement(
+        $elementFilter = [], 
+        $elementSelect = ['IBLOCK_ID', 'ID', 'NAME']
+    ) {
+        $order = ['ID' => 'DESC'];
+        $filter = $elementFilter;
+        $group = false;
+        $nav = false;
+        $select = $elementSelect;
+        
+        $result = \CIBlockElement::GetList($order, $filter, $group, $nav, $select);
+        
+        if ($element = $result->GetNext())
+        {
+            return $element;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

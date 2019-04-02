@@ -14,6 +14,8 @@ class ResponseHandler
             ->setHeadersHandler(new ResponseHeaders($headers))
             ->setBodyHandler(new ResponseBody($format))
         ;
+        
+        $this->prepareHeaders();
     }
 
     public function getHeadersHandler()
@@ -37,6 +39,22 @@ class ResponseHandler
         $this->bodyHandler = $bodyHandler;
         return $this;
     }
-
-
+    
+    private function prepareHeaders()
+    {
+        $requestHeaders = getallheaders();
+        
+        //var_dump($requestHeaders);
+        
+        if (strpos($requestHeaders['accept'], 'application/json') !== false) {
+            $this->getHeadersHandler()->addHeader('Content-type', 'application/json');
+        }
+        //$this->getHeadersHandler();
+    }
+    
+    public function send()
+    {
+        $this->getHeadersHandler()->applyHeaders();
+        echo $this->bodyHandler->getBody();
+    }
 }

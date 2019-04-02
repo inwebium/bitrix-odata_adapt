@@ -20,12 +20,6 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
     
     private $iblockId;
     
-    public function __construct(RequestParameters $requestParameters, $iblockId = null)
-    {
-        parent::__construct($requestParameters);
-        $this->setIblockId($iblockId);
-    }
-    
     public function getIblockId()
     {
         return $this->iblockId;
@@ -101,51 +95,87 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
     public function merge()
     {
         global $USER;
-        
-        echo 'merge';
-        
-        $result = false;
-        
+
         $iblockElement = new \CIBlockElement;
         
         $arPayload = $this->getRequestParameters()->getPayload();
         
+        /*echo "\n\nPayload:\n";
+        var_dump($arPayload);*/
         
-        //
-        $elementId = 10;
-        $userId = $USER->GetID();
-        $iblockSection = false;
-        $properties = [];
-        $name = 'Foo';
-        $active = 'Y';
-        $previewText = '';
-        $detailText = '';
-
-        $fieldsArray = [
-            "MODIFIED_BY"     => $userId,
-            "IBLOCK_SECTION"  => $iblockSection,
-            "PROPERTY_VALUES" => $properties,
-            "NAME"            => $name,
-            "ACTIVE"          => $active,
-            "PREVIEW_TEXT"    => $previewText,
-            "DETAIL_TEXT"     => $detailText,
-            //"DETAIL_PICTURE"  => CFile::MakeFileArray($_SERVER["DOCUMENT_ROOT"]."/image.gif"),
-            //"PREVIEW_PICTURE"  => CFile::MakeFileArray($_SERVER["DOCUMENT_ROOT"]."/image.gif"),
-        ];
-
-        //$result = $iblockElement->Update($elementId, $fieldsArray, false, true, true, true);
+        $elementFields = [];
         
-        if ($result)
+        foreach ($arPayload as $fieldCode => $fieldValue)
         {
-            
+            // Проверить является ли $fieldCode XML_ID
+            // Если это XML_ID, то получить код свойства по XML_ID
+            $elementFields[$fieldCode] = $fieldValue;
         }
         
-        return $result;
+        if (isset($this->getRequestParameters()->getFilter()['ID']) && $this->getRequestParameters()->getFilter()['ID'] > 0)
+        {
+            $elementId = $this->getRequestParameters()->getFilter()['ID'];
+        }
+        elseif (isset($elementFields['ID']) && $elementFields['ID'] > 0)
+        {
+            $elementId = $elementFields['ID'];
+            unset($elementFields['ID']);
+        }
+        else
+        {
+            return false;
+        }
+
+        /*echo "\n\n";
+        var_dump($elementId);*/
+
+        $result = $iblockElement->Update($elementId, $elementFields, false, true, true, true);
+        
+        /*echo "\n\n";
+        var_dump($result);*/
+        
+        if ($result) {
+            return IblockUtils::getElement(['ID' => $elementId], array_keys($elementFields));
+        } else {
+            return false;
+        }
     }
 
     public function post()
     {
+        global $USER;
+        
         echo 'post';
+        
+        $newIblockElement = new \CIBlockElement;
+        
+        $arPayload = $this->getRequestParameters()->getPayload();
+        
+        echo "\n\nPayload:\n";
+        var_dump($arPayload);
+        
+        $elementFields = [];
+        
+        foreach ($arPayload as $fieldCode => $fieldValue)
+        {
+            // Проверить является ли $fieldCode XML_ID
+            // Если это XML_ID, то получить код свойства по XML_ID
+            $elementFields[$fieldCode] = $fieldValue;
+        }
+        
+        $newElementId = $newIblockElement->Add($elementFields, false, true, true);
+        
+        if ($newElementId)
+        {
+            // Получить созданный элемент
+            // Отправить в ответ созданный элемент
+            return IblockUtils::getElement(['ID' => $newElementId]);
+        }
+        else
+        {
+            // Отправить в ответ ошибку
+            return false;
+        }
     }
     
     protected function expand()
