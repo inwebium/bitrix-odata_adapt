@@ -20,6 +20,7 @@ Bitrix\Main\Loader::registerAutoLoadClasses(
         'Spellabs\Portal\Rest\ResponseBody' => 'classes/rest/ResponseBody.php',
         'Spellabs\Portal\Rest\ResponseHandler' => 'classes/rest/ResponseHandler.php',
         'Spellabs\Portal\Rest\IblockUtils' => 'classes/rest/IblockUtils.php',
+        'Spellabs\Portal\Rest\RepositoryGenerator' => 'classes/rest/RepositoryGenerator.php'
     ]
     );
 

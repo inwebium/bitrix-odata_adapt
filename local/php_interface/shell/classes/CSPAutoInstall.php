@@ -54,14 +54,14 @@ class CSPAutoInstall implements ArrayAccess
         }
         else
         {
-            fwrite($this->stdout, "User with id=" . $this->conf['userId'] . " authorized\n");
+            fwrite($this->stdout, "\e[1;32mUser with id=" . $this->conf['userId'] . " authorized\e[0m\n");
         }
         
         $isAdmin = $USER->CanDoOperation('edit_other_settings');
 
         if ($isAdmin)
         {
-            fwrite($this->stdout, "User is administrator. Continuing.\n");
+            fwrite($this->stdout, "\e[0;32mUser is administrator. Continuing.\e[0m\n");
         }
         else
         {
@@ -301,7 +301,7 @@ class CSPAutoInstall implements ArrayAccess
         return $this;
     }
 
-    public function offsetExists($offset): bool
+    public function offsetExists($offset)
     {
         return isset($this->conf[$offset]);
     }
@@ -311,7 +311,7 @@ class CSPAutoInstall implements ArrayAccess
         return isset($this->conf[$offset]) ? $this->conf[$offset] : null;
     }
 
-    public function offsetSet($offset, $value): void
+    public function offsetSet($offset, $value)
     {
         if (is_null($offset))
         {
@@ -323,7 +323,7 @@ class CSPAutoInstall implements ArrayAccess
         }
     }
 
-    public function offsetUnset($offset): void
+    public function offsetUnset($offset)
     {
         unset($this->conf[$offset]);
     }

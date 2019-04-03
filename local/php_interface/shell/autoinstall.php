@@ -34,7 +34,7 @@ $stdout = fopen('php://stdout', 'w');
 
 if (strpos($absolutepath, $scriptDir) === false)
 {
-    fwrite($stdout, "\nERROR: autoinstall script must be in " . $scriptDir . "\n\n");
+    fwrite($stdout, "\n\e[1;31mERROR: autoinstall script must be in " . $scriptDir . "\e[0m\n\n");
     die();
 }
 
@@ -121,10 +121,10 @@ switch ($autoInstaller['action'])
         $autoInstaller->Deploy();
         break;
     default:
-        fwrite($stdout, "\nERROR: unsupported action type.\n\n");
+        fwrite($stdout, "\n\e[1;31mERROR: unsupported action type.\e[0m\n\n");
         die();
         break;
 }
 
-fwrite($stdout, "Script finished.\n\n");
+fwrite($stdout, "\e[1;32mScript finished.\e[0m\n\n");
 fclose($stdout);

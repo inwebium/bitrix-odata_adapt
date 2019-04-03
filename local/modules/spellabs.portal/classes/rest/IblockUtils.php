@@ -20,7 +20,7 @@ class IblockUtils
             $fieldName => $fieldValue
         ];
         
-        $dbResult = CIBlock::GetList(
+        $dbResult = \CIBlock::GetList(
             $order,
             $filter,
             false
@@ -57,7 +57,7 @@ class IblockUtils
             $filter['IBLOCK_ID'] = $iblockId;
         }
         
-        $dbResult = CIBlockProperty::GetList(
+        $dbResult = \CIBlockProperty::GetList(
             $order,
             $filter
         );

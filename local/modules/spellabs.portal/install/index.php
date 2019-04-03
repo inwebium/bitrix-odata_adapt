@@ -6,6 +6,10 @@ if(class_exists("spellabs_portal"))
 	return;
 }
 
+//include('../classes/rest/RepositoryGenerator.php');
+
+//echo file_get_contents('../classes/rest/RepositoryGenerator.php');
+
 class spellabs_portal extends \CModule
 {
 	var $MODULE_ID = "spellabs.portal";
@@ -20,7 +24,7 @@ class spellabs_portal extends \CModule
    	public function __construct()
 	{
 		$arModuleVersion = array();
-		
+
 		include($this->GetPath() . "/version.php");
 
 		$this->MODULE_VERSION = $arModuleVersion["VERSION"];
@@ -47,7 +51,10 @@ class spellabs_portal extends \CModule
 		
 		$this->InstallFiles();
 		$this->InstallDB();
+        $this->generateRestRepository();
         $this->InstallEvents();
+        
+        
 		
         if (!$isShell)
         {
@@ -500,5 +507,59 @@ class spellabs_portal extends \CModule
                 }
             }
         }      
+    }
+    
+    private function generateRestRepository()
+    {
+        //include($this->GetPath() . '/../classes/rest/RepositoryGenerator.php');
+        // echo "\n\n" . $this->GetPath() . "\n\n";
+        // echo file_get_contents($this->GetPath() . '/../classes/rest/RepositoryGenerator.php');
+        Bitrix\Main\Loader::registerAutoLoadClasses(
+            null, [
+                'Spellabs\Portal\Rest\IblockUtils' => '/local/modules/spellabs.portal/classes/rest/IblockUtils.php',
+                'Spellabs\Portal\Rest\RepositoryGenerator' => '/local/modules/spellabs.portal/classes/rest/RepositoryGenerator.php',
+            ]
+        );
+        
+        $repository = new Spellabs\Portal\Rest\RepositoryGenerator();
+        $arIblocksParams = json_decode(
+            file_get_contents($this->GetPath() . "/conf/iblock.json"), true
+        );
+        $arIblocksProps = json_decode(
+            file_get_contents($this->GetPath() . "/conf/property.json"), true
+        );
+        
+        foreach ($arIblocksParams as $iblockCode => $iblockParams)
+        {
+            $repository->setTemplate($this->GetPath() . '/../classes/rest/Repository/IblocksClass.php.tpl');
+            
+            $createdIblock = Spellabs\Portal\Rest\IblockUtils::getIblockBy(
+                'code', 
+                $iblockCode
+            );
+            
+            $arIblockProps = [];
+            
+            foreach ($arIblocksProps[$iblockCode] as $propertyCode => $arProperty)
+            {
+                $arIblockProps[$arProperty['XML_ID']] = $propertyCode;
+            }
+            
+            $repository
+                ->setFilename('Iblocks' . $iblockParams['XML_ID'])
+                ->setToken('xmlId', $iblockParams['XML_ID'])
+                ->setToken('id', $createdIblock['ID'])
+                ->setToken('code', $iblockCode)
+            ;
+            $propertiesString = $repository->arrayToString($arIblockProps);
+            $repository
+                ->setToken('properties', $propertiesString)
+                ->executeTemplate()
+            ;
+
+            $repository->executeTemplate();
+        }
+        
+        
     }
 }
