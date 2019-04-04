@@ -1,7 +1,9 @@
 <?php
 namespace Spellabs\Portal\Rest\Repository;
 
-class Iblocks{{ xmlId }}
+use Spellabs\Portal\Rest;
+
+class Iblocks{{ xmlId }} extends AbstractIblockEntity
 {
     private $iblockId = {{ id }};
     private $iblockCode = '{{ code }}';

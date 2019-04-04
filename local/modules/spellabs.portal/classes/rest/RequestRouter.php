@@ -98,7 +98,7 @@ class RequestRouter
         
         foreach ($this->getUriArray() as $key => $value)
         {
-            $result .= ucwords($value);
+            $result .= $value;
             $partsCounter++;
             
             if ($partsCounter >=2)

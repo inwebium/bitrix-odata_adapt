@@ -122,7 +122,7 @@ class RequestHandler
      */
     public function instantiateRequestClass()
     {
-        $className = $this->getRequestRouter()->getClassName();
+        $className = "Spellabs\\Portal\\Rest\\Repository\\" . $this->getRequestRouter()->getClassName();
        
         $this->setRequestObject(new $className($this->getRequestParameters()));
         

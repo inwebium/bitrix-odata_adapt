@@ -10,7 +10,7 @@ Loader::includeModule('iblock');
  */
 abstract class AbstractIblockEntity extends AbstractRestApiEntity
 {
-    private $fieldsToExpand = [
+    protected $fieldsToExpand = [
         'IBLOCK_ID',
         'ID',
         'NAME',
@@ -18,7 +18,7 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         'XML_ID'
     ];
     
-    private $iblockId;
+    protected $iblockId;
     
     public function getIblockId()
     {
@@ -40,14 +40,15 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
     {
         $result = false;
 
-        $arOrder = ['ID' => 'DESC'];
+        /*$arOrder = ['ID' => 'DESC'];
         $arFilter = ['IBLOCK_ID' => 122];
         $arGroup = false;
         $arNav = false;
-        $arSelect = [];
+        $arSelect = [];*/
         
         $arOrder = $this->getRequestParameters()->getOrder();
         $arFilter = $this->getRequestParameters()->getFilter();
+        $arGroup = false;
         $arNav = $this->getRequestParameters()->getTop();
         $this->expand();
         $arSelect = $this->getRequestParameters()->getSelect();
