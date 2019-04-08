@@ -41,5 +41,12 @@ class ResponseBody
         return $this;
     }
 
-    
+    public function prepareBody($arResult)
+    {
+        $body = false;
+        
+        
+        
+        return $body;
+    }
 }

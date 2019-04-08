@@ -19,6 +19,7 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
     ];
     
     protected $iblockId;
+    protected $propertiesAssoc;
     
     public function getIblockId()
     {
@@ -33,7 +34,37 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
     
     public function delete()
     {
-        echo 'delete';
+        $arPayload = $this->getRequestParameters()->getPayload();
+        
+        $elementFields = [];
+        
+        foreach ($arPayload as $fieldCode => $fieldValue)
+        {
+            $elementFields[$fieldCode] = $fieldValue;
+        }
+        
+        $elementId = false;
+        
+        if (isset($this->getRequestParameters()->getFilter()['ID']) && $this->getRequestParameters()->getFilter()['ID'] > 0)
+        {
+            $elementId = $this->getRequestParameters()->getFilter()['ID'];
+        }
+        elseif (isset($elementFields['ID']) && $elementFields['ID'] > 0)
+        {
+            $elementId = $elementFields['ID'];
+            unset($elementFields['ID']);
+        }
+        else
+        {
+            return false;
+        }
+        
+        if (\CIBlockElement::Delete($elementId)) {
+            return true;
+        } else {
+            return false;
+        }
+        
     }
 
     public function get()
@@ -52,6 +83,23 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         $arNav = $this->getRequestParameters()->getTop();
         $this->expand();
         $arSelect = $this->getRequestParameters()->getSelect();
+        
+        /*var_dump($arFilter);
+        array_walk_recursive(
+            $arFilter, 
+            function ($item, $key) use (&$arFilter)
+            {
+                echo "\n"; var_dump($item); echo "\n";
+                echo "\n"; var_dump($key); echo "\n";
+
+                if (isset($this->propertiesAssoc[$key])) {
+                    unset($arFilter[$key]);
+                    $arFilter[$this->propertiesAssoc[$key]] = $item;
+                }
+            }
+        );
+        var_dump($arFilter);*/
+        //die();
 
         $arFilter['IBLOCK_ID'] = $this->getIblockId();
         

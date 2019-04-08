@@ -1,14 +1,15 @@
 <?php
 namespace Spellabs\Portal\Rest\Repository;
 
-use Spellabs\Portal\Rest;
+use Spellabs\Portal\Rest\AbstractIblockEntity;
+use Spellabs\Portal\Rest\RequestParameters;
 
 class Iblocks{{ xmlId }} extends AbstractIblockEntity
 {
-    private $iblockId = {{ id }};
-    private $iblockCode = '{{ code }}';
-    private $externalCode = '{{ xmlId }}';
-    private $propertiesAssoc = [
+    protected $iblockId = {{ id }};
+    protected $iblockCode = '{{ code }}';
+    protected $externalCode = '{{ xmlId }}';
+    protected $propertiesAssoc = [
 {{ properties }}
     ];
     

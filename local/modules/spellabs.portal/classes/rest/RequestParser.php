@@ -65,7 +65,7 @@ class RequestParser
         
         return $result;
     }
-    
+
     public function parseExpand()
     {
         $result = false;
