@@ -140,4 +140,60 @@ class RequestParameters
         $this->payload = $payload;
         return $this;
     }
+    
+    public function associativeReplace($fieldsAssoc = [], $propertiesAssoc = [])
+    {
+        $association = $fieldsAssoc + $propertiesAssoc;
+        
+        if (count($fieldsAssoc) > 0) {
+            $this->assocFieldsReplace($fieldsAssoc);
+        }
+        
+        if (count($propertiesAssoc > 0)) {
+            $this->assocPropertiesReplace($propertiesAssoc);
+        }
+        
+        
+        
+        return $this;
+    }
+    
+    private function assocFieldsReplace($fieldsAssoc)
+    {
+        foreach ($this->select as $key => $value)
+        {
+            if (isset($fieldsAssoc[$value])) {
+                $this->select[$key] = $fieldsAssoc[$value];
+            }
+        }
+        
+        
+        echo "\nRequestParameters select\n";
+        var_dump($this->getSelect());
+        echo "\n\n";
+        
+        return $this;
+    }
+    
+    private function assocPropertiesReplace($propertiesAssoc)
+    {
+        return $this;
+    }
+    
+    private function assocFilterReplace(&$filter, $fieldsAssoc, $propertiesAssoc)
+    {
+        foreach ($filter as $key => $value)
+        {
+            if (isset($fieldsAssoc[$key])) {
+                $filter[$key] = $fieldsAssoc[$key];
+            }
+            if (isset($propertiesAssoc[$key])) {
+                $filter[$key] = $fieldsAssoc[$key];
+            }
+            
+            if (is_array($value)) {
+                $this->assocFilterReplace($value, $fieldsAssoc, $propertiesAssoc);
+            }
+        }
+    }
 }

@@ -22,10 +22,7 @@ class RequestHandler
         $this
             ->setRequestRouter(new RequestRouter($apiRoot))
             ->setRequestParser(
-                new RequestParser(
-                    $this->getRequestRouter()->getRequestMethod(),
-                    $this->getRequestRouter()->getRequestParameters()
-                    )
+                new RequestParser($this->getRequestRouter())
                 )
             ->setRequestParameters(new RequestParameters($this->getRequestParser()))
         ;

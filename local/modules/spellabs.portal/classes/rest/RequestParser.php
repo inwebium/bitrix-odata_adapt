@@ -5,11 +5,14 @@ class RequestParser
 {
     private $requestMethod;
     private $requestParams;
+    private $associations;
     
-    public function __construct($requestMethod, $requestParams)
+    public function __construct(RequestRouter $requestRouter)
     {
-        $this->requestMethod = $requestMethod;
-        $this->requestParams = $requestParams;
+        $this->requestMethod = $requestRouter->getRequestMethod();
+        $this->requestParams = $requestRouter->getRequestParameters();
+        $className = "Spellabs\\Portal\\Rest\\Repository\\" . $requestRouter->getClassName();
+        $this->associations  = $className::$propertiesAssoc + $className::$fieldsAssoc;
     }
     
     public function parseSelect()
@@ -22,7 +25,7 @@ class RequestParser
             
             foreach ($result as $key => $fieldName)
             {
-                $result[$key] = trim($fieldName);
+                $result[$key] = $this->associations[trim($fieldName)];
             }
         }
 
@@ -37,7 +40,8 @@ class RequestParser
         
         $arParentheses = $parenthesesParser->parse('(' . $this->requestParams['filter'] . ')');
         
-        $filterParser = new RequestFilterParser();
+        
+        $filterParser = new RequestFilterParser($this->associations);
         
         $arNodes = $filterParser->parseNodes($arParentheses);
         $arFilter = $filterParser->buildFilter($arNodes);
@@ -59,7 +63,7 @@ class RequestParser
             {
                 $arOrderDefinition = explode('=', $orderDefinition);
                 
-                $result[$arOrderDefinition[0]] = $arOrderDefinition[1];
+                $result[$this->associations[$arOrderDefinition[0]]] = $arOrderDefinition[1];
             }
         }
         
@@ -76,7 +80,7 @@ class RequestParser
             
             foreach ($result as $key => $fieldName)
             {
-                $result[$key] = trim($fieldName);
+                $result[$key] = $this->associations[trim($fieldName)];
             }
         }
         

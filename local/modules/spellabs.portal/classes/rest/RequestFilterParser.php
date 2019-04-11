@@ -3,6 +3,13 @@ namespace Spellabs\Portal\Rest;
 
 class RequestFilterParser
 {
+    private $associations;
+    
+    public function __construct($associations = [])
+    {
+        $this->associations = $associations;
+    }
+    
     /**
      * Ищет значения вида ИМЯПОЛЯ[СРАВНЕНИЕ]=значение
      * 
@@ -34,7 +41,7 @@ class RequestFilterParser
 
                         $arNode = [
                             'string' => $arMatch[1],
-                            'field' => $arMatch[2],
+                            'field' => $this->associations[$arMatch[2]],
                             'comparison' => $arMatch[3],
                             'value' => $arMatch[4],
                         ];

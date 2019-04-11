@@ -10,16 +10,22 @@ Loader::includeModule('iblock');
  */
 abstract class AbstractIblockEntity extends AbstractRestApiEntity
 {
+    public static $fieldsAssoc = [
+        'Id' => 'ID',
+        'Title' => 'NAME',
+        'Created' => 'DATE_CREATE',
+    ];
+    
     protected $fieldsToExpand = [
         'IBLOCK_ID',
         'ID',
         'NAME',
         'CODE',
-        'XML_ID'
+        'XML_ID',
     ];
     
     protected $iblockId;
-    protected $propertiesAssoc;
+    protected static $propertiesAssoc;
     
     public function getIblockId()
     {
@@ -45,17 +51,12 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         
         $elementId = false;
         
-        if (isset($this->getRequestParameters()->getFilter()['ID']) && $this->getRequestParameters()->getFilter()['ID'] > 0)
-        {
+        if (isset($this->getRequestParameters()->getFilter()['ID']) && $this->getRequestParameters()->getFilter()['ID'] > 0) {
             $elementId = $this->getRequestParameters()->getFilter()['ID'];
-        }
-        elseif (isset($elementFields['ID']) && $elementFields['ID'] > 0)
-        {
+        } elseif (isset($elementFields['ID']) && $elementFields['ID'] > 0) {
             $elementId = $elementFields['ID'];
             unset($elementFields['ID']);
-        }
-        else
-        {
+        } else {
             return false;
         }
         
@@ -70,12 +71,6 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
     public function get()
     {
         $result = false;
-
-        /*$arOrder = ['ID' => 'DESC'];
-        $arFilter = ['IBLOCK_ID' => 122];
-        $arGroup = false;
-        $arNav = false;
-        $arSelect = [];*/
         
         $arOrder = $this->getRequestParameters()->getOrder();
         $arFilter = $this->getRequestParameters()->getFilter();
@@ -84,35 +79,23 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         $this->expand();
         $arSelect = $this->getRequestParameters()->getSelect();
         
-        /*var_dump($arFilter);
-        array_walk_recursive(
-            $arFilter, 
-            function ($item, $key) use (&$arFilter)
-            {
-                echo "\n"; var_dump($item); echo "\n";
-                echo "\n"; var_dump($key); echo "\n";
-
-                if (isset($this->propertiesAssoc[$key])) {
-                    unset($arFilter[$key]);
-                    $arFilter[$this->propertiesAssoc[$key]] = $item;
-                }
-            }
-        );
-        var_dump($arFilter);*/
-        //die();
-
-        $arFilter['IBLOCK_ID'] = $this->getIblockId();
+        $this->getRequestParameters()->appendFilter(['IBLOCK_ID' => $this->getIblockId()]);
+        //$arFilter['IBLOCK_ID'] = $this->getIblockId();
         
         // В arSelect минимум нужны IBLOCK_ID и ID
         if (!in_array('IBLOCK_ID', $arSelect))
         {
-            $arSelect[] = 'IBLOCK_ID';
+            $this->getRequestParameters()->appendSelect(['IBLOCK_ID']);
+            //$arSelect[] = 'IBLOCK_ID';
         }
         
         if (!in_array('ID', $arSelect))
         {
-            $arSelect[] = 'ID';
+            $this->getRequestParameters()->appendSelect(['ID']);
+            //$arSelect[] = 'ID';
         }
+        
+        //$this->getRequestParameters()->associativeReplace($this->fieldsAssoc, $this->propertiesAssoc);
 
         echo '<pre>$arOrder';
         var_dump($arOrder);
@@ -132,10 +115,17 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
 
         $resource = \CIBlockElement::GetList($arOrder, $arFilter, $arGroup, $arNav, $arSelect);
         
+        $arElements = [];
         while($element = $resource->GetNext())
         {
-            $result[] = $element;
+            $arElements[] = $element;
             //var_dump($element['ID']);
+        }
+        
+        if (!isset($arFilter['ID']) || is_array($arFilter['ID'])) {
+            $result['value'] = $arElements;
+        } else {
+            $result = $arElements;
         }
         
         return $result;
@@ -179,6 +169,17 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         var_dump($elementId);*/
 
         $result = $iblockElement->Update($elementId, $elementFields, false, true, true, true);
+        
+        $result = $this->getElementProperties();
+        
+        if ($result) {
+            $result = \CIBlockElement::GetList($arFilter, $arFilter, $arGroupBy, $arNavStartParams, $arSelectFields);
+            while ($element = $result->GetNext())
+            {
+                $element->GetFields();
+                $element->GetProperties();
+            }
+        }
         
         /*echo "\n\n";
         var_dump($result);*/

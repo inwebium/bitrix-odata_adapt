@@ -9,7 +9,7 @@ class Iblocks{{ xmlId }} extends AbstractIblockEntity
     protected $iblockId = {{ id }};
     protected $iblockCode = '{{ code }}';
     protected $externalCode = '{{ xmlId }}';
-    protected $propertiesAssoc = [
+    public static $propertiesAssoc = [
 {{ properties }}
     ];
     

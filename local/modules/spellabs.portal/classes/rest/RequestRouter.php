@@ -161,11 +161,7 @@ class RequestRouter
     private function parseUri()
     {
         $className = '';
-        
-        echo "\nparseUri entered\n";
-        //$entityType = '';
-        var_dump($this->getUriArray());
-        
+
         $counter = 0;
         // Для каждой части в URI
         foreach ($this->getUriArray() as $key => $value) {
@@ -177,17 +173,14 @@ class RequestRouter
             $isRouteFound = false;
             // Перебираем элементы-ассоциации
             foreach ($this->routeAssociation[$key] as $classNamePart => $synonyms) {
-                echo "\nvalue = $value\n";
-                
+
                 foreach ($synonyms as $pattern)
                 {
                     if (preg_match($pattern, $value)) {
 
                         if (method_exists($this, $classNamePart)) {
-                            echo "\nmethod Found = $classNamePart\n";
                             $className .= $this->$classNamePart($value);
                         } else {
-                            echo "\nmethod not Found = $classNamePart\n";
                             $className .= $classNamePart;
                         }
                         $isRouteFound = true;
@@ -205,7 +198,6 @@ class RequestRouter
             $counter++;
         }
         
-        echo "\nend className = $className\n";
         return $className;
     }
     
@@ -222,12 +214,6 @@ class RequestRouter
     
     private function getByXmlId($uriPart)
     {
-        /*$pattern = "/(\w+)\('([\w\d\s%]+)'\)/";
-        $matches = [];
-        preg_match($pattern, $uriPart, $matches);
-
-        $iblock = IblockUtils::getIblockBy('NAME', urldecode($matches[2]));*/
-        
         return $uriPart;
     }
     
@@ -241,7 +227,5 @@ class RequestRouter
         $pattern = "/items\(([\d]+)\)/";
         $matches = [];
         preg_match($pattern, $uriPart, $matches);
-        
-        
     }
 }
