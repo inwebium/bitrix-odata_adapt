@@ -41,7 +41,7 @@ class RequestFilterParser
 
                         $arNode = [
                             'string' => $arMatch[1],
-                            'field' => $this->associations[$arMatch[2]],
+                            'field' => AssociativeReplacer::replace($arMatch[2], $this->associations),
                             'comparison' => $arMatch[3],
                             'value' => $arMatch[4],
                         ];
@@ -216,5 +216,10 @@ class RequestFilterParser
         {
             return '';
         }
+    }
+    
+    private function associativeReplace($fieldName)
+    {
+        AssociativeReplacer::replace($fieldName, $this->associations);
     }
 }

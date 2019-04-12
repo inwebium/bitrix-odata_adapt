@@ -25,10 +25,10 @@ class RequestParser
             
             foreach ($result as $key => $fieldName)
             {
-                $result[$key] = $this->associations[trim($fieldName)];
+                $result[$key] = AssociativeReplacer::replace($fieldName, $this->associations);
             }
         }
-
+        
         return $result;
     }
     
@@ -63,13 +63,18 @@ class RequestParser
             {
                 $arOrderDefinition = explode('=', $orderDefinition);
                 
-                $result[$this->associations[$arOrderDefinition[0]]] = $arOrderDefinition[1];
+                $result[AssociativeReplacer::replace($arOrderDefinition[0], $this->associations)] = $arOrderDefinition[1];
             }
         }
         
         return $result;
     }
-
+    
+    /**
+     * Разбивает строку из expand по запятым и возвращает получившийся массив.
+     * 
+     * @return type
+     */
     public function parseExpand()
     {
         $result = false;
@@ -80,7 +85,8 @@ class RequestParser
             
             foreach ($result as $key => $fieldName)
             {
-                $result[$key] = $this->associations[trim($fieldName)];
+                //$result[$key] = AssociativeReplacer::replace($fieldName, $this->associations);
+                $result[$key] = $fieldName;
             }
         }
         
@@ -114,5 +120,10 @@ class RequestParser
     public function parsePost()
     {
         return json_decode($this->requestParams, true);
+    }
+    
+    private function associativeReplace($fieldName)
+    {
+        AssociativeReplacer::replace($fieldName, $this->associations);
     }
 }

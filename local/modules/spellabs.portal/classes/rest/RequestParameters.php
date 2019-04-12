@@ -130,6 +130,17 @@ class RequestParameters
         return $this;
     }
     
+    public function replaceSelect($field, $replaceFor)
+    {
+        $select = $this->getSelect();
+        
+        if ($fieldKey = array_search($field, $select)) {
+            $select[$fieldKey] = $replaceFor;
+        }
+        
+        $this->setSelect($select);
+    }
+    
     public function getPayload()
     {
         return $this->payload;
@@ -166,11 +177,6 @@ class RequestParameters
                 $this->select[$key] = $fieldsAssoc[$value];
             }
         }
-        
-        
-        echo "\nRequestParameters select\n";
-        var_dump($this->getSelect());
-        echo "\n\n";
         
         return $this;
     }

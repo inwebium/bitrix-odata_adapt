@@ -27,17 +27,33 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
     protected $iblockId;
     protected static $propertiesAssoc;
     
+    /**
+     * iblockId getter
+     * 
+     * @return int
+     */
     public function getIblockId()
     {
         return $this->iblockId;
     }
-
+    
+    /**
+     * $iblockId setter
+     * 
+     * @param int $iblockId
+     * @return $this
+     */
     public function setIblockId($iblockId)
     {
         $this->iblockId = $iblockId;
         return $this;
     }
     
+    /**
+     * Реализация метода запроса DELETE
+     * 
+     * @return boolean
+     */
     public function delete()
     {
         $arPayload = $this->getRequestParameters()->getPayload();
@@ -67,7 +83,12 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         }
         
     }
-
+    
+    /**
+     * Реализация метода запроса GET
+     * 
+     * @return array
+     */
     public function get()
     {
         $result = false;
@@ -119,7 +140,6 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         while($element = $resource->GetNext())
         {
             $arElements[] = $element;
-            //var_dump($element['ID']);
         }
         
         if (!isset($arFilter['ID']) || is_array($arFilter['ID'])) {
@@ -130,7 +150,13 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         
         return $result;
     }
-
+    
+    /**
+     * Реализация метода запроса MERGE
+     * 
+     * @global \CUser $USER
+     * @return boolean
+     */
     public function merge()
     {
         global $USER;
@@ -190,7 +216,13 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
             return false;
         }
     }
-
+    
+    /**
+     * Реализация метода запроса POST
+     * 
+     * @global \CUser $USER
+     * @return boolean
+     */
     public function post()
     {
         global $USER;
@@ -228,25 +260,61 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         }
     }
     
+    /**
+     * Получает expand из объекта параметров запроса. Подменяет значения из 
+     * select на нужные битриксовые аналоги.
+     * 
+     * @return $this
+     */
     protected function expand()
     {
         $propertiesToExpand = $this->getRequestParameters()->getExpand();
-        
-        $newSelects = [];
-        
-        foreach ($propertiesToExpand as $num => $propertyCode)
+
+        foreach ($propertiesToExpand as $num => $fieldCode)
         {
-            foreach ($this->fieldsToExpand as $key => $fieldName)
-            {
-                $selectString = 'PROPERTY_' . $propertyCode . '.' . $fieldName;
-                
-                $newSelects[] = $selectString;
-            }
+            $this->replaceExpandedFields($fieldCode);
         }
         
-        $this->getRequestParameters()->appendSelect($newSelects);
-        
         return $this;
+    }
+    
+    /**
+     * Заменяет expanded поля в select на битриксовые аналоги
+     * 
+     * @param type $fieldCode
+     */
+    protected function replaceExpandedFields($fieldCode)
+    {
+
+        foreach ($this->getRequestParameters()->getSelect() as $selectNum => $fieldToSelect)
+        {
+
+            if (strpos($fieldToSelect, $fieldCode . '/') !== false) {
+                $expandedSelectField = explode('/', $fieldToSelect);
+                
+                $replacedSelect = 'PROPERTY_';
+                $replacedSelect .= AssociativeReplacer::replace(
+                    $expandedSelectField[0],
+                    static::$propertiesAssoc + static::$fieldsAssoc
+                );
+                $replacedSelect .= '.' . AssociativeReplacer::replace(
+                    $expandedSelectField[1],
+                    static::$propertiesAssoc + static::$fieldsAssoc
+                );
+                
+                $this->getRequestParameters()->replaceSelect(
+                    $fieldToSelect, 
+                    $replacedSelect
+                );
+
+            } else {
+                $this->getRequestParameters()->replaceSelect(
+                    $fieldToSelect, 
+                    AssociativeReplacer::replace($fieldToSelect, static::$propertiesAssoc + static::$fieldsAssoc)
+                );
+                
+            }
+        }
     }
     
     protected function getElementProperties()
@@ -254,6 +322,9 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         
     }
     
+    /**
+     * Установка значений свойств элемента инфоблока (после Update)
+     */
     protected function setElementProperties()
     {
         $elementId = 10;
