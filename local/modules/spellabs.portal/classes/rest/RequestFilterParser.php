@@ -19,6 +19,7 @@ class RequestFilterParser
     public function parseNodes(&$node)
     {
         $result = [];
+        $valueFactory = new FilterValueFactory();
 
         foreach ($node as $key => $child)
         {
@@ -28,7 +29,8 @@ class RequestFilterParser
             }
             else
             {
-                $pattern = "/(([\w]+)\[(\w{2})\]=(\d+|'[^']+'|\w+))|(,|;|$)/";
+                //$pattern = "/(([\w]+)\[(\w{2})\]=(\d+|'[^']+'|\w+))|(,|;|$)/";
+                $pattern = "/(([\w]+)\[(\w{2})\]=(\d+|'[^']+'|\w+\s?(?:'[^']+')?))|(,|;|$)/";
                 $matches = [];
                 preg_match_all($pattern, $child, $matches, PREG_SET_ORDER);
 
@@ -38,6 +40,9 @@ class RequestFilterParser
 
                     if (count($arMatch) == 5 && !empty($arMatch[0]))
                     {
+                        $filterValue = $valueFactory->instatiateFilterValue($arMatch[4]);
+                        
+                        $arMatch[4] = $filterValue->getProcessedValue();
 
                         $arNode = [
                             'string' => $arMatch[1],
@@ -216,10 +221,5 @@ class RequestFilterParser
         {
             return '';
         }
-    }
-    
-    private function associativeReplace($fieldName)
-    {
-        AssociativeReplacer::replace($fieldName, $this->associations);
     }
 }

@@ -1,42 +1,51 @@
 <?
 global $DB, $MESS, $APPLICATION;
 
+function scanFolder($folder, $namespace, $classpath)
+{
+    $classesMap = [];
+    $dir = scandir($folder);
+    
+    foreach ($dir as $key => $item)
+    {
+        $fullPath = $folder . '/' . $item;
+
+        if (is_file($fullPath) && pathinfo($fullPath)['extension'] == 'php') {
+            $className = $namespace . pathinfo($fullPath)['filename'];
+            $classPath = $classpath . $item;
+            
+            $classesMap[$className] = $classPath;
+        }
+        
+        if (is_dir($fullPath) && !in_array($item, ['.', '..'])) {
+            $subMap = scanFolder(
+                $fullPath, 
+                $namespace . $item . "\\", 
+                $classpath . $item . '/'
+            );
+            
+            $classesMap = $classesMap + $subMap;
+        }
+    }
+    
+    return $classesMap;
+}
+
 $classesMap = [
     'CSPMain' => 'classes/general/CSPMain.php',
     'CSPHandlers' => 'classes/handlers/CSPHandlers.php',
     'SPEventManager' => 'classes/extend/SPEventManager.php',
-    'Spellabs\Portal\Rest\ParenthesesParser' => 'classes/rest/ParenthesesParser.php',
-    'Spellabs\Portal\Rest\RestApiEntityInterface' => 'classes/rest/RestApiEntityInterface.php',
-    'Spellabs\Portal\Rest\AbstractRestApiEntity' => 'classes/rest/AbstractRestApiEntity.php',
-    'Spellabs\Portal\Rest\AbstractIblockEntity' => 'classes/rest/AbstractIblockEntity.php',
-    'Spellabs\Portal\Rest\RequestFilterParser' => 'classes/rest/RequestFilterParser.php',
-    'Spellabs\Portal\Rest\RequestParser' => 'classes/rest/RequestParser.php',
-    'Spellabs\Portal\Rest\RequestRouter' => 'classes/rest/RequestRouter.php',
-    'Spellabs\Portal\Rest\RequestParameters' => 'classes/rest/RequestParameters.php',
-    'Spellabs\Portal\Rest\RequestHandler' => 'classes/rest/RequestHandler.php',
-    'Spellabs\Portal\Rest\ResponseHeaders' => 'classes/rest/ResponseHeaders.php',
-    'Spellabs\Portal\Rest\ResponseBody' => 'classes/rest/ResponseBody.php',
-    'Spellabs\Portal\Rest\ResponseHandler' => 'classes/rest/ResponseHandler.php',
-    'Spellabs\Portal\Rest\IblockUtils' => 'classes/rest/IblockUtils.php',
-    'Spellabs\Portal\Rest\AssociativeReplacer' => 'classes/rest/AssociativeReplacer.php',
-    'Spellabs\Portal\Rest\RepositoryGenerator' => 'classes/rest/RepositoryGenerator.php'
 ];
 
-$restRepository = scandir($_SERVER['DOCUMENT_ROOT'] . '/local/modules/spellabs.portal/classes/rest/Repository');
+$restCodebase = scandir($_SERVER['DOCUMENT_ROOT'] . '/local/modules/spellabs.portal/classes/rest');
+$restClassesMap = [];
+$restClassesMap = scanFolder(
+    $_SERVER['DOCUMENT_ROOT'] . '/local/modules/spellabs.portal/classes/rest', 
+    "Spellabs\\Portal\\Rest\\",
+    'classes/rest/'
+);
 
-foreach ($restRepository as $key => $value)
-{
-    $pathinfo = pathinfo($value);
-    
-    if ($pathinfo['extension'] == 'php') {
-        $className = "Spellabs\\Portal\\Rest\\Repository\\" . $pathinfo['filename'];
-        $classPath = 'classes/rest/Repository/' . $pathinfo['basename'];
-        
-        $classesMap[$className] = $classPath;
-    }
-}
-    
-
+$classesMap = $classesMap + $restClassesMap;
 
 Bitrix\Main\Loader::registerAutoLoadClasses(
     'spellabs.portal', 
