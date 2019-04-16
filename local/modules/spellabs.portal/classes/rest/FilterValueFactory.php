@@ -8,7 +8,7 @@ class FilterValueFactory
             'pattern' => "/datetime\s?'([\d\-T:\.Z]+)'/",
             'groupAsParameter' => 1
         ],
-        'ScalarFilterValue'   => [
+        'ScalarFilterValue'   => [ //должен быть последним (~default)
             'pattern' => "/'?(.*)'?/",
             'groupAsParameter' => 1
         ],

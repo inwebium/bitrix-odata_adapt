@@ -16,13 +16,13 @@ class RequestParameters
     public function __construct(RequestParser $requestParser)
     {
         $this
+            ->setPayload($requestParser->parsePost())
             ->setSelect($requestParser->parseSelect())
             ->setExpand($requestParser->parseExpand())
             ->setFilter($requestParser->parseFilter())
             ->setOrder($requestParser->parseOrder())
             ->setTop($requestParser->parseTop())
-            ->setPayload($requestParser->parsePost())
-        ;    
+        ;
     }
     
     public function getSelect()

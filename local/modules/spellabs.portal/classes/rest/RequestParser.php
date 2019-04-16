@@ -3,8 +3,11 @@ namespace Spellabs\Portal\Rest;
 
 class RequestParser
 {
+    /** @var string */
     private $requestMethod;
+    /** @var array */
     private $requestParams;
+    /** @var array */
     private $associations;
     
     public function __construct(RequestRouter $requestRouter)
@@ -119,7 +122,21 @@ class RequestParser
     
     public function parsePost()
     {
-        return json_decode($this->requestParams, true);
+        $payload = json_decode($this->requestParams, true);
+        
+        $result = [];
+        
+        foreach ($payload as $field => $value)
+        {
+            $result[AssociativeReplacer::replace($field, $this->associations)] = $value;   
+        }
+        /*$this->requestParams = $payload;
+        
+        echo "\nparsePost\n";
+        var_dump($this->requestParams);
+        echo "\n";*/
+        
+        return $result;
     }
     
     private function associativeReplace($fieldName)

@@ -92,6 +92,21 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
     public function get()
     {
         $result = false;
+
+        $this->getRequestParameters()->appendFilter(['IBLOCK_ID' => $this->getIblockId()]);
+        
+        // В arSelect минимум нужны IBLOCK_ID и ID
+        if (!in_array('IBLOCK_ID', $this->getRequestParameters()->getSelect()))
+        {
+            $this->getRequestParameters()->appendSelect(['IBLOCK_ID']);
+            //$arSelect[] = 'IBLOCK_ID';
+        }
+        
+        if (!in_array('ID', $this->getRequestParameters()->getSelect()))
+        {
+            $this->getRequestParameters()->appendSelect(['ID']);
+            //$arSelect[] = 'ID';
+        }
         
         $arOrder = $this->getRequestParameters()->getOrder();
         $arFilter = $this->getRequestParameters()->getFilter();
@@ -99,22 +114,6 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         $arNav = $this->getRequestParameters()->getTop();
         $this->expand();
         $arSelect = $this->getRequestParameters()->getSelect();
-        
-        $this->getRequestParameters()->appendFilter(['IBLOCK_ID' => $this->getIblockId()]);
-        //$arFilter['IBLOCK_ID'] = $this->getIblockId();
-        
-        // В arSelect минимум нужны IBLOCK_ID и ID
-        if (!in_array('IBLOCK_ID', $arSelect))
-        {
-            $this->getRequestParameters()->appendSelect(['IBLOCK_ID']);
-            //$arSelect[] = 'IBLOCK_ID';
-        }
-        
-        if (!in_array('ID', $arSelect))
-        {
-            $this->getRequestParameters()->appendSelect(['ID']);
-            //$arSelect[] = 'ID';
-        }
         
         //$this->getRequestParameters()->associativeReplace($this->fieldsAssoc, $this->propertiesAssoc);
 
@@ -165,9 +164,6 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         
         $arPayload = $this->getRequestParameters()->getPayload();
         
-        /*echo "\n\nPayload:\n";
-        var_dump($arPayload);*/
-        
         $elementFields = [];
         
         foreach ($arPayload as $fieldCode => $fieldValue)
@@ -191,13 +187,27 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
             return false;
         }
 
-        /*echo "\n\n";
-        var_dump($elementId);*/
+        echo "\nelementId\n";
+        var_dump($elementId);
+        echo "\nelementFields\n";
+        var_dump($elementFields);
+        
+        $updateResult = false;
+        if ($this->hasFieldsInPayload($elementFields)) {
+            $updateResult = $iblockElement->Update($elementId, $elementFields, false, true, true, true);
+        }
+        
+        $propertiesUpdateResult = false;
+        if ($this->hasPropertiesInPayload($elementFields)) {
+            $propertiesUpdateResult = $iblockElement->SetPropertyValuesEx(
+                $elementId, 
+                0, 
+                $this->getPropertiesFromPayload($elementFields)
+            );
+        }
 
-        $result = $iblockElement->Update($elementId, $elementFields, false, true, true, true);
         
-        $result = $this->getElementProperties();
-        
+
         if ($result) {
             $result = \CIBlockElement::GetList($arFilter, $arFilter, $arGroupBy, $arNavStartParams, $arSelectFields);
             while ($element = $result->GetNext())
@@ -206,6 +216,8 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
                 $element->GetProperties();
             }
         }
+        
+        
         
         /*echo "\n\n";
         var_dump($result);*/
@@ -332,4 +344,57 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
 
         \CIBlockElement::SetPropertyValuesEx($elementId, false, $properties);
     }
+    
+    protected function hasFieldsInPayload($payload)
+    {
+        foreach ($payload as $key => $value)
+        {
+            if (in_array($key, static::$fieldsAssoc)) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    protected function hasPropertiesInPayload($payload)
+    {
+        foreach ($payload as $key => $value)
+        {
+            if (in_array($key, static::$propertiesAssoc)) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    protected function getPropertiesFromPayload($payload)
+    {
+        $properties = [];
+        
+        foreach ($payload as $key => $value)
+        {
+            if (in_array($key, static::$propertiesAssoc)) {
+                $properties[$key] = $value;
+            }
+        }
+        
+        return $properties;
+    }
+    
+    /*
+     * Пример post request (создал благодарность)
+      __metadata {
+          type	SP.Data.SlThanksListItem
+      },
+           
+        slComment	foo,
+        slThanksTypeLookupId	2,
+        slToUserId	35,
+     */
+    /*
+     * в ответ по ходу все о созданной сущности
+     */
+    /*protected function */
 }
