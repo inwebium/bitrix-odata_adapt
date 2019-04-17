@@ -164,14 +164,16 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         
         $arPayload = $this->getRequestParameters()->getPayload();
         
-        $elementFields = [];
+        //$elementFields = [];
         
-        foreach ($arPayload as $fieldCode => $fieldValue)
+        $elementFields = $arPayload;
+        
+        /*foreach ($arPayload as $fieldCode => $fieldValue)
         {
             // Проверить является ли $fieldCode XML_ID
             // Если это XML_ID, то получить код свойства по XML_ID
             $elementFields[$fieldCode] = $fieldValue;
-        }
+        }*/
         
         if (isset($this->getRequestParameters()->getFilter()['ID']) && $this->getRequestParameters()->getFilter()['ID'] > 0)
         {
@@ -187,10 +189,10 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
             return false;
         }
 
-        echo "\nelementId\n";
+        /*echo "\nelementId\n";
         var_dump($elementId);
         echo "\nelementFields\n";
-        var_dump($elementFields);
+        var_dump($elementFields);*/
         
         $updateResult = false;
         if ($this->hasFieldsInPayload($elementFields)) {
@@ -235,8 +237,22 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
      * @global \CUser $USER
      * @return boolean
      */
+    
     public function post()
     {
+        /*
+        * Пример post request (создал благодарность)
+         __metadata {
+             type	SP.Data.SlThanksListItem
+         },
+
+           slComment	foo,
+           slThanksTypeLookupId	2,
+           slToUserId	35,
+        */
+        /*
+        * в ответ по ходу все о созданной сущности
+        */
         global $USER;
         
         echo 'post';
@@ -248,14 +264,17 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         echo "\n\nPayload:\n";
         var_dump($arPayload);
         
-        $elementFields = [];
+        //$elementFields = [];
+        $elementFields = $arPayload;
         
-        foreach ($arPayload as $fieldCode => $fieldValue)
+        /*foreach ($arPayload as $fieldCode => $fieldValue)
         {
             // Проверить является ли $fieldCode XML_ID
             // Если это XML_ID, то получить код свойства по XML_ID
             $elementFields[$fieldCode] = $fieldValue;
-        }
+        }*/
+        
+        $elementFields = $this->prepareAddFields($elementFields);
         
         $newElementId = $newIblockElement->Add($elementFields, false, true, true);
         
@@ -267,7 +286,10 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         }
         else
         {
-            // Отправить в ответ ошибку
+            echo "\nPOST error\n";
+            echo $newIblockElement->LAST_ERROR;
+            echo "\n";
+            // Отправить в ответ ошибку?
             return false;
         }
     }
@@ -329,11 +351,6 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         }
     }
     
-    protected function getElementProperties()
-    {
-        
-    }
-    
     /**
      * Установка значений свойств элемента инфоблока (после Update)
      */
@@ -345,6 +362,11 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         \CIBlockElement::SetPropertyValuesEx($elementId, false, $properties);
     }
     
+    /**
+     * 
+     * @param array $payload
+     * @return boolean
+     */
     protected function hasFieldsInPayload($payload)
     {
         foreach ($payload as $key => $value)
@@ -357,6 +379,12 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         return false;
     }
     
+    /**
+     * Проверяет наличие переданных значений свойств инфоблока в запросе
+     * 
+     * @param array $payload
+     * @return boolean
+     */
     protected function hasPropertiesInPayload($payload)
     {
         foreach ($payload as $key => $value)
@@ -369,6 +397,11 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         return false;
     }
     
+    /**
+     * 
+     * @param array $payload
+     * @return array
+     */
     protected function getPropertiesFromPayload($payload)
     {
         $properties = [];
@@ -383,18 +416,26 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         return $properties;
     }
     
-    /*
-     * Пример post request (создал благодарность)
-      __metadata {
-          type	SP.Data.SlThanksListItem
-      },
-           
-        slComment	foo,
-        slThanksTypeLookupId	2,
-        slToUserId	35,
+    /**
+     * 
+     * @param array $payload
+     * @return array
      */
-    /*
-     * в ответ по ходу все о созданной сущности
-     */
-    /*protected function */
+    protected function prepareAddFields($payload)
+    {
+        $properties = $this->getPropertiesFromPayload($payload);
+        
+        foreach ($properties as $key => $value)
+        {
+            unset($payload[$key]);
+        }
+        
+        $payload['PROPERTY_VALUES'] = $properties;
+        
+        if (!isset($payload['IBLOCK_ID'])) {
+            $payload['IBLOCK_ID'] = $this->iblockId;
+        }
+        
+        return $payload;
+    }
 }
