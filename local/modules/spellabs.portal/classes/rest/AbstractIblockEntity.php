@@ -56,14 +56,15 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
      */
     public function delete()
     {
-        $arPayload = $this->getRequestParameters()->getPayload();
+        $payload = $this->getRequestParameters()->getPayload();
         
-        $elementFields = [];
+        //$elementFields = [];
+        $elementFields = $payload;
         
-        foreach ($arPayload as $fieldCode => $fieldValue)
+        /*foreach ($arPayload as $fieldCode => $fieldValue)
         {
             $elementFields[$fieldCode] = $fieldValue;
-        }
+        }*/
         
         $elementId = false;
         

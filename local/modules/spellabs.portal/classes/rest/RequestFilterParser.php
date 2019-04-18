@@ -222,4 +222,43 @@ class RequestFilterParser
             return '';
         }
     }
+    
+    /**
+     * 
+     * @param string $filterString
+     * @return string
+     */
+    public function odataAdaptation($filterString)
+    {
+        echo "\nodata before\n";
+        var_dump($filterString);
+        $filterString = str_replace([' and ', ' or '], [';', ','], $filterString);
+        $comparisonsSearch = [
+            ' ne ', 
+            ' le ', 
+            ' ge ',
+            ' lt ',
+            ' gt ',
+            ' eq ',
+        ];
+        $comparisonsReplacement = [
+            '[ne]=', 
+            '[le]=', 
+            '[ge]=',
+            '[lt]=',
+            '[gt]=',
+            '[eq]=',
+        ];
+        
+        $filterString = str_replace(
+            $comparisonsSearch, 
+            $comparisonsReplacement, 
+            $filterString
+        );
+        
+        echo "\nodata after\n";
+        var_dump($filterString);
+        
+        return $filterString;
+    }
 }
