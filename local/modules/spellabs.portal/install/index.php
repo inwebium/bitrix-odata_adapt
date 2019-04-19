@@ -546,7 +546,7 @@ class spellabs_portal extends \CModule
             }
             
             $repository
-                ->setFilename('Iblock' . $iblockParams['XML_ID'] . '.php')
+                ->setFilename('List' . $iblockParams['XML_ID'] . '.php')
                 ->setToken('xmlId', $iblockParams['XML_ID'])
                 ->setToken('id', $createdIblock['ID'])
                 ->setToken('code', $iblockCode)

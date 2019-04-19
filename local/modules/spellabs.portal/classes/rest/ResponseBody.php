@@ -5,6 +5,7 @@ class ResponseBody
 {
     private $body;
     private $format;
+    private $associations;
     
     public function __construct($format = 'json')
     {
@@ -29,6 +30,7 @@ class ResponseBody
 
     public function setBody($body)
     {
+        $body = $this->prepareBody($body);
         switch ($this->format)
         {
             case 'json':
@@ -40,12 +42,26 @@ class ResponseBody
 
         return $this;
     }
+    
+    function getAssociations()
+    {
+        return $this->associations;
+    }
+
+    function setAssociations($associations)
+    {
+        $this->associations = $associations;
+        return $this;
+    }
 
     public function prepareBody($arResult)
     {
         $body = false;
         
-        
+        $body = AssociativeReplacer::recursiveReverseReplace(
+            $arResult, 
+            $this->getAssociations()
+        );
         
         return $body;
     }

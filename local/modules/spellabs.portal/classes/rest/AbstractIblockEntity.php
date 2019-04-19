@@ -115,24 +115,6 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         $arNav = $this->getRequestParameters()->getTop();
         $this->expand();
         $arSelect = $this->getRequestParameters()->getSelect();
-        
-        //$this->getRequestParameters()->associativeReplace($this->fieldsAssoc, $this->propertiesAssoc);
-
-        echo '<pre>$arOrder';
-        var_dump($arOrder);
-        echo '</pre>';
-        echo '<pre>$arFilter';
-        var_dump($arFilter);
-        echo '</pre>';
-        echo '<pre>$arGroup';
-        var_dump($arGroup);
-        echo '</pre>';
-        echo '<pre>$arNav';
-        var_dump($arNav);
-        echo '</pre>';
-        echo '<pre>$arSelect';
-        var_dump($arSelect);
-        echo '</pre>';
 
         $resource = \CIBlockElement::GetList($arOrder, $arFilter, $arGroup, $arNav, $arSelect);
         
@@ -189,11 +171,6 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         {
             return false;
         }
-
-        /*echo "\nelementId\n";
-        var_dump($elementId);
-        echo "\nelementFields\n";
-        var_dump($elementFields);*/
         
         $updateResult = false;
         if ($this->hasFieldsInPayload($elementFields)) {
@@ -219,11 +196,6 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
                 $element->GetProperties();
             }
         }
-        
-        
-        
-        /*echo "\n\n";
-        var_dump($result);*/
         
         if ($result) {
             return IblockUtils::getElement(['ID' => $elementId], array_keys($elementFields));
@@ -256,14 +228,9 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         */
         global $USER;
         
-        echo 'post';
-        
         $newIblockElement = new \CIBlockElement;
         
         $arPayload = $this->getRequestParameters()->getPayload();
-        
-        echo "\n\nPayload:\n";
-        var_dump($arPayload);
         
         //$elementFields = [];
         $elementFields = $arPayload;
@@ -287,9 +254,9 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         }
         else
         {
-            echo "\nPOST error\n";
+            /*echo "\nPOST error\n";
             echo $newIblockElement->LAST_ERROR;
-            echo "\n";
+            echo "\n";*/
             // Отправить в ответ ошибку?
             return false;
         }

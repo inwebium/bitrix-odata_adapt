@@ -38,9 +38,6 @@ class RequestParser
     public function parseFilter()
     {
         $arFilter = [];
-        echo "\nFILTER before\n";
-        var_dump($this->requestParams['filter'] );
-        echo "\n";
         $parenthesesParser = new ParenthesesParser();
         $filterParser = new RequestFilterParser($this->associations);
         
@@ -49,9 +46,6 @@ class RequestParser
         $arNodes = $filterParser->parseNodes($arParentheses);
         $arFilter = $filterParser->buildFilter($arNodes);
         
-        echo "\nFILTER after\n";
-        var_dump($arFilter);
-        echo "\n";
         return $arFilter;
     }
     

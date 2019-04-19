@@ -12,7 +12,7 @@ class RequestRouter
     
     private $routeAssociation = [
         0 => [
-            'Iblock' => ["/iblocks*/", "/lists*/"],
+            'List' => ["/[iI]blocks?/", "/[lL]ists?/"],
         ],
         1 => [
             'getByTitle' => ["/getByTitle\('([\w\d\s%]+)'\)/"],

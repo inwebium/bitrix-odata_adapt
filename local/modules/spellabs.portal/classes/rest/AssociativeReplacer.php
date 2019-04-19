@@ -35,4 +35,22 @@ class AssociativeReplacer
             return $value;
         }
     }
+    
+    public static function recursiveReverseReplace(array $target, array $replacement)
+    {
+        $result = [];
+        
+        foreach ($target as $key => $value)
+        {
+            if (is_array($value)) {
+                $result[$key] = self::recursiveReverseReplace ($value, $replacement);
+            } elseif ($replaceFor = array_search($key, $replacement)) {
+                $result[$replaceFor] = $value;
+            } else {
+                $result[$key] = $value;
+            }
+        }
+        
+        return $result;
+    }
 }
