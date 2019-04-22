@@ -206,8 +206,16 @@ class RequestRouter
         $pattern = "/(\w+)\('([\w\d\s%]+)'\)/";
         $matches = [];
         preg_match($pattern, $uriPart, $matches);
-
-        $iblock = IblockUtils::getIblockBy('NAME', urldecode($matches[2]));
+        
+        $iblock = [];
+        
+        if (urldecode($matches[2]) == 'Группы') {
+            $iblock['XML_ID'] = 'slGroups';
+        } elseif (urldecode($matches[2]) == 'Сотрудники') {
+            $iblock['XML_ID'] = 'slEmployees';
+        } else {
+            $iblock = IblockUtils::getIblockBy('NAME', urldecode($matches[2]));
+        }
         
         return $iblock['XML_ID'];
     }

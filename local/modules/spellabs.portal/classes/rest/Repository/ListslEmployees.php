@@ -7,6 +7,10 @@ use Spellabs\Portal\Rest\RequestParameters;
 class ListslEmployees extends AbstractRestApiEntity
 {
     protected $externalCode = 'slEmployees';
+    public static $fieldsAssoc = [
+        'Id' => 'ID',
+        'Title' => 'NAME',
+    ];
     public static $propertiesAssoc = [
 		'slAttachments' => 'SL_ATTACHMENTS',
     ];
@@ -33,7 +37,7 @@ class ListslEmployees extends AbstractRestApiEntity
         
         $arParams += $this->separateSelect($arSelect);
         
-        $resource = \CUser::GetList($arOrder, false, $arFilter, $arParams);
+        $resource = \CUser::GetList($arOrder, ($by = []), $arFilter, $arParams);
         
         $elements = [];
         
@@ -59,6 +63,18 @@ class ListslEmployees extends AbstractRestApiEntity
     public function post()
     {
         
+    }
+    
+    protected function expand()
+    {
+        $propertiesToExpand = $this->getRequestParameters()->getExpand();
+
+        foreach ($propertiesToExpand as $num => $fieldCode)
+        {
+            $this->replaceExpandedFields($fieldCode);
+        }
+        
+        return $this;
     }
     
     public function separateSelect($arSelect)
