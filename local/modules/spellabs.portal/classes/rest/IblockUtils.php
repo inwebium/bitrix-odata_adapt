@@ -118,4 +118,31 @@ class IblockUtils
             return false;
         }
     }
+    
+    /**
+     * Получить раздел
+     * 
+     * @param string $fieldName
+     * @param type $fieldValue
+     * @param int $iblockId
+     * @return boolean
+     */
+    public static function getSection(
+        $sectionFilter = [], 
+        $sectionSelect = ['IBLOCK_ID', 'ID', 'NAME']
+    ) {
+        $order = ['ID' => 'DESC'];
+        $filter = $sectionFilter;
+        $includeCount = false;
+        $nav = false;
+        $select = $sectionSelect;
+
+        $dbResult = \CIBlockSection::GetList($order, $filter, $includeCount, $select, $nav);
+        
+        if ($section = $dbResult->GetNext()) {
+            return $section;
+        } else {
+            return false;
+        }
+    }
 }

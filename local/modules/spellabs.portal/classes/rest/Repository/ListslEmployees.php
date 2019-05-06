@@ -17,7 +17,26 @@ class ListslEmployees extends AbstractRestApiEntity
 
     public function delete()
     {
+        $payload = $this->getRequestParameters()->getPayload();
+
+        $elementFields = $payload;
         
+        $elementId = false;
+        
+        if (isset($this->getRequestParameters()->getFilter()['ID']) && $this->getRequestParameters()->getFilter()['ID'] > 0) {
+            $elementId = $this->getRequestParameters()->getFilter()['ID'];
+        } elseif (isset($elementFields['ID']) && $elementFields['ID'] > 0) {
+            $elementId = $elementFields['ID'];
+            unset($elementFields['ID']);
+        } else {
+            return false;
+        }
+        
+        if (\CUser::Delete($elementId)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function get()
@@ -57,12 +76,47 @@ class ListslEmployees extends AbstractRestApiEntity
 
     public function merge()
     {
+        $newUser = new \CUser;
         
+        $arPayload = $this->getRequestParameters()->getPayload();
+        $elementFields = $arPayload;
+        
+        if (isset($this->getRequestParameters()->getFilter()['ID']) && $this->getRequestParameters()->getFilter()['ID'] > 0)
+        {
+            $elementId = $this->getRequestParameters()->getFilter()['ID'];
+        }
+        elseif (isset($elementFields['ID']) && $elementFields['ID'] > 0)
+        {
+            $elementId = $elementFields['ID'];
+            unset($elementFields['ID']);
+        }
+        else
+        {
+            return false;
+        }
+        
+        $updateResult = false;
+        
+        //есть ли в payload значения для пользовательских полей
+        // если есть,
     }
 
     public function post()
     {
+        $newUser = new \CUser;
         
+        $arPayload = $this->getRequestParameters()->getPayload();
+        $elementFields = $arPayload;
+        
+        $elementFields = $this->prepareAddFields($elementFields);
+        
+        $userAddResult = $newUser->Add($arFields);
+        
+        if ($userAddResult) {
+            
+        } else {
+            return false;
+        }
     }
     
     protected function expand()

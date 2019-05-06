@@ -14,6 +14,7 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         'Id' => 'ID',
         'Title' => 'NAME',
         'Created' => 'DATE_CREATE',
+        'slCode' => 'CODE',
     ];
     
     protected $fieldsToExpand = [
@@ -215,13 +216,12 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
     {
         /*
         * Пример post request (создал благодарность)
-         __metadata {
-             type	SP.Data.SlThanksListItem
-         },
-
-           slComment	foo,
-           slThanksTypeLookupId	2,
-           slToUserId	35,
+            __metadata {
+                type	SP.Data.SlThanksListItem
+            },
+            slComment	foo,
+            slThanksTypeLookupId	2,
+            slToUserId	35,
         */
         /*
         * в ответ по ходу все о созданной сущности

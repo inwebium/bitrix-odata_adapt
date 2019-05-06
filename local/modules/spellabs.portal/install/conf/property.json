@@ -380,5 +380,21 @@
 			"SEARCHABLE": "N",
 			"FILTRABLE": "N"
 		}
+    },
+    "sl_settings": {
+        "SL_VALUE": {
+			"XML_ID": "slValue",
+			"NAME": "Значение",
+			"ACTIVE": "Y",
+			"IS_REQUIRED": "Y",
+			"SORT": 10,
+			"PROPERTY_TYPE": "S",
+			"MULTIPLE": "N",
+			"DEFAULT_VALUE": "",
+			"ROW_COUNT": 3,
+			"COL_COUNT": 30,
+			"SEARCHABLE": "N",
+			"FILTRABLE": "Y"
+		}
     }
 }
