@@ -30,7 +30,7 @@ class RequestFilterParser
             else
             {
                 //$pattern = "/(([\w]+)\[(\w{2})\]=(\d+|'[^']+'|\w+))|(,|;|$)/";
-                $pattern = "/(([\w]+)\[(\w{2})\]=(\d+|'[^']+'|\w+\s?(?:'[^']+')?))|(,|;|$)/";
+                $pattern = "/(([\w]+)\[(\w{2})\]=(\d+|'[^']+'|\w+\s?(?:'[^']+')?|\(.*\)))|(,|;|$)/";
                 $matches = [];
                 preg_match_all($pattern, $child, $matches, PREG_SET_ORDER);
 
@@ -223,7 +223,7 @@ class RequestFilterParser
         }
     }
 
-        /**
+    /**
      * 
      * @param string $filterString
      * @return string

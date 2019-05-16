@@ -4,6 +4,10 @@ namespace Spellabs\Portal\Rest;
 class FilterValueFactory
 {
     private $types = [
+        'EnumerationFilterValue' => [
+            'pattern' => "/\(.+\)/",
+            'groupAsParameter' => 1,
+        ],
         'DatetimeFilterValue' => [
             'pattern' => "/datetime\s?'([\d\-T:\.Z]+)'/",
             'groupAsParameter' => 1
