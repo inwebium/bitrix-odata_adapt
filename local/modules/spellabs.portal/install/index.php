@@ -615,6 +615,7 @@ class spellabs_portal extends \CModule
         
         $dir = scandir($this->GetPath() . '/../classes/rest/Fixtures');
         
+        // В первом проходе заполним элементы
         foreach ($dir as $key => $item)
         {
             $iblockCode = pathinfo($item)['filename'];
@@ -628,7 +629,7 @@ class spellabs_portal extends \CModule
                 file_get_contents($this->GetPath() . '/../classes/rest/Fixtures/' . $item), true
             );
             
-            // В первом проходе заполним элементы
+            
             foreach ($elements as $key => $elementFields)
             {
                 $this->fillFixtureAttachments($elementFields);
@@ -636,21 +637,42 @@ class spellabs_portal extends \CModule
                 $newIblockElement = new CIBlockElement;
                 $newIblockElement->Add($elementFields, false, true, true);
             }
+        }
+        
+        // Во втором проходе заполним привязки
+        foreach ($dir as $key => $item)
+        {
+            $iblockCode = pathinfo($item)['filename'];
             
-            // Во втором проходе заполним привязки
+            $createdIblock = Spellabs\Portal\Rest\IblockUtils::getIblockBy(
+                'code', 
+                $iblockCode
+            );
+            
+            $elements = json_decode(
+                file_get_contents($this->GetPath() . '/../classes/rest/Fixtures/' . $item), true
+            );
+            
             foreach ($elements as $key => $elementFields)
             {
+                $currentElement = Spellabs\Portal\Rest\IblockUtils::getElement(
+                    [
+                        'IBLOCK_ID' => $createdIblock['ID'],
+                        'XML_ID' => $elementFields['XML_ID']
+                    ]
+                );
                 // привязки создавать для элементов с указанными свойствами и XML_ID
-                if (!empty($elementFields['PROPERTY_VALUES']) && !empty($elementFields['XML_ID'])) {
+                if (
+                    !empty($elementFields['PROPERTY_VALUES']) && 
+                    !empty($elementFields['XML_ID'])
+                ) {
                     $this->fillFixtureLookups(
                         $elementFields['PROPERTY_VALUES'], 
                         $createdIblock['ID']
                     );
                     
                     CIBlockElement::SetPropertyValuesEx(
-                        Spellabs\Portal\Rest\IblockUtils::getElement(
-                            ['XML_ID' => $elementFields['XML_ID']]
-                        ), 
+                        $currentElement['ID'], 
                         $createdIblock['ID'], 
                         $elementFields['PROPERTY_VALUES']
                     );
@@ -708,27 +730,39 @@ class spellabs_portal extends \CModule
                 $iblockId
             );
             
+            // если свойство типа привязка к элементам
             if ($arProperty['PROPERTY_TYPE'] == 'E') {
-                
+                // если множественно
                 if ($arProperty['MULTIPLE'] == 'Y') {
+                    // получаем элементЫ у которых XML_ID = значению из JSON
                     $lookupTarget = Spellabs\Portal\Rest\IblockUtils::getElements(
-                        ['XML_ID' => $propertyValue]
+                        [
+                            'IBLOCK_ID' => $arProperty['LINK_IBLOCK_ID'],
+                            'XML_ID' => $propertyValue
+                        ]
                     );
 
                     $propertyValues[$propertyCode] = Spellabs\Portal\Rest\IblockUtils::getIdsArray($lookupTarget);
                 } else {
+                    // получаем элемент у которого XML_ID = значению из JSON
                     $lookupTarget = Spellabs\Portal\Rest\IblockUtils::getElement(
-                        ['XML_ID' => $propertyValue]
+                        [
+                            'IBLOCK_ID' => $arProperty['LINK_IBLOCK_ID'],
+                            'XML_ID' => $propertyValue
+                        ]
                     );
-
+                    
+                    // в массив на обновление св-в коду обновляемого свойства
+                    // задаем значени Id полученного элемента
                     $propertyValues[$propertyCode] = $lookupTarget['ID'];
                 }
                 
             } else {
+                // иначе уберем его из переданного массива, т.к. мы тут 
+                // вообще-то подготавливаем массив для задания 
+                // свойств-привязок к элементам
                 unset($propertyValues[$propertyCode]);
             }
         }
-        
-        
     }
 }

@@ -167,6 +167,12 @@ class IblockUtils
         }
     }
     
+    /**
+     * Вернет массив из ID во входном массиве
+     * 
+     * @param array $array
+     * @return array
+     */
     public static function getIdsArray($array)
     {
         $result = [];
