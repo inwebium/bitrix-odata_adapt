@@ -119,6 +119,27 @@ class IblockUtils
         }
     }
     
+    public static function getElements(
+        $elementFilter = [], 
+        $elementSelect = ['IBLOCK_ID', 'ID', 'NAME']
+    ) {
+        $result = [];
+        $order = ['SORT' => 'ASC', 'ID' => 'ASC'];
+        $filter = $elementFilter;
+        $group = false;
+        $nav = false;
+        $select = $elementSelect;
+        
+        $result = \CIBlockElement::GetList($order, $filter, $group, $nav, $select);
+        
+        while ($element = $result->GetNext())
+        {
+            $result[] = $element;
+        }
+        
+        return $result;
+    }
+    
     /**
      * Получить раздел
      * 
@@ -144,5 +165,21 @@ class IblockUtils
         } else {
             return false;
         }
+    }
+    
+    public static function getIdsArray($array)
+    {
+        $result = [];
+        
+        if (is_array($array)) {
+            foreach ($array as $key => $value)
+            {
+                $result[] = $value['ID'];
+            }
+        } else {
+            $result[] = $array['ID'];
+        }
+        
+        return $result;
     }
 }

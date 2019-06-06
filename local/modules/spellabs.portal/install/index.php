@@ -552,6 +552,7 @@ class spellabs_portal extends \CModule
             
             foreach ($arIblocksProps[$iblockCode] as $propertyCode => $arProperty)
             {
+                $this->generateRepositoryLookup($arProperty, $propertyCode);
                 $arIblockProps[$arProperty['XML_ID']] = $propertyCode;
             }
             
@@ -627,6 +628,7 @@ class spellabs_portal extends \CModule
                 file_get_contents($this->GetPath() . '/../classes/rest/Fixtures/' . $item), true
             );
             
+            // В первом проходе заполним элементы
             foreach ($elements as $key => $elementFields)
             {
                 $this->fillFixtureAttachments($elementFields);
@@ -635,6 +637,25 @@ class spellabs_portal extends \CModule
                 $newIblockElement->Add($elementFields, false, true, true);
             }
             
+            // Во втором проходе заполним привязки
+            foreach ($elements as $key => $elementFields)
+            {
+                // привязки создавать для элементов с указанными свойствами и XML_ID
+                if (!empty($elementFields['PROPERTY_VALUES']) && !empty($elementFields['XML_ID'])) {
+                    $this->fillFixtureLookups(
+                        $elementFields['PROPERTY_VALUES'], 
+                        $createdIblock['ID']
+                    );
+                    
+                    CIBlockElement::SetPropertyValuesEx(
+                        Spellabs\Portal\Rest\IblockUtils::getElement(
+                            ['XML_ID' => $elementFields['XML_ID']]
+                        ), 
+                        $createdIblock['ID'], 
+                        $elementFields['PROPERTY_VALUES']
+                    );
+                }
+            }
         }
     }
     
@@ -670,9 +691,44 @@ class spellabs_portal extends \CModule
      * 
      * @todo Нужно где-то определить порядок, т.к. может выйти что я хочу 
      * добавить привязку к еще не созданному элементу
-     * @param array $elementFields
+     * @param array $propertyValues
      */
-    private function fillFixtureLookups(&$elementFields) {
+    private function fillFixtureLookups(&$propertyValues, $iblockId) {
+        Bitrix\Main\Loader::registerAutoLoadClasses(
+            null, [
+                'Spellabs\Portal\Rest\IblockUtils' => '/local/modules/spellabs.portal/classes/rest/IblockUtils.php',
+            ]
+        );
+        
+        foreach ($propertyValues as $propertyCode => $propertyValue)
+        {
+            $arProperty = Spellabs\Portal\Rest\IblockUtils::getPropertyBy(
+                'CODE', 
+                $propertyCode, 
+                $iblockId
+            );
+            
+            if ($arProperty['PROPERTY_TYPE'] == 'E') {
+                
+                if ($arProperty['MULTIPLE'] == 'Y') {
+                    $lookupTarget = Spellabs\Portal\Rest\IblockUtils::getElements(
+                        ['XML_ID' => $propertyValue]
+                    );
+
+                    $propertyValues[$propertyCode] = Spellabs\Portal\Rest\IblockUtils::getIdsArray($lookupTarget);
+                } else {
+                    $lookupTarget = Spellabs\Portal\Rest\IblockUtils::getElement(
+                        ['XML_ID' => $propertyValue]
+                    );
+
+                    $propertyValues[$propertyCode] = $lookupTarget['ID'];
+                }
+                
+            } else {
+                unset($propertyValues[$propertyCode]);
+            }
+        }
+        
         
     }
 }

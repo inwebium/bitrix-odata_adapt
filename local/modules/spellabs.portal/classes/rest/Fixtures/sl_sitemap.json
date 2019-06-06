@@ -4,47 +4,54 @@
         "SORT": "1",
         "PROPERTY_VALUES": {
             "SL_URL": "http://test.bitrix.dev10.spellabs.com:8080/PortalPages/home.aspx#/news",
-            "SL_SITEMAP_CATEGORIES_LOOKUP": "О компании"
-        }
+            "SL_SITEMAP_CATEGORIES_LOOKUP": "73d5c43a-8587-4562-9727-9d3a7786a391"
+        },
+        "XML_ID": "6e52544e-47c4-4366-8a84-b99cdf3398d1"
     },
     {
         "NAME": "Персональные данные",
         "SORT": "1",
         "PROPERTY_VALUES": {
             "SL_URL": "http://test.bitrix.dev10.spellabs.com:8080/PortalPages/home.aspx#/personal",
-            "SL_SITEMAP_CATEGORIES_LOOKUP": "Моя информация"
-        }
+            "SL_SITEMAP_CATEGORIES_LOOKUP": "73d5c43a-8587-4562-9727-9d3a7786a393"
+        },
+        "XML_ID": "6e52544e-47c4-4366-8a84-b99cdf3398d2"
     },
     {
         "NAME": "Дни рождения",
         "SORT": "1",
         "PROPERTY_VALUES": {
             "SL_URL": "#",
-            "SL_SITEMAP_CATEGORIES_LOOKUP": "Коллеги"
-        }
+            "SL_SITEMAP_CATEGORIES_LOOKUP": "73d5c43a-8587-4562-9727-9d3a7786a392"
+        },
+        "XML_ID": "6e52544e-47c4-4366-8a84-b99cdf3398d3"
     },
     {
         "NAME": "Приказы",
         "SORT": "1",
         "PROPERTY_VALUES": {
             "SL_URL": "#",
-            "SL_SITEMAP_CATEGORIES_LOOKUP": "Документы"
+            "SL_SITEMAP_CATEGORIES_LOOKUP": "73d5c43a-8587-4562-9727-9d3a7786a395"
         }
+        ,
+        "XML_ID": "6e52544e-47c4-4366-8a84-b99cdf3398d4"
     },
     {
         "NAME": "Заявка на пропуск",
         "SORT": "1",
         "PROPERTY_VALUES": {
             "SL_URL": "#",
-            "SL_SITEMAP_CATEGORIES_LOOKUP": "Сервисы"
-        }
+            "SL_SITEMAP_CATEGORIES_LOOKUP": "73d5c43a-8587-4562-9727-9d3a7786a394"
+        },
+        "XML_ID": "6e52544e-47c4-4366-8a84-b99cdf3398d5"
     },
     {
         "NAME": "Инструкции",
         "SORT": "2",
         "PROPERTY_VALUES": {
             "SL_URL": "#",
-            "SL_SITEMAP_CATEGORIES_LOOKUP": "Документы"
-        }
+            "SL_SITEMAP_CATEGORIES_LOOKUP": "73d5c43a-8587-4562-9727-9d3a7786a395"
+        },
+        "XML_ID": "6e52544e-47c4-4366-8a84-b99cdf3398d6"
     }
 ]

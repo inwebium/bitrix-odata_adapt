@@ -116,9 +116,17 @@ abstract class AbstractExpandableProperty
             [] //Выбираем поля указанные в select в виде foo/bar, где bar поле для выборки в этой сущности
         );
         
-        while ($element = $resElements->GetNext()) {
-            $result[] = $element;
+        if ($arProperty["MULTIPLE"] == "Y") {
+            while ($element = $resElements->GetNext()) {
+                $result[] = $element;
+            }
+        } else {
+            if ($element = $resElements->GetNext()) {
+                $result = $element;
+            }
         }
+        
+        
         
         return $result;
     }
