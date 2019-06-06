@@ -46,27 +46,15 @@ abstract class AbstractExpandableProperty
         
     public function getValue($iblockId, $elementsFilter) {
         $elementsReslt = [];
-        /*$result = */\CIBlockElement::GetPropertyValuesArray(
+        \CIBlockElement::GetPropertyValuesArray(
             $elementsReslt,
             $iblockId, // текущий запрошенный иблок
             $elementsFilter, // текущий фильтр элементов
             ['CODE' => [$this->propertyCode]],
             ['USE_PROPERTY_ID' => 'N']
         );
-        
-        /*var_dump($elementsReslt);
-        var_dump($iblockId);
-        var_dump($elementsFilter);
-        var_dump(['CODE' => [$this->propertyCode]]);
-        var_dump($elementsReslt);*/
-        
+
         return $this->prepareValue($elementsReslt);
-        
-        /*if ($arPropertyValue = $result->Fetch()) {
-            return $arPropertyValue;
-        } else {
-            return [];
-        }*/
     }
     
     protected function prepareValue($result) {
@@ -103,8 +91,7 @@ abstract class AbstractExpandableProperty
             $valueToPrepare[] = $arProperty["VALUE"];
         }
         
-        foreach ($valueToPrepare as $key => $fileId)
-        {
+        foreach ($valueToPrepare as $key => $fileId) {
             $valueToPrepare[$key] = ['ServerRelativeUrl' => \CFile::GetPath($fileId)];
         }
         
@@ -113,10 +100,26 @@ abstract class AbstractExpandableProperty
     
     protected function prepareElementType($arProperty)
     {
-        $valueToPrepare = $arProperty;
+        $result = [];
         
-        // TODO
+        /*if ($arProperty["MULTIPLE"] == "Y") {
+            $valueToPrepare = $arProperty["VALUE"];
+        } else {
+            $valueToPrepare[] = $arProperty["VALUE"];
+        }*/
         
-        return $valueToPrepare;
+        $resElements = \CIBlockElement::GetList(
+            ['SORT' => 'ASC', 'ID' => 'ASC'], 
+            ['ID' => $arProperty["VALUE"]], 
+            false, 
+            false, 
+            [] //Выбираем поля указанные в select в виде foo/bar, где bar поле для выборки в этой сущности
+        );
+        
+        while ($element = $resElements->GetNext()) {
+            $result[] = $element;
+        }
+        
+        return $result;
     }
 }

@@ -574,6 +574,34 @@ class spellabs_portal extends \CModule
     }
     
     /**
+     * Если у переданного arProperty PROPERTY_TYPE = E (привязка к элементам), 
+     * то создаст для него класс в репозитории
+     * 
+     * @param array $arProperty
+     * @param string $propertyCode
+     */
+    private function generateRepositoryLookup($arProperty, $propertyCode)
+    {
+        Bitrix\Main\Loader::registerAutoLoadClasses(
+            null, [
+                'Spellabs\Portal\Rest\IblockUtils' => '/local/modules/spellabs.portal/classes/rest/IblockUtils.php',
+                'Spellabs\Portal\Rest\RepositoryGenerator' => '/local/modules/spellabs.portal/classes/rest/RepositoryGenerator.php',
+            ]
+        );
+        
+        if ($arProperty['PROPERTY_TYPE'] == 'E') {
+            $repository = new Spellabs\Portal\Rest\RepositoryGenerator();
+            $repository
+                ->setTemplate($this->GetPath() . '/../classes/rest/Repository/IblockPropertyClass.php.tpl')
+                ->setFilename($arProperty['XML_ID'] . '.php')
+                ->setToken('xmlId', $arProperty['XML_ID'])
+                ->setToken('code', $propertyCode)
+                ->executeTemplate()
+            ;
+        }
+    }
+    
+    /**
      * Наполняет инфоблоки данными из json файлов из /classes/rest/Fixtures/
      */
     private function fillFixtures()
@@ -635,5 +663,16 @@ class spellabs_portal extends \CModule
         } else {
             unset($elementFields['PROPERTY_VALUES']['SL_ATTACHMENTS']);
         }
+    }
+    
+    /**
+     * Заполнить свойства с привязками.
+     * 
+     * @todo Нужно где-то определить порядок, т.к. может выйти что я хочу 
+     * добавить привязку к еще не созданному элементу
+     * @param array $elementFields
+     */
+    private function fillFixtureLookups(&$elementFields) {
+        
     }
 }
