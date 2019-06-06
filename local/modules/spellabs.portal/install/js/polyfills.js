@@ -12481,7 +12481,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\WORK\Spellabs.Metalloinvest.Portal\Spellabs.Metalloinvest.Portal.UI\src\polyfills.ts */"./src/polyfills.ts");
+module.exports = __webpack_require__(/*! C:\WORK\mikhail.korneev\projects\Spellabs.Bitrix.Portal.UI_0\src\polyfills.ts */"./src/polyfills.ts");
 
 
 /***/ })

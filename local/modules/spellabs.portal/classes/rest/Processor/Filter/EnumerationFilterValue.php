@@ -5,18 +5,38 @@ class EnumerationFilterValue extends AbstractCompoundFilterValue
 {
     public function setValue($value)
     {
+        // избавимся от возможных пробелов по краям и скобок
         $value = trim($value);
         $matches = [];
         preg_match("/\((.*)\)/", trim($value), $matches);
         
-        $this->value = new \DateTime($matches[1]);
+        // засунуть matches в массив
+        $explodePattern = "/,\s?(?=(?:[^\']*\'[^\']*\')*[^\']*$)/";
+        $value = preg_split($explodePattern, $matches[1]);
+        
+        // а еще от ковычек у возможных значений как-то надо избавиться
+        $quotesPattern = "/^'?(.*?)'?$/";
+        
+        $this->value = array_map(
+            function($element) {
+                $matches = [];
+                preg_match($quotesPattern, $element, $matches);
+                return $mathes[1];
+            }, 
+            $value
+        );
+        
         return $this;
     }
 
     protected function processValue()
     {
-        $pattern = ",\s?(?=(?:[^\']*\'[^\']*\')*[^\']*$)";
-        
-        return preg_split($pattern, $this->getValue());
+        return $this->getValue();
     }
+    
+    public function __toString()
+    {
+        return implode(',', $this->getValue());
+    }
+
 }

@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * Скрипт позволяет устанавливать/удалять/переустанавливать/стирать
  * нужный модуль. 
@@ -15,6 +15,7 @@
  * Так же скрипту можно передать аргументы из командной строки. E.g.:
  * Находясь в папке = DocumentRoot
  * php -f local/php_interface/shell/autoinstall.php -m="spellabs.portal" -a="uninstall" -u=1
+ * php -d short_open_tag=On local/php_interface/shell/autoinstall.php -m="spellabs.portal" -a="uninstall" -u=1
  * 
  * Где аргументами служат ключи
  * -m(--module) - IdМодуля,

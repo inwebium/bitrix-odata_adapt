@@ -87,7 +87,9 @@ class ResponseBody
     {
         foreach ($arResult as $key => $value)
         {
-            if (strpos($key, '~') === 0) {
+            if (is_array($value)) {
+                $arResult[$key] = $this->removeTildeKeys($value);
+            } elseif (strpos($key, '~') === 0) {
                 unset($arResult[$key]);
             }
         }

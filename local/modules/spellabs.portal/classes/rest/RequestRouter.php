@@ -12,6 +12,7 @@ class RequestRouter
     
     private $routeAssociation = [
         0 => [
+            'ListslEmployees' => ["/currentuser/"],
             'List' => ["/[iI]blocks?/", "/[lL]ists?/"],
         ],
         1 => [
@@ -19,8 +20,10 @@ class RequestRouter
             'getByXmlId' => ["/([\w\d]+)/"], // must be last
         ],
         2 => [
-            'getItemById' => ["/items\(([\d]+)\)/"], 
-            'getItems'    => ["/items/"], // must be last
+            //'getCurrentUserGroups' => [], // группы текущего пользователя
+            //'getCurrentUser'       => [], // текущий пользователь
+            'getItemById'          => ["/items\(([\d]+)\)/"], // элемент по id
+            'getItems'             => ["/items/"], // must be last
         ],
     ];
     
@@ -113,11 +116,40 @@ class RequestRouter
         return $result;
     }
     
+    /**
+     * Вернет название метода для вызова запросом. Это либо будет какой-нибудь
+     * исключительный случай, например 
+     * /Lists/getByTitle('Пользователи')/current. Где current будет таким 
+     * исключительным методом. Иначе вернется метод по методу запроса 
+     * (get, post...).
+     * 
+     * @return mixed
+     */
     public function getClassMethodName()
     {
         $result = false;
         
-        $result = strtolower($this->getRequestMethod());
+        if (!$result = $this->getExceptionalMethod()) {
+            $result = strtolower($this->getRequestMethod());
+        }
+        
+        return $result;
+    }
+    
+    /**
+     * Если вызван "исключительный" метод и он представлен в классе,
+     * например ListslEmployees->getCurrent(), то вернет название метода.
+     * Иначе false
+     * 
+     * @return type
+     */
+    private function getExceptionalMethod()
+    {
+        $result = false;
+        
+        if (method_exists("Spellabs\\Portal\\Rest\\Repository\\" . $this->getClassName(), $this->getUriArray()[2])) {
+            $result = $this->getUriArray()[2];
+        }
         
         return $result;
     }
@@ -169,7 +201,7 @@ class RequestRouter
             if ($counter >= 2) {
                 break;
             }
-            
+
             $isRouteFound = false;
             // Перебираем элементы-ассоциации
             foreach ($this->routeAssociation[$key] as $classNamePart => $synonyms) {
@@ -191,8 +223,7 @@ class RequestRouter
                 if ($isRouteFound) {
                     break;
                 }
-                
-                
+            
             }
             
             $counter++;
@@ -209,10 +240,15 @@ class RequestRouter
         
         $iblock = [];
         
+        // Группы и сотрудники - исключения, т.к. будут без инфоблоков
+        // это отдельные сущности битрикса и в Repository будут заранее
+        // созданные для них классы вместо генерируемых во время установки
         if (urldecode($matches[2]) == 'Группы') {
             $iblock['XML_ID'] = 'slGroups';
         } elseif (urldecode($matches[2]) == 'Сотрудники') {
             $iblock['XML_ID'] = 'slEmployees';
+        } elseif (urldecode($matches[2]) == 'Настройки портала') {
+            $iblock['XML_ID'] = 'slSettings';
         } else {
             $iblock = IblockUtils::getIblockBy('NAME', urldecode($matches[2]));
         }

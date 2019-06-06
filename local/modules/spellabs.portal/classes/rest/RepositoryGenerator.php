@@ -104,13 +104,13 @@ class RepositoryGenerator
      * @param array $array
      * @return $this
      */
-    public function arrayToString(array $array)
+    public function arrayToString(array $array, $prefix = '')
     {
         $string = '';
         
         foreach ($array as $key => $value)
         {
-            $string .= $this->getArrayKeyPair($key, $value);
+            $string .= $this->getArrayKeyPair($key, $prefix . '' . $value);
         }
         
         return $string;

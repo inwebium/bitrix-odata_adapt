@@ -1,53 +1,7 @@
 {
-	"sl_sitemap": {
-		"LID": "s1",
-		"NAME": "Карта сайта",
-		"ACTIVE": "Y",
-		"LIST_PAGE_URL": "",
-		"SECTION_PAGE_URL": "",
-		"DETAIL_PAGE_URL": "",
-		"PICTURE": "",
-		"DESCRIPTION": "",
-		"DESCRIPTION_TYPE": "text",
-		"INDEX_ELEMENT": "N",
-		"INDEX_SECTION": "N",
-		"LIST_MODE": "S",
-		"RIGHTS_MODE": "S",
-		"WORKFLOW": "N",
-		"BIZPROC": "N",
-		"VERSION": 2,
-		"SORT": 10,
-		"XML_ID": "slSitemap",
-		"FIELDS": {
-			"CODE": {
-				"IS_REQUIRED": "Y",
-				"DEFAULT_VALUE": {
-					"UNIQUE": "Y",
-					"TRANSLITERATION": "Y",
-					"TRANS_SPACE": "_",
-					"TRANS_OTHER": "_",
-					"TRANS_EAT": "Y"
-				}
-			}
-		},
-		"ELEMENT_NAME": "Элемент",
-		"ELEMENTS_NAME": "Элементы",
-		"ELEMENT_ADD": "Добавить элемент",
-		"ELEMENT_EDIT": "Изменить элемент",
-		"ELEMENT_DELETE": "Удалить элемент",
-		"SECTION_NAME": "Раздел",
-		"SECTIONS_NAME": "Разделы",
-		"SECTION_ADD": "Добавить раздел",
-		"SECTION_EDIT": "Изменить раздел",
-		"SECTION_DELETE": "Удалить раздел",
-        "PERMISSIONS": {
-            "1": "X",
-            "2": "R"
-        }
-	},
 	"sl_service_templates": {
 		"LID": "s1",
-		"NAME": "Шаблоны сервисов",
+		"NAME": "Каталог сервисов",
 		"ACTIVE": "Y",
 		"LIST_PAGE_URL": "",
 		"SECTION_PAGE_URL": "",
@@ -112,9 +66,9 @@
 		"XML_ID": "slBanners",
 		"FIELDS": {
 			"CODE": {
-				"IS_REQUIRED": "Y",
+				"IS_REQUIRED": "N",
 				"DEFAULT_VALUE": {
-					"UNIQUE": "Y",
+					"UNIQUE": "N",
 					"TRANSLITERATION": "Y",
 					"TRANS_SPACE": "_",
 					"TRANS_OTHER": "_",
@@ -137,6 +91,47 @@
             "2": "R"
         }
 	},
+    "sl_news_rubrics": {
+        "LID": "s1",
+		"NAME": "Рубрики новостей",
+		"ACTIVE": "Y",
+		"LIST_PAGE_URL": "",
+		"SECTION_PAGE_URL": "",
+		"DETAIL_PAGE_URL": "",
+		"PICTURE": "",
+		"DESCRIPTION": "",
+		"DESCRIPTION_TYPE": "text",
+		"INDEX_ELEMENT": "Y",
+		"INDEX_SECTION": "N",
+		"LIST_MODE": "S",
+		"RIGHTS_MODE": "S",
+		"WORKFLOW": "N",
+		"BIZPROC": "N",
+		"VERSION": 2,
+		"SORT": 40,
+		"XML_ID": "slNewsRubrics",
+		"FIELDS": {
+			"CODE": {
+				"IS_REQUIRED": "N",
+				"DEFAULT_VALUE": {
+					"UNIQUE": "N",
+					"TRANSLITERATION": "Y",
+					"TRANS_SPACE": "_",
+					"TRANS_OTHER": "_",
+					"TRANS_EAT": "Y"
+				}
+			}
+		},
+		"ELEMENT_NAME": "Рубрика новостей",
+		"ELEMENTS_NAME": "Рубрики новостей",
+		"ELEMENT_ADD": "Добавить рубрику",
+		"ELEMENT_EDIT": "Изменить рубрику",
+		"ELEMENT_DELETE": "Удалить рубрику",
+        "PERMISSIONS": {
+            "1": "X",
+            "2": "R"
+        }
+    },
 	"sl_news": {
 		"LID": "s1",
 		"NAME": "Новости",
@@ -154,7 +149,7 @@
 		"WORKFLOW": "N",
 		"BIZPROC": "N",
 		"VERSION": 2,
-		"SORT": 40,
+		"SORT": 41,
 		"XML_ID": "slNews",
 		"FIELDS": {
 			"CODE": {
@@ -168,7 +163,7 @@
 				}
 			},
             "IBLOCK_SECTION_ID": {
-                "IS_REQUIRED": "Y"
+                "IS_REQUIRED": "N"
             }
 		},
 		"ELEMENT_NAME": "Новость",
@@ -375,6 +370,293 @@
 		"SECTION_ADD": "Добавить раздел",
 		"SECTION_EDIT": "Изменить раздел",
 		"SECTION_DELETE": "Удалить раздел",
+        "PERMISSIONS": {
+            "1": "X",
+            "2": "R"
+        }
+    },
+    "sl_sitemap_categories": {
+        "LID": "s1",
+		"NAME": "Разделы карты сайта",
+		"ACTIVE": "Y",
+		"LIST_PAGE_URL": "",
+		"SECTION_PAGE_URL": "",
+		"DETAIL_PAGE_URL": "",
+		"PICTURE": "",
+		"DESCRIPTION": "",
+		"DESCRIPTION_TYPE": "text",
+		"INDEX_ELEMENT": "Y",
+		"INDEX_SECTION": "N",
+		"LIST_MODE": "S",
+		"RIGHTS_MODE": "S",
+		"WORKFLOW": "N",
+		"BIZPROC": "N",
+		"VERSION": 2,
+		"SORT": 9000,
+		"XML_ID": "slSiteMapCategories",
+		"FIELDS": {
+			"CODE": {
+				"IS_REQUIRED": "N",
+				"DEFAULT_VALUE": {
+					"UNIQUE": "N",
+					"TRANSLITERATION": "Y",
+					"TRANS_SPACE": "_",
+					"TRANS_OTHER": "_",
+					"TRANS_EAT": "Y"
+				}
+			}
+		},
+		"ELEMENT_NAME": "Раздел карты сайта",
+		"ELEMENTS_NAME": "Разделы карты сайта",
+		"ELEMENT_ADD": "Добавить раздел",
+		"ELEMENT_EDIT": "Изменить раздел",
+		"ELEMENT_DELETE": "Удалить раздел",
+        "PERMISSIONS": {
+            "1": "X",
+            "2": "R"
+        }
+    },
+    "sl_sitemap": {
+        "LID": "s1",
+		"NAME": "Карта сайта",
+		"ACTIVE": "Y",
+		"LIST_PAGE_URL": "",
+		"SECTION_PAGE_URL": "",
+		"DETAIL_PAGE_URL": "",
+		"PICTURE": "",
+		"DESCRIPTION": "",
+		"DESCRIPTION_TYPE": "text",
+		"INDEX_ELEMENT": "Y",
+		"INDEX_SECTION": "N",
+		"LIST_MODE": "S",
+		"RIGHTS_MODE": "S",
+		"WORKFLOW": "N",
+		"BIZPROC": "N",
+		"VERSION": 2,
+		"SORT": 9010,
+		"XML_ID": "slSiteMap",
+		"FIELDS": {
+			"CODE": {
+				"IS_REQUIRED": "N",
+				"DEFAULT_VALUE": {
+					"UNIQUE": "N",
+					"TRANSLITERATION": "Y",
+					"TRANS_SPACE": "_",
+					"TRANS_OTHER": "_",
+					"TRANS_EAT": "Y"
+				}
+			}
+		},
+		"ELEMENT_NAME": "Элемент",
+		"ELEMENTS_NAME": "Элементы",
+		"ELEMENT_ADD": "Добавить элемент",
+		"ELEMENT_EDIT": "Изменить элемент",
+		"ELEMENT_DELETE": "Удалить элемент",
+        "PERMISSIONS": {
+            "1": "X",
+            "2": "R"
+        }
+    },
+    "sl_companies": {
+        "LID": "s1",
+		"NAME": "Предприятия",
+		"ACTIVE": "Y",
+		"LIST_PAGE_URL": "",
+		"SECTION_PAGE_URL": "",
+		"DETAIL_PAGE_URL": "",
+		"PICTURE": "",
+		"DESCRIPTION": "",
+		"DESCRIPTION_TYPE": "text",
+		"INDEX_ELEMENT": "Y",
+		"INDEX_SECTION": "N",
+		"LIST_MODE": "S",
+		"RIGHTS_MODE": "S",
+		"WORKFLOW": "N",
+		"BIZPROC": "N",
+		"VERSION": 2,
+		"SORT": 8000,
+		"XML_ID": "slCompanies",
+		"FIELDS": {
+			"CODE": {
+				"IS_REQUIRED": "Y",
+				"DEFAULT_VALUE": {
+					"UNIQUE": "Y",
+					"TRANSLITERATION": "Y",
+					"TRANS_SPACE": "_",
+					"TRANS_OTHER": "_",
+					"TRANS_EAT": "Y"
+				}
+			}
+		},
+		"ELEMENT_NAME": "Предприятие",
+		"ELEMENTS_NAME": "Предприятия",
+		"ELEMENT_ADD": "Добавить предпрятие",
+		"ELEMENT_EDIT": "Изменить предпрятие",
+		"ELEMENT_DELETE": "Удалить предпрятие",
+        "PERMISSIONS": {
+            "1": "X",
+            "2": "R"
+        }
+    },
+    "sl_important_informations": {
+        "LID": "s1",
+		"NAME": "Важная информация",
+		"ACTIVE": "Y",
+		"LIST_PAGE_URL": "",
+		"SECTION_PAGE_URL": "",
+		"DETAIL_PAGE_URL": "",
+		"PICTURE": "",
+		"DESCRIPTION": "",
+		"DESCRIPTION_TYPE": "text",
+		"INDEX_ELEMENT": "Y",
+		"INDEX_SECTION": "N",
+		"LIST_MODE": "S",
+		"RIGHTS_MODE": "S",
+		"WORKFLOW": "N",
+		"BIZPROC": "N",
+		"VERSION": 2,
+		"SORT": 8100,
+		"XML_ID": "slImportantInformations",
+		"FIELDS": {
+			"CODE": {
+				"IS_REQUIRED": "N",
+				"DEFAULT_VALUE": {
+					"UNIQUE": "N",
+					"TRANSLITERATION": "Y",
+					"TRANS_SPACE": "_",
+					"TRANS_OTHER": "_",
+					"TRANS_EAT": "Y"
+				}
+			}
+		},
+		"ELEMENT_NAME": "Элемент",
+		"ELEMENTS_NAME": "Элементы",
+		"ELEMENT_ADD": "Добавить элемент",
+		"ELEMENT_EDIT": "Изменить элемент",
+		"ELEMENT_DELETE": "Удалить элемент",
+        "PERMISSIONS": {
+            "1": "X",
+            "2": "R"
+        }
+    },
+    "sl_useful_links": {
+        "LID": "s1",
+		"NAME": "Полезные ссылки",
+		"ACTIVE": "Y",
+		"LIST_PAGE_URL": "",
+		"SECTION_PAGE_URL": "",
+		"DETAIL_PAGE_URL": "",
+		"PICTURE": "",
+		"DESCRIPTION": "",
+		"DESCRIPTION_TYPE": "text",
+		"INDEX_ELEMENT": "Y",
+		"INDEX_SECTION": "N",
+		"LIST_MODE": "S",
+		"RIGHTS_MODE": "S",
+		"WORKFLOW": "N",
+		"BIZPROC": "N",
+		"VERSION": 2,
+		"SORT": 8110,
+		"XML_ID": "slUsefulLinks",
+		"FIELDS": {
+			"CODE": {
+				"IS_REQUIRED": "N",
+				"DEFAULT_VALUE": {
+					"UNIQUE": "N",
+					"TRANSLITERATION": "Y",
+					"TRANS_SPACE": "_",
+					"TRANS_OTHER": "_",
+					"TRANS_EAT": "Y"
+				}
+			}
+		},
+		"ELEMENT_NAME": "Элемент",
+		"ELEMENTS_NAME": "Элементы",
+		"ELEMENT_ADD": "Добавить элемент",
+		"ELEMENT_EDIT": "Изменить элемент",
+		"ELEMENT_DELETE": "Удалить элемент",
+        "PERMISSIONS": {
+            "1": "X",
+            "2": "R"
+        }
+    },
+    "sl_newspapers": {
+        "LID": "s1",
+		"NAME": "Наши издания - Газеты",
+		"ACTIVE": "Y",
+		"LIST_PAGE_URL": "",
+		"SECTION_PAGE_URL": "",
+		"DETAIL_PAGE_URL": "",
+		"PICTURE": "",
+		"DESCRIPTION": "",
+		"DESCRIPTION_TYPE": "text",
+		"INDEX_ELEMENT": "Y",
+		"INDEX_SECTION": "N",
+		"LIST_MODE": "S",
+		"RIGHTS_MODE": "S",
+		"WORKFLOW": "N",
+		"BIZPROC": "N",
+		"VERSION": 2,
+		"SORT": 8110,
+		"XML_ID": "slNewspapers",
+		"FIELDS": {
+			"CODE": {
+				"IS_REQUIRED": "N",
+				"DEFAULT_VALUE": {
+					"UNIQUE": "N",
+					"TRANSLITERATION": "Y",
+					"TRANS_SPACE": "_",
+					"TRANS_OTHER": "_",
+					"TRANS_EAT": "Y"
+				}
+			}
+		},
+		"ELEMENT_NAME": "Элемент",
+		"ELEMENTS_NAME": "Элементы",
+		"ELEMENT_ADD": "Добавить элемент",
+		"ELEMENT_EDIT": "Изменить элемент",
+		"ELEMENT_DELETE": "Удалить элемент",
+        "PERMISSIONS": {
+            "1": "X",
+            "2": "R"
+        }
+    },
+    "sl_magazines": {
+        "LID": "s1",
+		"NAME": "Наши издания - Журналы",
+		"ACTIVE": "Y",
+		"LIST_PAGE_URL": "",
+		"SECTION_PAGE_URL": "",
+		"DETAIL_PAGE_URL": "",
+		"PICTURE": "",
+		"DESCRIPTION": "",
+		"DESCRIPTION_TYPE": "text",
+		"INDEX_ELEMENT": "Y",
+		"INDEX_SECTION": "N",
+		"LIST_MODE": "S",
+		"RIGHTS_MODE": "S",
+		"WORKFLOW": "N",
+		"BIZPROC": "N",
+		"VERSION": 2,
+		"SORT": 8110,
+		"XML_ID": "slMagazines",
+		"FIELDS": {
+			"CODE": {
+				"IS_REQUIRED": "N",
+				"DEFAULT_VALUE": {
+					"UNIQUE": "N",
+					"TRANSLITERATION": "Y",
+					"TRANS_SPACE": "_",
+					"TRANS_OTHER": "_",
+					"TRANS_EAT": "Y"
+				}
+			}
+		},
+		"ELEMENT_NAME": "Элемент",
+		"ELEMENTS_NAME": "Элементы",
+		"ELEMENT_ADD": "Добавить элемент",
+		"ELEMENT_EDIT": "Изменить элемент",
+		"ELEMENT_DELETE": "Удалить элемент",
         "PERMISSIONS": {
             "1": "X",
             "2": "R"

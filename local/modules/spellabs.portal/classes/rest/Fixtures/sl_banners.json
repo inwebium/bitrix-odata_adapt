@@ -1,0 +1,38 @@
+[
+    {
+        "NAME": "Лучшие кадровые ресурсы",
+        "SORT": 1,
+        "PROPERTY_VALUES": {
+            "SL_URL": "#",
+            "SL_SHOW": "Y",
+            "SL_TEXT": "Наши профессиональные кадры - наше главное достояние",
+            "SL_ATTACHMENTS": [
+                "banner-1.png"
+            ]
+        }
+    },
+    {
+        "NAME": "Железорудная продукция",
+        "SORT": 2,
+        "PROPERTY_VALUES": {
+            "SL_URL": "http://portal/default.aspx",
+            "SL_SHOW": "Y",
+            "SL_TEXT": "В 1К 2018 Металлоинвест произвел 9,9 млн тонн железной руды , снижение на 2,0% в основном в результате сокращения календарного времени работы.",
+            "SL_ATTACHMENTS": [
+                "banner-1.png"
+            ]
+        }
+    },
+    {
+        "NAME": "Предприятия Металлоинвеста - лидеры охраны труда в регионах присутствия",
+        "SORT": 4,
+        "PROPERTY_VALUES": {
+            "SL_URL": "http://www.metalloinvest.com/sustainability/",
+            "SL_SHOW": "Y",
+            "SL_TEXT": "Предприятия Металлоинвеста – лидеры охраны труда в регионах присутствия",
+            "SL_ATTACHMENTS": [
+                "banner-1.png"
+            ]
+        }
+    }
+]

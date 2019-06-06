@@ -1,0 +1,23 @@
+[
+    {
+        "NAME": "...",
+        "CODE": "HELP-LINK",
+        "PROPERTY_VALUES": {
+            "SL_VALUE": "http://ya.ru"
+        }
+    },
+    {
+        "NAME": "Ссылка на RSS",
+        "CODE": "RSS-LINK",
+        "PROPERTY_VALUES": {
+            "SL_VALUE": "https://cors-anywhere.herokuapp.com/http://metalinfo.ru/ru/news/list.rss"
+        }
+    },
+    {
+        "NAME": "Режим работы оргструктуры",
+        "CODE": "STAFF-MODE",
+        "PROPERTY_VALUES": {
+            "SL_VALUE": "LIST"
+        }
+    }
+]

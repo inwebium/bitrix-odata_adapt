@@ -1,4 +1,4 @@
-<?
+<?php
 
 class CSPAutoInstall implements ArrayAccess
 {

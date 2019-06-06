@@ -20,6 +20,13 @@ class ListslGroups extends AbstractRestApiEntity
         
     }
     
+    /**
+     * 
+     * @todo Синтаксис сложной логики фильтра у CGroups::GetList еще ущербней
+     *       если понадобиться фильтр по нескольким ID то их надо склеить 
+     *       в строку через |
+     * @return type
+     */
     public function get()
     {
         $result = [];
@@ -39,7 +46,7 @@ class ListslGroups extends AbstractRestApiEntity
         }
         
         if (!isset($arFilter['ID']) || is_array($arFilter['ID'])) {
-            $result['value'] = $elements;
+            $result = $elements;
         } else {
             $result = $elements;
         }

@@ -15,6 +15,7 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         'Title' => 'NAME',
         'Created' => 'DATE_CREATE',
         'slCode' => 'CODE',
+        'slIndex' => 'SORT',
     ];
     
     protected $fieldsToExpand = [
@@ -22,11 +23,13 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         'ID',
         'NAME',
         'CODE',
+        'SORT',
         'XML_ID',
     ];
     
     protected $iblockId;
     protected static $propertiesAssoc;
+    protected $expandedValues;
     
     /**
      * iblockId getter
@@ -116,17 +119,22 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         $arNav = $this->getRequestParameters()->getTop();
         $this->expand();
         $arSelect = $this->getRequestParameters()->getSelect();
-
+        
+        $this->adaptSelect($arSelect);
+        
         $resource = \CIBlockElement::GetList($arOrder, $arFilter, $arGroup, $arNav, $arSelect);
         
         $arElements = [];
+        
         while($element = $resource->GetNext())
         {
+            $this->placeExpandedValues($element);
+            $this->adaptResult($element);
             $arElements[] = $element;
         }
         
         if (!isset($arFilter['ID']) || is_array($arFilter['ID'])) {
-            $result['value'] = $arElements;
+            $result = $arElements;
         } else {
             $result = $arElements;
         }
@@ -271,7 +279,7 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
     protected function expand()
     {
         $propertiesToExpand = $this->getRequestParameters()->getExpand();
-
+        
         foreach ($propertiesToExpand as $num => $fieldCode)
         {
             $this->replaceExpandedFields($fieldCode);
@@ -287,12 +295,27 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
      */
     protected function replaceExpandedFields($fieldCode)
     {
-
+        
         foreach ($this->getRequestParameters()->getSelect() as $selectNum => $fieldToSelect)
         {
 
             if (strpos($fieldToSelect, $fieldCode . '/') !== false) {
-                $expandedSelectField = explode('/', $fieldToSelect);
+                
+                // Если есть класс
+                $classForExpand = "Spellabs\\Portal\\Rest\\Repository\\" . $fieldCode;
+                if (class_exists($classForExpand)) {
+                    $objectToExpand = new $classForExpand();
+                    
+                    $this->setExpandedValues(
+                        $objectToExpand->getValue(
+                            $this->getIblockId(),
+                            $this->getRequestParameters()->getFilter()
+                        )
+                    );
+                }
+                
+                
+                /*$expandedSelectField = explode('/', $fieldToSelect);
                 
                 $replacedSelect = 'PROPERTY_';
                 $replacedSelect .= AssociativeReplacer::replace(
@@ -307,7 +330,7 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
                 $this->getRequestParameters()->replaceSelect(
                     $fieldToSelect, 
                     $replacedSelect
-                );
+                );*/
 
             } else {
                 $this->getRequestParameters()->replaceSelect(
@@ -315,6 +338,34 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
                     AssociativeReplacer::replace($fieldToSelect, static::$propertiesAssoc + static::$fieldsAssoc)
                 );
                 
+            }
+        }
+        
+        /*var_dump($fieldCode);
+        var_dump($this->getRequestParameters()->getSelect());*/
+
+        //die();
+    }
+    
+    protected function getExpandedValues()
+    {
+        return $this->expandedValues;
+    }
+    
+    protected function setExpandedValues($array)
+    {
+        $this->expandedValues = $array;
+        return $this;
+    }
+    
+    protected function placeExpandedValues(&$element)
+    {
+        if (isset($this->getExpandedValues()[$element['ID']])) {
+            //var_dump($this->getExpandedValues()[$element['ID']]);
+            
+            foreach ($this->getExpandedValues()[$element['ID']] as $propertyCode => $arValue)
+            {
+                $element[$propertyCode] = $arValue;
             }
         }
     }
@@ -405,5 +456,32 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         }
         
         return $payload;
+    }
+    
+    protected function adaptSelect(&$arSelect)
+    {
+        foreach ($arSelect as $key => $selectField)
+        {
+            if (in_array($selectField, static::$propertiesAssoc)) {
+                $arSelect[$key] = 'PROPERTY_' . $selectField;
+            }
+        }
+    }
+    
+    protected function adaptResult(&$arResult)
+    {
+        $arPropsCodes = [];
+        foreach (static::$propertiesAssoc as $key => $value)
+        {
+            $arPropsCodes['PROPERTY_' . $value . '_VALUE'] = $value;
+        }
+        
+        foreach ($arResult as $key => $value)
+        {
+            if (in_array($key, array_keys($arPropsCodes))) {
+                $arResult[$arPropsCodes[$key]] = $value;
+                unset($arResult[$key]);
+            }
+        }
     }
 }

@@ -38,7 +38,11 @@ class ListslEmployees extends AbstractRestApiEntity
             return false;
         }
     }
-
+    
+    /**
+     * 
+     * @return array
+     */
     public function get()
     {
         $result = [];
@@ -66,7 +70,7 @@ class ListslEmployees extends AbstractRestApiEntity
         }
         
         if (!isset($arParams['FIELDS']['ID']) || is_array($arParams['FIELDS']['ID'])) {
-            $result['value'] = $elements;
+            $result = $elements;
         } else {
             $result = $elements;
         }
@@ -146,5 +150,46 @@ class ListslEmployees extends AbstractRestApiEntity
         }
         
         return ['SELECT' => $select, 'FIELDS' => $fields];
+    }
+    
+    /**
+     * Вернет текущего пользователя
+     * 
+     * @global \CUser $USER
+     * @return array
+     */
+    public function current()
+    {
+        global $USER;
+
+        $this->getRequestParameters()->appendFilter(['ID' => $USER->GetID()]);
+        
+        return $this->get();
+    }
+    
+    /**
+     * Вернет группы, в которых состоит текущий пользователь
+     * 
+     * @global \CUser $USER
+     * @return array
+     */
+    public function currentGroups()
+    {
+        global $USER;
+        
+        $result = [];
+        
+        if ($arGroups = $USER->GetUserGroupArray()) {
+            
+            $arFilter = ['ID' => implode('|', $arGroups)];
+            $resource = \CGroup::GetList(($by = 'id'), ($order='asc'), $arFilter);
+            
+            while ($element = $resource->GetNext())
+            {
+                $result[] = $element;
+            }
+        }
+
+        return $result;
     }
 }

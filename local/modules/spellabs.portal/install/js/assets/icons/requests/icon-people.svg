@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48.806" height="48.953" viewBox="0 0 48.806 48.953">
+  <g id="icon-people" transform="translate(1 1)">
+    <g id="Group_19360" data-name="Group 19360">
+      <g id="Group_19359" data-name="Group 19359" transform="translate(0 0)">
+        <path id="Path_9695" data-name="Path 9695" d="M22.349,37.531a6.708,6.708,0,0,1-4.249-6.52V23.345A8.871,8.871,0,0,1,26.945,14.5h1.327a8.871,8.871,0,0,1,8.845,8.845v7.74a6.782,6.782,0,0,1-4.128,6.486" transform="translate(-4.759 -4.918)" fill="none" stroke="#050505" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+        <g id="Group_19355" data-name="Group 19355" transform="translate(4.865 13.784)">
+          <path id="Path_9696" data-name="Path 9696" d="M6.6,34.426V29.045A8.871,8.871,0,0,1,15.445,20.2h.59" transform="translate(-6.6 -20.2)" fill="none" stroke="#050505" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+          <path id="Path_9697" data-name="Path 9697" d="M6.917,44.052A2.839,2.839,0,0,1,6.7,42.7" transform="translate(-6.626 -26.115)" fill="none" stroke="#050505" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+        </g>
+        <g id="Group_19356" data-name="Group 19356" transform="translate(17.838 18.575)">
+          <line id="Line_6" data-name="Line 6" y2="28.378" fill="none" stroke="#050505" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+          <line id="Line_7" data-name="Line 7" y2="28.378" transform="translate(10.098)" fill="none" stroke="#050505" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+          <line id="Line_8" data-name="Line 8" y2="14.742" transform="translate(5.086 13.636)" fill="none" stroke="#050505" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+        </g>
+        <circle id="Ellipse_1626" data-name="Ellipse 1626" cx="4.644" cy="4.644" r="4.644" transform="translate(17.911 0)" fill="none" stroke="#050505" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+        <path id="Path_9698" data-name="Path 9698" d="M17.952,16.968a3.992,3.992,0,0,1-1.35.235A4.2,4.2,0,0,1,12.4,13a4.248,4.248,0,0,1,4.2-4.2,4.492,4.492,0,0,1,2.438.762" transform="translate(-3.26 -3.419)" fill="none" stroke="#050505" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+        <g id="Group_19358" data-name="Group 19358" transform="translate(30 5.307)">
+          <g id="Group_19357" data-name="Group 19357" transform="translate(1.4 8.477)">
+            <path id="Path_9699" data-name="Path 9699" d="M52.035,34.426V29.045A8.871,8.871,0,0,0,43.19,20.2H42.6" transform="translate(-42.6 -20.2)" fill="none" stroke="#050505" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+            <path id="Path_9700" data-name="Path 9700" d="M55.1,44.4a6.323,6.323,0,0,0,.147-1.7" transform="translate(-45.886 -26.115)" fill="none" stroke="#050505" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+          </g>
+          <path id="Path_9701" data-name="Path 9701" d="M41.585,16.882a4.292,4.292,0,0,0,1.4.221,4.2,4.2,0,0,0,.074-8.4,4.431,4.431,0,0,0-2.359.737" transform="translate(-40.7 -8.7)" fill="none" stroke="#050505" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+        </g>
+        <line id="Line_9" data-name="Line 9" y2="24.766" transform="translate(9.287 22.113)" fill="none" stroke="#050505" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+        <line id="Line_10" data-name="Line 10" y2="24.766" transform="translate(37.15 22.113)" fill="none" stroke="#050505" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+        <line id="Line_11" data-name="Line 11" y2="12.015" transform="translate(13.563 34.865)" fill="none" stroke="#050505" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+        <line id="Line_12" data-name="Line 12" y2="12.015" transform="translate(32.506 34.865)" fill="none" stroke="#050505" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+        <line id="Line_13" data-name="Line 13" x2="46.806" transform="translate(0 46.953)" fill="none" stroke="#050505" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"/>
+      </g>
+    </g>
+  </g>
+</svg>

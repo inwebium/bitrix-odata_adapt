@@ -1,17 +1,5 @@
 {
 	"sl_sitemap": {
-		"SL_INDEX": {
-			"XML_ID": "slIndex",
-			"NAME": "Порядковый номер",
-			"ACTIVE": "Y",
-			"IS_REQUIRED": "N",
-			"SORT": 10,
-			"PROPERTY_TYPE": "N",
-			"MULTIPLE": "N",
-			"DEFAULT_VALUE": 1,
-			"SEARCHABLE": "Y",
-			"FILTRABLE": "Y"
-		},
 		"SL_URL": {
 			"XML_ID": "slUrl",
 			"NAME": "Ссылка",
@@ -59,7 +47,7 @@
 			}
 		},
 		"SL_ATTACHMENTS": {
-			"XML_ID": "slAttachments",
+			"XML_ID": "AttachmentFiles",
 			"NAME": "Вложения",
 			"ACTIVE": "Y",
 			"IS_REQUIRED": "N",
@@ -69,21 +57,21 @@
 			"FILE_TYPE": "",
 			"SEARCHABLE": "N",
 			"FILTRABLE": "N"
+		},
+        "SL_SITEMAP_CATEGORIES_LOOKUP": {
+			"XML_ID": "slSiteMapCategoriesLookup",
+			"NAME": "Раздел",
+			"ACTIVE": "Y",
+			"IS_REQUIRED": "N",
+			"SORT": 1,
+			"PROPERTY_TYPE": "E",
+            "LINK_IBLOCK_CODE": "sl_sitemap_categories",
+			"MULTIPLE": "N",
+			"SEARCHABLE": "N",
+			"FILTRABLE": "Y"
 		}
 	},
 	"sl_service_templates": {
-		"SL_INDEX": {
-			"XML_ID": "slIndex",
-			"NAME": "Порядковый номер",
-			"ACTIVE": "Y",
-			"IS_REQUIRED": "N",
-			"SORT": 10,
-			"PROPERTY_TYPE": "N",
-			"MULTIPLE": "N",
-			"DEFAULT_VALUE": 1,
-			"SEARCHABLE": "Y",
-			"FILTRABLE": "Y"
-		},
 		"SL_URL": {
 			"XML_ID": "slUrl",
 			"NAME": "Ссылка",
@@ -176,7 +164,7 @@
 			}
 		},
 		"SL_ATTACHMENTS": {
-			"XML_ID": "slAttachments",
+			"XML_ID": "AttachmentFiles",
 			"NAME": "Вложения",
 			"ACTIVE": "Y",
 			"IS_REQUIRED": "N",
@@ -189,18 +177,6 @@
 		}
 	},
 	"sl_banners": {
-		"SL_INDEX": {
-			"XML_ID": "slIndex",
-			"NAME": "Порядковый номер",
-			"ACTIVE": "Y",
-			"IS_REQUIRED": "N",
-			"SORT": 10,
-			"PROPERTY_TYPE": "N",
-			"MULTIPLE": "N",
-			"DEFAULT_VALUE": 1,
-			"SEARCHABLE": "Y",
-			"FILTRABLE": "Y"
-		},
 		"SL_URL": {
 			"XML_ID": "slUrl",
 			"NAME": "Ссылка",
@@ -215,12 +191,26 @@
 			"SEARCHABLE": "N",
 			"FILTRABLE": "Y"
 		},
+        "SL_TEXT": {
+			"XML_ID": "slText",
+			"NAME": "Текст",
+			"ACTIVE": "Y",
+			"IS_REQUIRED": "N",
+			"SORT": 30,
+			"PROPERTY_TYPE": "S",
+			"MULTIPLE": "N",
+			"DEFAULT_VALUE": "",
+			"ROW_COUNT": 3,
+			"COL_COUNT": 30,
+			"SEARCHABLE": "N",
+			"FILTRABLE": "N"
+		},
 		"SL_SHOW": {
 			"XML_ID": "slShow",
 			"NAME": "Отображение на главной странице",
 			"ACTIVE": "Y",
 			"IS_REQUIRED": "N",
-			"SORT": 30,
+			"SORT": 40,
 			"PROPERTY_TYPE": "L",
 			"MULTIPLE": "N",
 			"LIST_TYPE": "C",
@@ -236,7 +226,7 @@
 			}
         },
 		"SL_ATTACHMENTS": {
-			"XML_ID": "slAttachments",
+			"XML_ID": "AttachmentFiles",
 			"NAME": "Вложения",
 			"ACTIVE": "Y",
 			"IS_REQUIRED": "N",
@@ -250,7 +240,7 @@
 	},
 	"sl_news": {
         "SL_ATTACHMENTS": {
-			"XML_ID": "slAttachments",
+			"XML_ID": "AttachmentFiles",
 			"NAME": "Вложения",
 			"ACTIVE": "Y",
 			"IS_REQUIRED": "N",
@@ -317,7 +307,7 @@
 			"FILTRABLE": "Y"
 		},
 		"SL_ATTACHMENTS": {
-			"XML_ID": "slAttachments",
+			"XML_ID": "AttachmentFiles",
 			"NAME": "Вложения",
 			"ACTIVE": "Y",
 			"IS_REQUIRED": "N",
@@ -331,7 +321,7 @@
 	},
     "sl_positions": {
         "SL_ATTACHMENTS": {
-			"XML_ID": "slAttachments",
+			"XML_ID": "AttachmentFiles",
 			"NAME": "Вложения",
 			"ACTIVE": "Y",
 			"IS_REQUIRED": "N",
@@ -369,7 +359,7 @@
             "USER_TYPE": "employee"
         },
         "SL_ATTACHMENTS": {
-			"XML_ID": "slAttachments",
+			"XML_ID": "AttachmentFiles",
 			"NAME": "Вложения",
 			"ACTIVE": "Y",
 			"IS_REQUIRED": "N",
@@ -395,6 +385,116 @@
 			"COL_COUNT": 30,
 			"SEARCHABLE": "N",
 			"FILTRABLE": "Y"
+		}
+    },
+    "sl_companies": {
+        "SL_URL": {
+			"XML_ID": "slUrl",
+			"NAME": "Ссылка",
+			"ACTIVE": "Y",
+			"IS_REQUIRED": "Y",
+			"SORT": 20,
+			"PROPERTY_TYPE": "S",
+			"MULTIPLE": "N",
+			"DEFAULT_VALUE": "",
+			"ROW_COUNT": 3,
+			"COL_COUNT": 30,
+			"SEARCHABLE": "N",
+			"FILTRABLE": "Y"
+		},
+		"SL_ATTACHMENTS": {
+			"XML_ID": "AttachmentFiles",
+			"NAME": "Вложения",
+			"ACTIVE": "Y",
+			"IS_REQUIRED": "N",
+			"SORT": 10000,
+			"PROPERTY_TYPE": "F",
+			"MULTIPLE": "Y",
+			"FILE_TYPE": "",
+			"SEARCHABLE": "N",
+			"FILTRABLE": "N"
+		},
+        "SL_IMAGE": {
+			"XML_ID": "slImage",
+			"NAME": "Изображение",
+			"ACTIVE": "Y",
+			"IS_REQUIRED": "N",
+			"SORT": 30,
+			"PROPERTY_TYPE": "F",
+			"MULTIPLE": "N",
+			"FILE_TYPE": "jpg,jpeg,gif,png,svg",
+			"SEARCHABLE": "N",
+			"FILTRABLE": "N"
+		}
+    },
+    "sl_important_informations": {
+        "SL_DOCUMENT_URL": {
+			"XML_ID": "slDocumentUrl",
+			"NAME": "Ссылка на документ",
+			"ACTIVE": "Y",
+			"IS_REQUIRED": "Y",
+			"SORT": 20,
+			"PROPERTY_TYPE": "S",
+			"MULTIPLE": "N",
+			"DEFAULT_VALUE": "",
+			"ROW_COUNT": 3,
+			"COL_COUNT": 30,
+			"SEARCHABLE": "N",
+			"FILTRABLE": "Y"
+		},
+        "SL_IMAGE_URL": {
+			"XML_ID": "slImageUrl",
+			"NAME": "Ссылка на изображение",
+			"ACTIVE": "Y",
+			"IS_REQUIRED": "Y",
+			"SORT": 21,
+			"PROPERTY_TYPE": "S",
+			"MULTIPLE": "N",
+			"DEFAULT_VALUE": "",
+			"ROW_COUNT": 3,
+			"COL_COUNT": 30,
+			"SEARCHABLE": "N",
+			"FILTRABLE": "Y"
+		},
+		"SL_ATTACHMENTS": {
+			"XML_ID": "AttachmentFiles",
+			"NAME": "Вложения",
+			"ACTIVE": "Y",
+			"IS_REQUIRED": "N",
+			"SORT": 10000,
+			"PROPERTY_TYPE": "F",
+			"MULTIPLE": "Y",
+			"FILE_TYPE": "",
+			"SEARCHABLE": "N",
+			"FILTRABLE": "N"
+		}
+    },
+    "sl_useful_links": {
+        "SL_URL": {
+			"XML_ID": "slUrl",
+			"NAME": "Ссылка",
+			"ACTIVE": "Y",
+			"IS_REQUIRED": "Y",
+			"SORT": 21,
+			"PROPERTY_TYPE": "S",
+			"MULTIPLE": "N",
+			"DEFAULT_VALUE": "",
+			"ROW_COUNT": 3,
+			"COL_COUNT": 30,
+			"SEARCHABLE": "N",
+			"FILTRABLE": "Y"
+		},
+		"SL_ATTACHMENTS": {
+			"XML_ID": "AttachmentFiles",
+			"NAME": "Вложения",
+			"ACTIVE": "Y",
+			"IS_REQUIRED": "N",
+			"SORT": 10000,
+			"PROPERTY_TYPE": "F",
+			"MULTIPLE": "Y",
+			"FILE_TYPE": "",
+			"SEARCHABLE": "N",
+			"FILTRABLE": "N"
 		}
     }
 }

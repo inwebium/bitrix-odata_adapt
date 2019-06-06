@@ -52,6 +52,7 @@ class spellabs_portal extends \CModule
 		$this->InstallFiles();
 		$this->InstallDB();
         $this->generateRestRepository();
+        $this->fillFixtures();
         $this->InstallEvents();
         
         
@@ -342,6 +343,15 @@ class spellabs_portal extends \CModule
                 $arProperty['CODE'] = $propertyCode;
                 $arProperty['IBLOCK_ID'] = $iblockId;
                 
+                // если свойство из конфига - привязка к элементам (E)
+                if ($arProperty['PROPERTY_TYPE'] == 'E') {
+                    // то берем LINK_IBLOCK_CODE и заменяем на 
+                    // LINK_IBLOCK_ID с Id соответствующего по коду инфоблока
+                    $linkedIblockId = $this->GetIblockId($arProperty['LINK_IBLOCK_CODE']);
+                    unset($arProperty['LINK_IBLOCK_CODE']);
+                    $arProperty['LINK_IBLOCK_ID'] = $linkedIblockId;
+                }
+                
                 $DB->StartTransaction();
 
                 $result = $newProperty->Add($arProperty);
@@ -561,5 +571,69 @@ class spellabs_portal extends \CModule
         }
         
         
+    }
+    
+    /**
+     * Наполняет инфоблоки данными из json файлов из /classes/rest/Fixtures/
+     */
+    private function fillFixtures()
+    {
+        Bitrix\Main\Loader::registerAutoLoadClasses(
+            null, [
+                'Spellabs\Portal\Rest\IblockUtils' => '/local/modules/spellabs.portal/classes/rest/IblockUtils.php',
+            ]
+        );
+        
+        $dir = scandir($this->GetPath() . '/../classes/rest/Fixtures');
+        
+        foreach ($dir as $key => $item)
+        {
+            $iblockCode = pathinfo($item)['filename'];
+            
+            $createdIblock = Spellabs\Portal\Rest\IblockUtils::getIblockBy(
+                'code', 
+                $iblockCode
+            );
+            
+            $elements = json_decode(
+                file_get_contents($this->GetPath() . '/../classes/rest/Fixtures/' . $item), true
+            );
+            
+            foreach ($elements as $key => $elementFields)
+            {
+                $this->fillFixtureAttachments($elementFields);
+                $elementFields['IBLOCK_ID'] = $createdIblock['ID'];
+                $newIblockElement = new CIBlockElement;
+                $newIblockElement->Add($elementFields, false, true, true);
+            }
+            
+        }
+    }
+    
+    /*
+     * Заполнения свойства "Вложения"
+     */
+    private function fillFixtureAttachments(&$elementFields) {
+        $attachmentsProperty = [];
+        
+        if ($elementFields['PROPERTY_VALUES']['SL_ATTACHMENTS']) {
+            $nCounter = 0;
+            
+            foreach ($elementFields['PROPERTY_VALUES']['SL_ATTACHMENTS'] as $filenameKey => $filename)
+            {
+                $filePath = $this->GetPath() . '/../classes/rest/Fixtures/attachments/' . $filename;
+                
+                if (file_exists($filePath)) {
+                    $attachmentFile = CFile::MakeFileArray($filePath);
+                    $attachmentsProperty['n' + $nCounter] = ['VALUE' => $attachmentFile];
+                }
+            }
+        }
+        
+        if (count($attachmentsProperty) > 0) {
+            $elementFields['PROPERTY_VALUES']['SL_ATTACHMENTS'] = $attachmentsProperty;
+        } else {
+            unset($elementFields['PROPERTY_VALUES']['SL_ATTACHMENTS']);
+        }
     }
 }

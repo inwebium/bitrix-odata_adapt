@@ -4,7 +4,7 @@ namespace Spellabs\Portal\Rest\Repository;
 use Spellabs\Portal\Rest\AbstractIblockEntity;
 use Spellabs\Portal\Rest\RequestParameters;
 
-class Iblocks{{ xmlId }} extends AbstractIblockEntity
+class List{{ xmlId }} extends AbstractIblockEntity
 {
     protected $iblockId = {{ id }};
     protected $iblockCode = '{{ code }}';

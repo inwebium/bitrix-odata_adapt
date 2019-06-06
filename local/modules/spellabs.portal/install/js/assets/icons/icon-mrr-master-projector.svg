@@ -1,6 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="15" height="15" viewBox="0 0 15 15">
-  <g id="icon-mrr-master-projector" transform="translate(-1845 -4284)">
-    <rect id="Rectangle_11258" data-name="Rectangle 11258" width="15" height="15" transform="translate(1845 4284)" fill="none"/>
-    <image id="_1431445816_40-128_copy_3" data-name="1431445816_40-128 copy 3" width="15" height="11" transform="translate(1845 4286)" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAALCAYAAACgR9dcAAAABHNCSVQICAgIfAhkiAAAAPBJREFUKJGNkT9LwlEUhp8bDYnmag1NTU1Cc6uTU+DkRwj6ANUu+QVaGtta+gzlJLQ1SaJTQ2ENGQhFPg2e0H7oj164nL/vee+5F5Wcs6deqZ/O0FWbv/WkloEaUAQmgMAUqAAXzHALvAGHEZ8DJ6j3rsa7uhNKhbCXUWsSTl/dUgcZciVI44iPYsBEfSX26asH6nCBOIzGu8zAktpWXQdGwC7Q4S82wj5l8h/AJgDqc87O9VC/UTtqVU1x2y/UlxyyasP515XVh8iPkvoNrJGPR2AM7C/kpsse5L/oJbUInALHQCtU0hJ1ge3ouQbOfgA/2p4GXA1s8wAAAABJRU5ErkJggg=="/>
+<svg xmlns="http://www.w3.org/2000/svg" width="26.397" height="14.681" viewBox="0 0 26.397 14.681">
+  <g id="Group_19535" data-name="Group 19535" transform="translate(-6812.5 657.5)">
+    <g id="Group_3322" data-name="Group 3322" transform="translate(6812.2 -657.8)">
+      <path id="Path_306" data-name="Path 306" d="M15.8,14.175H2.3a1.523,1.523,0,0,1-1.5-1.5V3.6A1.523,1.523,0,0,1,2.3,2.1H15.539m5.586,0h3.567a1.523,1.523,0,0,1,1.5,1.5v9.067a1.523,1.523,0,0,1-1.5,1.5H21" transform="translate(0 -0.741)" fill="none" stroke="#050505" stroke-miterlimit="10" stroke-width="1" fill-rule="evenodd"/>
+      <circle id="Ellipse_1296" data-name="Ellipse 1296" cx="6.575" cy="6.575" r="6.575" transform="translate(11.758 0.8)" fill="none" stroke="#050505" stroke-miterlimit="10" stroke-width="1"/>
+      <path id="Path_9426" data-name="Path 9426" d="M3.825,0A3.825,3.825,0,1,1,0,3.825,3.825,3.825,0,0,1,3.825,0Z" transform="translate(14.508 3.55)" fill="none" stroke="#050505" stroke-width="1"/>
+      <g id="Group_3321" data-name="Group 3321" transform="translate(4.582 13.477)">
+        <line id="Line_151" data-name="Line 151" y1="1.504" fill="none" stroke="#050505" stroke-miterlimit="10" stroke-width="1"/>
+        <line id="Line_152" data-name="Line 152" y1="1.504" transform="translate(17.833)" fill="none" stroke="#050505" stroke-miterlimit="10" stroke-width="1"/>
+      </g>
+      <line id="Line_153" data-name="Line 153" x2="5.93" transform="translate(3.55 4.625)" fill="none" stroke="#050505" stroke-miterlimit="10" stroke-width="1"/>
+    </g>
   </g>
 </svg>
