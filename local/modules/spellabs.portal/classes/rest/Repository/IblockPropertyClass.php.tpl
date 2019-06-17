@@ -1,5 +1,5 @@
 <?php
-namespace Spellabs\Portal\Rest\Repository;
+namespace Spellabs\Portal\Rest\Repository\Fields;
 
 use Spellabs\Portal\Rest\AbstractExpandableProperty;
 

@@ -2,18 +2,29 @@
 namespace Spellabs\Portal\Rest\Repository;
 
 use Spellabs\Portal\Rest\AbstractRestApiEntity;
+use Spellabs\Portal\Rest\Field;
+use Spellabs\Portal\Rest\Processor\Type;
 use Spellabs\Portal\Rest\RequestParameters;
 
 class ListslGroups extends AbstractRestApiEntity
 {
-    protected $externalCode = 'slGroups';
+    /*protected $externalCode = 'slGroups';
     public static $fieldsAssoc = [
         'Id' => 'ID',
         'Title' => 'NAME',
     ];
     public static $propertiesAssoc = [
 		
-    ];
+    ];*/
+    
+    public function __construct()
+    {
+        $this
+            ->setExternalCode('slEmployees')
+        ;       
+
+        parent::__construct($requestParameters);
+    }
 
     public function delete()
     {
@@ -63,4 +74,35 @@ class ListslGroups extends AbstractRestApiEntity
     {
         
     }
+
+    protected function initializeFields()
+    {
+        $this->fieldsCollection
+            ->addField(
+				new Field(
+					'ID',
+					'Id',
+					Type\IntegerType::class,
+					'FIELD',
+				)
+			)
+            ->addField(
+				new Field(
+					'NAME',
+					'Title',
+					Type\StringType::class,
+					'FIELD',
+				)
+			)
+            ->addField(
+				new Field(
+					'SL_ATTACHMENTS',
+					'AttachmentFiles',
+					Type\FileType::class,
+					'PROPERTY',
+				)
+			)
+        ;
+    }
+
 }

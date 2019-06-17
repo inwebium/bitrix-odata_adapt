@@ -11,7 +11,7 @@ class AssociativeReplacer
      * @param mixed $replacement
      * @return mixed
      */
-    public static function replace($value, $replacement)
+    public static function replace($value, &$replacement)
     {
         $value = trim($value);
         
@@ -46,14 +46,15 @@ class AssociativeReplacer
         
         foreach ($target as $key => $value)
         {
-            /*var_dump($key);
-            var_dump($value);*/
+            
             if (is_array($value)) {
+                
                 if ($replaceFor = array_search($key, $replacement, true)) {
                     $result[$replaceFor] = self::recursiveReverseReplace($value, $replacement);
                 } else {
                     $result[$key] = self::recursiveReverseReplace($value, $replacement);
                 }
+                
             } elseif ($replaceFor = array_search($key, $replacement, true)) {
                 $result[$replaceFor] = $value;
             } else {

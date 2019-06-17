@@ -3464,9 +3464,6 @@ var ListItemsService = /** @class */ (function () {
         //console.log('params changed:', params);
         var data;
         var result = this.sendToBitrix(params);
-        /*.subscribe((rows: any[]) => {
-            return rows.map(i => this.convertListItemToEntity(i));
-        });*/
         return result.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(function (items) {
             console.log("------getItems mapping ITEMS------", items);
             return items.map(function (item) {
@@ -3499,6 +3496,18 @@ var ListItemsService = /** @class */ (function () {
     };
     ListItemsService.prototype.getItem = function (params) {
         var _this = this;
+        console.log("------getItem------", params);
+        if (!params) {
+            params = {};
+        }
+        params.method = 'GET';
+        //console.log('params changed:', params);
+        var data;
+        var result = this.sendToBitrix(params);
+        return result.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(function (item) {
+            console.log("------getItems mapping ITEM------", item);
+            return _this.convertListItemToEntity(item);
+        }));
         return this.getWebById(params.webId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["flatMap"])(function (web) { return _this.getItemOfWeb(web, params); }));
     };
     ListItemsService.prototype.getItemOfWeb = function (web, params) {

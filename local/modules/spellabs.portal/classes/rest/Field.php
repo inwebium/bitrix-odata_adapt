@@ -23,6 +23,8 @@ class Field
      */
     private $type;
     
+    private $bitrixEntity;
+    
     /**
      * Конструктор. Вызывает сеттеры для всех свойств.
      * 
@@ -30,12 +32,13 @@ class Field
      * @param string $xmlId
      * @param string $type
      */
-    public function __construct($code, $xmlId, $type)
+    public function __construct($code, $xmlId, $type, $bitrixEntity = 'FIELD')
     {
         $this
             ->setCode($code)
             ->setXmlId($xmlId)
             ->setType($type)
+            ->setBitrixEntity($bitrixEntity)
         ;
     }
     
@@ -90,7 +93,8 @@ class Field
     }
     
     /**
-     * 
+     * Установит тип поля для обработки значения перед отдачей 
+     * (потомки Spellabs\Portal\Rest\Processor\Type\AbstractType)
      * 
      * @param string $type
      * @return $this
@@ -101,6 +105,18 @@ class Field
         return $this;
     }
     
+    public function getBitrixEntity()
+    {
+        return $this->bitrixEntity;
+    }
+
+    public function setBitrixEntity($bitrixEntity)
+    {
+        $this->bitrixEntity = $bitrixEntity;
+        return $this;
+    }
+
+        
     /**
      * Вернет массив вида [XML_ID => CODE]
      * 

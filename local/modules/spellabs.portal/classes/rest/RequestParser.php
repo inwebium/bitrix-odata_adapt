@@ -8,14 +8,24 @@ class RequestParser
     /** @var array */
     private $requestParams;
     /** @var array */
-    private $associations;
+    //private $associations;
     
     public function __construct(RequestRouter $requestRouter)
     {
         $this->requestMethod = $requestRouter->getRequestMethod();
         $this->requestParams = $requestRouter->getRequestParameters();
-        $className = "Spellabs\\Portal\\Rest\\Repository\\" . $requestRouter->getClassName();
-        $this->associations  = $className::$propertiesAssoc + $className::$fieldsAssoc;
+        
+        // если пришли паратры с $ то вырезаем его
+        foreach ($this->requestParams as $key => $value) {
+            if (strpos($key, '$') !== false) {
+                unset($this->requestParams[$key]);
+                $key = substr($key, strpos($key, '$')+1);
+                $this->requestParams[$key] = $value;
+            }
+        }
+        
+        //$className = "Spellabs\\Portal\\Rest\\Repository\\" . $requestRouter->getClassName();
+        //$this->associations  = $className::$propertiesAssoc + $className::$fieldsAssoc;
     }
     
     public function parseSelect()
@@ -26,20 +36,28 @@ class RequestParser
         {
             $result = explode(',', $this->requestParams['select']);
             
-            foreach ($result as $key => $fieldName)
+            /*foreach ($result as $key => $fieldName)
             {
                 $result[$key] = AssociativeReplacer::replace($fieldName, $this->associations);
-            }
+            }*/
         }
         
         return $result;
     }
     
+    /*public function adaptSelect()
+    {
+        foreach ($this-> as $key => $value)
+        {
+            
+        }
+    }*/
+    
     public function parseFilter()
     {
         $arFilter = [];
         $parenthesesParser = new ParenthesesParser();
-        $filterParser = new RequestFilterParser($this->associations);
+        $filterParser = new RequestFilterParser();
         
         $this->requestParams['filter'] = $filterParser->odataAdaptation($this->requestParams['filter']);
         $arParentheses = $parenthesesParser->parse('(' . $this->requestParams['filter'] . ')');
@@ -63,7 +81,8 @@ class RequestParser
             {
                 $arOrderDefinition = explode('=', $orderDefinition);
                 
-                $result[AssociativeReplacer::replace($arOrderDefinition[0], $this->associations)] = $arOrderDefinition[1];
+                //$result[AssociativeReplacer::replace($arOrderDefinition[0], $this->associations)] = $arOrderDefinition[1];
+                $result[$arOrderDefinition[0]] = $arOrderDefinition[1];
             }
         }
         
@@ -73,7 +92,7 @@ class RequestParser
     /**
      * Разбивает строку из expand по запятым и возвращает получившийся массив.
      * 
-     * @return type
+     * @return bool|array
      */
     public function parseExpand()
     {
@@ -123,10 +142,10 @@ class RequestParser
         
         $result = [];
         
-        foreach ($payload as $field => $value)
+        /*foreach ($payload as $field => $value)
         {
             $result[AssociativeReplacer::replace($field, $this->associations)] = $value;   
-        }
+        }*/
         /*$this->requestParams = $payload;
         
         echo "\nparsePost\n";

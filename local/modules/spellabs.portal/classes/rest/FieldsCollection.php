@@ -75,31 +75,60 @@ class FieldsCollection implements \Iterator
         return $this->fields[$code];
     }
     
+    public function getFieldsByEntity($entityName)
+    {
+        $result = new FieldsCollection();
+        
+        foreach ($this->fields as $code => $field)
+        {
+            if ($field->getBitrixEntity() == $entityName) {
+                $result->addField($field);
+            }    
+        }
+        
+        return $result;
+    }
+    
     /*
      * Далее реализация итератора
      */
-
+    
+    /**
+     * @return Field
+     */
     public function current()
     {
         return current($this->fields);
     }
-
+    
+    /**
+     * @return string
+     */
     public function key()
     {
         return key($this->fields);
     }
-
-    public function next(): void
+    
+    /**
+     * @return void
+     */
+    public function next()
     {
         next($this->fields);
     }
-
-    public function rewind(): void
+    
+    /**
+     * @return void
+     */
+    public function rewind()
     {
         reset($this->fields);
     }
-
-    public function valid(): bool
+    
+    /**
+     * @return bool
+     */
+    public function valid()
     {
         return isset($this->fields[$this->key()]);
     }

@@ -6,25 +6,27 @@ use Spellabs\Portal\Rest\Field;
 use Spellabs\Portal\Rest\Processor\Type;
 use Spellabs\Portal\Rest\RequestParameters;
 
-class List{{ xmlId }} extends AbstractIblockEntity
+class ListslNewsComments extends AbstractIblockEntity
 {
     /*public static $propertiesAssoc = [
-{{ properties }}
+
     ];*/
     
     public function __construct(RequestParameters $requestParameters)
     {
         $this
-            ->setIblockId({{ id }})
-            ->setIblockCode('{{ code }}')
-            ->setExternalCode('{{ xmlId }}')
+            ->setIblockId(996)
+            ->setIblockCode('sl_news_comments')
+            ->setExternalCode('slNewsComments')
         ;       
-{{ construct }}
+
         parent::__construct($requestParameters);
     }
     
     protected function initializeFields()
     {
-{{ fields }}
+		$this->fieldsCollection
+		;
+
     }
 }

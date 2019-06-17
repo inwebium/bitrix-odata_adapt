@@ -152,6 +152,58 @@ class RequestParameters
         return $this;
     }
     
+    public function adaptFields(FieldsCollection $fields)
+    {
+        $adapted = [];
+        
+        $fieldsReplace = [];
+        
+        foreach ($fields as $code => $field)
+        {
+            $fieldsReplace[$field->getXmlId()] = $field->getCode();
+        }
+        
+        foreach ($this->select as $key => $fieldName)
+        {
+            $adapted[$key] = AssociativeReplacer::replace($fieldName, $fieldsReplace);
+        }
+        
+        $this->setSelect($adapted);
+        $adapted = [];
+        
+        $this->recursiveAssocReplace($this->filter, $fieldsReplace);
+        
+        foreach ($this->order as $key => $orderDefinition)
+        {
+            $adapted[AssociativeReplacer::replace($key, $fieldsReplace)] = $orderDefinition;
+        }
+        
+        $this->order = $adapted;
+        $adapted = [];
+    }
+    
+    private function recursiveAssocReplace(&$array, $fields)
+    {
+        $adapted = [];
+        
+        foreach ($array as $key => $value)
+        {
+            AssociativeReplacer::replace($key, $fields);
+            
+            if (is_array($value)) {
+                $adapted[$key] = $this->recursiveAssocReplace($value, $fields);
+            } else {
+                $adapted[$key] = $value;
+            }
+        }
+        
+        $array = $adapted;
+    }
+    
+    /**
+     * DEPRECATED
+     */
+        
     public function associativeReplace($fieldsAssoc = [], $propertiesAssoc = [])
     {
         $association = $fieldsAssoc + $propertiesAssoc;

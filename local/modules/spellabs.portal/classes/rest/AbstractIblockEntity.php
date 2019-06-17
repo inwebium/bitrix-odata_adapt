@@ -2,6 +2,7 @@
 namespace Spellabs\Portal\Rest;
 
 use Bitrix\Main\Loader;
+use Spellabs\Portal\Rest\Processor\Type;
 
 Loader::includeModule('iblock');
 
@@ -10,13 +11,13 @@ Loader::includeModule('iblock');
  */
 abstract class AbstractIblockEntity extends AbstractRestApiEntity
 {
-    public static $fieldsAssoc = [
+    /*public static $fieldsAssoc = [
         'Id' => 'ID',
         'Title' => 'NAME',
         'Created' => 'DATE_CREATE',
         'slCode' => 'CODE',
         'slIndex' => 'SORT',
-    ];
+    ];*/
     
     protected $fieldsToExpand = [
         'IBLOCK_ID',
@@ -28,9 +29,25 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
     ];
     
     protected $iblockId;
-    protected static $propertiesAssoc;
+    protected $iblockCode;
+    //protected static $propertiesAssoc;
     protected $expandedValues;
     
+    public function __construct(RequestParameters $requestParameters)
+    {
+        parent::__construct($requestParameters);
+        
+        $this->fieldsCollection
+            ->addField(new Field('ID', 'Id', Type\IntegerType::class, 'FIELD'))
+            ->addField(new Field('NAME', 'Title', Type\StringType::class, 'FIELD'))
+            ->addField(new Field('DATE_CREATE', 'Created', Type\DatetimeType::class, 'FIELD'))
+            ->addField(new Field('CODE', 'slCode', Type\StringType::class, 'FIELD'))
+            ->addField(new Field('SORT', 'slIndex', Type\IntegerType::class, 'FIELD'))
+        ;
+        
+        $this->getRequestParameters()->adaptFields($this->getFieldsCollection());
+    }
+
     /**
      * iblockId getter
      * 
@@ -42,14 +59,36 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
     }
     
     /**
-     * $iblockId setter
+     * iblockId setter
      * 
-     * @param int $iblockId
+     * @param int $iblockId ID инфоблока
      * @return $this
      */
     public function setIblockId($iblockId)
     {
         $this->iblockId = $iblockId;
+        return $this;
+    }
+    
+    /**
+     * iblockCode getter
+     * 
+     * @return string
+     */
+    public function getIblockCode()
+    {
+        return $this->iblockCode;
+    }
+
+    /**
+     * iblockCode setter
+     * 
+     * @param string $iblockCode Символьный код инфоблока
+     * @return $this
+     */
+    public function setIblockCode($iblockCode)
+    {
+        $this->iblockCode = $iblockCode;
         return $this;
     }
     
@@ -104,13 +143,11 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         if (!in_array('IBLOCK_ID', $this->getRequestParameters()->getSelect()))
         {
             $this->getRequestParameters()->appendSelect(['IBLOCK_ID']);
-            //$arSelect[] = 'IBLOCK_ID';
         }
         
         if (!in_array('ID', $this->getRequestParameters()->getSelect()))
         {
             $this->getRequestParameters()->appendSelect(['ID']);
-            //$arSelect[] = 'ID';
         }
         
         $arOrder = $this->getRequestParameters()->getOrder();
@@ -119,26 +156,31 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         $arNav = $this->getRequestParameters()->getTop();
         $this->expand();
         $arSelect = $this->getRequestParameters()->getSelect();
-        
+
         $this->adaptSelect($arSelect);
-        
+        /*var_dump($arOrder);
+        var_dump($arFilter);
+        var_dump($arGroup);
+        var_dump($arNav);
+        var_dump($arSelect);
+        die();*/
         $resource = \CIBlockElement::GetList($arOrder, $arFilter, $arGroup, $arNav, $arSelect);
-        
+
         $arElements = [];
-        
+
         while($element = $resource->GetNext())
         {
             $this->placeExpandedValues($element);
             $this->adaptResult($element);
             $arElements[] = $element;
         }
-        
+
         if (!isset($arFilter['ID']) || is_array($arFilter['ID'])) {
             $result = $arElements;
         } else {
             $result = $arElements;
         }
-        
+
         return $result;
     }
     
@@ -194,8 +236,6 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
                 $this->getPropertiesFromPayload($elementFields)
             );
         }
-
-        
 
         if ($result) {
             $result = \CIBlockElement::GetList($arFilter, $arFilter, $arGroupBy, $arNavStartParams, $arSelectFields);
@@ -300,9 +340,9 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         {
 
             if (strpos($fieldToSelect, $fieldCode . '/') !== false) {
-                
                 // Если есть класс
-                $classForExpand = "Spellabs\\Portal\\Rest\\Repository\\" . $fieldCode;
+                $classForExpand = "Spellabs\\Portal\\Rest\\Repository\\Fields\\" . $fieldCode;
+                
                 if (class_exists($classForExpand)) {
                     $objectToExpand = new $classForExpand();
                     
@@ -313,34 +353,15 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
                         )
                     );
                 }
-                
-                
-                /*$expandedSelectField = explode('/', $fieldToSelect);
-                
-                $replacedSelect = 'PROPERTY_';
-                $replacedSelect .= AssociativeReplacer::replace(
-                    $expandedSelectField[0],
-                    static::$propertiesAssoc + static::$fieldsAssoc
-                );
-                $replacedSelect .= '.' . AssociativeReplacer::replace(
-                    $expandedSelectField[1],
-                    static::$propertiesAssoc + static::$fieldsAssoc
-                );
-                
-                $this->getRequestParameters()->replaceSelect(
-                    $fieldToSelect, 
-                    $replacedSelect
-                );*/
 
-            } else {
+            } /*else {
                 $this->getRequestParameters()->replaceSelect(
                     $fieldToSelect, 
-                    AssociativeReplacer::replace($fieldToSelect, static::$propertiesAssoc + static::$fieldsAssoc)
+                    AssociativeReplacer::replace($fieldToSelect, $this->getFieldsAssociations())
                 );
                 
-            }
+            }*/
         }
-        
         /*var_dump($fieldCode);
         var_dump($this->getRequestParameters()->getSelect());*/
 
@@ -408,7 +429,7 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
     {
         foreach ($payload as $key => $value)
         {
-            if (in_array($key, static::$propertiesAssoc)) {
+            if (in_array($key, $this->getFieldsAssociations('PROPERTY'))) {
                 return true;
             }
         }
@@ -427,7 +448,7 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         
         foreach ($payload as $key => $value)
         {
-            if (in_array($key, static::$propertiesAssoc)) {
+            if (in_array($key, $this->getFieldsAssociations('PROPERTY'))) {
                 $properties[$key] = $value;
             }
         }
@@ -462,7 +483,7 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
     {
         foreach ($arSelect as $key => $selectField)
         {
-            if (in_array($selectField, static::$propertiesAssoc)) {
+            if (in_array($selectField, $this->getFieldsAssociations('PROPERTY'))) {
                 $arSelect[$key] = 'PROPERTY_' . $selectField;
             }
         }
@@ -470,8 +491,25 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
     
     protected function adaptResult(&$arResult)
     {
+        if (!empty($arResult['PREVIEW_PICTURE'])) {
+            $arResult['PREVIEW_PICTURE'] = \CFile::GetPath($arResult['PREVIEW_PICTURE']);
+        }
+        
+        if (!empty($arResult['DETAIL_PICTURE'])) {
+            $arResult['DETAIL_PICTURE'] = \CFile::GetPath($arResult['DETAIL_PICTURE']);
+        }
+        
+        if (!empty($arResult['PREVIEW_TEXT'])) {
+            $arResult['PREVIEW_TEXT'] = $arResult['~PREVIEW_TEXT'];
+        }
+        
+        if (!empty($arResult['DETAIL_TEXT'])) {
+            $arResult['DETAIL_TEXT'] = $arResult['~DETAIL_TEXT'];
+        }
+        
         $arPropsCodes = [];
-        foreach (static::$propertiesAssoc as $key => $value)
+        
+        foreach ($this->getFieldsAssociations('PROPERTY') as $key => $value)
         {
             $arPropsCodes['PROPERTY_' . $value . '_VALUE'] = $value;
         }

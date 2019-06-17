@@ -121,6 +121,26 @@ class RepositoryGenerator
      */
     public function executeTemplate()
     {
-        file_put_contents($this->getFilename(), $this->getTemplate());
+        $this->forceFilePutContents($this->getFilename(), $this->getTemplate());
+    }
+
+    /**
+     * 
+     * @param string $fullPathWithFileName
+     * @param string $fileContents
+     */
+    private function forceFilePutContents($fullPathWithFileName, $fileContents)
+    {
+        $exploded = explode(DIRECTORY_SEPARATOR, $fullPathWithFileName);
+
+        array_pop($exploded);
+
+        $directoryPathOnly = implode(DIRECTORY_SEPARATOR, $exploded);
+
+        if (!file_exists($directoryPathOnly)) {
+            mkdir($directoryPathOnly,0775,true);
+        }
+
+        file_put_contents($fullPathWithFileName, $fileContents);    
     }
 }

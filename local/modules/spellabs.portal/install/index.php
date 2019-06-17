@@ -180,7 +180,7 @@ class spellabs_portal extends \CModule
     /**
      * Действия с файловой структурой при удалении модуля
      * 
-     * @todo Добавить удаление установленных файлов
+     * @todo Добавить удаления сгенерированного репозитория
      * @return boolean
      */
 	function UnInstallFiles()
@@ -301,9 +301,13 @@ class spellabs_portal extends \CModule
         foreach ($arIblocksParams as $iblockCode => $iblockParams)
         {
             $newIblock = new CIBlock;
-            $iblockParams['IBLOCK_TYPE_ID'] = 'spellabs';
+            
             $iblockParams['CODE'] = $iblockCode;
             
+            if (empty($iblockParams['IBLOCK_TYPE_ID'])) {
+                $iblockParams['IBLOCK_TYPE_ID'] = 'spellabs';
+            }
+
             $arPermissions = $iblockParams['PERMISSIONS'];
             unset($iblockParams['PERMISSIONS']);
 
@@ -339,6 +343,10 @@ class spellabs_portal extends \CModule
             $iblockId = $this->GetIblockId($iblockCode);
             foreach ($arProperties as $propertyCode => $arProperty)
             {
+                if (!isset($arProperty['PROPERTY_TYPE']) && !isset($arProperty['NAME'])) {
+                    continue;
+                }
+            
                 $newProperty = new CIBlockProperty;
                 $arProperty['CODE'] = $propertyCode;
                 $arProperty['IBLOCK_ID'] = $iblockId;
@@ -519,6 +527,10 @@ class spellabs_portal extends \CModule
         }      
     }
     
+    /**
+     * Генерирует репозиторий для rest-сущностей: классы иноблоков 
+     * и полей фалов и привязок
+     */
     private function generateRestRepository()
     {
         //include($this->GetPath() . '/../classes/rest/RepositoryGenerator.php');
@@ -549,18 +561,68 @@ class spellabs_portal extends \CModule
             );
             
             $arIblockProps = [];
+            $constructorAdditionals = '';
+            $fieldInitString = "\t\t\$this->fieldsCollection\n";
             
             foreach ($arIblocksProps[$iblockCode] as $propertyCode => $arProperty)
             {
-                $this->generateRepositoryLookup($arProperty, $propertyCode);
+                $propertyType = 'StringType';
+                $fieldEntity = 'PROPERTY';
+                
+                if (isset($arProperty['RETURNS'])) {
+                    $propertyType = $arProperty['RETURNS'] . 'Type';
+                } elseif (isset($arProperty['PROPERTY_TYPE'])) {
+                    switch ($arProperty['PROPERTY_TYPE'])
+                    {
+                        case 'E':
+                            $propertyType = 'EntityType';
+                            break;
+                        case 'F':
+                            $propertyType = 'FileType';
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                
+                if (
+                    isset($arProperty['FIELD_ENTITY']) && 
+                    in_array($arProperty['FIELD_ENTITY'], ['PROPERTY', 'FIELD', 'USERFIELD'])
+                ) {
+                    $fieldEntity = $arProperty['FIELD_ENTITY'];
+                }
+                
+                $fieldInitString .= 
+                    "\t\t\t->addField(\n" .
+                    "\t\t\t\tnew Field(\n" . 
+                    "\t\t\t\t\t'" . $propertyCode . "',\n" .
+                    "\t\t\t\t\t'" . $arProperty['XML_ID'] . "',\n" . 
+                    "\t\t\t\t\tType\\" . $propertyType . "::class,\n" . 
+                    "\t\t\t\t\t'" . $fieldEntity . "',\n" .
+                    "\t\t\t\t)\n" . 
+                    "\t\t\t)\n";
+                
+                
+                /*if (!isset($arProperty['PROPERTY_TYPE']) && !isset($arProperty['NAME'])) {
+                    $constructorAdditionals .= 
+                        "\t\t" . 'static::$fieldsAssoc[\'' . $arProperty['XML_ID'] . '\'] = \'' . $propertyCode . "';\n";
+                    
+                    continue;
+                }*/
+                
+                $this->generateRepositoryFields($arProperty, $propertyCode);
                 $arIblockProps[$arProperty['XML_ID']] = $propertyCode;
             }
+            
+            $fieldInitString .= "\t\t;\n";
             
             $repository
                 ->setFilename('List' . $iblockParams['XML_ID'] . '.php')
                 ->setToken('xmlId', $iblockParams['XML_ID'])
                 ->setToken('id', $createdIblock['ID'])
                 ->setToken('code', $iblockCode)
+                ->setToken('fields', $fieldInitString)
+                ->setToken('construct', $constructorAdditionals)
             ;
             $propertiesString = $repository->arrayToString($arIblockProps);
             $repository
@@ -575,14 +637,18 @@ class spellabs_portal extends \CModule
     }
     
     /**
-     * Если у переданного arProperty PROPERTY_TYPE = E (привязка к элементам), 
+     * Если у переданного arProperty PROPERTY_TYPE = E|F (привязка к элементам или файл), 
      * то создаст для него класс в репозитории
      * 
      * @param array $arProperty
      * @param string $propertyCode
      */
-    private function generateRepositoryLookup($arProperty, $propertyCode)
+    private function generateRepositoryFields($arProperty, $propertyCode)
     {
+        if (!isset($arProperty['PROPERTY_TYPE']) && !isset($arProperty['NAME'])) {
+            return false;
+        }
+
         Bitrix\Main\Loader::registerAutoLoadClasses(
             null, [
                 'Spellabs\Portal\Rest\IblockUtils' => '/local/modules/spellabs.portal/classes/rest/IblockUtils.php',
@@ -590,16 +656,18 @@ class spellabs_portal extends \CModule
             ]
         );
         
-        if ($arProperty['PROPERTY_TYPE'] == 'E') {
+        if (in_array($arProperty['PROPERTY_TYPE'], ['E', 'F'])) {
             $repository = new Spellabs\Portal\Rest\RepositoryGenerator();
             $repository
                 ->setTemplate($this->GetPath() . '/../classes/rest/Repository/IblockPropertyClass.php.tpl')
-                ->setFilename($arProperty['XML_ID'] . '.php')
+                ->setFilename('Fields/' . $arProperty['XML_ID'] . '.php')
                 ->setToken('xmlId', $arProperty['XML_ID'])
                 ->setToken('code', $propertyCode)
                 ->executeTemplate()
             ;
         }
+
+        return true;
     }
     
     /**
@@ -626,14 +694,42 @@ class spellabs_portal extends \CModule
             );
             
             $elements = json_decode(
-                file_get_contents($this->GetPath() . '/../classes/rest/Fixtures/' . $item), true
+                file_get_contents(
+                    $this->GetPath() . '/../classes/rest/Fixtures/' . $item
+                ), 
+                true
             );
-            
-            
+
             foreach ($elements as $key => $elementFields)
             {
-                $this->fillFixtureAttachments($elementFields);
+                $this->fillFixtureAttachments($elementFields['PROPERTY_VALUES']);
                 $elementFields['IBLOCK_ID'] = $createdIblock['ID'];
+
+                // если задана "картинка анонса" и есть такой файл
+                if (
+                    !empty($elementFields['PREVIEW_PICTURE']) && 
+                    file_exists(
+                        $this->GetPath() . '/../classes/rest/Fixtures/attachments/' . $elementFields['PREVIEW_PICTURE']
+                    )
+                ) {
+                    //echo "\n " . $elementFields['NAME'] . " - Has preview picture!\n";
+                    $elementFields['PREVIEW_PICTURE'] = CFile::MakeFileArray(
+                        $this->GetPath() . '/../classes/rest/Fixtures/attachments/' . $elementFields['PREVIEW_PICTURE']
+                    );
+                }
+
+                // если задана "детальная картинка" и есть такой файл
+                if (
+                    !empty($elementFields['DETAIL_PICTURE']) && 
+                    file_exists(
+                        $this->GetPath() . '/../classes/rest/Fixtures/attachments/' . $elementFields['DETAIL_PICTURE']
+                    )
+                ) {
+                    $elementFields['DETAIL_PICTURE'] = CFile::MakeFileArray(
+                        $this->GetPath() . '/../classes/rest/Fixtures/attachments/' . $elementFields['DETAIL_PICTURE']
+                    );
+                }
+
                 $newIblockElement = new CIBlockElement;
                 $newIblockElement->Add($elementFields, false, true, true);
             }
@@ -681,30 +777,47 @@ class spellabs_portal extends \CModule
         }
     }
     
-    /*
-     * Заполнения свойства "Вложения"
-     */
-    private function fillFixtureAttachments(&$elementFields) {
-        $attachmentsProperty = [];
-        
-        if ($elementFields['PROPERTY_VALUES']['SL_ATTACHMENTS']) {
-            $nCounter = 0;
+    private function fillFixtureAttachments(&$propertyValues)
+    {
+        foreach ($propertyValues as $propertyCode => $propertyValue) {
+            $arProperty = Spellabs\Portal\Rest\IblockUtils::getPropertyBy(
+                'CODE', 
+                $propertyCode, 
+                $iblockId
+            );
             
-            foreach ($elementFields['PROPERTY_VALUES']['SL_ATTACHMENTS'] as $filenameKey => $filename)
-            {
-                $filePath = $this->GetPath() . '/../classes/rest/Fixtures/attachments/' . $filename;
-                
-                if (file_exists($filePath)) {
-                    $attachmentFile = CFile::MakeFileArray($filePath);
-                    $attachmentsProperty['n' + $nCounter] = ['VALUE' => $attachmentFile];
+            // если свойство типа файл
+            if ($arProperty['PROPERTY_TYPE'] == 'F') {
+                $attachmentsProperty = [];
+
+                // если множественно
+                if ($arProperty['MULTIPLE'] == 'Y') {
+                    $nCounter = 0;
+                    
+                    foreach ($propertyValue as $filenameKey => $filename) {
+                        $filePath = $this->GetPath() . '/../classes/rest/Fixtures/attachments/' . $filename;
+                        
+                        if (file_exists($filePath)) {
+                            $attachmentFile = CFile::MakeFileArray($filePath);
+                            $attachmentsProperty['n' + $nCounter] = ['VALUE' => $attachmentFile];
+                            $nCounter++;
+                        }
+                    }
+                } else {
+                     $filePath = $this->GetPath() . '/../classes/rest/Fixtures/attachments/' . $propertyValue[0];
+                        
+                    if (file_exists($filePath)) {
+                        $attachmentFile = CFile::MakeFileArray($filePath);
+                        $attachmentsProperty['n0'] = ['VALUE' => $attachmentFile];
+                    }
+                }
+        
+                if (count($attachmentsProperty) > 0) {
+                    $propertyValues[$propertyCode] = $attachmentsProperty;
+                } else {
+                    unset($propertyValues[$propertyCode]);
                 }
             }
-        }
-        
-        if (count($attachmentsProperty) > 0) {
-            $elementFields['PROPERTY_VALUES']['SL_ATTACHMENTS'] = $attachmentsProperty;
-        } else {
-            unset($elementFields['PROPERTY_VALUES']['SL_ATTACHMENTS']);
         }
     }
     
@@ -715,7 +828,8 @@ class spellabs_portal extends \CModule
      * добавить привязку к еще не созданному элементу
      * @param array $propertyValues
      */
-    private function fillFixtureLookups(&$propertyValues, $iblockId) {
+    private function fillFixtureLookups(&$propertyValues, $iblockId)
+    {
         Bitrix\Main\Loader::registerAutoLoadClasses(
             null, [
                 'Spellabs\Portal\Rest\IblockUtils' => '/local/modules/spellabs.portal/classes/rest/IblockUtils.php',

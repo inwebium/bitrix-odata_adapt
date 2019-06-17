@@ -239,6 +239,38 @@
 		}
 	},
 	"sl_news": {
+		"ACTIVE_FROM": {
+			"XML_ID": "slNewsPublicationDate",
+			"RETURNS": "Datetime",
+            "FIELD_ENTITY": "FIELD"
+		},
+		"PREVIEW_PICTURE": {
+			"XML_ID": "slNewsCover",
+			"RETURNS": "String",
+            "FIELD_ENTITY": "FIELD"
+		},
+		"PREVIEW_TEXT": {
+			"XML_ID": "slNewsAnnouncement",
+			"RETURNS": "String",
+            "FIELD_ENTITY": "FIELD"
+		},
+		"DETAIL_TEXT": {
+			"XML_ID": "slNewsBody",
+			"RETURNS": "String",
+            "FIELD_ENTITY": "FIELD"
+		},
+        "SL_NEWS_RUBRIC_LOOKUP": {
+			"XML_ID": "slNewsRubricLookup",
+			"NAME": "Рубрика",
+			"ACTIVE": "Y",
+			"IS_REQUIRED": "N",
+			"SORT": 1,
+			"PROPERTY_TYPE": "E",
+            "LINK_IBLOCK_CODE": "sl_news_rubrics",
+			"MULTIPLE": "N",
+			"SEARCHABLE": "N",
+			"FILTRABLE": "Y"
+		},
         "SL_ATTACHMENTS": {
 			"XML_ID": "AttachmentFiles",
 			"NAME": "Вложения",
