@@ -123,6 +123,7 @@ class spellabs_portal extends \CModule
         $this->CreateProperties();
         $this->SetupEditForms();
         $this->SetupUserFields();
+        $this->setupUserEntity();
         
 		return true;
 	}
@@ -484,7 +485,7 @@ class spellabs_portal extends \CModule
             if (!$result)
             {
                 $DB->Rollback();
-                echo "\nERROR (SetupUserFields " . $fieldName . "): " . $newProperty->LAST_ERROR . "\n\n";
+                echo "\nERROR (SetupUserFields " . $fieldName . "): " . $newUserField->LAST_ERROR . "\n\n";
             }
             else
             {
@@ -878,5 +879,147 @@ class spellabs_portal extends \CModule
                 unset($propertyValues[$propertyCode]);
             }
         }
+    }
+    
+    private function setupUserEntity()
+    {
+        Bitrix\Main\Loader::registerAutoLoadClasses(
+            null, [
+                'Spellabs\Portal\Rest\IblockUtils' => '/local/modules/spellabs.portal/classes/rest/IblockUtils.php',
+                'Spellabs\Portal\Rest\RepositoryGenerator' => '/local/modules/spellabs.portal/classes/rest/RepositoryGenerator.php',
+            ]
+        );
+        
+        $repository = new Spellabs\Portal\Rest\RepositoryGenerator();
+        $repository->setTemplate($this->GetPath() . '/../classes/rest/Repository/ListslEmployees.php.tpl');
+        
+        $usersParams = json_decode(
+            file_get_contents($this->GetPath() . "/conf/users.json"), true
+        );
+        
+        $constructorAdditionals = '';
+        $fieldInitString = "\t\t\$this->fieldsCollection\n";
+        
+        foreach ($usersParams as $externalCode => $reflectedIn)
+        {
+            if (isset($reflectedIn['FIELD'])) {
+                $type = 'StringType';
+                
+                if (isset($reflectedIn['FIELD']['RETURNS'])) {
+                    $type = $reflectedIn['FIELD']['RETURNS'] . 'Type';
+                }
+                
+                $this->addFieldsInitString(
+                    $fieldInitString, 
+                    $reflectedIn['FIELD']['FIELD_NAME'], 
+                    $externalCode, 
+                    $type, 
+                    'FIELD'
+                );
+            }
+            
+            if (isset($reflectedIn['UF'])) {
+                
+                if (is_array($reflectedIn['UF'])) {
+                    $reflectedIn['UF']['XML_ID'] = $externalCode;
+                    $reflectedIn['UF']['ENTITY_ID'] = 'USER';
+
+                    if ($this->addUserField($reflectedIn['UF']))
+                    {
+                        $type = 'StringType';
+
+                        switch ($reflectedIn['UF']['USER_TYPE_ID'])
+                        {
+                            case 'boolean':
+                                $type = 'BooleanType';
+                                break;
+                            case 'date':
+                                $type = 'DatetimeType';
+                                break;
+                            /**
+                             * @todo other types
+                             */
+                            default:
+                                break;
+                        }
+
+                        $this->addFieldsInitString(
+                            $fieldInitString, 
+                            $reflectedIn['UF']['FIELD_NAME'], 
+                            $externalCode, 
+                            $type, 
+                            'UF'
+                        );
+                    }
+                } else {
+                    $type = 'StringType';
+                    
+                    $this->addFieldsInitString(
+                        $fieldInitString, 
+                        $reflectedIn['UF'], 
+                        $externalCode, 
+                        $type, 
+                        'UF'
+                    );
+                }
+                
+            }
+            
+            if (isset($reflectedIn['METHOD'])) {
+                
+            }
+        }
+        
+        $fieldInitString .= "\t\t;\n";
+        
+        $repository
+            ->setFilename('ListslEmployees.php')
+            ->setToken('fields', $fieldInitString)
+            ->setToken('construct', $constructorAdditionals)
+            ->executeTemplate()
+        ;
+        
+        
+    }
+    
+    private function addUserField($ufArray)
+    {
+        global $DB;
+        
+        $newUserField = new CUserTypeEntity();
+        
+        $DB->StartTransaction();
+
+        $result = $newUserField->Add($ufArray);
+
+        if (!$result)
+        {
+            $DB->Rollback();
+            echo "\nERROR (addUserField) " . $newUserField->LAST_ERROR;
+            return false;
+        }
+        else
+        {
+            $DB->Commit();
+            return true;
+        }
+    }
+    
+    private function addFieldsInitString(
+        &$fieldInitString, 
+        $code, 
+        $xmlId, 
+        $type = 'StringType', 
+        $entity = 'FIELD'
+    ) {
+        $fieldInitString .= 
+            "\t\t\t->addField(\n" .
+            "\t\t\t\tnew Field(\n" . 
+            "\t\t\t\t\t'" . $code . "',\n" .
+            "\t\t\t\t\t'" . $xmlId . "',\n" . 
+            "\t\t\t\t\tType\\" . $type . "::class,\n" . 
+            "\t\t\t\t\t'" . $entity . "',\n" .
+            "\t\t\t\t)\n" . 
+            "\t\t\t)\n";
     }
 }

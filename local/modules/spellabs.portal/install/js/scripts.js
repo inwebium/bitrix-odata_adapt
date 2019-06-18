@@ -42,8 +42,7 @@ function rateListItem(listGuid, listItemId, rating) {
 }
 
 function getUserContext() {
-    return {};
-    return JSON.parse(JSON.stringify(_spPageContextInfo));
+    return JSON.parse(JSON.stringify(_bxPageContextInfo));
 }
 
 function fixRibbonAndWorkspaceDimensionsForResize() {

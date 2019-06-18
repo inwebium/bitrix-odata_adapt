@@ -4,6 +4,8 @@
 
 // Служебная часть пролога - без вывода (header.php), только события и т.п.
 require($_SERVER['DOCUMENT_ROOT'] . '/bitrix/modules/main/include/prolog_before.php');
+
+global $USER;
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"[]>
 <head runat="server">
@@ -36,8 +38,17 @@ require($_SERVER['DOCUMENT_ROOT'] . '/bitrix/modules/main/include/prolog_before.
         }
         //]]></style>
         <![endif]-->
-    <script type="text/javascript">//<![CDATA[
-      var g_pageLoadAnimationParams = { elementSlideIn: "sideNavBox", elementSlideInPhase2: "contentBox" };
+    <script type="text/javascript">
+        var _bxPageContextInfo = {
+            userId: <?=$USER->GetID();?>,
+            userLoginName: '<?=$USER->GetLogin();?>',
+            webServerRelativeUrl: '/',
+            isSiteAdmin: <?=$USER->IsAdmin();?>,
+            webTitle: "FOOBAR",
+            webAbsoluteUrl: 'http://test.bitrix.dev10.spellabs.com:8080/'
+        };
+        //<![CDATA[
+        var g_pageLoadAnimationParams = { elementSlideIn: "sideNavBox", elementSlideInPhase2: "contentBox" };
         //]]>
     </script>
 <?

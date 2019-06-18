@@ -1,0 +1,315 @@
+{
+    "Id": {
+        "FIELD": {
+            "FIELD_NAME": "ID",
+			"XML_ID": "Id",
+			"RETURNS": "Integer",
+            "FIELD_ENTITY": "FIELD"
+		}
+    },
+    "Title": {
+        "METHOD": "getFullName"
+    },
+    "slIndexNumber": {
+        "UF": {
+            "FIELD_NAME": "UF_SL_IS_EMERGENCY",
+            "USER_TYPE_ID": "string",
+            "SORT": 1,
+            "MULTIPLE": "N",
+            "MANDATORY": "N",
+            "SHOW_FILTER": "I",
+            "SHOW_IN_LIST": "Y",
+            "EDIT_IN_LIST": "Y",
+            "IS_SEARCHABLE": "Y",
+            "SETTINGS": {
+                "DEFAULT_VALUE": "",
+                "SIZE": 20,
+                "ROWS": 1,
+                "MIN_LENGTH": 0,
+                "MAX_LENGTH": 0,
+                "REGEXP": ""
+            },
+            "EDIT_FORM_LABEL": {
+                "ru": "slIndexNumber",
+                "en": "slIndexNumber"
+            },
+            "LIST_COLUMN_LABEL": {
+                "ru": "slIndexNumber",
+                "en": "slIndexNumber"      
+            },
+            "LIST_FILTER_LABEL": {
+                "ru": "slIndexNumber",
+                "en": "slIndexNumber"
+            },
+            "ERROR_MESSAGE": {
+                "ru": "Error slIndexNumber",
+                "en": "Error slIndexNumber"
+            },
+            "HELP_MESSAGE": {
+                "ru": "",
+                "en": ""
+            }
+        }
+    },
+    "slLookupDepartment": {
+
+    },
+    "slTabNumber": {
+
+    },
+    "slLogin": {
+        "FIELD": {
+            "FIELD_NAME": "LOGIN",
+			"XML_ID": "slLogin",
+			"RETURNS": "String",
+            "FIELD_ENTITY": "FIELD"
+		}
+    },
+    "slFirstName": {
+        "FIELD": {
+            "FIELD_NAME": "NAME",
+			"XML_ID": "slFirstName",
+			"RETURNS": "String",
+            "FIELD_ENTITY": "FIELD"
+		}
+    },
+    "slLastName": {
+        "FIELD": {
+            "FIELD_NAME": "LAST_NAME",
+			"XML_ID": "slLastName",
+			"RETURNS": "String",
+            "FIELD_ENTITY": "FIELD"
+		}
+    },
+    "slFatherName": {
+        "FIELD": {
+            "FIELD_NAME": "SECOND_NAME",
+			"XML_ID": "slFatherName",
+			"RETURNS": "String",
+            "FIELD_ENTITY": "FIELD"
+		}
+    },
+    "slPositionName": {
+
+    },
+    "slParentPositionName": {
+
+    },
+    "slPositionId": {
+
+    },
+    "slParentPositionId": {
+
+    },
+    "slDepartmentCode": {
+
+    },
+    "slRootDepartmentId": {
+
+    },
+    "slRootLookupDepartment": {
+
+    },
+    "slRootDepartmentImage": {
+
+    },
+    "slEmail": {
+        "FIELD": {
+            "FIELD_NAME": "EMAIL",
+			"XML_ID": "slEmail",
+			"RETURNS": "String",
+            "FIELD_ENTITY": "FIELD"
+		}
+    },
+    "slPhoneInternal": {
+        "UF": "UF_PHONE_INNER"
+    },
+    "slMobile": {
+        "FIELD": {
+            "FIELD_NAME": "PERSONAL_MOBILE",
+			"XML_ID": "slMobile",
+			"RETURNS": "String",
+            "FIELD_ENTITY": "FIELD"
+		}
+    },
+    "slBirthdayMonth": {
+        "METHOD": "getBirthdayMonth"
+    },
+    "slBirthdayDay": {
+        "METHOD": "getBirthdayDay"
+    },
+    "slCity": {
+        "FIELD": {
+            "FIELD_NAME": "WORK_CITY",
+			"XML_ID": "slCity",
+			"RETURNS": "String",
+            "FIELD_ENTITY": "FIELD"
+		}
+    },
+    "slOfficeNumber": {
+
+    },
+    "slStartWorkDate": {
+        "UF": {
+            "FIELD_NAME": "UF_SL_WORK_START",
+            "USER_TYPE_ID": "date",
+            "SORT": 110,
+            "MULTIPLE": "N",
+            "MANDATORY": "N",
+            "SHOW_FILTER": "I",
+            "SHOW_IN_LIST": "Y",
+            "EDIT_IN_LIST": "Y",
+            "IS_SEARCHABLE": "Y",
+            "SETTINGS": {
+                "DEFAULT_VALUE": {
+                    "TYPE": "NONE"
+                }
+            },
+            "EDIT_FORM_LABEL": {
+                "ru": "slStartWorkDate",
+                "en": "slStartWorkDate"
+            },
+            "LIST_COLUMN_LABEL": {
+                "ru": "slStartWorkDate",
+                "en": "slStartWorkDate"      
+            },
+            "LIST_FILTER_LABEL": {
+                "ru": "slStartWorkDate",
+                "en": "slStartWorkDate"
+            },
+            "ERROR_MESSAGE": {
+                "ru": "Error slStartWorkDate",
+                "en": "Error slStartWorkDate"
+            },
+            "HELP_MESSAGE": {
+                "ru": "",
+                "en": ""
+            }
+        }
+    },
+    "slEndWorkDate": {
+        "UF": {
+            "FIELD_NAME": "UF_SL_WORK_END",
+            "USER_TYPE_ID": "date",
+            "SORT": 120,
+            "MULTIPLE": "N",
+            "MANDATORY": "N",
+            "SHOW_FILTER": "I",
+            "SHOW_IN_LIST": "Y",
+            "EDIT_IN_LIST": "Y",
+            "IS_SEARCHABLE": "Y",
+            "SETTINGS": {
+                "DEFAULT_VALUE": {
+                    "TYPE": "NONE"
+                }
+            },
+            "EDIT_FORM_LABEL": {
+                "ru": "slEndWorkDate",
+                "en": "slEndWorkDate"
+            },
+            "LIST_COLUMN_LABEL": {
+                "ru": "slEndWorkDate",
+                "en": "slEndWorkDate"      
+            },
+            "LIST_FILTER_LABEL": {
+                "ru": "slEndWorkDate",
+                "en": "slEndWorkDate"
+            },
+            "ERROR_MESSAGE": {
+                "ru": "Error slEndWorkDate",
+                "en": "Error slEndWorkDate"
+            },
+            "HELP_MESSAGE": {
+                "ru": "",
+                "en": ""
+            }
+        }
+    },
+    "slManagerEmployeeId": {
+
+    },
+    "slDeputyEmployeeId": {
+
+    },
+    "slLookupDeputy": {
+
+    },
+    "slLookupManager": {
+
+    },
+    "slSecretaryEmployeeId": {
+
+    },
+    "slLookupSecretary": {
+
+    },
+    "slAddress": {
+
+    },
+    "slIsManager": {
+
+    },
+    "slStructureIds": {
+
+    },
+    "slStructureTitles": {
+
+    },
+    "LikedBy": {
+
+    },
+    "slFullName": {
+        "METHOD": {
+            "NAME": "getFullName",
+            "PARAMS": []
+        }
+    },
+    "slIsEmergency": {
+        "UF": {
+            "FIELD_NAME": "UF_SL_IS_EMERGENCY",
+            "USER_TYPE_ID": "boolean",
+            "SORT": 10,
+            "MULTIPLE": "N",
+            "MANDATORY": "N",
+            "SHOW_FILTER": "I",
+            "SHOW_IN_LIST": "Y",
+            "EDIT_IN_LIST": "Y",
+            "IS_SEARCHABLE": "Y",
+            "SETTINGS": {
+                "LABEL": [
+                    "нет",
+                    "да"
+                ],
+                "DEFAULT_VALUE": 0,
+                "DISPLAY": "CHECKBOX",
+                "LABEL_CHECKBOX": "да"
+            },
+            "EDIT_FORM_LABEL": {
+                "ru": "slIsEmergency",
+                "en": "slIsEmergency"
+            },
+            "LIST_COLUMN_LABEL": {
+                "ru": "slIsEmergency",
+                "en": "slIsEmergency"      
+            },
+            "LIST_FILTER_LABEL": {
+                "ru": "slIsEmergency",
+                "en": "slIsEmergency"
+            },
+            "ERROR_MESSAGE": {
+                "ru": "Error slIsEmergency",
+                "en": "Error slIsEmergency"
+            },
+            "HELP_MESSAGE": {
+                "ru": "",
+                "en": ""
+            }
+        }
+    },
+    "slReason": {
+
+    },
+    "slCompany": {
+
+    }
+}

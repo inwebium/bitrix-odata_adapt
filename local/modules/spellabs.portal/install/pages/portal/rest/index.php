@@ -163,7 +163,7 @@ $responseHandler = new ResponseHandler(['Content-Type' => 'application/json; cha
 
 $className = get_class($requestHandler->getRequestObject());
     
-$associations = $className::$propertiesAssoc + $className::$fieldsAssoc;
+$associations = $requestHandler->getRequestObject()->getFieldsAssociations();
 
 $responseHandler->getBodyHandler()->setAssociations($associations)->setBody($arResult);
 

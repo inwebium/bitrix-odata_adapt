@@ -115,7 +115,6 @@ class Field
         $this->bitrixEntity = $bitrixEntity;
         return $this;
     }
-
         
     /**
      * Вернет массив вида [XML_ID => CODE]
