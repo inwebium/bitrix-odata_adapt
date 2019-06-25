@@ -123,13 +123,7 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
     {
         $payload = $this->getRequestParameters()->getPayload();
         
-        //$elementFields = [];
         $elementFields = $payload;
-        
-        /*foreach ($arPayload as $fieldCode => $fieldValue)
-        {
-            $elementFields[$fieldCode] = $fieldValue;
-        }*/
         
         $elementId = false;
         
@@ -187,7 +181,6 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         var_dump($arSelect);
         die();*/
         $resource = \CIBlockElement::GetList($arOrder, $arFilter, $arGroup, $arNav, $arSelect);
-
         $arElements = [];
 
         while($element = $resource->GetNext())
@@ -202,8 +195,7 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         } else {
             $result = $arElements[0];
         }
-        /*var_dump($result);
-        die();*/
+
         return $result;
     }
     
@@ -220,9 +212,6 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         $iblockElement = new \CIBlockElement;
         
         $arPayload = $this->getRequestParameters()->getPayload();
-        
-        //$elementFields = [];
-        
         $elementFields = $arPayload;
         
         /*foreach ($arPayload as $fieldCode => $fieldValue)
@@ -379,32 +368,24 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
 
             }
         }
-        
-        //if ($fieldCode == 'slNewsRubricLookup') {
-            
-        
+
         $arFilter = $this->replaceExpandedFieldsRecursive(
             $this->getRequestParameters()->getFilter(), 
             $fieldCode
         );
-        //var_dump($arFilter);
+
         $this->getRequestParameters()->setFilter($arFilter);
-        //}
     }
     
     protected function replaceExpandedFieldsRecursive($array, $fieldCode) {
         $result = [];
-        //echo "\nreplaceExpandedFieldsRecursive \n";
-        foreach ($array as $key => $value)
-        {
+        
+        foreach ($array as $key => $value) {
             if (strpos($key, $fieldCode . '/') !== false) {
                 $classForExpand = "Spellabs\\Portal\\Rest\\Repository\\Fields\\" . $fieldCode;
 
                 if (class_exists($classForExpand)) {
-                    //echo "\nfound class $classForExpand\n";
                     $objectToExpand = new $classForExpand();
-                    //echo "\nexploded key part " . explode('/', $key)[1] . "\n";
-                    //var_dump($objectToExpand->getFieldsAssoc());
                     $key = 'PROPERTY_' . 
                         $objectToExpand->getPropertyCode() . 
                         '.' . 
@@ -416,16 +397,13 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
                 }
             }
             
-            //echo "\nkey $key\n";
-            
             if (is_array($value)) {
                 $result[$key] = $this->replaceExpandedFieldsRecursive($value, $fieldCode);
             } else {
                 $result[$key] = $value;
             }
         }
-        //echo "\nreplaceExpandedFieldsRecursive END\n";
-        //var_dump($result);
+        
         return $result;
     }
     
@@ -436,31 +414,24 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
     
     protected function setExpandedValues($array)
     {
-        //var_dump($array);
         foreach ($array as $key => $value) {
             foreach ($value as $fieldCode => $fieldArray) {
                 $this->expandedValues[$key][$fieldCode] = $fieldArray;
             }
             
         }
-        //var_dump($this->expandedValues);
-        //die();
+        
         return $this;
     }
     
     protected function placeExpandedValues(&$element)
     {
-        //var_dump("\nplaceExpandedValues\n");
-        //var_dump($this->getExpandedValues());
         if (isset($this->getExpandedValues()[$element['ID']])) {
-            //var_dump($this->getExpandedValues()[$element['ID']]);
             
-            foreach ($this->getExpandedValues()[$element['ID']] as $propertyCode => $arValue)
-            {
+            foreach ($this->getExpandedValues()[$element['ID']] as $propertyCode => $arValue) {
                 $element[$propertyCode] = $arValue;
             }
         }
-        //die();
     }
     
     /**
@@ -590,16 +561,14 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
             $arPropsCodes['PROPERTY_' . $value . '_VALUE'] = $value;
         }
         
-        foreach ($arResult as $key => $value)
-        {
-            
+        foreach ($arResult as $key => $value) {
             if (in_array($key, array_keys($arPropsCodes))) {
                 $newCode = $arPropsCodes[$key];
                 $arResult[$newCode] = $value;
                 unset($arResult[$key]);
                 $key = $newCode;
             }
-            
+
             $arResult[$key] = $this->getFieldsCollection()->getField($key)->handleValue($value);
         }
     }

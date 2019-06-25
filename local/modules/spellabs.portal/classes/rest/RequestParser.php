@@ -7,8 +7,6 @@ class RequestParser
     private $requestMethod;
     /** @var array */
     private $requestParams;
-    /** @var array */
-    //private $associations;
     
     public function __construct(RequestRouter $requestRouter)
     {
@@ -23,35 +21,18 @@ class RequestParser
                 $this->requestParams[$key] = $value;
             }
         }
-        
-        //$className = "Spellabs\\Portal\\Rest\\Repository\\" . $requestRouter->getClassName();
-        //$this->associations  = $className::$propertiesAssoc + $className::$fieldsAssoc;
     }
     
     public function parseSelect()
     {
         $result = false;
         
-        if ($this->isParamSet('select'))
-        {
+        if ($this->isParamSet('select')) {
             $result = explode(',', $this->requestParams['select']);
-            
-            /*foreach ($result as $key => $fieldName)
-            {
-                $result[$key] = AssociativeReplacer::replace($fieldName, $this->associations);
-            }*/
         }
         
         return $result;
     }
-    
-    /*public function adaptSelect()
-    {
-        foreach ($this-> as $key => $value)
-        {
-            
-        }
-    }*/
     
     /**
      * Вызывает парсер скобок и фильтра. Возвращает подготовленный под битрикс
@@ -83,11 +64,8 @@ class RequestParser
             
             $arOrders = explode(',', $this->requestParams['order']);
             
-            foreach ($arOrders as $num => $orderDefinition)
-            {
+            foreach ($arOrders as $num => $orderDefinition) {
                 $arOrderDefinition = explode('=', $orderDefinition);
-                
-                //$result[AssociativeReplacer::replace($arOrderDefinition[0], $this->associations)] = $arOrderDefinition[1];
                 $result[$arOrderDefinition[0]] = $arOrderDefinition[1];
             }
         }
@@ -104,13 +82,10 @@ class RequestParser
     {
         $result = false;
         
-        if ($this->isParamSet('expand'))
-        {
+        if ($this->isParamSet('expand')) {
             $result = explode(',', $this->requestParams['expand']);
             
-            foreach ($result as $key => $fieldName)
-            {
-                //$result[$key] = AssociativeReplacer::replace($fieldName, $this->associations);
+            foreach ($result as $key => $fieldName) {
                 $result[$key] = $fieldName;
             }
         }
@@ -122,8 +97,7 @@ class RequestParser
     {
         $result = false;
         
-        if ($this->isParamSet('top'))
-        {
+        if ($this->isParamSet('top')) {
             $result = ['nTopCount' => intval($this->requestParams['top'])];
         }
         
@@ -134,8 +108,7 @@ class RequestParser
     {
         $result = false;
         
-        if (isset($this->requestParams[$paramName]) && strlen($this->requestParams[$paramName]) > 0)
-        {
+        if (isset($this->requestParams[$paramName]) && strlen($this->requestParams[$paramName]) > 0) {
             $result = true;
         }
         
@@ -159,10 +132,5 @@ class RequestParser
         echo "\n";*/
         
         return $result;
-    }
-    
-    private function associativeReplace($fieldName)
-    {
-        AssociativeReplacer::replace($fieldName, $this->associations);
     }
 }

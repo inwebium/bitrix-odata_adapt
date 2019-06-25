@@ -97,6 +97,14 @@ class IblockUtils
         return self::getIblockBy('XML_ID', $xmlIdValue);
     }
     
+    /**
+     * Получить первый элемент инфоблока по фильтру $elementFilter выбирая поля 
+     * $elementSelect
+     * 
+     * @param array $elementFilter
+     * @param array $elementSelect
+     * @return array|boolean
+     */
     public static function getElement(
         $elementFilter = [], 
         $elementSelect = ['IBLOCK_ID', 'ID', 'NAME']
@@ -119,6 +127,14 @@ class IblockUtils
         }
     }
     
+    /**
+     * Получить элементы инфоблока по фильтру $elementFilter выбирая поля 
+     * $elementSelect
+     * 
+     * @param array $elementFilter
+     * @param array $elementSelect
+     * @return array|boolean
+     */
     public static function getElements(
         $elementFilter = [], 
         $elementSelect = ['IBLOCK_ID', 'ID', 'NAME']
@@ -141,12 +157,12 @@ class IblockUtils
     }
     
     /**
-     * Получить раздел
+     * Получить раздел инфоблока
      * 
      * @param string $fieldName
      * @param type $fieldValue
      * @param int $iblockId
-     * @return boolean
+     * @return array|boolean
      */
     public static function getSection(
         $sectionFilter = [], 

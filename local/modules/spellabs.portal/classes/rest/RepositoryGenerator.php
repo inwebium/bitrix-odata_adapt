@@ -1,6 +1,9 @@
 <?php
 namespace Spellabs\Portal\Rest;
 
+/**
+ * Шаблонизатор для генерации rest-репозитория
+ */
 class RepositoryGenerator
 {
     private $templateName;
@@ -125,9 +128,11 @@ class RepositoryGenerator
     }
 
     /**
+     * Насильственная запись в файл. Создаст все недостающие каталоги до имени
+     * записываемого файла
      * 
-     * @param string $fullPathWithFileName
-     * @param string $fileContents
+     * @param string $fullPathWithFileName Полный путь к файлу
+     * @param string $fileContents Содержимое файла для записи
      */
     private function forceFilePutContents($fullPathWithFileName, $fileContents)
     {

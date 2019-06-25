@@ -23,7 +23,11 @@ class Field
      * @var TypeInterface Description
      */
     private $type;
-    
+    /**
+     * Представление поля в битриксе. UF - пользовательское поле, FIELD - поле
+     * (e.g. ID у элементов инфоблока), PROPERTY - свойство элементов инфоблока
+     * @var string 
+     */
     private $bitrixEntity;
     
     /**
@@ -63,7 +67,11 @@ class Field
     {
         return $this->xmlId;
     }
-
+    
+    /**
+     * type getter 
+     * @return string
+     */
     public function getType()
     {
         return $this->type;
@@ -127,7 +135,13 @@ class Field
         return [$this->getXmlId() => $this->getCode()];
     }
     
-    
+    /**
+     * Обработать значение на выдачу. Вызывает метод parseValue у типа этого 
+     * поля.
+     * 
+     * @param type $value
+     * @return type
+     */
     public function handleValue($value)
     {
         return $this->type::parseValue($value);

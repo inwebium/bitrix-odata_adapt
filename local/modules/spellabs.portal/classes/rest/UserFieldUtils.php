@@ -1,9 +1,13 @@
 <?php
 namespace Spellabs\Portal\Rest;
 
+/**
+ * Обертки для работы с пользовательскими полями
+ */
 class UserFieldUtils
 {
     /**
+     * Изменить значение пользовательского свойства
      * 
      * @global \CUserTypeManager $USER_FIELD_MANAGER
      * @param string $entity
@@ -37,6 +41,13 @@ class UserFieldUtils
         return $result;
     }
     
+    /**
+     * Получить значения пользовательского поля типа список
+     * 
+     * @param type $filter
+     * @param type $sort
+     * @return type
+     */
     public static function getListValues($filter, $sort)
     {
         $result = [];
@@ -52,6 +63,13 @@ class UserFieldUtils
         return $result;
     }
     
+    /**
+     * Добавить значение в пользовательское поле типа список
+     * 
+     * @global \CUserTypeManager $USER_FIELD_MANAGER
+     * @param type $value
+     * @param type $isDefault
+     */
     public static function addListValue($value, $isDefault)
     {
         global $USER_FIELD_MANAGER;
@@ -75,20 +93,10 @@ class UserFieldUtils
         
         $enumUf = new \CUserFieldEnum();
         $enumUf->SetEnumValues($newID, $arAddEnum);
-
-        //мы передаем массив, который состоит из таких элементов (наличие n в ключе обязательно)
-        $arAddEnum['n'.$i] = array(
-              'XML_ID' => $key,
-              'VALUE' => $value,
-              'DEF' => 'N',
-              'SORT' => $i*10
-           );
     }
     
     public static function updateFiled()
     {
         
     }
-    
-    
 }

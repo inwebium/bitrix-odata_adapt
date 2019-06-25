@@ -6,6 +6,9 @@ namespace Spellabs\Portal\Rest;
  */
 class FilterValueFactory
 {
+    /**
+     * @var array 
+     */
     private $types = [
         'EnumerationFilterValue' => [
             'pattern' => "/\(.+\)/",

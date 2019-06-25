@@ -41,8 +41,7 @@ class FieldsCollection implements \Iterator
     {
         $this->fields = [];
         
-        foreach ($fields as $key => $field)
-        {
+        foreach ($fields as $key => $field) {
             if ($field instanceof Field) {
                 $this->addField($field);
             }
@@ -80,12 +79,18 @@ class FieldsCollection implements \Iterator
         
     }
     
+    /**
+     * Возвращает объект FieldsCollection содержащий объекты полей у которых 
+     * представление в битриксе (UF, FIELD, PROPERTY) = $entityName
+     * 
+     * @param string $entityName
+     * @return \Spellabs\Portal\Rest\FieldsCollection
+     */
     public function getFieldsByEntity($entityName)
     {
         $result = new FieldsCollection();
         
-        foreach ($this->fields as $code => $field)
-        {
+        foreach ($this->fields as $code => $field) {
             if ($field->getBitrixEntity() == $entityName) {
                 $result->addField($field);
             }    

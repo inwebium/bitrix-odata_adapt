@@ -2,7 +2,10 @@
 namespace Spellabs\Portal\Rest;
 
 /**
- * Класс параметров запроса (select, filter, top ...)
+ * Класс параметров запроса (select, filter, top ...). Предоставляет функционал
+ * для чтения/записи парметров, а так же добавление/замена для некоторых 
+ * параметров и адаптация пришедших названий полей из rest под битриксовые 
+ * аналоги.
  */
 class RequestParameters
 {
@@ -13,6 +16,12 @@ class RequestParameters
     private $top;
     private $payload;
     
+    /**
+     * Принимает на вход парсер запроса и через него заполняет свои свойства,
+     * хранящие select, filter...
+     * 
+     * @param \Spellabs\Portal\Rest\RequestParser $requestParser
+     */
     public function __construct(RequestParser $requestParser)
     {
         $this
@@ -170,9 +179,7 @@ class RequestParameters
         
         $this->setSelect($adapted);
         $adapted = [];
-        //var_dump($this->filter);
         $this->recursiveAssocReplace($this->filter, $fieldsReplace);
-        //var_dump($this->filter);
         foreach ($this->order as $key => $orderDefinition)
         {
             $adapted[AssociativeReplacer::replace($key, $fieldsReplace)] = $orderDefinition;
@@ -202,9 +209,8 @@ class RequestParameters
     }
     
     /**
-     * DEPRECATED
+     * @deprecated
      */
-        
     public function associativeReplace($fieldsAssoc = [], $propertiesAssoc = [])
     {
         $association = $fieldsAssoc + $propertiesAssoc;
@@ -222,6 +228,9 @@ class RequestParameters
         return $this;
     }
     
+    /**
+     * @deprecated
+     */
     private function assocFieldsReplace($fieldsAssoc)
     {
         foreach ($this->select as $key => $value)
@@ -234,11 +243,17 @@ class RequestParameters
         return $this;
     }
     
+    /**
+     * @deprecated
+     */
     private function assocPropertiesReplace($propertiesAssoc)
     {
         return $this;
     }
     
+    /**
+     * @deprecated
+     */
     private function assocFilterReplace(&$filter, $fieldsAssoc, $propertiesAssoc)
     {
         foreach ($filter as $key => $value)

@@ -1,6 +1,10 @@
 <?php
 namespace Spellabs\Portal\Rest;
 
+/**
+ * Предоставляет методы для преобразования фильтра из формата OData и 
+ * дальнейшего преобразования в массив формата фильтров в битриксе
+ */
 class RequestFilterParser
 {
     private $associations;
@@ -29,32 +33,21 @@ class RequestFilterParser
             }
             else
             {
-                /*echo "\nparseNodes\n";
-                var_dump($child);
-                echo "\n----------\n";*/
-                //$pattern = "/(([\w]+)\[(\w{2})\]=(\d+|'[^']+'|\w+))|(,|;|$)/";
                 $pattern = "/(([\w\/]+)\[(\w{2})\]=(\d+|'[^']+'|\w+\s?(?:'[^']+')?|\(.*?\)))|(,|;|$)/";
                 $matches = [];
                 preg_match_all($pattern, $child, $matches, PREG_SET_ORDER);
-                /*echo "\nparseNodes matches\n";
-                var_dump($matches);
-                echo "\n----------\n";*/
-                foreach ($matches as $matchKey => $arMatch)
-                {
+                
+                foreach ($matches as $matchKey => $arMatch) {
                     if (strpos($arMatch, 'LikedBy') !== false) {
                         continue;
                     }
                     $arNode = [];
 
-                    if (count($arMatch) == 5 && !empty($arMatch[0]))
-                    {
+                    if (count($arMatch) == 5 && !empty($arMatch[0])) {
                         $filterValue = $valueFactory->instatiateFilterValue($arMatch[4]);
-                        
                         $arMatch[4] = $filterValue->getProcessedValue();
-
                         $arNode = [
                             'string' => $arMatch[1],
-                            //'field' => AssociativeReplacer::replace($arMatch[2], $this->associations),
                             'field' => $arMatch[2],
                             'comparison' => $arMatch[3],
                             'value' => $arMatch[4],

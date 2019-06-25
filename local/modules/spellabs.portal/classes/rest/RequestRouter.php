@@ -1,6 +1,10 @@
 <?php
 namespace Spellabs\Portal\Rest;
 
+/**
+ * Класс работает с URI и определяет какой объект из репозитория и его метод 
+ * запрошены
+ */
 class RequestRouter
 {
     /** @var string */
@@ -123,7 +127,7 @@ class RequestRouter
      * исключительным методом. Иначе вернется метод по методу запроса 
      * (get, post...).
      * 
-     * @return mixed
+     * @return string|boolean
      */
     public function getClassMethodName()
     {
@@ -141,7 +145,7 @@ class RequestRouter
      * например ListslEmployees->getCurrent(), то вернет название метода.
      * Иначе false
      * 
-     * @return type
+     * @return string|boolean
      */
     private function getExceptionalMethod()
     {
@@ -188,7 +192,8 @@ class RequestRouter
     
     /**
      * 
-     * @return boolean
+     * 
+     * @return string
      */
     private function parseUri()
     {
@@ -232,6 +237,14 @@ class RequestRouter
         return $className;
     }
     
+    /**
+     * Возвращает внешний код запрошенного инфоблока через rest, например:
+     * .../lists/getByTitle('Новости') возвращает XML_ID инфоблока у которого
+     * NAME = Новости
+     * 
+     * @param type $uriPart
+     * @return type
+     */
     private function getByTitle($uriPart)
     {
         $pattern = "/(\w+)\('([\w\d\s\-%]+)'\)/";
@@ -257,7 +270,7 @@ class RequestRouter
         
         return $iblock['XML_ID'];
     }
-    
+
     private function getByXmlId($uriPart)
     {
         return $uriPart;

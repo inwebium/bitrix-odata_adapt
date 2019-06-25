@@ -25,8 +25,7 @@ class ParenthesesParser
      */
     public function parse($string)
     {
-        if (!$string) 
-        {
+        if (!$string) {
             return array();
         }
         
@@ -40,8 +39,7 @@ class ParenthesesParser
         $this->string = $string;
         $this->length = strlen($this->string);
         
-        for ($this->position=0; $this->position < $this->length; $this->position++) 
-        {
+        for ($this->position=0; $this->position < $this->length; $this->position++) {
             switch ($this->string[$this->position]) 
             {
                 case '(':
@@ -61,8 +59,7 @@ class ParenthesesParser
                     break;
                 */
                 default:
-                    if ($this->buffer_start === null)
-                    {
+                    if ($this->buffer_start === null) {
                         $this->buffer_start = $this->position;
                     }
             }

@@ -1,6 +1,17 @@
 <?php
 namespace Spellabs\Portal\Rest;
 
+/**
+ * Обработчик запроса. В конструкторе создаст маршрутизатор, парсер, 
+ * параметры запроса. Так же порождает вызванные по rest объект и вызывает его 
+ * метод. По сути через него делается вся работа по получению результата для 
+ * запроса, например:
+ * ```
+ * <?php
+ * $requestHandler = new RequestHandler('/_api/web/');
+ * $arResult = $requestHandler->instantiateRequestClass()->callRequestMethod();
+ * ```
+ */
 class RequestHandler
 {
     /** @var RequestParser */
