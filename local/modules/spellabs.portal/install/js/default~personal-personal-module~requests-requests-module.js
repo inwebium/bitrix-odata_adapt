@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n  <div class=\"l-requests__empty\" *ngIf=\"requests == null || requests.length === 0\">\n    <div class=\"text\">\n      В настоящий момент у Вас нет ни одной активной заявки. <br>\n      Для создания активной заявки нажмите кнопку «Подать заявку»\n    </div>\n  </div>\n  <div class=\"l-requests__table\" *ngIf=\"requests && requests.length > 0\">\n    <table>\n      <tr class=\"l-requests-table__header\">\n        <th (click)=\"sortByType()\">\n          Тип заявки\n        </th>\n        <th (click)=\"sortById()\" class=\"sort\" [ngClass]=\"{'top' : sortField === 'Id' && sortOrder}\">\n          № заявки\n        </th>\n        <th (click)=\"sortByCreated()\">Дата отправки</th>\n        <th colspan=\"3\">\n          Статус\n        </th>\n      </tr>\n      <tr class=\"l-requests-table__item\" *ngFor=\"let item of requests\" (click)=\"goTo(item)\">\n        <td>\n          {{item.type}}\n        </td>\n        <td>\n          {{item.id}}\n        </td>\n        <td>\n          {{item.date}}\n        </td>\n        <td [ngClass]=\"{'status': true, 'approved' : item.statusCode === 'APPROVE', 'refused': item.statusCode === 'REJECT'}\">\n            {{item.statusTitle || 'На согласовании'}}\n            <i (click)=\"toggleInfo($event, infoRef)\" #infoRef class=\"icon-info\" *ngIf=\"item.statusCode === 'REJECT'\">\n              i\n              <div class=\"refuse-reason\">\n                <div class=\"title\">Причина отказа</div>\n                <div class=\"close\" (click)=\"toggleInfo($event, infoRef, true)\"></div>\n                <div class=\"text\">\n                  {{item.reason}}\n                </div>\n              </div>\n            </i>\n          </td>\n        <td class=\"controls\">\n          <div class=\"control\" (click)=\"$event.stopPropagation(); copy(item)\">\n            <input type=\"button\" class=\"btn-view\">\n          </div>\n        </td>\n      </tr>\n    </table>\n    <div class=\"l-requests__navigation\">\n      <input type=\"button\" value=\"В начало\" class=\"go-to-start\" (click)=\"hasPrev && load()\" [class.disabled]=\"!hasPrev\" />\n      <input type=\"button\" class=\"go-to-left\" (click)=\"getPrev()\" [class.disabled]=\"!hasPrev\" />\n      <input type=\"button\" class=\"go-to-right\" (click)=\"getNext()\" [class.disabled]=\"!hasNext\" />\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div>\n  <div class=\"l-requests__empty\" *ngIf=\"requests == null || requests.length === 0\">\n    <div class=\"text\">\n      В настоящий момент у Вас нет ни одной активной заявки. <br>\n      Для создания активной заявки нажмите кнопку «Подать заявку»\n    </div>\n  </div>\n  <div class=\"l-requests__table\" *ngIf=\"requests && requests.length > 0\">\n    <table>\n      <tr class=\"l-requests-table__header\">\n        <th (click)=\"sortByType()\">\n          Тип заявки\n        </th>\n        <th (click)=\"sortById()\" class=\"sort\" [ngClass]=\"{'top' : sortField === 'Id' && sortOrder}\">\n          № заявки\n        </th>\n        <th (click)=\"sortByCreated()\">Дата отправки</th>\n        <th colspan=\"3\">\n          Статус\n        </th>\n      </tr>\n      <tr class=\"l-requests-table__item\" *ngFor=\"let item of requests\" (click)=\"goTo(item)\">\n        <td>\n          {{item.type}}\n        </td>\n        <td>\n          {{item.id}}\n        </td>\n        <td>\n          {{item.date}}\n        </td>\n        <td [ngClass]=\"{'status': true, 'approved' : item.statusCode === 'APPROVE', 'refused': item.statusCode === 'REJECT'}\">\n            {{item.statusTitle || 'На согласовании'}}\n            <i (click)=\"toggleInfo($event, infoRef)\" #infoRef class=\"icon-info\" *ngIf=\"item.statusCode === 'REJECT'\">\n              i\n              <div class=\"refuse-reason\">\n                <div class=\"title\">Причина отказа</div>\n                <div class=\"close\" (click)=\"toggleInfo($event, infoRef, true)\"></div>\n                <div class=\"text\">\n                  {{item.reason}}\n                </div>\n              </div>\n            </i>\n          </td>\n        <td class=\"controls\">\n          <div class=\"control\" (click)=\"$event.stopPropagation(); copy(item)\">\n            <input type=\"button\" class=\"btn-view\">\n          </div>\n        </td>\n      </tr>\n    </table>\n    <div class=\"l-requests__navigation\">\n      <input type=\"button\" value=\"В начало\" class=\"go-to-start\" (click)=\"hasPrev && load()\" [class.disabled]=\"!hasPrev\" />\n      <input type=\"button\" class=\"go-to-left\" (click)=\"hasPrev && getPrev()\" [class.disabled]=\"!hasPrev\" />\n      <input type=\"button\" class=\"go-to-right\" (click)=\"hasNext && getNext()\" [class.disabled]=\"!hasNext\" />\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -18,7 +18,7 @@ module.exports = "<div>\n  <div class=\"l-requests__empty\" *ngIf=\"requests == 
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.l-requests__empty {\n  position: relative;\n  min-height: 550px;\n  background-image: url(/assets/banners/translom-empty.svg);\n  background-position: right bottom;\n  background-size: 500px 500px;\n  background-repeat: no-repeat;\n  box-sizing: border-box; }\n\n.l-requests__empty .text {\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    width: 35%;\n    font-size: 22px;\n    color: #05050571;\n    -webkit-transform: translate(-50%, -50%);\n        -ms-transform: translate(-50%, -50%);\n            transform: translate(-50%, -50%); }\n\n.l-requests__table {\n  position: relative;\n  padding-right: 45px;\n  padding-left: 26px; }\n\n.l-requests__table:before {\n    content: '';\n    position: absolute;\n    top: 25px;\n    left: 0;\n    width: 100%;\n    height: 1px;\n    background-color: #e4e4e4; }\n\n.l-requests__table table {\n    border-collapse: collapse;\n    width: 100%;\n    font-size: 16px;\n    color: #070606;\n    line-height: 19px; }\n\n.l-requests__table table .l-requests-table__header th {\n      cursor: pointer;\n      text-align: left;\n      box-sizing: border-box;\n      padding-bottom: 8px;\n      padding-left: 20px;\n      color: #768692; }\n\n.l-requests__table table .l-requests-table__header th.sort:after {\n        content: '';\n        width: 14px;\n        height: 14px;\n        background-image: url(/assets/icons/requests/icon-sort-gray.svg);\n        background-repeat: no-repeat;\n        background-size: cover;\n        display: inline-block; }\n\n.l-requests__table table .l-requests-table__header th.sort.top::after {\n        -webkit-transform: rotate(180deg);\n            -ms-transform: rotate(180deg);\n                transform: rotate(180deg); }\n\n.l-requests__table table .l-requests-table__item {\n      cursor: pointer; }\n\n.l-requests__table table .l-requests-table__item.no-status {\n        font-weight: 600; }\n\n.l-requests__table table .l-requests-table__item:nth-child(odd) {\n        background-color: #f7f7f7; }\n\n.l-requests__table table .l-requests-table__item td:first-child {\n        width: 20%; }\n\n.l-requests__table table .l-requests-table__item td {\n        position: relative;\n        width: 15%;\n        box-sizing: border-box;\n        padding-bottom: 23px;\n        padding-top: 23px;\n        padding-left: 20px;\n        border-bottom: 1px solid #e4e4e4; }\n\n.l-requests__table table .l-requests-table__item td.approved {\n          color: #078916; }\n\n.l-requests__table table .l-requests-table__item td.refused {\n          color: #ee2737; }\n\n.l-requests__table table .l-requests-table__item td.controls {\n          padding-bottom: 0px;\n          width: 240px;\n          padding-top: 0px; }\n\n.l-requests__table table .l-requests-table__item td.controls .control {\n            width: 40px;\n            height: 40px;\n            margin-right: 15px;\n            display: none; }\n\n.l-requests__table table .l-requests-table__item:hover {\n        background-color: #f7f7f7; }\n\n.l-requests__table table .l-requests-table__item:hover .controls .control {\n          display: inline-block; }\n\n.l-requests__table table.approve .btn-view {\n      display: none; }\n\n.l-requests__table table.view .btn-approve,\n    .l-requests__table table.view .btn-refuse {\n      display: none; }\n\n.btn-view,\n.btn-approve,\n.btn-refuse {\n  width: 40px;\n  height: 40px;\n  border-radius: 20px;\n  border: 0;\n  background-position: center;\n  background-size: cover;\n  background-repeat: no-repeat;\n  background-size: 20px 20px;\n  background-color: #ffffff !important; }\n\n.btn-view {\n  background-image: url(/assets/icons/icon-view-black.svg); }\n\n.btn-approve {\n  background-image: url(/assets/icons/icon-approve-black.svg); }\n\n.btn-refuse {\n  background-image: url(/assets/icons/icon-cross-black.svg); }\n\n.l-requests__navigation {\n  margin-top: 80px;\n  text-align: center; }\n\n.l-requests__navigation .go-to-start,\n  .l-requests__navigation .go-to-left,\n  .l-requests__navigation .go-to-right {\n    margin: 0;\n    padding: 0;\n    border: none;\n    min-width: 0;\n    vertical-align: middle;\n    cursor: pointer; }\n\n.l-requests__navigation .go-to-start {\n    color: #768692;\n    font-size: 18px;\n    background: none;\n    margin-right: 35px; }\n\n.l-requests__navigation .go-to-left,\n  .l-requests__navigation .go-to-right {\n    width: 50px;\n    height: 50px;\n    background-color: #768692;\n    background-size: 27px 27px;\n    background-repeat: no-repeat;\n    background-position: center;\n    background-image: url(/assets/icons/icon-arrow-right-white-thin.svg); }\n\n.l-requests__navigation .go-to-left {\n    -webkit-transform: rotate(180deg);\n        -ms-transform: rotate(180deg);\n            transform: rotate(180deg);\n    margin-right: 25px; }\n\n.l-requests__navigation .disabled {\n    opacity: 0.4; }\n\n.icon-info {\n  display: inline-block;\n  font-style: normal;\n  width: 20px;\n  height: 20px;\n  font-size: 14px;\n  line-height: 20px;\n  color: #fff;\n  background-color: #768692;\n  border-radius: 100%;\n  text-align: center;\n  margin-left: 20px;\n  position: relative;\n  cursor: pointer; }\n\n.refuse-reason {\n  display: none;\n  position: absolute;\n  top: 45px;\n  right: -40px;\n  width: 500px;\n  background-color: #768692;\n  color: #fff;\n  font-size: 16px;\n  padding: 20px;\n  padding-bottom: 35px;\n  box-sizing: border-box;\n  z-index: 10;\n  text-align: left; }\n\n.open .refuse-reason {\n    display: block; }\n\n.refuse-reason:before {\n    content: '';\n    position: absolute;\n    right: 30px;\n    top: -20px;\n    display: block;\n    width: 0;\n    height: 0;\n    border: 20px solid transparent;\n    border-bottom-color: #768692;\n    border-top: 0; }\n\n.refuse-reason .title {\n    display: inline-block;\n    font-weight: bold;\n    margin-bottom: 15px; }\n\n.refuse-reason .close {\n    width: 15px;\n    height: 15px;\n    background-image: url(/assets/icons/icon-close-gray-thin.svg);\n    background-repeat: no-repeat;\n    background-size: cover;\n    background-position: center;\n    float: right;\n    cursor: pointer; }\n"
+module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.l-requests__empty {\n  position: relative;\n  min-height: 550px;\n  background-image: url(/assets/banners/metalloinvest-empty.svg);\n  background-position: right bottom;\n  background-size: 500px 500px;\n  background-repeat: no-repeat;\n  box-sizing: border-box; }\n\n.l-requests__empty .text {\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    width: 35%;\n    font-size: 22px;\n    color: #05050571;\n    -webkit-transform: translate(-50%, -50%);\n        -ms-transform: translate(-50%, -50%);\n            transform: translate(-50%, -50%); }\n\n.l-requests__table {\n  position: relative;\n  padding-right: 45px;\n  padding-left: 26px; }\n\n.l-requests__table:before {\n    content: '';\n    position: absolute;\n    top: 25px;\n    left: 0;\n    width: 100%;\n    height: 1px;\n    background-color: #e4e4e4; }\n\n.l-requests__table table {\n    border-collapse: collapse;\n    width: 100%;\n    font-size: 16px;\n    color: #070606;\n    line-height: 19px; }\n\n.l-requests__table table .l-requests-table__header th {\n      cursor: pointer;\n      text-align: left;\n      box-sizing: border-box;\n      padding-bottom: 8px;\n      padding-left: 20px;\n      color: #768692; }\n\n.l-requests__table table .l-requests-table__header th.sort:after {\n        content: '';\n        width: 14px;\n        height: 14px;\n        background-image: url(/assets/icons/requests/icon-sort-gray.svg);\n        background-repeat: no-repeat;\n        background-size: cover;\n        display: inline-block; }\n\n.l-requests__table table .l-requests-table__header th.sort.top::after {\n        -webkit-transform: rotate(180deg);\n            -ms-transform: rotate(180deg);\n                transform: rotate(180deg); }\n\n.l-requests__table table .l-requests-table__item {\n      cursor: pointer; }\n\n.l-requests__table table .l-requests-table__item.no-status {\n        font-weight: 600; }\n\n.l-requests__table table .l-requests-table__item:nth-child(odd) {\n        background-color: #f7f7f7; }\n\n.l-requests__table table .l-requests-table__item td:first-child {\n        width: 20%; }\n\n.l-requests__table table .l-requests-table__item td {\n        position: relative;\n        width: 15%;\n        box-sizing: border-box;\n        padding-bottom: 23px;\n        padding-top: 23px;\n        padding-left: 20px;\n        border-bottom: 1px solid #e4e4e4; }\n\n.l-requests__table table .l-requests-table__item td.approved {\n          color: #078916; }\n\n.l-requests__table table .l-requests-table__item td.refused {\n          color: #ee2737; }\n\n.l-requests__table table .l-requests-table__item td.controls {\n          padding-bottom: 0px;\n          width: 240px;\n          padding-top: 0px; }\n\n.l-requests__table table .l-requests-table__item td.controls .control {\n            width: 40px;\n            height: 40px;\n            margin-right: 15px;\n            display: none; }\n\n.l-requests__table table .l-requests-table__item:hover {\n        background-color: #f7f7f7; }\n\n.l-requests__table table .l-requests-table__item:hover .controls .control {\n          display: inline-block; }\n\n.l-requests__table table.approve .btn-view {\n      display: none; }\n\n.l-requests__table table.view .btn-approve,\n    .l-requests__table table.view .btn-refuse {\n      display: none; }\n\n.btn-view,\n.btn-approve,\n.btn-refuse {\n  width: 40px;\n  height: 40px;\n  border-radius: 20px;\n  border: 0;\n  background-position: center;\n  background-size: cover;\n  background-repeat: no-repeat;\n  background-size: 20px 20px;\n  background-color: #ffffff !important; }\n\n.btn-view {\n  background-image: url(/assets/icons/icon-view-black.svg); }\n\n.btn-approve {\n  background-image: url(/assets/icons/icon-approve-black.svg); }\n\n.btn-refuse {\n  background-image: url(/assets/icons/icon-cross-black.svg); }\n\n.l-requests__navigation {\n  margin-top: 80px;\n  text-align: center; }\n\n.l-requests__navigation .go-to-start,\n  .l-requests__navigation .go-to-left,\n  .l-requests__navigation .go-to-right {\n    margin: 0;\n    padding: 0;\n    border: none;\n    min-width: 0;\n    vertical-align: middle;\n    cursor: pointer; }\n\n.l-requests__navigation .go-to-start {\n    color: #768692;\n    font-size: 18px;\n    background: none;\n    margin-right: 35px; }\n\n.l-requests__navigation .go-to-left,\n  .l-requests__navigation .go-to-right {\n    width: 50px;\n    height: 50px;\n    background-color: #768692;\n    background-size: 27px 27px;\n    background-repeat: no-repeat;\n    background-position: center;\n    background-image: url(/assets/icons/icon-arrow-right-white-thin.svg); }\n\n.l-requests__navigation .go-to-left {\n    -webkit-transform: rotate(180deg);\n        -ms-transform: rotate(180deg);\n            transform: rotate(180deg);\n    margin-right: 25px; }\n\n.l-requests__navigation .disabled {\n    opacity: 0.4; }\n\n.icon-info {\n  display: inline-block;\n  font-style: normal;\n  width: 20px;\n  height: 20px;\n  font-size: 14px;\n  line-height: 20px;\n  color: #fff;\n  background-color: #768692;\n  border-radius: 100%;\n  text-align: center;\n  margin-left: 20px;\n  position: relative;\n  cursor: pointer; }\n\n.refuse-reason {\n  display: none;\n  position: absolute;\n  top: 45px;\n  right: -40px;\n  width: 500px;\n  background-color: #768692;\n  color: #fff;\n  font-size: 16px;\n  padding: 20px;\n  padding-bottom: 35px;\n  box-sizing: border-box;\n  z-index: 10;\n  text-align: left; }\n\n.open .refuse-reason {\n    display: block; }\n\n.refuse-reason:before {\n    content: '';\n    position: absolute;\n    right: 30px;\n    top: -20px;\n    display: block;\n    width: 0;\n    height: 0;\n    border: 20px solid transparent;\n    border-bottom-color: #768692;\n    border-top: 0; }\n\n.refuse-reason .title {\n    display: inline-block;\n    font-weight: bold;\n    margin-bottom: 15px; }\n\n.refuse-reason .close {\n    width: 15px;\n    height: 15px;\n    background-image: url(/assets/icons/icon-close-gray-thin.svg);\n    background-repeat: no-repeat;\n    background-size: cover;\n    background-position: center;\n    float: right;\n    cursor: pointer; }\n"
 
 /***/ }),
 
@@ -36,6 +36,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_requests_requests_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/requests/requests.service */ "./src/app/requests/services/requests/requests.service.ts");
 /* harmony import */ var src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/sharepoint/sharepoint.service */ "./src/app/services/sharepoint/sharepoint.service.ts");
 /* harmony import */ var _services_requests_workflow_requests_workflow_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../services/requests-workflow/requests-workflow.service */ "./src/app/requests/services/requests-workflow/requests-workflow.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -49,12 +50,16 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var MyRequestsComponent = /** @class */ (function () {
-    function MyRequestsComponent(requestsWorkflowService, sharepointService, zone, requestsService) {
+    function MyRequestsComponent(requestsWorkflowService, sharepointService, zone, requestsService, route) {
         this.requestsWorkflowService = requestsWorkflowService;
         this.sharepointService = sharepointService;
         this.zone = zone;
         this.requestsService = requestsService;
+        this.route = route;
+        this.url = '';
+        this.webId = undefined;
         this.requests = null;
         this.hasPrev = false;
         this.hasNext = false;
@@ -62,65 +67,53 @@ var MyRequestsComponent = /** @class */ (function () {
         this.countChange = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
         this.sortField = 'Created';
         this.sortOrder = false;
-        this.page = null;
+        this.statuses = null;
+        this.onAgreementId = null;
         this.pages = [];
         this.index = null;
-        this.history = [];
     }
     MyRequestsComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.webId =
+            this.route.snapshot.data.webId !== 'root'
+                ? this.route.snapshot.data.webId
+                : null;
+        this.url = this.route.snapshot.data.company && this.route.snapshot.data.company.url;
+        this.statuses = this.route.snapshot.data.statuses;
+        this.onAgreementId = this.statuses.filter(function (s) { return s.code === 'ON_AGREEMENT'; })[0].id;
         this.reloadEvent.subscribe(function () { return _this.load(); });
         this.load();
-    };
-    MyRequestsComponent.prototype.setupPage = function (page) {
-        var _this = this;
-        this.requests = page.items;
-        this.hasNext = page.hasNext;
-        this.hasPrev = this.index > 0;
-        this.history = null;
-        this.requestsWorkflowService.getHistoryForRequests(this.requests).subscribe(function (history) {
-            _this.requests.forEach(function (r) {
-                var hs = history.filter(function (h) { return h.requestId === r.id; }).sort(function (a, b) { return b.id - a.id; });
-                if (hs.length > 0) {
-                    r.statusTitle = hs[0].statusTitle;
-                    r.statusCode = hs[0].statusCode;
-                    r.statusId = hs[0].statusId;
-                    r.reason = hs[0].description;
-                }
-            });
-            _this.history = history || [];
-        });
     };
     MyRequestsComponent.prototype.load = function () {
         var _this = this;
         this.index = 0;
         this.pages = [];
-        this.requestsWorkflowService.getRequestsByUserPaged(this.sharepointService.getCurrentUserContext().userId, [[this.sortField, this.sortOrder]])
+        this.requestsWorkflowService.getRequestsByUserAndTemplatePaged(this.sharepointService.getCurrentUserContext().userId, [[this.sortField, this.sortOrder]], this.webId)
             .subscribe(function (page) {
             _this.zone.run(function () {
+                _this.requests = page.items;
+                _this.hasNext = page.hasNext;
+                _this.hasPrev = _this.index > 0;
                 _this.pages.push(page);
-                _this.setupPage(page);
             });
         });
         this.loadCounter();
+        this.scrollUp();
     };
     MyRequestsComponent.prototype.loadCounter = function () {
         var _this = this;
-        this.requestsWorkflowService.getNewCountOnDone(this.sharepointService.getCurrentUserContext().userId).subscribe(function (count) {
+        this.requestsWorkflowService.getNewCountOnDone(this.sharepointService.getCurrentUserContext().userId, this.webId, this.onAgreementId).subscribe(function (count) {
             _this.zone.run(function () {
                 _this.count = count;
                 _this.countChange.emit(count);
             });
         });
     };
-    // loadMore() {
-    //   this.page.getNext().subscribe((page: IListItemsPage<Request>) => {
-    //     this.page = page;
-    //     this.requests = page.items;
-    //     this.hasNext = page.hasNext;
-    //     this.pages.push(page);
-    //   });
-    // }
+    MyRequestsComponent.prototype.scrollUp = function () {
+        this.zone.run(function () {
+            document.getElementById('s4-workspace').scrollTop = 0;
+        });
+    };
     MyRequestsComponent.prototype.getNext = function () {
         var _this = this;
         if (this.hasNext) {
@@ -129,56 +122,64 @@ var MyRequestsComponent = /** @class */ (function () {
                     .getNext()
                     .subscribe(function (page) {
                     _this.index++;
-                    _this.pages.push(page);
-                    _this.setupPage(page);
+                    _this.zone.run(function () {
+                        _this.requests = page.items;
+                        _this.hasNext = page.hasNext;
+                        _this.hasPrev = _this.index > 0;
+                        _this.pages.push(page);
+                    });
+                    _this.scrollUp();
                 });
             }
             else {
                 this.index++;
-                this.setupPage(this.pages[this.index]);
+                this.requests = this.pages[this.index].items;
+                this.hasNext = this.pages[this.index].hasNext;
+                this.hasPrev = this.index > 0;
             }
         }
     };
     MyRequestsComponent.prototype.getPrev = function () {
         this.index--;
-        this.setupPage(this.pages[this.index]);
+        this.requests = this.pages[this.index].items;
+        this.hasNext = this.pages[this.index].hasNext;
+        this.hasPrev = this.index > 0;
+        this.scrollUp();
     };
     MyRequestsComponent.prototype.copy = function (request) {
         var _this = this;
-        this.requestsWorkflowService.copyRequestToDraft(request.id).subscribe(function (id) {
-            var url = _this.sharepointService.getCurrentUserContext().webServerRelativeUrl
+        this.requestsWorkflowService.copyRequestToDraft(request.id, this.webId).subscribe(function (id) {
+            var url = _this.sharepointService.getCurrentUserContext().webServerRelativeUrl + _this.url
                 + ("/lists/slDraftRequests/EditForm.aspx?Id=" + id + "&Source=" + encodeURIComponent(window.location.href));
             openModal(request.type, url, function (result) {
                 if (result === 1) {
-                    _this.requestsWorkflowService.copyRequestFromDraft(id).subscribe(function () {
+                    _this.requestsWorkflowService.copyRequestFromDraft(id, _this.webId).subscribe(function () {
                         _this.load();
-                        _this.requestsWorkflowService.removeDraft(id);
+                        _this.requestsWorkflowService.removeDraft(id, _this.webId);
                     });
                 }
                 else {
-                    _this.requestsWorkflowService.removeDraft(id);
+                    _this.requestsWorkflowService.removeDraft(id, _this.webId);
                 }
             });
         });
     };
-    // getPrev() {
-    //   this.index--;
-    //   this.page = this.pages[this.index];
-    //   this.requests = this.page.items;
-    //   this.hasNext = this.page.hasNext;
-    //   this.index > 0 ? this.hasPrev = true : this.hasPrev = false;
-    // }
     MyRequestsComponent.prototype.filterResults = function () {
+        var _this = this;
         if (this.hasPrev) {
             this.index = 0;
-            this.setupPage(this.pages[this.index]);
+            this.zone.run(function () {
+                _this.requests = _this.pages[_this.index].items;
+                _this.hasNext = _this.pages[_this.index].hasNext;
+                _this.hasPrev = _this.index > 0;
+            });
         }
     };
     MyRequestsComponent.prototype.goTo = function (request) {
         var _this = this;
-        var url = this.sharepointService.getCurrentUserContext().webServerRelativeUrl
+        var url = this.sharepointService.getCurrentUserContext().webServerRelativeUrl + this.url
             + ("/lists/slRequests/DispForm.aspx?Id=" + request.id + "&Source=" + encodeURIComponent(window.location.href));
-        this.requestsService.addLike({ id: request.id }).subscribe(function () { return openModal(request.type, url, function () { return _this.loadCounter(); }); }, function () { return openModal(request.type, url, function () { return _this.loadCounter(); }); });
+        this.requestsService.addLike({ id: request.id, webId: this.webId }).subscribe(function () { return openModal(request.type, url, function () { return _this.loadCounter(); }); }, function () { return openModal(request.type, url, function () { return _this.loadCounter(); }); });
     };
     MyRequestsComponent.prototype.sortByType = function () {
         if (this.sortField === 'Title') {
@@ -245,7 +246,8 @@ var MyRequestsComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [_services_requests_workflow_requests_workflow_service__WEBPACK_IMPORTED_MODULE_3__["RequestsWorkflowService"],
             src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_2__["SharepointService"],
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"],
-            _services_requests_requests_service__WEBPACK_IMPORTED_MODULE_1__["RequestsService"]])
+            _services_requests_requests_service__WEBPACK_IMPORTED_MODULE_1__["RequestsService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"]])
     ], MyRequestsComponent);
     return MyRequestsComponent;
 }());
@@ -309,6 +311,7 @@ var RequestsModalFormComponent = /** @class */ (function () {
         this.sharepointService = sharepointService;
         this.route = route;
         this.modalSubscribe = null;
+        this.url = '';
         this.modalIsOpen = false;
         this.requestGroupId = null;
         this.requestGroups = null;
@@ -322,6 +325,7 @@ var RequestsModalFormComponent = /** @class */ (function () {
             _this.requestGroupId = null;
             _this.modalIsOpen = value;
         });
+        this.url = this.route.snapshot.data.company && this.route.snapshot.data.company.url;
         this.requestGroups = this.route.snapshot.data.groups;
         this.requestTemplates = this.route.snapshot.data.templates;
     };
@@ -343,7 +347,7 @@ var RequestsModalFormComponent = /** @class */ (function () {
             window.location.href = template.externalLink;
         }
         else {
-            var url = this.sharepointService.getCurrentUserContext().webServerRelativeUrl
+            var url = this.sharepointService.getCurrentUserContext().webServerRelativeUrl + this.url
                 + ("/lists/slRequests/NewForm.aspx?ContentTypeId=" + template.contentType + "&Source=" + encodeURIComponent(window.location.href));
             openModal(template.title, url, function () { return _this.load.emit(); });
             this.modalIsOpen = false;
@@ -429,7 +433,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RequestsPageComponent", function() { return RequestsPageComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _services_requests_modal_requests_modal_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/requests-modal/requests-modal.service */ "./src/app/requests/services/requests-modal/requests-modal.service.ts");
-/* harmony import */ var src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/sidebar/sidebar.service */ "./src/app/services/sidebar/sidebar.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -441,16 +444,13 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
-
 var RequestsPageComponent = /** @class */ (function () {
-    function RequestsPageComponent(requestsModalService, sidebarService) {
+    function RequestsPageComponent(requestsModalService) {
         this.requestsModalService = requestsModalService;
-        this.sidebarService = sidebarService;
         this.countUndone = 0;
         this.countDone = 0;
         this.reloadEvent = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
-        this.appCustomContainerStyle = { 'padding': '0px' };
-        this.sidebarService.handleSetSettings({ showSidebar: false, bgColor: '#f7f7f7' });
+        this.appContainerStyle = { 'padding': '0px', 'background-color': '#f7f7f7' };
     }
     RequestsPageComponent.prototype.openRequestModal = function () {
         this.requestsModalService.openModal();
@@ -464,8 +464,7 @@ var RequestsPageComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./requests-page.component.html */ "./src/app/requests/components/requests-page/requests-page.component.html"),
             styles: [__webpack_require__(/*! ./requests-page.component.scss */ "./src/app/requests/components/requests-page/requests-page.component.scss")]
         }),
-        __metadata("design:paramtypes", [_services_requests_modal_requests_modal_service__WEBPACK_IMPORTED_MODULE_1__["RequestsModalService"],
-            src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_2__["SidebarService"]])
+        __metadata("design:paramtypes", [_services_requests_modal_requests_modal_service__WEBPACK_IMPORTED_MODULE_1__["RequestsModalService"]])
     ], RequestsPageComponent);
     return RequestsPageComponent;
 }());
@@ -481,7 +480,7 @@ var RequestsPageComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n  <div class=\"l-requests__empty\" *ngIf=\"requests == null || requests.length === 0\">\n    <div class=\"text\">\n      В настоящий момент у Вас нет ни одной активной заявки для согласования.\n    </div>\n  </div>\n  <div class=\"l-requests__table\" *ngIf=\"requests && requests.length > 0\">\n    <table>\n      <tr class=\"l-requests-table__header\">\n        <th (click)=\"sortByType()\">\n          Тип заявки\n        </th>\n        <th (click)=\"sortById()\" class=\"sort\" [ngClass]=\"{'top' : sortField === 'Id' && sortOrder}\">\n          № заявки\n        </th>\n        <th (click)=\"sortByCreated()\">Дата отправки</th>\n        <th (click)=\"sortByStatus()\" colspan=\"3\">\n          Статус\n        </th>\n      </tr>\n      <tr class=\"l-requests-table__item\" [class.no-status]=\"!item.statusId && !isReload\" *ngFor=\"let item of requests\" (click)=\"goTo(item)\">\n        <td>\n          {{item.type}}\n        </td>\n        <td>\n          {{item.id}}\n        </td>\n        <td>\n          {{item.date}}\n        </td>\n        <td [ngClass]=\"{'status': true, 'approved' : item.statusCode === 'APPROVE', 'refused': item.statusCode === 'REJECT'}\">\n          {{item.statusTitle || 'На согласовании'}}\n          <i (click)=\"toggleInfo($event, infoRef)\" #infoRef class=\"icon-info\" *ngIf=\"item.statusCode === 'REJECT'\">\n            i\n            <div class=\"refuse-reason\">\n              <div class=\"title\">Причина отказа</div>\n              <div class=\"close\" (click)=\"toggleInfo($event, infoRef, true)\"></div>\n              <div class=\"text\">\n                {{item.reason}}\n              </div>\n            </div>\n          </i>\n        </td>\n        <td class=\"controls\">\n          <div *ngIf=\"canDecide(item)\">\n            <div class=\"control\">\n              <input type=\"button\" (click)=\"$event.stopPropagation(); approve(item)\" class=\"btn-approve\">\n            </div>\n            <div class=\"control\">\n              <input type=\"button\" (click)=\"$event.stopPropagation(); refuse(item)\" class=\"btn-refuse\">\n            </div>\n          </div>\n        </td>\n      </tr>\n    </table>\n    <div class=\"l-requests__navigation\">\n      <input type=\"button\" value=\"В начало\" class=\"go-to-start\" (click)=\"hasPrev && load()\" [class.disabled]=\"!hasPrev\" />\n      <input type=\"button\" class=\"go-to-left\" (click)=\"getPrev()\" [class.disabled]=\"!hasPrev\" />\n      <input type=\"button\" class=\"go-to-right\" (click)=\"getNext()\" [class.disabled]=\"!hasNext\" />\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div>\n  <div class=\"l-requests__empty\" *ngIf=\"requests == null || requests.length === 0\">\n    <div class=\"text\">\n      В настоящий момент у Вас нет ни одной активной заявки для согласования.\n    </div>\n  </div>\n  <div class=\"l-requests__table\" *ngIf=\"requests && requests.length > 0\">\n    <table>\n      <tr class=\"l-requests-table__header\">\n        <th (click)=\"sortByType()\">\n          Тип заявки\n        </th>\n        <th (click)=\"sortById()\" class=\"sort\" [ngClass]=\"{'top' : sortField === 'Id' && sortOrder}\">\n          № заявки\n        </th>\n        <th (click)=\"sortByCreated()\">Дата отправки</th>\n        <th (click)=\"sortByStatus()\" colspan=\"3\">\n          Статус\n        </th>\n      </tr>\n      <tr class=\"l-requests-table__item\" [class.no-status]=\"!item.statusId && !isReload\" *ngFor=\"let item of requests\" (click)=\"goTo(item)\">\n        <td>\n          {{item.type}}\n        </td>\n        <td>\n          {{item.id}}\n        </td>\n        <td>\n          {{item.date}}\n        </td>\n        <td [ngClass]=\"{'status': true, 'approved' : item.statusCode === 'APPROVE', 'refused': item.statusCode === 'REJECT'}\">\n          {{item.statusTitle || 'На согласовании'}}\n          <i (click)=\"toggleInfo($event, infoRef)\" #infoRef class=\"icon-info\" *ngIf=\"item.statusCode === 'REJECT'\">\n            i\n            <div class=\"refuse-reason\">\n              <div class=\"title\">Причина отказа</div>\n              <div class=\"close\" (click)=\"toggleInfo($event, infoRef, true)\"></div>\n              <div class=\"text\">\n                {{item.reason}}\n              </div>\n            </div>\n          </i>\n        </td>\n        <td class=\"controls\">\n          <!-- <div *ngIf=\"canDecide(item)\"> -->\n          <div *ngIf=\"!item.statusCode\">\n            <div class=\"control\">\n              <input type=\"button\" (click)=\"$event.stopPropagation(); approve(item)\" class=\"btn-approve\">\n            </div>\n            <div class=\"control\">\n              <input type=\"button\" (click)=\"$event.stopPropagation(); refuse(item)\" class=\"btn-refuse\">\n            </div>\n          </div>\n        </td>\n      </tr>\n    </table>\n    <div class=\"l-requests__navigation\">\n      <input type=\"button\" value=\"В начало\" class=\"go-to-start\" (click)=\"hasPrev && load()\" [class.disabled]=\"!hasPrev\" />\n      <input type=\"button\" class=\"go-to-left\" (click)=\"hasPrev && getPrev()\" [class.disabled]=\"!hasPrev\" />\n      <input type=\"button\" class=\"go-to-right\" (click)=\"hasNext && getNext()\" [class.disabled]=\"!hasNext\" />\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -492,7 +491,7 @@ module.exports = "<div>\n  <div class=\"l-requests__empty\" *ngIf=\"requests == 
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.l-requests__empty {\n  position: relative;\n  min-height: 550px;\n  background-image: url(/assets/banners/translom-empty.svg);\n  background-position: right bottom;\n  background-size: 500px 500px;\n  background-repeat: no-repeat;\n  box-sizing: border-box; }\n\n.l-requests__empty .text {\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    width: 35%;\n    font-size: 22px;\n    color: #05050571;\n    -webkit-transform: translate(-50%, -50%);\n        -ms-transform: translate(-50%, -50%);\n            transform: translate(-50%, -50%); }\n\n.l-requests__table {\n  position: relative;\n  padding-right: 45px;\n  padding-left: 26px; }\n\n.l-requests__table:before {\n    content: '';\n    position: absolute;\n    top: 25px;\n    left: 0;\n    width: 100%;\n    height: 1px;\n    background-color: #e4e4e4; }\n\n.l-requests__table table {\n    border-collapse: collapse;\n    width: 100%;\n    font-size: 16px;\n    color: #070606;\n    line-height: 19px; }\n\n.l-requests__table table .l-requests-table__header th {\n      cursor: pointer;\n      text-align: left;\n      box-sizing: border-box;\n      padding-bottom: 8px;\n      padding-left: 20px;\n      color: #768692; }\n\n.l-requests__table table .l-requests-table__header th.sort:after {\n        content: '';\n        width: 14px;\n        height: 14px;\n        background-image: url(/assets/icons/requests/icon-sort-gray.svg);\n        background-repeat: no-repeat;\n        background-size: cover;\n        display: inline-block; }\n\n.l-requests__table table .l-requests-table__header th.sort.top::after {\n        -webkit-transform: rotate(180deg);\n            -ms-transform: rotate(180deg);\n                transform: rotate(180deg); }\n\n.l-requests__table table .l-requests-table__item {\n      cursor: pointer; }\n\n.l-requests__table table .l-requests-table__item.no-status {\n        font-weight: 600; }\n\n.l-requests__table table .l-requests-table__item:nth-child(odd) {\n        background-color: #f7f7f7; }\n\n.l-requests__table table .l-requests-table__item td:first-child {\n        width: 20%; }\n\n.l-requests__table table .l-requests-table__item td {\n        position: relative;\n        width: 15%;\n        box-sizing: border-box;\n        padding-bottom: 23px;\n        padding-top: 23px;\n        padding-left: 20px;\n        border-bottom: 1px solid #e4e4e4; }\n\n.l-requests__table table .l-requests-table__item td.approved {\n          color: #078916; }\n\n.l-requests__table table .l-requests-table__item td.refused {\n          color: #ee2737; }\n\n.l-requests__table table .l-requests-table__item td.controls {\n          padding-bottom: 0px;\n          width: 240px;\n          padding-top: 0px; }\n\n.l-requests__table table .l-requests-table__item td.controls .control {\n            width: 40px;\n            height: 40px;\n            margin-right: 15px;\n            display: none; }\n\n.l-requests__table table .l-requests-table__item:hover {\n        background-color: #f7f7f7; }\n\n.l-requests__table table .l-requests-table__item:hover .controls .control {\n          display: inline-block; }\n\n.l-requests__table table.approve .btn-view {\n      display: none; }\n\n.l-requests__table table.view .btn-approve,\n    .l-requests__table table.view .btn-refuse {\n      display: none; }\n\n.btn-view,\n.btn-approve,\n.btn-refuse {\n  width: 40px;\n  height: 40px;\n  border-radius: 20px;\n  border: 0;\n  background-position: center;\n  background-size: cover;\n  background-repeat: no-repeat;\n  background-size: 20px 20px;\n  background-color: #ffffff !important; }\n\n.btn-view {\n  background-image: url(/assets/icons/icon-view-black.svg); }\n\n.btn-approve {\n  background-image: url(/assets/icons/icon-approve-black.svg); }\n\n.btn-refuse {\n  background-image: url(/assets/icons/icon-cross-black.svg); }\n\n.l-requests__navigation {\n  margin-top: 80px;\n  text-align: center; }\n\n.l-requests__navigation .go-to-start,\n  .l-requests__navigation .go-to-left,\n  .l-requests__navigation .go-to-right {\n    margin: 0;\n    padding: 0;\n    border: none;\n    min-width: 0;\n    vertical-align: middle;\n    cursor: pointer; }\n\n.l-requests__navigation .go-to-start {\n    color: #768692;\n    font-size: 18px;\n    background: none;\n    margin-right: 35px; }\n\n.l-requests__navigation .go-to-left,\n  .l-requests__navigation .go-to-right {\n    width: 50px;\n    height: 50px;\n    background-color: #768692;\n    background-size: 27px 27px;\n    background-repeat: no-repeat;\n    background-position: center;\n    background-image: url(/assets/icons/icon-arrow-right-white-thin.svg); }\n\n.l-requests__navigation .go-to-left {\n    -webkit-transform: rotate(180deg);\n        -ms-transform: rotate(180deg);\n            transform: rotate(180deg);\n    margin-right: 25px; }\n\n.l-requests__navigation .disabled {\n    opacity: 0.4; }\n\n.icon-info {\n  display: inline-block;\n  font-style: normal;\n  width: 20px;\n  height: 20px;\n  font-size: 14px;\n  line-height: 20px;\n  color: #fff;\n  background-color: #768692;\n  border-radius: 100%;\n  text-align: center;\n  margin-left: 20px;\n  position: relative;\n  cursor: pointer; }\n\n.refuse-reason {\n  display: none;\n  position: absolute;\n  top: 45px;\n  right: -40px;\n  width: 500px;\n  background-color: #768692;\n  color: #fff;\n  font-size: 16px;\n  padding: 20px;\n  padding-bottom: 35px;\n  box-sizing: border-box;\n  z-index: 10;\n  text-align: left; }\n\n.open .refuse-reason {\n    display: block; }\n\n.refuse-reason:before {\n    content: '';\n    position: absolute;\n    right: 30px;\n    top: -20px;\n    display: block;\n    width: 0;\n    height: 0;\n    border: 20px solid transparent;\n    border-bottom-color: #768692;\n    border-top: 0; }\n\n.refuse-reason .title {\n    display: inline-block;\n    font-weight: bold;\n    margin-bottom: 15px; }\n\n.refuse-reason .close {\n    width: 15px;\n    height: 15px;\n    background-image: url(/assets/icons/icon-close-gray-thin.svg);\n    background-repeat: no-repeat;\n    background-size: cover;\n    background-position: center;\n    float: right;\n    cursor: pointer; }\n"
+module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.l-requests__empty {\n  position: relative;\n  min-height: 550px;\n  background-image: url(/assets/banners/metalloinvest-empty.svg);\n  background-position: right bottom;\n  background-size: 500px 500px;\n  background-repeat: no-repeat;\n  box-sizing: border-box; }\n\n.l-requests__empty .text {\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    width: 35%;\n    font-size: 22px;\n    color: #05050571;\n    -webkit-transform: translate(-50%, -50%);\n        -ms-transform: translate(-50%, -50%);\n            transform: translate(-50%, -50%); }\n\n.l-requests__table {\n  position: relative;\n  padding-right: 45px;\n  padding-left: 26px; }\n\n.l-requests__table:before {\n    content: '';\n    position: absolute;\n    top: 25px;\n    left: 0;\n    width: 100%;\n    height: 1px;\n    background-color: #e4e4e4; }\n\n.l-requests__table table {\n    border-collapse: collapse;\n    width: 100%;\n    font-size: 16px;\n    color: #070606;\n    line-height: 19px; }\n\n.l-requests__table table .l-requests-table__header th {\n      cursor: pointer;\n      text-align: left;\n      box-sizing: border-box;\n      padding-bottom: 8px;\n      padding-left: 20px;\n      color: #768692; }\n\n.l-requests__table table .l-requests-table__header th.sort:after {\n        content: '';\n        width: 14px;\n        height: 14px;\n        background-image: url(/assets/icons/requests/icon-sort-gray.svg);\n        background-repeat: no-repeat;\n        background-size: cover;\n        display: inline-block; }\n\n.l-requests__table table .l-requests-table__header th.sort.top::after {\n        -webkit-transform: rotate(180deg);\n            -ms-transform: rotate(180deg);\n                transform: rotate(180deg); }\n\n.l-requests__table table .l-requests-table__item {\n      cursor: pointer; }\n\n.l-requests__table table .l-requests-table__item.no-status {\n        font-weight: 600; }\n\n.l-requests__table table .l-requests-table__item:nth-child(odd) {\n        background-color: #f7f7f7; }\n\n.l-requests__table table .l-requests-table__item td:first-child {\n        width: 20%; }\n\n.l-requests__table table .l-requests-table__item td {\n        position: relative;\n        width: 15%;\n        box-sizing: border-box;\n        padding-bottom: 23px;\n        padding-top: 23px;\n        padding-left: 20px;\n        border-bottom: 1px solid #e4e4e4; }\n\n.l-requests__table table .l-requests-table__item td.approved {\n          color: #078916; }\n\n.l-requests__table table .l-requests-table__item td.refused {\n          color: #ee2737; }\n\n.l-requests__table table .l-requests-table__item td.controls {\n          padding-bottom: 0px;\n          width: 240px;\n          padding-top: 0px; }\n\n.l-requests__table table .l-requests-table__item td.controls .control {\n            width: 40px;\n            height: 40px;\n            margin-right: 15px;\n            display: none; }\n\n.l-requests__table table .l-requests-table__item:hover {\n        background-color: #f7f7f7; }\n\n.l-requests__table table .l-requests-table__item:hover .controls .control {\n          display: inline-block; }\n\n.l-requests__table table.approve .btn-view {\n      display: none; }\n\n.l-requests__table table.view .btn-approve,\n    .l-requests__table table.view .btn-refuse {\n      display: none; }\n\n.btn-view,\n.btn-approve,\n.btn-refuse {\n  width: 40px;\n  height: 40px;\n  border-radius: 20px;\n  border: 0;\n  background-position: center;\n  background-size: cover;\n  background-repeat: no-repeat;\n  background-size: 20px 20px;\n  background-color: #ffffff !important; }\n\n.btn-view {\n  background-image: url(/assets/icons/icon-view-black.svg); }\n\n.btn-approve {\n  background-image: url(/assets/icons/icon-approve-black.svg); }\n\n.btn-refuse {\n  background-image: url(/assets/icons/icon-cross-black.svg); }\n\n.l-requests__navigation {\n  margin-top: 80px;\n  text-align: center; }\n\n.l-requests__navigation .go-to-start,\n  .l-requests__navigation .go-to-left,\n  .l-requests__navigation .go-to-right {\n    margin: 0;\n    padding: 0;\n    border: none;\n    min-width: 0;\n    vertical-align: middle;\n    cursor: pointer; }\n\n.l-requests__navigation .go-to-start {\n    color: #768692;\n    font-size: 18px;\n    background: none;\n    margin-right: 35px; }\n\n.l-requests__navigation .go-to-left,\n  .l-requests__navigation .go-to-right {\n    width: 50px;\n    height: 50px;\n    background-color: #768692;\n    background-size: 27px 27px;\n    background-repeat: no-repeat;\n    background-position: center;\n    background-image: url(/assets/icons/icon-arrow-right-white-thin.svg); }\n\n.l-requests__navigation .go-to-left {\n    -webkit-transform: rotate(180deg);\n        -ms-transform: rotate(180deg);\n            transform: rotate(180deg);\n    margin-right: 25px; }\n\n.l-requests__navigation .disabled {\n    opacity: 0.4; }\n\n.icon-info {\n  display: inline-block;\n  font-style: normal;\n  width: 20px;\n  height: 20px;\n  font-size: 14px;\n  line-height: 20px;\n  color: #fff;\n  background-color: #768692;\n  border-radius: 100%;\n  text-align: center;\n  margin-left: 20px;\n  position: relative;\n  cursor: pointer; }\n\n.refuse-reason {\n  display: none;\n  position: absolute;\n  top: 45px;\n  right: -40px;\n  width: 500px;\n  background-color: #768692;\n  color: #fff;\n  font-size: 16px;\n  padding: 20px;\n  padding-bottom: 35px;\n  box-sizing: border-box;\n  z-index: 10;\n  text-align: left; }\n\n.open .refuse-reason {\n    display: block; }\n\n.refuse-reason:before {\n    content: '';\n    position: absolute;\n    right: 30px;\n    top: -20px;\n    display: block;\n    width: 0;\n    height: 0;\n    border: 20px solid transparent;\n    border-bottom-color: #768692;\n    border-top: 0; }\n\n.refuse-reason .title {\n    display: inline-block;\n    font-weight: bold;\n    margin-bottom: 15px; }\n\n.refuse-reason .close {\n    width: 15px;\n    height: 15px;\n    background-image: url(/assets/icons/icon-close-gray-thin.svg);\n    background-repeat: no-repeat;\n    background-size: cover;\n    background-position: center;\n    float: right;\n    cursor: pointer; }\n"
 
 /***/ }),
 
@@ -535,6 +534,9 @@ var RequestsToExecuteComponent = /** @class */ (function () {
         this.requestsWorkflowService = requestsWorkflowService;
         this.requestsService = requestsService;
         this.notificationsService = notificationsService;
+        this.url = '';
+        this.webId = undefined;
+        this.onAgreementId = null;
         this.requests = null;
         this.executors = null;
         this.statuses = null;
@@ -551,9 +553,15 @@ var RequestsToExecuteComponent = /** @class */ (function () {
     }
     RequestsToExecuteComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.reloadEvent.subscribe(function () { _this.load(); });
+        this.webId =
+            this.route.snapshot.data.webId !== 'root'
+                ? this.route.snapshot.data.webId
+                : null;
         this.executors = this.route.snapshot.data.executors;
         this.statuses = this.route.snapshot.data.statuses;
+        this.reloadEvent.subscribe(function () { _this.load(); });
+        this.onAgreementId = this.statuses.filter(function (s) { return s.code === 'ON_AGREEMENT'; })[0].id;
+        this.url = this.route.snapshot.data.company && this.route.snapshot.data.company.url;
         if (this.executors.length > 0) {
             this.load();
         }
@@ -563,38 +571,26 @@ var RequestsToExecuteComponent = /** @class */ (function () {
         this.index = 0;
         this.pages = [];
         this.isReload = true;
-        this.requestsWorkflowService.getRequestsByExecutorsPaged(this.executors, [[this.sortField, this.sortOrder]])
+        this.requestsWorkflowService.getRequestsByExecutorsPaged(this.executors, [[this.sortField, this.sortOrder]], this.webId)
             .subscribe(function (page) {
             _this.zone.run(function () {
+                _this.requests = page.items;
+                _this.hasNext = page.hasNext;
+                _this.hasPrev = _this.index > 0;
                 _this.pages.push(page);
-                _this.setupPage(page);
             });
         });
         this.loadCounter();
+        this.scrollUp();
     };
-    RequestsToExecuteComponent.prototype.setupPage = function (page) {
-        var _this = this;
-        this.requests = page.items;
-        this.hasNext = page.hasNext;
-        this.hasPrev = this.index > 0;
-        this.history = null;
-        this.requestsWorkflowService.getHistoryForRequests(this.requests).subscribe(function (history) {
-            _this.requests.forEach(function (r) {
-                var hs = history.filter(function (h) { return h.requestId === r.id; }).sort(function (a, b) { return b.id - a.id; });
-                if (hs.length > 0) {
-                    r.statusTitle = hs[0].statusTitle;
-                    r.statusCode = hs[0].statusCode;
-                    r.statusId = hs[0].statusId;
-                    r.reason = hs[0].description;
-                }
-            });
-            _this.history = history || [];
-            _this.isReload = false;
+    RequestsToExecuteComponent.prototype.scrollUp = function () {
+        this.zone.run(function () {
+            document.getElementById('s4-workspace').scrollTop = 0;
         });
     };
     RequestsToExecuteComponent.prototype.loadCounter = function () {
         var _this = this;
-        this.requestsWorkflowService.getNewCountOnAgreement(this.executors, this.sharepointService.getCurrentUserContext().userId).subscribe(function (count) {
+        this.requestsWorkflowService.getNewCountOnAgreement(this.executors, this.sharepointService.getCurrentUserContext().userId, this.webId, this.onAgreementId).subscribe(function (count) {
             _this.zone.run(function () {
                 _this.count = count;
                 _this.countChange.emit(count);
@@ -609,31 +605,42 @@ var RequestsToExecuteComponent = /** @class */ (function () {
                     .getNext()
                     .subscribe(function (page) {
                     _this.index++;
+                    _this.requests = page.items;
+                    _this.hasNext = page.hasNext;
+                    _this.hasPrev = _this.index > 0;
                     _this.pages.push(page);
-                    _this.setupPage(page);
+                    _this.scrollUp();
                 });
             }
             else {
                 this.index++;
-                this.setupPage(this.pages[this.index]);
+                this.requests = this.pages[this.index].items;
+                this.hasNext = this.pages[this.index].hasNext;
+                this.hasPrev = this.index > 0;
+                this.scrollUp();
             }
         }
     };
     RequestsToExecuteComponent.prototype.getPrev = function () {
         this.index--;
-        this.setupPage(this.pages[this.index]);
+        this.requests = this.pages[this.index].items;
+        this.hasNext = this.pages[this.index].hasNext;
+        this.hasPrev = this.index > 0;
+        this.scrollUp();
     };
     RequestsToExecuteComponent.prototype.filterResults = function () {
         if (this.hasPrev) {
             this.index = 0;
-            this.setupPage(this.pages[this.index]);
+            this.requests = this.pages[this.index].items;
+            this.hasNext = this.pages[this.index].hasNext;
+            this.hasPrev = this.index > 0;
         }
     };
     RequestsToExecuteComponent.prototype.goTo = function (request) {
         var _this = this;
-        var url = this.sharepointService.getCurrentUserContext().webServerRelativeUrl
+        var url = this.sharepointService.getCurrentUserContext().webServerRelativeUrl + this.url
             + ("/lists/slRequests/DispForm.aspx?Id=" + request.id + "&Source=" + encodeURIComponent(window.location.href));
-        this.requestsService.addLike({ id: request.id }).subscribe(function () { return openModal(request.type, url, function () { return _this.loadCounter(); }); }, function () { return openModal(request.type, url, function () { return _this.loadCounter(); }); });
+        this.requestsService.addLike({ id: request.id, webId: this.webId }).subscribe(function () { return openModal(request.type, url, function () { return _this.loadCounter(); }); }, function () { return openModal(request.type, url, function () { return _this.loadCounter(); }); });
     };
     RequestsToExecuteComponent.prototype.sortByType = function () {
         if (this.sortField === 'Title') {
@@ -646,11 +653,11 @@ var RequestsToExecuteComponent = /** @class */ (function () {
         this.load();
     };
     RequestsToExecuteComponent.prototype.sortByStatus = function () {
-        if (this.sortField === 'slRequestStatusLookup/Title') {
+        if (this.sortField === 'slRequestStatusLookupId') {
             this.sortOrder = !this.sortOrder;
         }
         else {
-            this.sortField = 'slRequestStatusLookup/Title';
+            this.sortField = 'slRequestStatusLookupId';
             this.sortOrder = true;
         }
         this.load();
@@ -687,7 +694,7 @@ var RequestsToExecuteComponent = /** @class */ (function () {
     RequestsToExecuteComponent.prototype.approve = function (request) {
         var _this = this;
         if (confirm('Подтвердите согласование')) {
-            this.requestsWorkflowService.approve(request).subscribe(function () {
+            this.requestsWorkflowService.approve(request, this.webId).subscribe(function () {
                 _this.notificationsService.success('Заявка согласована');
                 _this.load();
             });
@@ -697,7 +704,7 @@ var RequestsToExecuteComponent = /** @class */ (function () {
         var _this = this;
         if (confirm('Подтвердите отказ')) {
             var reason = prompt('Укажите причину');
-            this.requestsWorkflowService.reject(request, reason).subscribe(function () {
+            this.requestsWorkflowService.reject(request, reason, this.webId).subscribe(function () {
                 _this.notificationsService.success('Заявка отклонена');
                 _this.load();
             });
@@ -772,6 +779,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_requests_executors_requests_executors_resolver__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./services/requests-executors/requests-executors.resolver */ "./src/app/requests/services/requests-executors/requests-executors.resolver.ts");
 /* harmony import */ var _services_requests_statuses_requests_statuses_resolver__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./services/requests-statuses/requests-statuses.resolver */ "./src/app/requests/services/requests-statuses/requests-statuses.resolver.ts");
 /* harmony import */ var _services_requests_templates_requests_templates_resolver__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./services/requests-templates/requests-templates.resolver */ "./src/app/requests/services/requests-templates/requests-templates.resolver.ts");
+/* harmony import */ var _services_companies_company_web_resolver__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../services/companies/company-web.resolver */ "./src/app/services/companies/company-web.resolver.ts");
+/* harmony import */ var _services_companies_company_resolver__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../services/companies/company.resolver */ "./src/app/services/companies/company.resolver.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -785,13 +794,39 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
+
 var routes = [
     {
-        path: '',
+        path: 'root',
         component: _components_requests_page_requests_page_component__WEBPACK_IMPORTED_MODULE_2__["RequestsPageComponent"],
-        resolve: { groups: _services_requests_groups_requests_groups_resolver__WEBPACK_IMPORTED_MODULE_3__["RequestsGroupsResolver"], executors: _services_requests_executors_requests_executors_resolver__WEBPACK_IMPORTED_MODULE_4__["RequestsExecutorsResolver"],
-            statuses: _services_requests_statuses_requests_statuses_resolver__WEBPACK_IMPORTED_MODULE_5__["RequestsStatusesResolver"], templates: _services_requests_templates_requests_templates_resolver__WEBPACK_IMPORTED_MODULE_6__["RequestsTemplatesResolver"] },
+        resolve: {
+            groups: _services_requests_groups_requests_groups_resolver__WEBPACK_IMPORTED_MODULE_3__["RequestsGroupsResolver"],
+            company: _services_companies_company_resolver__WEBPACK_IMPORTED_MODULE_8__["CompanyResolver"],
+            executors: _services_requests_executors_requests_executors_resolver__WEBPACK_IMPORTED_MODULE_4__["RequestsExecutorsResolver"],
+            statuses: _services_requests_statuses_requests_statuses_resolver__WEBPACK_IMPORTED_MODULE_5__["RequestsStatusesResolver"],
+            templates: _services_requests_templates_requests_templates_resolver__WEBPACK_IMPORTED_MODULE_6__["RequestsTemplatesResolver"],
+            webId: _services_companies_company_web_resolver__WEBPACK_IMPORTED_MODULE_7__["CompanyWebResolver"]
+        },
         data: { animation: 'fadeAnimation', title: 'Заявки' }
+    },
+    {
+        path: ':id',
+        component: _components_requests_page_requests_page_component__WEBPACK_IMPORTED_MODULE_2__["RequestsPageComponent"],
+        resolve: {
+            groups: _services_requests_groups_requests_groups_resolver__WEBPACK_IMPORTED_MODULE_3__["RequestsGroupsResolver"],
+            executors: _services_requests_executors_requests_executors_resolver__WEBPACK_IMPORTED_MODULE_4__["RequestsExecutorsResolver"],
+            statuses: _services_requests_statuses_requests_statuses_resolver__WEBPACK_IMPORTED_MODULE_5__["RequestsStatusesResolver"],
+            templates: _services_requests_templates_requests_templates_resolver__WEBPACK_IMPORTED_MODULE_6__["RequestsTemplatesResolver"],
+            company: _services_companies_company_resolver__WEBPACK_IMPORTED_MODULE_8__["CompanyResolver"],
+            webId: _services_companies_company_web_resolver__WEBPACK_IMPORTED_MODULE_7__["CompanyWebResolver"]
+        },
+        data: { animation: 'fadeAnimation', title: 'Заявки' }
+    },
+    {
+        path: '',
+        redirectTo: 'root',
+        pathMatch: 'full'
     }
 ];
 var RequestsRoutingModule = /** @class */ (function () {
@@ -800,7 +835,14 @@ var RequestsRoutingModule = /** @class */ (function () {
     RequestsRoutingModule = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
             imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forChild(routes)],
-            providers: [_services_requests_groups_requests_groups_resolver__WEBPACK_IMPORTED_MODULE_3__["RequestsGroupsResolver"], _services_requests_executors_requests_executors_resolver__WEBPACK_IMPORTED_MODULE_4__["RequestsExecutorsResolver"], _services_requests_statuses_requests_statuses_resolver__WEBPACK_IMPORTED_MODULE_5__["RequestsStatusesResolver"], _services_requests_templates_requests_templates_resolver__WEBPACK_IMPORTED_MODULE_6__["RequestsTemplatesResolver"]],
+            providers: [
+                _services_requests_groups_requests_groups_resolver__WEBPACK_IMPORTED_MODULE_3__["RequestsGroupsResolver"],
+                _services_requests_executors_requests_executors_resolver__WEBPACK_IMPORTED_MODULE_4__["RequestsExecutorsResolver"],
+                _services_requests_statuses_requests_statuses_resolver__WEBPACK_IMPORTED_MODULE_5__["RequestsStatusesResolver"],
+                _services_requests_templates_requests_templates_resolver__WEBPACK_IMPORTED_MODULE_6__["RequestsTemplatesResolver"],
+                _services_companies_company_resolver__WEBPACK_IMPORTED_MODULE_8__["CompanyResolver"],
+                _services_companies_company_web_resolver__WEBPACK_IMPORTED_MODULE_7__["CompanyWebResolver"]
+            ],
             exports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]]
         })
     ], RequestsRoutingModule);
@@ -830,12 +872,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _requests_routing_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./requests-routing.module */ "./src/app/requests/requests-routing.module.ts");
 /* harmony import */ var _components_my_requests_my_requests_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/my-requests/my-requests.component */ "./src/app/requests/components/my-requests/my-requests.component.ts");
 /* harmony import */ var _components_requests_to_execute_requests_to_execute_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/requests-to-execute/requests-to-execute.component */ "./src/app/requests/components/requests-to-execute/requests-to-execute.component.ts");
+/* harmony import */ var _staff_staff_module__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../staff/staff.module */ "./src/app/staff/staff.module.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -859,6 +903,7 @@ var RequestsModule = /** @class */ (function () {
             imports: [
                 _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
                 _requests_routing_module__WEBPACK_IMPORTED_MODULE_6__["RequestsRoutingModule"],
+                _staff_staff_module__WEBPACK_IMPORTED_MODULE_9__["StaffModule"],
                 _shared_shared_module__WEBPACK_IMPORTED_MODULE_3__["SharedModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"]
             ],
@@ -1178,10 +1223,10 @@ var RequestsHistoryService = /** @class */ (function (_super) {
     };
     RequestsHistoryService.prototype.getSelect = function () {
         return 'Id,Title,slRequestLookup/Id,slRequestLookup/Title,slRequestHistoryDescription,'
-            + 'slRequestStatusLookup/Id,slRequestStatusLookup/Title,slRequestStatusLookup/slCode';
+            + 'slRequestStatusLookupId';
     };
     RequestsHistoryService.prototype.getExpand = function () {
-        return 'slRequestLookup,slRequestStatusLookup';
+        return 'slRequestLookup';
     };
     RequestsHistoryService.prototype.getOrderBy = function () {
         return [['Id', true]];
@@ -1196,7 +1241,8 @@ var RequestsHistoryService = /** @class */ (function (_super) {
         var entity = {
             id: item.Id,
             title: item.Title,
-            description: item.slRequestHistoryDescription
+            description: item.slRequestHistoryDescription,
+            statusId: item.slRequestStatusLookupId
         };
         if (item.slRequestLookup) {
             entity.requestId = item.slRequestLookup.Id;
@@ -1586,7 +1632,7 @@ var RequestsWorkflowService = /** @class */ (function () {
         this.requestsService = requestsService;
         this.requestsStatusesService = requestsStatusesService;
     }
-    RequestsWorkflowService.prototype.getNewCountOnAgreement = function (executors, userId) {
+    RequestsWorkflowService.prototype.getNewCountOnAgreement = function (executors, userId, webId, agreementId) {
         var filter = '';
         for (var _i = 0, executors_1 = executors; _i < executors_1.length; _i++) {
             var executor = executors_1[_i];
@@ -1594,48 +1640,93 @@ var RequestsWorkflowService = /** @class */ (function () {
         }
         filter = filter.slice(0, -4);
         return this.requestsService.getItems({
+            webId: webId,
             top: 5000,
-            filter: "(" + filter + ") and (slRequestStatusLookup/slCode eq 'ON_AGREEMENT' or slRequestStatusLookup/slCode eq null) and LikedBy/Id ne " + userId
+            filter: "(" + filter + ") and (slRequestStatusLookupId eq " + agreementId + " or slRequestStatusLookupId eq null) and LikedBy/Id ne " + userId
         }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (items) { return items.length; }));
     };
-    RequestsWorkflowService.prototype.getNewCountOnDone = function (userId) {
+    RequestsWorkflowService.prototype.getNewCountOnDone = function (userId, webId, agreementId) {
         return this.requestsService.getItems({
             top: 5000,
-            filter: "(Author/Id eq " + userId + ") and (slRequestStatusLookup/slCode ne 'ON_AGREEMENT' and slRequestStatusLookup/slCode ne null) and (LikedBy/Id ne " + userId + ")"
+            webId: webId,
+            filter: "(Author/Id eq " + userId + ") and (slRequestStatusLookupId ne " + agreementId + " and slRequestStatusLookupId ne null) and (LikedBy/Id ne " + userId + ")"
         }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (items) { return items.length; }));
     };
-    RequestsWorkflowService.prototype.getRequestsByExecutorsPaged = function (executors, orderBy) {
+    RequestsWorkflowService.prototype.getRequestsByExecutorsPaged = function (executors, orderBy, webId) {
+        var _this = this;
         var filter = '';
         for (var _i = 0, executors_2 = executors; _i < executors_2.length; _i++) {
             var executor = executors_2[_i];
             filter += "(ContentType eq'" + executor.title + "') or ";
         }
         filter = filter.slice(0, -4);
-        return this.requestsService.getItemsPaged({
-            top: 10,
-            filter: filter,
-            orderBy: orderBy
-        });
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["forkJoin"])([this.requestsStatusesService.getItems(), this.requestsService.getItemsPaged({
+                top: 10,
+                webId: webId,
+                filter: filter,
+                orderBy: orderBy
+            })]).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["flatMap"])(function (results) {
+            var statuses = results[0];
+            var page = results[1];
+            return _this.extendRequestsPageWithStatusesAndHistory(page, statuses, webId);
+        }));
     };
-    RequestsWorkflowService.prototype.getHistoryForRequests = function (requests) {
+    RequestsWorkflowService.prototype.getHistoryForRequests = function (requests, webId) {
         var filter = '';
         for (var _i = 0, requests_1 = requests; _i < requests_1.length; _i++) {
             var request = requests_1[_i];
             filter += "(slRequestLookup/Id eq'" + request.id + "') or ";
         }
         filter = filter.slice(0, -4);
-        return this.requestsHistoryService.getItems({ filter: filter });
+        return this.requestsHistoryService.getItems({ webId: webId, filter: filter });
     };
-    RequestsWorkflowService.prototype.getRequestsByUserPaged = function (userId, orderBy) {
-        return this.requestsService.getItemsPaged({
-            top: 10,
-            filter: "Author/Id eq " + userId,
-            orderBy: orderBy
-        });
-    };
-    RequestsWorkflowService.prototype.approve = function (request) {
+    RequestsWorkflowService.prototype.extendRequestsPageWithStatusesAndHistory = function (page, statuses, webId) {
         var _this = this;
-        return this.requestsStatusesService.getItems({ filter: 'slCode eq \'APPROVE\'' }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["flatMap"])(function (statuses) {
+        return this.getHistoryForRequests(page.items, webId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (history) {
+            page.items.forEach(function (r) {
+                if (history && history.length > 0) {
+                    var hs = history.filter(function (h) { return h.requestId === r.id; }).sort(function (a, b) { return b.id - a.id; });
+                    if (hs.length > 0) {
+                        r.statusTitle = hs[0].statusTitle;
+                        r.statusCode = hs[0].statusCode;
+                        r.statusId = hs[0].statusId;
+                        r.reason = hs[0].description;
+                    }
+                }
+                if (statuses && statuses.length > 0) {
+                    var status_1 = statuses.filter(function (s) { return s.id == r.statusId; });
+                    if (status_1.length > 0) {
+                        r.statusCode = status_1[0].code;
+                        r.statusTitle = status_1[0].title;
+                    }
+                }
+            });
+            var next = page.getNext;
+            page.getNext = function () { return next().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["flatMap"])(function (p) { return _this.extendRequestsPageWithStatusesAndHistory(p, statuses, webId); })); };
+            return page;
+        }));
+    };
+    RequestsWorkflowService.prototype.getRequestsByUserAndTemplatePaged = function (userId, orderBy, webId, templates) {
+        var _this = this;
+        var filter = '';
+        if (templates && templates.length > 0) {
+            templates.forEach(function (t) { return filter += "(Title eq '" + t.title + "') or"; });
+            filter = filter.slice(0, -3) + ' and ';
+        }
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["forkJoin"])([this.requestsStatusesService.getItems(), this.requestsService.getItemsPaged({
+                top: 10,
+                webId: webId,
+                filter: filter + "Author/Id eq " + userId,
+                orderBy: orderBy
+            })]).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["flatMap"])(function (results) {
+            var statuses = results[0];
+            var page = results[1];
+            return _this.extendRequestsPageWithStatusesAndHistory(page, statuses, webId);
+        }));
+    };
+    RequestsWorkflowService.prototype.approve = function (request, webId) {
+        var _this = this;
+        return this.requestsStatusesService.getItems({ webId: webId, filter: 'slCode eq \'APPROVE\'' }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["flatMap"])(function (statuses) {
             var status = statuses[0];
             var approve = {
                 id: undefined,
@@ -1643,16 +1734,16 @@ var RequestsWorkflowService = /** @class */ (function () {
                 statusId: status.id,
                 requestId: request.id
             };
-            return _this.requestsHistoryService.createItem(approve);
+            return _this.requestsHistoryService.createItem(approve, webId);
         }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (history) {
             request.statusId = history.statusId;
             request.statusTitle = history.statusTitle;
             return request;
         }));
     };
-    RequestsWorkflowService.prototype.reject = function (request, reason) {
+    RequestsWorkflowService.prototype.reject = function (request, reason, webId) {
         var _this = this;
-        return this.requestsStatusesService.getItems({ filter: 'slCode eq \'REJECT\'' }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["flatMap"])(function (statuses) {
+        return this.requestsStatusesService.getItems({ webId: webId, filter: 'slCode eq \'REJECT\'' }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["flatMap"])(function (statuses) {
             var status = statuses[0];
             var approve = {
                 id: undefined,
@@ -1661,29 +1752,58 @@ var RequestsWorkflowService = /** @class */ (function () {
                 requestId: request.id,
                 description: reason
             };
-            return _this.requestsHistoryService.createItem(approve);
+            return _this.requestsHistoryService.createItem(approve, webId);
         }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (history) {
             request.statusId = history.statusId;
             request.statusTitle = history.statusTitle;
             return request;
         }));
     };
-    RequestsWorkflowService.prototype.copyRequestToDraft = function (id) {
+    RequestsWorkflowService.prototype.copyRequestToDraft = function (id, webId) {
         var _this = this;
-        return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["from"])(_pnp_sp__WEBPACK_IMPORTED_MODULE_6__["sp"].web.lists.getByTitle('Заявки').items.getById(id).get()).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["flatMap"])(function (r) {
+        var web = null;
+        if (webId == null) {
+            web = Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(_pnp_sp__WEBPACK_IMPORTED_MODULE_6__["sp"].web);
+        }
+        else {
+            web = Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["from"])(_pnp_sp__WEBPACK_IMPORTED_MODULE_6__["sp"].site.openWebById(webId)).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (w) { return w.web; }));
+        }
+        var subWeb = null;
+        return web.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["flatMap"])(function (w) {
+            subWeb = w;
+            return w.lists.getByTitle('Заявки').items.getById(id).get();
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["flatMap"])(function (r) {
             var cr = _this.copyRequest(r);
-            return _pnp_sp__WEBPACK_IMPORTED_MODULE_6__["sp"].web.lists.getByTitle('Черновики заявок').items.add(cr);
+            return subWeb.lists.getByTitle('Черновики заявок').items.add(cr);
         }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (r) { return r.data.ID; }));
     };
-    RequestsWorkflowService.prototype.copyRequestFromDraft = function (id) {
+    RequestsWorkflowService.prototype.copyRequestFromDraft = function (id, webId) {
         var _this = this;
-        return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["from"])(_pnp_sp__WEBPACK_IMPORTED_MODULE_6__["sp"].web.lists.getByTitle('Черновики заявок').items.getById(id).get()).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["flatMap"])(function (r) {
+        var web = null;
+        if (webId == null) {
+            web = Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(_pnp_sp__WEBPACK_IMPORTED_MODULE_6__["sp"].web);
+        }
+        else {
+            web = Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["from"])(_pnp_sp__WEBPACK_IMPORTED_MODULE_6__["sp"].site.openWebById(webId)).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (w) { return w.web; }));
+        }
+        var subWeb = null;
+        return web.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["flatMap"])(function (w) {
+            subWeb = w;
+            return w.lists.getByTitle('Черновики заявок').items.getById(id).get();
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["flatMap"])(function (r) {
             var cr = _this.copyRequest(r);
-            return _pnp_sp__WEBPACK_IMPORTED_MODULE_6__["sp"].web.lists.getByTitle('Заявки').items.add(cr);
+            return subWeb.lists.getByTitle('Заявки').items.add(cr);
         }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (r) { return r.data.ID; }));
     };
-    RequestsWorkflowService.prototype.removeDraft = function (id) {
-        return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["from"])(_pnp_sp__WEBPACK_IMPORTED_MODULE_6__["sp"].web.lists.getByTitle('Черновики заявок').items.getById(id).delete());
+    RequestsWorkflowService.prototype.removeDraft = function (id, webId) {
+        var web = null;
+        if (webId == null) {
+            web = Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(_pnp_sp__WEBPACK_IMPORTED_MODULE_6__["sp"].web);
+        }
+        else {
+            web = Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["from"])(_pnp_sp__WEBPACK_IMPORTED_MODULE_6__["sp"].site.openWebById(webId)).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (w) { return w.web; }));
+        }
+        return web.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["flatMap"])(function (w) { return w.lists.getByTitle('Черновики заявок').items.getById(id).delete(); }));
     };
     RequestsWorkflowService.prototype.copyRequest = function (request) {
         var r = JSON.parse(JSON.stringify(request));
@@ -1770,12 +1890,12 @@ var RequestsService = /** @class */ (function (_super) {
         return '/Lists/slRequests';
     };
     RequestsService.prototype.getSelect = function () {
-        return 'Id,Title,Created,ContentType/Name,ContentType/Id,slRequestStatusLookup/Id,'
-            + 'slRequestStatusLookup/slCode,slRequestStatusLookup/Title,ContentTypeId,Author/Id,'
+        return 'Id,Title,Created,ContentType/Name,ContentType/Id,'
+            + 'slRequestStatusLookupId,ContentTypeId,Author/Id,'
             + 'LikedBy/Id,LikesCount';
     };
     RequestsService.prototype.getExpand = function () {
-        return 'ContentType,slRequestStatusLookup,Author,LikedBy';
+        return 'ContentType,Author,LikedBy';
     };
     RequestsService.prototype.getOrderBy = function () {
         return [['Created', false]];
@@ -1798,7 +1918,8 @@ var RequestsService = /** @class */ (function (_super) {
                 lastWeek: 'DD.MM.YYYY',
                 sameElse: 'DD.MM.YYYY'
             }),
-            requestDepartmentId: null
+            requestDepartmentId: null,
+            statusId: item.slRequestStatusLookupId
         };
         if (item.slRequestStatusLookup) {
             request.statusId = item.slRequestStatusLookup.Id;
@@ -1829,6 +1950,105 @@ var RequestsService = /** @class */ (function (_super) {
     ], RequestsService);
     return RequestsService;
 }(src_app_services_list_items_service__WEBPACK_IMPORTED_MODULE_1__["ListItemsService"]));
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/companies/company-web.resolver.ts":
+/*!************************************************************!*\
+  !*** ./src/app/services/companies/company-web.resolver.ts ***!
+  \************************************************************/
+/*! exports provided: CompanyWebResolver */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CompanyWebResolver", function() { return CompanyWebResolver; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _companies_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./companies.service */ "./src/app/services/companies/companies.service.ts");
+/* harmony import */ var _sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../sharepoint/sharepoint.service */ "./src/app/services/sharepoint/sharepoint.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var CompanyWebResolver = /** @class */ (function () {
+    function CompanyWebResolver(companiesService, sharepointService) {
+        this.companiesService = companiesService;
+        this.sharepointService = sharepointService;
+    }
+    CompanyWebResolver.prototype.resolve = function (route, state) {
+        var _this = this;
+        var id = route.params.id;
+        if (id === 'root') {
+            return undefined;
+        }
+        else {
+            return this.companiesService.getItems({ filter: "Id eq '" + id + "'" })
+                .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(function (c) { return c.length > 0 ? c[0] : null; }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["flatMap"])(function (c) { return _this.sharepointService.getWebIdByRelativeUrl(c && c.url); }));
+        }
+    };
+    CompanyWebResolver = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __metadata("design:paramtypes", [_companies_service__WEBPACK_IMPORTED_MODULE_2__["CompaniesService"], _sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_3__["SharepointService"]])
+    ], CompanyWebResolver);
+    return CompanyWebResolver;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/companies/company.resolver.ts":
+/*!********************************************************!*\
+  !*** ./src/app/services/companies/company.resolver.ts ***!
+  \********************************************************/
+/*! exports provided: CompanyResolver */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CompanyResolver", function() { return CompanyResolver; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _companies_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./companies.service */ "./src/app/services/companies/companies.service.ts");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var CompanyResolver = /** @class */ (function () {
+    function CompanyResolver(companiesService) {
+        this.companiesService = companiesService;
+    }
+    CompanyResolver.prototype.resolve = function (route, state) {
+        var id = route.params.id;
+        return this.companiesService.getItems({ filter: "Id eq '" + id + "'" })
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (c) { return c.length > 0 ? c[0] : null; }));
+    };
+    CompanyResolver = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __metadata("design:paramtypes", [_companies_service__WEBPACK_IMPORTED_MODULE_1__["CompaniesService"]])
+    ], CompanyResolver);
+    return CompanyResolver;
+}());
 
 
 

@@ -136,7 +136,7 @@ var CalendarModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"leftside\">\n  <div class=\"l-page-header\">\n    <div class=\"l-breadcrumbs\">\n      <div class=\"l-breadcrumb\"><a [routerLink]=\"['/company']\">Главная</a></div>\n      <div class=\"l-breadcrumb\">\n        Календарь событий\n      </div>\n    </div>\n    <div class=\"title\">Календарь событий</div>\n  </div>\n  <div class=\"l-page\">\n    <div class=\"l-page-inner\">\n      <div class=\"l-page__content\">\n        <div class=\"l-calendar\">\n          <div class=\"l-calendar__filters\">\n            <div class=\"top-filters\">\n              <div class=\"reset\">\n                <input type=\"button\" value=\"Сегодня\" (click)=\"resetDate()\" />\n              </div>\n              <div class=\"change-year\">\n                <input type=\"button\" class=\"arrow-left\" (click)=\"setMonth(month, year - 1)\"/>\n                <div class=\"year\">{{year}}</div>\n                <input type=\"button\" class=\"arrow-right\" (click)=\"setMonth(month, year + 1)\"/>\n              </div>\n            </div>\n          </div>\n          <div class=\"change-months\">\n            <app-filters>\n              <app-filters-item [active]=\"month === i ? true : false\" *ngFor=\"let item of months; let i = index\" (change)=\"setMonth(i, year)\" >\n                {{item}}\n              </app-filters-item>\n            </app-filters>\n          </div>\n          <div class=\"l-calendar__month\">\n            <div class=\"l-calendar__month-inner\">\n              <div class=\"day head\" *ngFor=\"let day of days\">{{day}}</div>\n              <div class=\"day\" *ngFor=\"let number of numbers\"\n                [style.visibility]=\"number === 0 ? 'hidden' : 'visible'\"\n                [class.active]=\"activeYear === year && activeMonth === month && activeDay === number\"\n                [class.is-event]=\"hasEvent(events, number, month, year)\"\n                (click)=\"setDate(number, month, year)\">\n                <!--Класс .is-event устанавливать для дней, имеющих событие-->\n                <div class=\"mark\"></div>\n                {{number}}\n              </div>\n            </div>\n          </div>\n          <div class=\"l-calendar__legend\" style=\"display: none\">\n            <div class=\"item\" *ngFor=\"let item of legends\">\n              <div class=\"mark\" [style.backgroundColor]=\"item.mark\"></div>\n              <div class=\"name\">{{item.name}}</div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n<div class=\"rightside\">\n  <div class=\"current-date\">\n    <div class=\"number\">\n      {{activeDay}}\n    </div>\n    <div class=\"details\">\n      <div class=\"month\">\n        {{activeMonth !== null && monthsIn[activeMonth]}}\n      </div>\n      <div class=\"day\">\n        {{activeDayOfWeek && daysFull[activeDayOfWeek - 1]}}\n      </div>\n    </div>\n  </div>\n  <div class=\"event-list\">\n    <div class=\"title\">\n      События\n    </div>\n    <div class=\"event-card\" *ngFor=\"let item of activeEvents\">\n      <div class=\"event-mark\" [style.backgroundColor]=\"'#da402b'\"></div>\n      <div class=\"admin-controls\">\n        <app-admin-controls [item]=\"item\" [canBeCreated]=\"false\" (edit)=\"edit($event, item)\" (remove)=\"remove($event, item)\"></app-admin-controls>\n      </div>\n      <a class=\"event-title\" [routerLink]=\"[item.id]\">\n        {{item.title}}\n      </a>\n      <div class=\"event-place\" *ngIf=\"item.placeTitle\">\n        {{item.placeTitle}}\n      </div>\n      <div class=\"event-time\">\n        {{item.startTitle}} <span *ngIf=\"item.endTitle\">-</span> {{item.endTitle}}\n      </div>\n    </div>\n    <div class=\"event-card\" *ngIf=\"activeEvents.length === 0\">\n      На текущую дату событий нет\n    </div>\n  </div>\n  <div class=\"admin-button\"><app-create-event-button></app-create-event-button></div>\n  <!-- <div class=\"admin-button\">\n    <input type=\"button\" class=\"add-event\" />\n  </div> -->\n</div>\n"
+module.exports = "<div class=\"leftside\">\n  <div class=\"l-page-header\">\n    <div class=\"l-breadcrumbs\">\n      <div class=\"l-breadcrumb\"><a [routerLink]=\"['/company']\">Главная</a></div>\n      <div class=\"l-breadcrumb\">\n        Календарь событий\n      </div>\n    </div>\n    <div class=\"title\">Календарь событий</div>\n  </div>\n  <div class=\"l-page\">\n    <div class=\"l-page-inner\">\n      <div class=\"l-page__content\">\n        <div class=\"l-calendar\">\n          <div class=\"l-calendar__filters\">\n            <div class=\"top-filters\">\n              <div class=\"reset\">\n                <input type=\"button\" value=\"Сегодня\" (click)=\"resetDate()\" />\n              </div>\n              <div class=\"change-year\">\n                <input\n                  type=\"button\"\n                  class=\"arrow-left\"\n                  (click)=\"setMonth(month, year - 1)\"\n                />\n                <div class=\"year\">{{ year }}</div>\n                <input\n                  type=\"button\"\n                  class=\"arrow-right\"\n                  (click)=\"setMonth(month, year + 1)\"\n                />\n              </div>\n            </div>\n          </div>\n          <div class=\"change-months\">\n            <app-filters>\n              <app-filters-item\n                [active]=\"month === i ? true : false\"\n                *ngFor=\"let item of months; let i = index\"\n                (change)=\"setMonth(i, year)\"\n              >\n                {{ item }}\n              </app-filters-item>\n            </app-filters>\n          </div>\n          <div class=\"l-calendar__month\">\n            <div class=\"l-calendar__month-inner\">\n              <div class=\"day head\" *ngFor=\"let day of days\">{{ day }}</div>\n              <div\n                class=\"day\"\n                *ngFor=\"let number of numbers\"\n                [style.visibility]=\"number === 0 ? 'hidden' : 'visible'\"\n                [class.active]=\"\n                  activeYear === year &&\n                  activeMonth === month &&\n                  activeDay === number\n                \"\n                [class.is-event]=\"hasEvent(events, number, month, year)\"\n                (click)=\"setDate(number, month, year)\"\n              >\n                <!--Класс .is-event устанавливать для дней, имеющих событие-->\n                <div class=\"mark\"></div>\n                {{ number }}\n              </div>\n            </div>\n          </div>\n          <div class=\"l-calendar__legend\" style=\"display: none\">\n            <div class=\"item\" *ngFor=\"let item of legends\">\n              <div class=\"mark\" [style.backgroundColor]=\"item.mark\"></div>\n              <div class=\"name\">{{ item.name }}</div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n<div class=\"rightside\">\n  <div class=\"current-date\">\n    <div class=\"number\">\n      {{ activeDay }}\n    </div>\n    <div class=\"details\">\n      <div class=\"month\">\n        {{ activeMonth !== null && monthsIn[activeMonth] }}\n      </div>\n      <div class=\"day\">\n        {{ activeDayOfWeek && daysFull[activeDayOfWeek - 1] }}\n      </div>\n    </div>\n  </div>\n  <div class=\"event-list\">\n    <div class=\"title\">\n      События\n    </div>\n    <div class=\"event-card\" #eventCard *ngFor=\"let item of activeEvents\">\n      <div class=\"event-mark\" [style.backgroundColor]=\"'#da402b'\"></div>\n      <div class=\"admin-controls\">\n        <app-admin-controls\n          (activatedControls)=\"expandEvent($event, eventCard)\"\n          [item]=\"item\"\n          [canBeCreated]=\"false\"\n          (edit)=\"edit($event, item)\"\n          (remove)=\"remove($event, item)\"\n        ></app-admin-controls>\n      </div>\n      <a class=\"event-title\" [routerLink]=\"[item.id]\">\n        {{ item.title }}\n      </a>\n      <div class=\"event-place\" *ngIf=\"item.placeTitle\">\n        {{ item.placeTitle }}\n      </div>\n      <div class=\"event-time\">\n        {{ item.startTitle }} <span *ngIf=\"item.endTitle\">-</span>\n        {{ item.endTitle }}\n      </div>\n    </div>\n    <div class=\"event-card\" *ngIf=\"activeEvents.length === 0\">\n      На текущую дату событий нет\n    </div>\n  </div>\n  <div class=\"admin-button\">\n    <app-create-event-button></app-create-event-button>\n  </div>\n  <!-- <div class=\"admin-button\">\n    <input type=\"button\" class=\"add-event\" />\n  </div> -->\n</div>\n"
 
 /***/ }),
 
@@ -147,7 +147,7 @@ module.exports = "<div class=\"leftside\">\n  <div class=\"l-page-header\">\n   
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.leftside {\n  display: inline-block;\n  width: 70%;\n  vertical-align: top;\n  border-right: 1px solid #F6F6F6;\n  box-sizing: border-box; }\n\n.rightside {\n  display: inline-block;\n  width: 30%;\n  vertical-align: top; }\n\n.l-page {\n  margin: 0;\n  padding: 0; }\n\n.l-page__content {\n  position: relative; }\n\n.l-calendar {\n  padding-left: 25px;\n  box-sizing: border-box; }\n\n.l-calendar .l-calendar__filters {\n    position: absolute;\n    top: -30px; }\n\n.l-calendar .l-calendar__filters .reset {\n      display: inline-block;\n      margin-right: 40px; }\n\n.l-calendar .l-calendar__filters .reset input {\n        border: 1px solid #dd1e25;\n        border-radius: 15px;\n        font-size: 16px;\n        line-height: 20px;\n        color: #050505;\n        padding: 0 15px;\n        box-sizing: border-box; }\n\n.l-calendar .l-calendar__filters .change-year {\n      display: inline-block; }\n\n.l-calendar .l-calendar__filters .change-year .arrow-right,\n      .l-calendar .l-calendar__filters .change-year .arrow-left {\n        display: inline-block;\n        width: 15px;\n        height: 15px;\n        background-repeat: no-repeat;\n        background-size: contain;\n        background-image: url(/assets/icons/icon-arrow-right-red.svg);\n        vertical-align: middle; }\n\n.l-calendar .l-calendar__filters .change-year .arrow-left {\n        -webkit-transform: rotate(180deg);\n            -ms-transform: rotate(180deg);\n                transform: rotate(180deg); }\n\n.l-calendar .l-calendar__filters .change-year .year {\n        display: inline-block;\n        font-size: 16px;\n        line-height: 20px;\n        color: #050505;\n        margin: 0 20px;\n        vertical-align: middle; }\n\n.l-calendar .change-months {\n    margin-top: 30px;\n    height: 33px; }\n\n.l-calendar .l-calendar__month {\n    border-bottom: 1px solid #F6F6F6;\n    margin-bottom: 20px; }\n\n.l-calendar .l-calendar__month .l-calendar__month-inner {\n      width: 49vw;\n      font-size: 0; }\n\n.l-calendar .l-calendar__month .day {\n      position: relative;\n      display: inline-block;\n      width: 3vw;\n      height: 3vw;\n      margin: 2vw;\n      font-size: 24px;\n      line-height: 3vw;\n      text-align: center;\n      border-radius: 100%;\n      cursor: pointer; }\n\n.l-calendar .l-calendar__month .day .mark {\n        display: none;\n        position: absolute;\n        right: -10px;\n        top: -10px;\n        width: 12px;\n        height: 12px;\n        border-radius: 100%;\n        background-color: #dd1e25; }\n\n.l-calendar .l-calendar__month .day.head {\n        font-weight: bold;\n        cursor: default; }\n\n.l-calendar .l-calendar__month .day.is-event {\n        background-color: #F1F1F4; }\n\n.l-calendar .l-calendar__month .day.is-event .mark {\n          display: block; }\n\n.l-calendar .l-calendar__month .day.active {\n        background-color: #dd1e25;\n        color: #FFF; }\n\n.l-calendar .l-calendar__legend .item {\n    display: inline-block;\n    margin-right: 65px;\n    margin-bottom: 10px; }\n\n.l-calendar .l-calendar__legend .item .mark {\n      display: inline-block;\n      width: 12px;\n      height: 12px;\n      border-radius: 100%; }\n\n.l-calendar .l-calendar__legend .item .name {\n      display: inline-block;\n      margin-left: 10px;\n      font-size: 14px;\n      color: #4D4E4D; }\n\n.rightside .current-date {\n  padding: 7% 6%;\n  box-sizing: border-box;\n  border-bottom: 1px solid #F6F6F6;\n  text-align: center; }\n\n.rightside .current-date .number {\n    display: inline-block;\n    font-size: 140px;\n    line-height: 154px;\n    font-weight: bold;\n    color: #F1F1F4;\n    margin-right: 20px;\n    vertical-align: middle; }\n\n@media (min-width: 1440px) {\n      .rightside .current-date .number {\n        font-size: calc( 0.125 * 100vw + -40px);\n        line-height: calc( 0.125 * 100vw + -26px); } }\n\n@media (min-width: 1920px) {\n      .rightside .current-date .number {\n        font-size: 200px;\n        line-height: 214px; } }\n\n.rightside .current-date .details {\n    display: inline-block;\n    text-align: left;\n    font-size: 24px;\n    vertical-align: middle; }\n\n@media (min-width: 1440px) {\n      .rightside .current-date .details {\n        font-size: calc( 0.02083333 * 100vw + -6px); } }\n\n@media (min-width: 1920px) {\n      .rightside .current-date .details {\n        font-size: 34px; } }\n\n.rightside .current-date .details .month {\n      color: #050505; }\n\n.rightside .current-date .details .day {\n      color: #898888; }\n\n.rightside .event-list {\n  padding: 10% 8%;\n  box-sizing: border-box;\n  max-height: 700px;\n  margin-bottom: 50px;\n  overflow: auto; }\n\n.rightside .event-list .title {\n    font-size: 24px;\n    font-weight: bold;\n    color: #898888;\n    margin-bottom: 20px; }\n\n.rightside .event-list .event-card {\n    position: relative;\n    font-size: 16px;\n    line-height: 30px;\n    color: #050505;\n    margin-bottom: 14%; }\n\n@media (min-width: 1440px) {\n      .rightside .event-list .event-card {\n        font-size: calc( 0.01666667 * 100vw + -8px);\n        line-height: calc( 0.01666667 * 100vw + 6px); } }\n\n@media (min-width: 1920px) {\n      .rightside .event-list .event-card {\n        font-size: 24px;\n        line-height: 38px; } }\n\n.rightside .event-list .event-card:last-child {\n      margin-bottom: 0; }\n\n.rightside .event-list .event-card:hover .admin-controls {\n      display: block; }\n\n.rightside .event-list .event-card .admin-controls {\n      display: none; }\n\n.rightside .event-list .event-card .event-mark {\n      position: absolute;\n      left: -20px;\n      top: 13px;\n      width: 12px;\n      height: 12px;\n      border-radius: 100%; }\n\n.rightside .event-list .event-card .event-title {\n      display: block;\n      text-decoration: none;\n      color: #050505;\n      font-weight: bold; }\n\n.rightside .event-list .event-card .event-title:hover {\n        color: #dd1e25; }\n\n.rightside .admin-button {\n  text-align: right; }\n\n.rightside .admin-button .add-event {\n    width: 47px;\n    height: 47px;\n    background-image: url(/assets/icons/icon-plus-red.svg);\n    background-repeat: no-repeat;\n    background-size: contain; }\n"
+module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.leftside {\n  display: inline-block;\n  width: 70%;\n  vertical-align: top;\n  border-right: 1px solid #F6F6F6;\n  box-sizing: border-box; }\n\n.rightside {\n  display: inline-block;\n  width: 30%;\n  vertical-align: top; }\n\n.l-page {\n  margin: 0;\n  padding: 0; }\n\n.l-page__content {\n  position: relative; }\n\n.l-calendar {\n  padding-left: 25px;\n  box-sizing: border-box; }\n\n.l-calendar .l-calendar__filters {\n    position: absolute;\n    top: -30px; }\n\n.l-calendar .l-calendar__filters .reset {\n      display: inline-block;\n      margin-right: 40px; }\n\n.l-calendar .l-calendar__filters .reset input {\n        border: 1px solid #dd1e25;\n        border-radius: 15px;\n        font-size: 16px;\n        line-height: 20px;\n        color: #050505;\n        padding: 0 15px;\n        box-sizing: border-box; }\n\n.l-calendar .l-calendar__filters .change-year {\n      display: inline-block; }\n\n.l-calendar .l-calendar__filters .change-year .arrow-right,\n      .l-calendar .l-calendar__filters .change-year .arrow-left {\n        display: inline-block;\n        width: 15px;\n        height: 15px;\n        background-repeat: no-repeat;\n        background-size: contain;\n        background-image: url(/assets/icons/icon-arrow-right-red.svg);\n        vertical-align: middle; }\n\n.l-calendar .l-calendar__filters .change-year .arrow-left {\n        -webkit-transform: rotate(180deg);\n            -ms-transform: rotate(180deg);\n                transform: rotate(180deg); }\n\n.l-calendar .l-calendar__filters .change-year .year {\n        display: inline-block;\n        font-size: 16px;\n        line-height: 20px;\n        color: #050505;\n        margin: 0 20px;\n        vertical-align: middle; }\n\n.l-calendar .change-months {\n    margin-top: 30px;\n    height: 33px; }\n\n.l-calendar .l-calendar__month {\n    border-bottom: 1px solid #F6F6F6;\n    margin-bottom: 20px; }\n\n.l-calendar .l-calendar__month .l-calendar__month-inner {\n      width: 49vw;\n      font-size: 0; }\n\n@media screen and (min-width: 1930px) {\n        .l-calendar .l-calendar__month .l-calendar__month-inner {\n          width: 39vw; } }\n\n.l-calendar .l-calendar__month .day {\n      position: relative;\n      display: inline-block;\n      width: 3vw;\n      height: 3vw;\n      margin: 2vw;\n      font-size: 24px;\n      line-height: 3vw;\n      text-align: center;\n      border-radius: 100%;\n      cursor: pointer; }\n\n@media screen and (min-width: 1930px) {\n        .l-calendar .l-calendar__month .day {\n          width: 2vw;\n          height: 2vw;\n          margin: 1.5vw;\n          line-height: 2vw; } }\n\n.l-calendar .l-calendar__month .day .mark {\n        display: none;\n        position: absolute;\n        right: -10px;\n        top: -10px;\n        width: 12px;\n        height: 12px;\n        border-radius: 100%;\n        background-color: #dd1e25; }\n\n.l-calendar .l-calendar__month .day.head {\n        font-weight: bold;\n        cursor: default; }\n\n.l-calendar .l-calendar__month .day.is-event {\n        background-color: #F1F1F4; }\n\n.l-calendar .l-calendar__month .day.is-event .mark {\n          display: block; }\n\n.l-calendar .l-calendar__month .day.active {\n        background-color: #dd1e25;\n        color: #FFF; }\n\n.l-calendar .l-calendar__legend .item {\n    display: inline-block;\n    margin-right: 65px;\n    margin-bottom: 10px; }\n\n.l-calendar .l-calendar__legend .item .mark {\n      display: inline-block;\n      width: 12px;\n      height: 12px;\n      border-radius: 100%; }\n\n.l-calendar .l-calendar__legend .item .name {\n      display: inline-block;\n      margin-left: 10px;\n      font-size: 14px;\n      color: #4D4E4D; }\n\n.rightside .current-date {\n  padding: 7% 6%;\n  box-sizing: border-box;\n  border-bottom: 1px solid #F6F6F6;\n  text-align: center; }\n\n.rightside .current-date .number {\n    display: inline-block;\n    font-size: 140px;\n    line-height: 154px;\n    font-weight: bold;\n    color: #F1F1F4;\n    margin-right: 20px;\n    vertical-align: middle; }\n\n@media (min-width: 1440px) {\n      .rightside .current-date .number {\n        font-size: calc( 0.125 * 100vw + -40px);\n        line-height: calc( 0.125 * 100vw + -26px); } }\n\n@media (min-width: 1920px) {\n      .rightside .current-date .number {\n        font-size: 200px;\n        line-height: 214px; } }\n\n.rightside .current-date .details {\n    display: inline-block;\n    text-align: left;\n    font-size: 24px;\n    vertical-align: middle; }\n\n@media (min-width: 1440px) {\n      .rightside .current-date .details {\n        font-size: calc( 0.02083333 * 100vw + -6px); } }\n\n@media (min-width: 1920px) {\n      .rightside .current-date .details {\n        font-size: 34px; } }\n\n.rightside .current-date .details .month {\n      color: #050505; }\n\n.rightside .current-date .details .day {\n      color: #898888; }\n\n.rightside .event-list {\n  padding: 10% 8%;\n  box-sizing: border-box;\n  max-height: 700px;\n  margin-bottom: 50px;\n  overflow: auto; }\n\n.rightside .event-list .title {\n    font-size: 24px;\n    font-weight: bold;\n    color: #898888;\n    margin-bottom: 20px; }\n\n.rightside .event-list .event-card {\n    position: relative;\n    font-size: 16px;\n    line-height: 30px;\n    color: #050505;\n    margin-bottom: 10%; }\n\n@media (min-width: 1440px) {\n      .rightside .event-list .event-card {\n        font-size: calc( 0.01666667 * 100vw + -8px);\n        line-height: calc( 0.01666667 * 100vw + 6px); } }\n\n@media (min-width: 1920px) {\n      .rightside .event-list .event-card {\n        font-size: 24px;\n        line-height: 38px; } }\n\n.rightside .event-list .event-card.is-expanded {\n      min-height: 170px; }\n\n.rightside .event-list .event-card:last-child {\n      margin-bottom: 0; }\n\n.rightside .event-list .event-card:hover .admin-controls {\n      display: block; }\n\n.rightside .event-list .event-card .admin-controls {\n      display: none; }\n\n.rightside .event-list .event-card .event-mark {\n      position: absolute;\n      left: -20px;\n      top: 13px;\n      width: 12px;\n      height: 12px;\n      border-radius: 100%; }\n\n.rightside .event-list .event-card .event-title {\n      display: block;\n      text-decoration: none;\n      color: #050505;\n      font-weight: bold; }\n\n.rightside .event-list .event-card .event-title:hover {\n        color: #dd1e25; }\n\n.rightside .admin-button {\n  text-align: right; }\n\n.rightside .admin-button .add-event {\n    width: 47px;\n    height: 47px;\n    background-image: url(/assets/icons/icon-plus-red.svg);\n    background-repeat: no-repeat;\n    background-size: contain; }\n"
 
 /***/ }),
 
@@ -164,10 +164,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/sidebar/sidebar.service */ "./src/app/services/sidebar/sidebar.service.ts");
-/* harmony import */ var _services_calendar_calendar_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../services/calendar/calendar.service */ "./src/app/calendar/services/calendar/calendar.service.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/sharepoint/sharepoint.service */ "./src/app/services/sharepoint/sharepoint.service.ts");
+/* harmony import */ var _services_calendar_calendar_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../services/calendar/calendar.service */ "./src/app/calendar/services/calendar/calendar.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/sharepoint/sharepoint.service */ "./src/app/services/sharepoint/sharepoint.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -182,17 +181,39 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-
 var CalendarPageComponent = /** @class */ (function () {
-    function CalendarPageComponent(sidebarService, calendarService, route, sharepointService) {
-        this.sidebarService = sidebarService;
+    function CalendarPageComponent(calendarService, route, sharepointService) {
         this.calendarService = calendarService;
         this.route = route;
         this.sharepointService = sharepointService;
-        this.months = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь',
-            'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь'];
-        this.monthsIn = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
-            'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+        this.months = [
+            'январь',
+            'февраль',
+            'март',
+            'апрель',
+            'май',
+            'июнь',
+            'июль',
+            'август',
+            'сентябрь',
+            'октябрь',
+            'ноябрь',
+            'декабрь'
+        ];
+        this.monthsIn = [
+            'января',
+            'февраля',
+            'марта',
+            'апреля',
+            'мая',
+            'июня',
+            'июля',
+            'августа',
+            'сентября',
+            'октября',
+            'ноября',
+            'декабря'
+        ];
         this.day = null;
         this.month = null;
         this.year = null;
@@ -202,9 +223,18 @@ var CalendarPageComponent = /** @class */ (function () {
         this.activeYear = null;
         this.activeDate = null;
         this.days = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
-        this.daysFull = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
+        this.daysFull = [
+            'Понедельник',
+            'Вторник',
+            'Среда',
+            'Четверг',
+            'Пятница',
+            'Суббота',
+            'Воскресенье'
+        ];
         this.numbers = [];
-        this.legends = [{
+        this.legends = [
+            {
                 mark: '#da402b',
                 name: 'События компании'
             },
@@ -219,15 +249,23 @@ var CalendarPageComponent = /** @class */ (function () {
             {
                 mark: '#EEA127',
                 name: 'События подразделения'
-            }];
+            }
+        ];
         this.events = [];
         this.activeEvents = [];
         this.employee = null;
-        this.sidebarService.handleSetSettings({ showSidebar: false, bgColor: '#fff' });
     }
     CalendarPageComponent.prototype.ngOnInit = function () {
         this.employee = this.route.snapshot.data.employee;
         this.resetDate();
+    };
+    CalendarPageComponent.prototype.expandEvent = function ($event, item) {
+        if ($event) {
+            item.classList.add('is-expanded');
+        }
+        else {
+            item.classList.remove('is-expanded');
+        }
     };
     CalendarPageComponent.prototype.setMonth = function (month, year) {
         this.month = month;
@@ -268,33 +306,41 @@ var CalendarPageComponent = /** @class */ (function () {
     };
     CalendarPageComponent.prototype.load = function () {
         var _this = this;
-        this.calendarService.getItemsBy(this.month, this.year, this.employee.lookupDepartmentId, this.employee.company)
+        this.calendarService
+            .getItemsBy(this.month, this.year, this.employee.lookupDepartmentId, this.employee.company)
             .subscribe(function (events) {
             _this.events = events;
         });
     };
     CalendarPageComponent.prototype.loadActive = function () {
         var _this = this;
-        this.calendarService.getItemsBy(this.month, this.year, this.employee.lookupDepartmentId, this.employee.company)
+        this.calendarService
+            .getItemsBy(this.month, this.year, this.employee.lookupDepartmentId, this.employee.company)
             .subscribe(function (events) {
             _this.events = events;
-            _this.activeEvents = events.filter(function (e) { return (_this.activeDate.getTime() >= e.startWithoutTime.getTime() && (e.endWithoutTime == null
-                || _this.activeDate.getTime() <= e.endWithoutTime.getTime())); });
+            _this.activeEvents = events.filter(function (e) {
+                return _this.activeDate.getTime() >= e.startWithoutTime.getTime() &&
+                    (e.endWithoutTime == null ||
+                        _this.activeDate.getTime() <= e.endWithoutTime.getTime());
+            });
         });
     };
     CalendarPageComponent.prototype.hasEvent = function (events, day, month, year) {
         var date = new Date(year, month, day).getTime();
-        return events.some(function (e) { return (date >= e.startWithoutTime.getTime() && date <= e.endWithoutTime.getTime()); });
+        return events.some(function (e) {
+            return date >= e.startWithoutTime.getTime() &&
+                date <= e.endWithoutTime.getTime();
+        });
     };
     CalendarPageComponent.prototype.edit = function (event, item) {
-        window.location.href = this.sharepointService.getCurrentUserContext().webServerRelativeUrl
-            + ("/Lists/slCalendar/EditForm.aspx?ID=" + item.id + "&Source=")
-            + encodeURIComponent(window.location.href);
+        window.location.href =
+            this.sharepointService.getCurrentUserContext().webServerRelativeUrl +
+                ("/Lists/slCalendar/EditForm.aspx?ID=" + item.id + "&Source=") +
+                encodeURIComponent(window.location.href);
     };
     CalendarPageComponent.prototype.remove = function (event, item) {
         var _this = this;
-        this.calendarService.recycleItem(item)
-            .subscribe(function () { return _this.load(); });
+        this.calendarService.recycleItem(item).subscribe(function () { return _this.load(); });
     };
     CalendarPageComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -302,10 +348,9 @@ var CalendarPageComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./calendar-page.component.html */ "./src/app/calendar/components/calendar-page/calendar-page.component.html"),
             styles: [__webpack_require__(/*! ./calendar-page.component.scss */ "./src/app/calendar/components/calendar-page/calendar-page.component.scss")]
         }),
-        __metadata("design:paramtypes", [src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_2__["SidebarService"],
-            _services_calendar_calendar_service__WEBPACK_IMPORTED_MODULE_3__["CalendarService"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"],
-            src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_5__["SharepointService"]])
+        __metadata("design:paramtypes", [_services_calendar_calendar_service__WEBPACK_IMPORTED_MODULE_2__["CalendarService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"],
+            src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_4__["SharepointService"]])
     ], CalendarPageComponent);
     return CalendarPageComponent;
 }());
@@ -379,14 +424,14 @@ var CreateEventButtonComponent = /** @class */ (function () {
         var _this = this;
         if (this.route.snapshot.data.groups) {
             var g = this.route.snapshot.data.groups;
-            if (g && g.includes(src_app_constants_groups__WEBPACK_IMPORTED_MODULE_2__["groups"].administrator)) {
+            if (g && g.some(function (e) { return e === src_app_constants_groups__WEBPACK_IMPORTED_MODULE_2__["groups"].administrator; })) {
                 this.isShow = true;
             }
         }
         else {
             this.securityService.getCurrentUserGroups()
                 .subscribe(function (g) {
-                if (g && g.includes(src_app_constants_groups__WEBPACK_IMPORTED_MODULE_2__["groups"].administrator)) {
+                if (g && g.some(function (e) { return e === src_app_constants_groups__WEBPACK_IMPORTED_MODULE_2__["groups"].administrator; })) {
                     _this.isShow = true;
                 }
             });
@@ -471,7 +516,7 @@ var CreateEventButtonComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"l-page-header\">\n  <div class=\"l-breadcrumbs\">\n    <div class=\"l-breadcrumb\"><a [routerLink]=\"['/']\">Главная</a></div>\n    <div class=\"l-breadcrumb\"><a [routerLink]=\"['../']\">Календарь событий</a></div>\n    <div class=\"l-breadcrumb\">\n      {{event.title}}\n    </div>\n  </div>\n  <div class=\"title\">{{event.title}}</div>\n</div>\n<div class=\"l-page\">\n  <div class=\"l-page-inner\">\n    <div class=\"l-page__content\">\n      <div class=\"l-event\">\n        <div class=\"l-event__header\">\n          <div class=\"current-date\" *ngIf=\"event\">\n            <div class=\"number\">\n              {{this.day}}\n            </div>\n            <div class=\"details\">\n              <div class=\"month\">\n                {{this.monthsIn[this.month]}}\n              </div>\n              <div class=\"day\">\n                {{this.daysFull[this.dayOfWeek - 1]}}\n              </div>\n            </div>\n          </div>\n        </div>\n        <div class=\"l-event__info\">\n          <div class=\"row\" *ngIf=\"event.companyTitle && event.companyTitle.length > 0\">\n            <div class=\"col\">Комбинат</div>\n            <div class=\"col\">{{event.companyTitle.join(',')}}</div>\n          </div>\n          <div class=\"row\">\n            <div class=\"col\">Время</div>\n            <div class=\"col\"> {{event.startTitle}} <span *ngIf=\"event.endTitle\">-</span> {{event.endTitle}}</div>\n          </div>\n          <div class=\"row\">\n            <div class=\"col\">Тег</div>\n            <div class=\"col\"> {{event.type}}</div>\n          </div>\n          <div class=\"row\" *ngIf=\"event.departmentTitle && event.departmentTitle.length > 0\">\n            <div class=\"col\">Подразделение</div>\n            <div class=\"col\">{{event.departmentTitle.join(',')}}</div>\n          </div>\n          <div class=\"row\" *ngIf=\"event.placeTitle\">\n            <div class=\"col\">Место</div>\n            <div class=\"col\">{{event.placeTitle}}</div>\n          </div>\n          <div class=\"row\">\n            <div class=\"col\">Время</div>\n            <div class=\"col\"> {{event.startTitle}} <span *ngIf=\"event.endTitle\">-</span> {{event.endTitle}}</div>\n          </div>\n          <div class=\"row\" *ngIf=\"event.description\">\n            <div class=\"col\">Описание</div>\n            <div class=\"col\" [innerHTML]=\"event.description\">\n            </div>\n          </div>\n        </div>\n        <div class=\"button\">\n          <a [routerLink]=\"['../']\" class=\"btn btn-to-back\">\n            <i></i> К календарю\n          </a>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"l-page-header\">\n  <div class=\"l-breadcrumbs\">\n    <div class=\"l-breadcrumb\"><a [routerLink]=\"['/']\">Главная</a></div>\n    <div class=\"l-breadcrumb\"><a [routerLink]=\"['../']\">Календарь событий</a></div>\n    <div class=\"l-breadcrumb\">\n      {{event.title}}\n    </div>\n  </div>\n  <div class=\"title\">{{event.title}}</div>\n</div>\n<div class=\"l-page\">\n  <div class=\"l-page-inner\">\n    <div class=\"l-page__content\">\n      <div class=\"l-event\">\n        <div class=\"l-event__header\">\n          <div class=\"current-date\" *ngIf=\"event\">\n            <div class=\"number\">\n              {{this.day}}\n            </div>\n            <div class=\"details\">\n              <div class=\"month\">\n                {{this.monthsIn[this.month]}}\n              </div>\n              <div class=\"day\">\n                {{this.daysFull[this.dayOfWeek - 1]}}\n              </div>\n            </div>\n          </div>\n        </div>\n        <div class=\"l-event__info\">\n          <div class=\"row\" *ngIf=\"event.companyTitle && event.companyTitle.length > 0\">\n            <div class=\"col\">Комбинат</div>\n            <div class=\"col\">{{event.companyTitle.join(',')}}</div>\n          </div>\n          <div class=\"row\">\n            <div class=\"col\">Тег</div>\n            <div class=\"col\"> {{event.type}}</div>\n          </div>\n          <div class=\"row\" *ngIf=\"event.departmentTitle && event.departmentTitle.length > 0\">\n            <div class=\"col\">Подразделение</div>\n            <div class=\"col\">{{event.departmentTitle.join(',')}}</div>\n          </div>\n          <div class=\"row\" *ngIf=\"event.placeTitle\">\n            <div class=\"col\">Место</div>\n            <div class=\"col\">{{event.placeTitle}}</div>\n          </div>\n          <div class=\"row\">\n            <div class=\"col\">Время</div>\n            <div class=\"col\"> {{event.startTitle}} <span *ngIf=\"event.endTitle\">-</span> {{event.endTitle}}</div>\n          </div>\n          <div class=\"row\" *ngIf=\"event.description\">\n            <div class=\"col\">Описание</div>\n            <div class=\"col\" [innerHTML]=\"event.description\">\n            </div>\n          </div>\n        </div>\n        <div class=\"button\">\n          <a [routerLink]=\"['../']\" class=\"btn btn-to-back\">\n            <i></i> К календарю\n          </a>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -499,8 +544,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/sidebar/sidebar.service */ "./src/app/services/sidebar/sidebar.service.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -513,10 +557,8 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-
 var EventCardPageComponent = /** @class */ (function () {
-    function EventCardPageComponent(sidebarService, route) {
-        this.sidebarService = sidebarService;
+    function EventCardPageComponent(route) {
         this.route = route;
         this.day = null;
         this.month = null;
@@ -524,7 +566,6 @@ var EventCardPageComponent = /** @class */ (function () {
         this.monthsIn = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
             'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
         this.daysFull = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
-        this.sidebarService.handleSetSettings({ showSidebar: false, bgColor: '#fff' });
     }
     EventCardPageComponent.prototype.ngOnInit = function () {
         this.event = this.route.snapshot.data.event;
@@ -538,8 +579,7 @@ var EventCardPageComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./event-card-page.component.html */ "./src/app/calendar/components/event-card-page/event-card-page.component.html"),
             styles: [__webpack_require__(/*! ./event-card-page.component.scss */ "./src/app/calendar/components/event-card-page/event-card-page.component.scss")]
         }),
-        __metadata("design:paramtypes", [src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_2__["SidebarService"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"]])
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]])
     ], EventCardPageComponent);
     return EventCardPageComponent;
 }());
@@ -645,11 +685,11 @@ var CalendarService = /** @class */ (function (_super) {
         }
         if (entity.start) {
             entity.startWithoutTime = new Date(entity.start.getFullYear(), entity.start.getMonth(), entity.start.getDate());
-            entity.startTitle = moment__WEBPACK_IMPORTED_MODULE_1__(entity.start).format('HH:mm');
+            entity.startTitle = moment__WEBPACK_IMPORTED_MODULE_1__(item.StartDate.toString()).format('HH:mm');
         }
         if (entity.end) {
             entity.endWithoutTime = new Date(entity.end.getFullYear(), entity.end.getMonth(), entity.end.getDate(), 23, 59, 59);
-            entity.endTitle = moment__WEBPACK_IMPORTED_MODULE_1__(entity.end).format('HH:mm');
+            entity.endTitle = moment__WEBPACK_IMPORTED_MODULE_1__(item.EndDate.toString()).format('HH:mm');
         }
         if (item.slEventPlaceLookup) {
             entity.placeId = item.slEventPlaceLookup.Id;

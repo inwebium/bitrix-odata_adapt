@@ -11,7 +11,7 @@
 		"DESCRIPTION_TYPE": "text",
 		"INDEX_ELEMENT": "N",
 		"INDEX_SECTION": "N",
-		"LIST_MODE": "S",
+		"LIST_MODE": "C",
 		"RIGHTS_MODE": "S",
 		"WORKFLOW": "N",
 		"BIZPROC": "N",
@@ -57,7 +57,7 @@
 		"DESCRIPTION_TYPE": "text",
 		"INDEX_ELEMENT": "N",
 		"INDEX_SECTION": "N",
-		"LIST_MODE": "S",
+		"LIST_MODE": "C",
 		"RIGHTS_MODE": "S",
 		"WORKFLOW": "N",
 		"BIZPROC": "N",
@@ -103,7 +103,7 @@
 		"DESCRIPTION_TYPE": "text",
 		"INDEX_ELEMENT": "Y",
 		"INDEX_SECTION": "N",
-		"LIST_MODE": "S",
+		"LIST_MODE": "C",
 		"RIGHTS_MODE": "S",
 		"WORKFLOW": "N",
 		"BIZPROC": "N",
@@ -144,7 +144,7 @@
 		"DESCRIPTION_TYPE": "text",
 		"INDEX_ELEMENT": "Y",
 		"INDEX_SECTION": "N",
-		"LIST_MODE": "S",
+		"LIST_MODE": "C",
 		"RIGHTS_MODE": "S",
 		"WORKFLOW": "N",
 		"BIZPROC": "N",
@@ -193,7 +193,7 @@
 		"DESCRIPTION_TYPE": "text",
 		"INDEX_ELEMENT": "Y",
 		"INDEX_SECTION": "N",
-		"LIST_MODE": "S",
+		"LIST_MODE": "C",
 		"RIGHTS_MODE": "S",
 		"WORKFLOW": "N",
 		"BIZPROC": "N",
@@ -232,7 +232,7 @@
 	},
 	"sl_survey": {
 		"LID": "s1",
-		"NAME": "Опросы",
+		"NAME": "Перечень опросов",
 		"ACTIVE": "Y",
 		"LIST_PAGE_URL": "",
 		"SECTION_PAGE_URL": "",
@@ -242,7 +242,7 @@
 		"DESCRIPTION_TYPE": "text",
 		"INDEX_ELEMENT": "Y",
 		"INDEX_SECTION": "N",
-		"LIST_MODE": "S",
+		"LIST_MODE": "C",
 		"RIGHTS_MODE": "S",
 		"WORKFLOW": "N",
 		"BIZPROC": "N",
@@ -251,7 +251,7 @@
 		"XML_ID": "slSurvey",
 		"FIELDS": {
 			"CODE": {
-				"IS_REQUIRED": "Y",
+				"IS_REQUIRED": "N",
 				"DEFAULT_VALUE": {
 					"UNIQUE": "Y",
 					"TRANSLITERATION": "Y",
@@ -261,10 +261,10 @@
 				}
 			},
             "IBLOCK_SECTION_ID": {
-                "IS_REQUIRED": "Y"
+                "IS_REQUIRED": "N"
             },
             "ACTIVE_FROM": {
-                "IS_REQUIRED": "Y",
+                "IS_REQUIRED": "N",
                 "DEFAULT_VALUE": "=now"
             }
 		},
@@ -273,11 +273,11 @@
 		"ELEMENT_ADD": "Добавить опрос",
 		"ELEMENT_EDIT": "Изменить опрос",
 		"ELEMENT_DELETE": "Удалить опрос",
-		"SECTION_NAME": "Тип опроса",
-		"SECTIONS_NAME": "Типы опросов",
-		"SECTION_ADD": "Добавить тип опросов",
-		"SECTION_EDIT": "Изменить тип опросов",
-		"SECTION_DELETE": "Удалить тип опросов",
+		"SECTION_NAME": "Раздел",
+		"SECTIONS_NAME": "Разделы",
+		"SECTION_ADD": "Добавить раздел",
+		"SECTION_EDIT": "Изменить раздел",
+		"SECTION_DELETE": "Удалить раздел",
         "PERMISSIONS": {
             "1": "X",
             "2": "R"
@@ -295,7 +295,7 @@
 		"DESCRIPTION_TYPE": "text",
 		"INDEX_ELEMENT": "Y",
 		"INDEX_SECTION": "N",
-		"LIST_MODE": "S",
+		"LIST_MODE": "C",
 		"RIGHTS_MODE": "S",
 		"WORKFLOW": "N",
 		"BIZPROC": "N",
@@ -341,7 +341,7 @@
 		"DESCRIPTION_TYPE": "text",
 		"INDEX_ELEMENT": "Y",
 		"INDEX_SECTION": "N",
-		"LIST_MODE": "S",
+		"LIST_MODE": "C",
 		"RIGHTS_MODE": "S",
 		"WORKFLOW": "N",
 		"BIZPROC": "N",
@@ -390,7 +390,7 @@
 		"DESCRIPTION_TYPE": "text",
 		"INDEX_ELEMENT": "Y",
 		"INDEX_SECTION": "N",
-		"LIST_MODE": "S",
+		"LIST_MODE": "C",
 		"RIGHTS_MODE": "S",
 		"WORKFLOW": "N",
 		"BIZPROC": "N",
@@ -436,7 +436,7 @@
 		"DESCRIPTION_TYPE": "text",
 		"INDEX_ELEMENT": "Y",
 		"INDEX_SECTION": "N",
-		"LIST_MODE": "S",
+		"LIST_MODE": "C",
 		"RIGHTS_MODE": "S",
 		"WORKFLOW": "N",
 		"BIZPROC": "N",
@@ -477,7 +477,7 @@
 		"DESCRIPTION_TYPE": "text",
 		"INDEX_ELEMENT": "Y",
 		"INDEX_SECTION": "N",
-		"LIST_MODE": "S",
+		"LIST_MODE": "C",
 		"RIGHTS_MODE": "S",
 		"WORKFLOW": "N",
 		"BIZPROC": "N",
@@ -518,7 +518,7 @@
 		"DESCRIPTION_TYPE": "text",
 		"INDEX_ELEMENT": "Y",
 		"INDEX_SECTION": "N",
-		"LIST_MODE": "S",
+		"LIST_MODE": "C",
 		"RIGHTS_MODE": "S",
 		"WORKFLOW": "N",
 		"BIZPROC": "N",
@@ -559,7 +559,7 @@
 		"DESCRIPTION_TYPE": "text",
 		"INDEX_ELEMENT": "Y",
 		"INDEX_SECTION": "N",
-		"LIST_MODE": "S",
+		"LIST_MODE": "C",
 		"RIGHTS_MODE": "S",
 		"WORKFLOW": "N",
 		"BIZPROC": "N",
@@ -600,7 +600,7 @@
 		"DESCRIPTION_TYPE": "text",
 		"INDEX_ELEMENT": "Y",
 		"INDEX_SECTION": "N",
-		"LIST_MODE": "S",
+		"LIST_MODE": "C",
 		"RIGHTS_MODE": "S",
 		"WORKFLOW": "N",
 		"BIZPROC": "N",
@@ -641,7 +641,7 @@
 		"DESCRIPTION_TYPE": "text",
 		"INDEX_ELEMENT": "Y",
 		"INDEX_SECTION": "N",
-		"LIST_MODE": "S",
+		"LIST_MODE": "C",
 		"RIGHTS_MODE": "S",
 		"WORKFLOW": "N",
 		"BIZPROC": "N",
@@ -682,13 +682,136 @@
 		"DESCRIPTION_TYPE": "text",
 		"INDEX_ELEMENT": "Y",
 		"INDEX_SECTION": "N",
-		"LIST_MODE": "S",
+		"LIST_MODE": "C",
 		"RIGHTS_MODE": "S",
 		"WORKFLOW": "N",
 		"BIZPROC": "N",
 		"VERSION": 2,
 		"SORT": 8110,
 		"XML_ID": "slMagazines",
+		"FIELDS": {
+			"CODE": {
+				"IS_REQUIRED": "N",
+				"DEFAULT_VALUE": {
+					"UNIQUE": "N",
+					"TRANSLITERATION": "Y",
+					"TRANS_SPACE": "_",
+					"TRANS_OTHER": "_",
+					"TRANS_EAT": "Y"
+				}
+			}
+		},
+		"ELEMENT_NAME": "Элемент",
+		"ELEMENTS_NAME": "Элементы",
+		"ELEMENT_ADD": "Добавить элемент",
+		"ELEMENT_EDIT": "Изменить элемент",
+		"ELEMENT_DELETE": "Удалить элемент",
+        "PERMISSIONS": {
+            "1": "X",
+            "2": "R"
+        }
+    },
+    "sl_photo_library": {
+        "LID": "s1",
+		"NAME": "Библиотека фотогалереи",
+		"ACTIVE": "Y",
+		"LIST_PAGE_URL": "",
+		"SECTION_PAGE_URL": "",
+		"DETAIL_PAGE_URL": "",
+		"PICTURE": "",
+		"DESCRIPTION": "",
+		"DESCRIPTION_TYPE": "text",
+		"INDEX_ELEMENT": "Y",
+		"INDEX_SECTION": "N",
+		"LIST_MODE": "C",
+		"RIGHTS_MODE": "S",
+		"WORKFLOW": "N",
+		"BIZPROC": "N",
+		"VERSION": 2,
+		"SORT": 8110,
+		"XML_ID": "slPhotoLibrary",
+		"FIELDS": {
+			"CODE": {
+				"IS_REQUIRED": "N",
+				"DEFAULT_VALUE": {
+					"UNIQUE": "N",
+					"TRANSLITERATION": "Y",
+					"TRANS_SPACE": "_",
+					"TRANS_OTHER": "_",
+					"TRANS_EAT": "Y"
+				}
+			}
+		},
+		"ELEMENT_NAME": "Элемент",
+		"ELEMENTS_NAME": "Элементы",
+		"ELEMENT_ADD": "Добавить элемент",
+		"ELEMENT_EDIT": "Изменить элемент",
+		"ELEMENT_DELETE": "Удалить элемент",
+        "PERMISSIONS": {
+            "1": "X",
+            "2": "R"
+        }
+    },
+    "sl_service_templates": {
+        "LID": "s1",
+		"NAME": "Каталог сервисов",
+		"ACTIVE": "Y",
+		"LIST_PAGE_URL": "",
+		"SECTION_PAGE_URL": "",
+		"DETAIL_PAGE_URL": "",
+		"PICTURE": "",
+		"DESCRIPTION": "",
+		"DESCRIPTION_TYPE": "text",
+		"INDEX_ELEMENT": "Y",
+		"INDEX_SECTION": "N",
+		"LIST_MODE": "C",
+		"RIGHTS_MODE": "S",
+		"WORKFLOW": "N",
+		"BIZPROC": "N",
+		"VERSION": 2,
+		"SORT": 8110,
+		"XML_ID": "slServiceTemplates",
+		"FIELDS": {
+			"CODE": {
+				"IS_REQUIRED": "N",
+				"DEFAULT_VALUE": {
+					"UNIQUE": "N",
+					"TRANSLITERATION": "Y",
+					"TRANS_SPACE": "_",
+					"TRANS_OTHER": "_",
+					"TRANS_EAT": "Y"
+				}
+			}
+		},
+		"ELEMENT_NAME": "Элемент",
+		"ELEMENTS_NAME": "Элементы",
+		"ELEMENT_ADD": "Добавить элемент",
+		"ELEMENT_EDIT": "Изменить элемент",
+		"ELEMENT_DELETE": "Удалить элемент",
+        "PERMISSIONS": {
+            "1": "X",
+            "2": "R"
+        }
+    },
+    "sl_videos": {
+        "LID": "s1",
+		"NAME": "Ссылки на видео",
+		"ACTIVE": "Y",
+		"LIST_PAGE_URL": "",
+		"SECTION_PAGE_URL": "",
+		"DETAIL_PAGE_URL": "",
+		"PICTURE": "",
+		"DESCRIPTION": "",
+		"DESCRIPTION_TYPE": "text",
+		"INDEX_ELEMENT": "Y",
+		"INDEX_SECTION": "N",
+		"LIST_MODE": "C",
+		"RIGHTS_MODE": "S",
+		"WORKFLOW": "N",
+		"BIZPROC": "N",
+		"VERSION": 2,
+		"SORT": 8120,
+		"XML_ID": "slVideos",
 		"FIELDS": {
 			"CODE": {
 				"IS_REQUIRED": "N",

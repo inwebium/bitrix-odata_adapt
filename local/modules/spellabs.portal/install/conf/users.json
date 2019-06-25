@@ -310,6 +310,44 @@
 
     },
     "slCompany": {
-
+        "UF": {
+            "FIELD_NAME": "UF_SL_COMPANY",
+            "USER_TYPE_ID": "iblock_element",
+            "SORT": 1000,
+            "MULTIPLE": "N",
+            "MANDATORY": "N",
+            "SHOW_FILTER": "S",
+            "SHOW_IN_LIST": "Y",
+            "EDIT_IN_LIST": "Y",
+            "IS_SEARCHABLE": "Y",
+            "SETTINGS": {
+                "IBLOCK_TYPE_ID": "spellabs",
+                "IBLOCK_ID": "#sl_companies#",
+                "DEFAULT_VALUE": "",
+                "DISPLAY": "LIST",
+                "LIST_HEIGHT": 5,
+                "ACTIVE_FILTER": "Y"
+            },
+            "EDIT_FORM_LABEL": {
+                "ru": "slCompany",
+                "en": "slCompany"
+            },
+            "LIST_COLUMN_LABEL": {
+                "ru": "slCompany",
+                "en": "slCompany"      
+            },
+            "LIST_FILTER_LABEL": {
+                "ru": "slCompany",
+                "en": "slCompany"
+            },
+            "ERROR_MESSAGE": {
+                "ru": "",
+                "en": ""
+            },
+            "HELP_MESSAGE": {
+                "ru": "",
+                "en": ""
+            }
+        }
     }
 }

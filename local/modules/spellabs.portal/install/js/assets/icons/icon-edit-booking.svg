@@ -1,12 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
-  <g id="Group_18591" data-name="Group 18591" transform="translate(-4627.438 -1186.438)">
-    <g id="Group_3371" data-name="Group 3371" transform="translate(4644.868 1198.706)">
-      <g id="Group_3370" data-name="Group 3370" transform="translate(0 2.445)">
-        <path id="Path_320" data-name="Path 320" d="M10.321,5.5H.8V27.216h9.929l7.239-7.287V13.342" transform="translate(-0.8 -5.5)" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="4" fill-rule="evenodd"/>
-        <path id="Path_321" data-name="Path 321" d="M29.534,35.2H21v8.592" transform="translate(-12.416 -21.979)" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="4" fill-rule="evenodd"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85">
+  <g id="Group_19170" data-name="Group 19170" transform="translate(-587 -42)">
+    <rect id="Rectangle_11933" data-name="Rectangle 11933" width="85" height="85" transform="translate(587 42)" fill="#ee2737"/>
+    <g id="Group_18591" data-name="Group 18591" transform="translate(-4024 -1126)">
+      <g id="Group_3371" data-name="Group 3371" transform="translate(4644.868 1198.706)">
+        <g id="Group_3370" data-name="Group 3370" transform="translate(0 2.445)">
+          <path id="Path_320" data-name="Path 320" d="M10.321,5.5H.8V27.216h9.929l7.239-7.287V13.342" transform="translate(-0.8 -5.5)" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="4" fill-rule="evenodd"/>
+          <path id="Path_321" data-name="Path 321" d="M29.534,35.2H21v8.592" transform="translate(-12.416 -21.979)" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="4" fill-rule="evenodd"/>
+        </g>
+        <line id="Line_166" data-name="Line 166" y1="12.521" x2="12.521" transform="translate(7.092 0)" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="4"/>
       </g>
-      <line id="Line_166" data-name="Line 166" y1="12.521" x2="12.521" transform="translate(7.092 0)" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="4"/>
+      <path id="ic_error_outline_24px" d="M26.975,2A25,25,0,1,0,52,27,24.988,24.988,0,0,0,26.975,2ZM27,47A20,20,0,1,1,47,27,19.994,19.994,0,0,1,27,47Z" transform="translate(4625.438 1184.438)" fill="#fff"/>
     </g>
-    <path id="ic_error_outline_24px" d="M26.975,2A25,25,0,1,0,52,27,24.988,24.988,0,0,0,26.975,2ZM27,47A20,20,0,1,1,47,27,19.994,19.994,0,0,1,27,47Z" transform="translate(4625.438 1184.438)" fill="#fff"/>
   </g>
 </svg>

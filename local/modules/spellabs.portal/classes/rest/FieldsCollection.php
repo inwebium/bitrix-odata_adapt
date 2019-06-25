@@ -72,7 +72,12 @@ class FieldsCollection implements \Iterator
      */
     public function getField($code)
     {
-        return $this->fields[$code];
+        if (isset($this->fields[$code])) {
+            return $this->fields[$code];
+        } else {
+            return new Field('NOT_EXISTING', 'NOT_EXISTING', Processor\Type\StringType::class);
+        }
+        
     }
     
     public function getFieldsByEntity($entityName)

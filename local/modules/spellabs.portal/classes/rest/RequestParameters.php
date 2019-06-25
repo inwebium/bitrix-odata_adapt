@@ -56,7 +56,7 @@ class RequestParameters
         return $this;
     }
 
-    private function setFilter($filter)
+    public function setFilter($filter)
     {
         $this->filter = $filter;
         return $this;
@@ -170,9 +170,9 @@ class RequestParameters
         
         $this->setSelect($adapted);
         $adapted = [];
-        
+        //var_dump($this->filter);
         $this->recursiveAssocReplace($this->filter, $fieldsReplace);
-        
+        //var_dump($this->filter);
         foreach ($this->order as $key => $orderDefinition)
         {
             $adapted[AssociativeReplacer::replace($key, $fieldsReplace)] = $orderDefinition;
@@ -188,7 +188,7 @@ class RequestParameters
         
         foreach ($array as $key => $value)
         {
-            AssociativeReplacer::replace($key, $fields);
+            $key = AssociativeReplacer::replace($key, $fields);
             
             if (is_array($value)) {
                 $adapted[$key] = $this->recursiveAssocReplace($value, $fields);
@@ -198,6 +198,7 @@ class RequestParameters
         }
         
         $array = $adapted;
+        return $array;
     }
     
     /**

@@ -285,6 +285,16 @@
 		}
 	},
 	"sl_survey": {
+        "ACTIVE_FROM": {
+			"XML_ID": "slNewDate",
+			"RETURNS": "Datetime",
+            "FIELD_ENTITY": "FIELD"
+		},
+        "ACTIVE_TO": {
+			"XML_ID": "slEndDate",
+			"RETURNS": "Datetime",
+            "FIELD_ENTITY": "FIELD"
+		},
         "SL_THEME": {
 			"XML_ID": "slTheme",
 			"NAME": "Тема опроса",
@@ -527,6 +537,167 @@
 			"FILE_TYPE": "",
 			"SEARCHABLE": "N",
 			"FILTRABLE": "N"
+		}
+    },
+    "sl_videos": {
+        "SL_VIDEO_URL": {
+			"XML_ID": "slVideoUrl",
+			"NAME": "Ссылка на видео",
+			"ACTIVE": "Y",
+			"IS_REQUIRED": "Y",
+			"SORT": 21,
+			"PROPERTY_TYPE": "S",
+			"MULTIPLE": "N",
+			"DEFAULT_VALUE": "",
+			"ROW_COUNT": 3,
+			"COL_COUNT": 30,
+			"SEARCHABLE": "N",
+			"FILTRABLE": "Y"
+		},
+        "SL_IS_IFRAME": {
+			"XML_ID": "slIsIFrame",
+			"NAME": "Отображать как фрейм",
+			"ACTIVE": "Y",
+			"IS_REQUIRED": "N",
+			"SORT": 40,
+			"PROPERTY_TYPE": "L",
+			"MULTIPLE": "N",
+			"LIST_TYPE": "C",
+			"SEARCHABLE": "N",
+			"FILTRABLE": "Y",
+			"VALUES": {
+				"0": {
+					"VALUE": "Y",
+					"DEF": "N",
+					"SORT": 10,
+					"XML_ID": "true"
+				}
+			},
+            "RETURNS": "Boolean"
+		},
+		"SL_ATTACHMENTS": {
+			"XML_ID": "AttachmentFiles",
+			"NAME": "Вложения",
+			"ACTIVE": "Y",
+			"IS_REQUIRED": "N",
+			"SORT": 10000,
+			"PROPERTY_TYPE": "F",
+			"MULTIPLE": "Y",
+			"FILE_TYPE": "",
+			"SEARCHABLE": "N",
+			"FILTRABLE": "N"
+		}
+    },
+    "sl_newspapers": {
+        "SL_NUMBER": {
+			"XML_ID": "slNumber",
+			"NAME": "Номер",
+			"ACTIVE": "Y",
+			"IS_REQUIRED": "N",
+			"SORT": 21,
+			"PROPERTY_TYPE": "S",
+			"MULTIPLE": "N",
+			"DEFAULT_VALUE": "",
+			"ROW_COUNT": 3,
+			"COL_COUNT": 30,
+			"SEARCHABLE": "N",
+			"FILTRABLE": "Y"
+		},
+        "SL_NEWSPAPER_URL": {
+			"XML_ID": "slNewspaperUrl",
+			"NAME": "slNewspaperUrl",
+			"ACTIVE": "Y",
+			"IS_REQUIRED": "Y",
+			"SORT": 21,
+			"PROPERTY_TYPE": "S",
+			"MULTIPLE": "N",
+			"DEFAULT_VALUE": "",
+			"ROW_COUNT": 3,
+			"COL_COUNT": 30,
+			"SEARCHABLE": "N",
+			"FILTRABLE": "Y"
+		},
+        "SL_IMAGE_URL": {
+			"XML_ID": "slImageUrl",
+			"NAME": "slImageUrl",
+			"ACTIVE": "Y",
+			"IS_REQUIRED": "N",
+			"SORT": 30,
+			"PROPERTY_TYPE": "F",
+			"MULTIPLE": "N",
+			"FILE_TYPE": "jpg,jpeg,gif,png,svg",
+			"SEARCHABLE": "N",
+			"FILTRABLE": "N",
+            "RETURNS": "FileUrl"
+		},
+        "SL_RELEASE_DATE": {
+			"XML_ID": "slReleaseDate",
+			"NAME": "slReleaseDate",
+			"ACTIVE": "Y",
+			"IS_REQUIRED": "N",
+			"SORT": 21,
+			"PROPERTY_TYPE": "S",
+            "USER_TYPE": "DateTime",
+			"MULTIPLE": "N",
+			"DEFAULT_VALUE": "",
+			"SEARCHABLE": "N",
+			"FILTRABLE": "Y"
+		}
+    },
+    "sl_magazines": {
+        "SL_NUMBER": {
+			"XML_ID": "slNumber",
+			"NAME": "Номер",
+			"ACTIVE": "Y",
+			"IS_REQUIRED": "N",
+			"SORT": 21,
+			"PROPERTY_TYPE": "S",
+			"MULTIPLE": "N",
+			"DEFAULT_VALUE": "",
+			"ROW_COUNT": 3,
+			"COL_COUNT": 30,
+			"SEARCHABLE": "N",
+			"FILTRABLE": "Y"
+		},
+        "SL_MAGAZINE_URL": {
+			"XML_ID": "slMagazinelUrl",
+			"NAME": "slMagazinelUrl",
+			"ACTIVE": "Y",
+			"IS_REQUIRED": "Y",
+			"SORT": 21,
+			"PROPERTY_TYPE": "S",
+			"MULTIPLE": "N",
+			"DEFAULT_VALUE": "",
+			"ROW_COUNT": 3,
+			"COL_COUNT": 30,
+			"SEARCHABLE": "N",
+			"FILTRABLE": "Y"
+		},
+        "SL_IMAGE_URL": {
+			"XML_ID": "slImageUrl",
+			"NAME": "slImageUrl",
+			"ACTIVE": "Y",
+			"IS_REQUIRED": "N",
+			"SORT": 30,
+			"PROPERTY_TYPE": "F",
+			"MULTIPLE": "N",
+			"FILE_TYPE": "jpg,jpeg,gif,png,svg",
+			"SEARCHABLE": "N",
+			"FILTRABLE": "N",
+            "RETURNS": "FileUrl"
+		},
+        "SL_RELEASE_DATE": {
+			"XML_ID": "slReleaseDate",
+			"NAME": "slReleaseDate",
+			"ACTIVE": "Y",
+			"IS_REQUIRED": "N",
+			"SORT": 21,
+			"PROPERTY_TYPE": "S",
+            "USER_TYPE": "DateTime",
+			"MULTIPLE": "N",
+			"DEFAULT_VALUE": "",
+			"SEARCHABLE": "N",
+			"FILTRABLE": "Y"
 		}
     }
 }

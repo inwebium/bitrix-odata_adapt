@@ -1,10 +1,16 @@
 <?php
 namespace Spellabs\Portal\Rest\Processor\Type;
 
-class StringType extends AbstractType
+class BooleanType extends AbstractType
 {
     public static function parseValue($value)
     {
-        return boolval($value);
+        if ($value == 'Y') {
+            return true;
+        } elseif ($value == 'N') {
+            return false;
+        } else {
+            return boolval($value);
+        }
     }
 }

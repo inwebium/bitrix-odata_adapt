@@ -47,9 +47,10 @@ var IncidentModalFormComponent = /** @class */ (function () {
     function IncidentModalFormComponent() {
         this.modalIsOpen = false;
         this.incident = null;
+        this.close = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
     }
     IncidentModalFormComponent.prototype.closeModal = function () {
-        this.modalIsOpen = false;
+        this.close.emit();
     };
     IncidentModalFormComponent.prototype.ngOnInit = function () {
     };
@@ -61,6 +62,10 @@ var IncidentModalFormComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
         __metadata("design:type", Object)
     ], IncidentModalFormComponent.prototype, "incident", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])(),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"])
+    ], IncidentModalFormComponent.prototype, "close", void 0);
     IncidentModalFormComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-incident-modal-form',
@@ -83,7 +88,7 @@ var IncidentModalFormComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"l-page-header\">\n  <div class=\"l-breadcrumbs\">\n    <div class=\"l-breadcrumb\"><a [routerLink]=\"['/company']\">Главная</a></div>\n    <div class=\"l-breadcrumb\">\n      <a [routerLink]=\"['/incidents']\">Происшествия</a>\n    </div>\n    <div class=\"l-breadcrumb\">{{ incident.title }}</div>\n  </div>\n  <div class=\"title\">{{ incident.title }}</div>\n</div>\n<div class=\"l-page\">\n  <div class=\"l-page-inner\">\n    <div class=\"l-page__content\">\n      <div class=\"l-news-card\">\n        <div class=\"body\">\n          <div class=\"description\">\n            <div class=\"date\">\n              {{ incident.dateTitle }}\n            </div>\n            <div class=\"text\" [innerHTML]=\"incident.text\"></div>\n          </div>\n        </div>\n        <div\n          *ngIf=\"incident.attachmentFiles.length > 0\"\n          class=\"photo\"\n          [ngStyle]=\"{ 'background-image': 'url(' + prepareLink(incident.attachmentFiles[0]) + ')' }\"\n        ></div>\n        <div class=\"gallery\">\n          <div class=\"title\"><span>Галерея</span></div>\n          <div class=\"carousel\" *ngIf=\"incident.attachmentFiles.length > 0\">\n            <app-news-card-gallery\n              [items]=\"incident.attachmentFiles\"\n            ></app-news-card-gallery>\n          </div>\n        </div>\n        <div class=\"button\">\n          <a [routerLink]=\"['../']\" class=\"btn btn-to-back\">\n            <i></i> К списку происшествий\n          </a>\n        </div>\n      </div>\n    </div>\n  </div>\n  <app-button-up></app-button-up>\n</div>\n"
+module.exports = "<div class=\"l-page-header\">\n  <div class=\"l-breadcrumbs\">\n    <div class=\"l-breadcrumb\"><a [routerLink]=\"['/company']\">Главная</a></div>\n    <div class=\"l-breadcrumb\">\n      <a [routerLink]=\"['/enterprise/incidents', id]\">Происшествия</a>\n    </div>\n    <div class=\"l-breadcrumb\">{{ incident.title }}</div>\n  </div>\n  <div class=\"title\">{{ incident.title }}</div>\n</div>\n<div class=\"l-page\">\n  <div class=\"l-page-inner\">\n    <div class=\"l-page__content\">\n      <div class=\"l-news-card\">\n        <div class=\"body\">\n          <div class=\"description\">\n            <div class=\"date\">\n              {{ incident.dateTitle }}\n            </div>\n            <div class=\"text\" [innerHTML]=\"incident.text\"></div>\n          </div>\n        </div>\n        <div\n          *ngIf=\"incident.attachmentFiles.length > 0\"\n          class=\"photo\"\n          [ngStyle]=\"{ 'background-image': 'url(' + prepareLink(incident.attachmentFiles[0]) + ')' }\"\n        ></div>\n        <div class=\"gallery\">\n          <div class=\"title\"><span>Галерея</span></div>\n          <div class=\"carousel\" *ngIf=\"incident.attachmentFiles.length > 0\">\n            <app-news-card-gallery\n              [items]=\"incident.attachmentFiles\"\n            ></app-news-card-gallery>\n          </div>\n        </div>\n        <div class=\"button\">\n          <a [routerLink]=\"['../']\" class=\"btn btn-to-back\">\n            <i></i> К списку происшествий\n          </a>\n        </div>\n      </div>\n    </div>\n  </div>\n  <app-button-up></app-button-up>\n</div>\n"
 
 /***/ }),
 
@@ -109,10 +114,9 @@ module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shi
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IncidentCardPageComponent", function() { return IncidentCardPageComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/sidebar/sidebar.service */ "./src/app/services/sidebar/sidebar.service.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var src_app_services_images_images_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/images/images.service */ "./src/app/services/images/images.service.ts");
-/* harmony import */ var src_app_services_incidents_incidents_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/incidents/incidents.service */ "./src/app/services/incidents/incidents.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var src_app_services_images_images_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/images/images.service */ "./src/app/services/images/images.service.ts");
+/* harmony import */ var src_app_services_incidents_incidents_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/incidents/incidents.service */ "./src/app/services/incidents/incidents.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -126,25 +130,21 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-
 var IncidentCardPageComponent = /** @class */ (function () {
-    function IncidentCardPageComponent(sidebarService, route, imagesService, incidentsService) {
-        this.sidebarService = sidebarService;
+    function IncidentCardPageComponent(route, imagesService, incidentsService) {
         this.route = route;
         this.imagesService = imagesService;
         this.incidentsService = incidentsService;
+        this.id = undefined;
         this.webId = undefined;
         this.incident = null;
-        this.sidebarService.handleSetSettings({
-            showSidebar: false,
-            bgColor: '#fff'
-        });
     }
     IncidentCardPageComponent.prototype.prepareLink = function (link) {
         return '"' + this.imagesService.prepareBackgroundUrl(link) + '"';
     };
     IncidentCardPageComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.id = this.route.snapshot.params.id;
         this.webId =
             this.route.snapshot.data.webId !== 'root'
                 ? this.route.snapshot.data.webId
@@ -158,10 +158,9 @@ var IncidentCardPageComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./incident-card-page.component.html */ "./src/app/incidents/components/incident-card-page/incident-card-page.component.html"),
             styles: [__webpack_require__(/*! ./incident-card-page.component.scss */ "./src/app/incidents/components/incident-card-page/incident-card-page.component.scss")]
         }),
-        __metadata("design:paramtypes", [src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_1__["SidebarService"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
-            src_app_services_images_images_service__WEBPACK_IMPORTED_MODULE_3__["ImagesService"],
-            src_app_services_incidents_incidents_service__WEBPACK_IMPORTED_MODULE_4__["IncidentsService"]])
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"],
+            src_app_services_images_images_service__WEBPACK_IMPORTED_MODULE_2__["ImagesService"],
+            src_app_services_incidents_incidents_service__WEBPACK_IMPORTED_MODULE_3__["IncidentsService"]])
     ], IncidentCardPageComponent);
     return IncidentCardPageComponent;
 }());
@@ -177,7 +176,7 @@ var IncidentCardPageComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"l-page-header\">\n  <div class=\"l-breadcrumbs\">\n    <div class=\"l-breadcrumb\"><a [routerLink]=\"['/company']\">Главная</a></div>\n    <div class=\"l-breadcrumb\">\n      Происшествия\n    </div>\n  </div>\n  <div class=\"title\">Происшествия</div>\n</div>\n<div class=\"l-page\">\n  <div class=\"l-page-inner\">\n    <div class=\"l-page__content\">\n      <div class=\"l-incidents\">\n        <div class=\"l-incidents-categories\" style=\"display: none\">\n          <app-filters>\n            <app-filters-item>\n              МГОк\n            </app-filters-item>\n            <app-filters-item>\n              ЛГОк\n            </app-filters-item>\n          </app-filters>\n        </div>\n        <div class=\"l-incidents-counter\" *ngIf=\"withoutIncidents && withoutIncidents.daysCount >= 10\">\n          {{withoutIncidents.daysHumanize}} без происшествий\n        </div>\n        <div class=\"l-incidents-table\" *ngIf=\"incidentsList.length\">\n          <div class=\"table-head\">\n            <div class=\"col\">\n              Дата\n            </div>\n            <div class=\"col\">\n              Название\n            </div>\n          </div>\n          <a [routerLink]=\"[item.id]\" class=\"row\" *ngFor=\"let item of incidentsList\">\n            <div class=\"col\">\n              {{item.dateTitle}}\n            </div>\n            <div class=\"col\">\n              {{item.title}}\n            </div>\n          </a>\n        </div>\n        <div class=\"not-items\" *ngIf=\"!incidentsList.length\">\n          На предприятии без происшествий\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"l-page-header\">\n  <div class=\"l-breadcrumbs\">\n    <div class=\"l-breadcrumb\"><a [routerLink]=\"['/company']\">Главная</a></div>\n    <div class=\"l-breadcrumb\">\n      Происшествия\n    </div>\n  </div>\n  <div class=\"title\">Происшествия</div>\n</div>\n<div class=\"l-page\">\n  <div class=\"l-incidents-counter\" *ngIf=\"withoutIncidents && withoutIncidents.daysCount >= 10\">\n    {{withoutIncidents.daysHumanize}} без происшествий\n  </div>\n  <div class=\"l-page-inner\">\n    <div class=\"l-page__content\">\n      <div class=\"l-incidents\">\n        <div class=\"l-incidents-categories\" style=\"display: none\">\n          <app-filters>\n            <app-filters-item>\n              МГОк\n            </app-filters-item>\n            <app-filters-item>\n              ЛГОк\n            </app-filters-item>\n          </app-filters>\n        </div>\n        <div class=\"l-incidents-table\" *ngIf=\"incidentsList.length\">\n          <div class=\"table-head\">\n            <div class=\"col\">\n              Дата\n            </div>\n            <div class=\"col\">\n              Название\n            </div>\n          </div>\n          <a [routerLink]=\"[item.id]\" class=\"row\" *ngFor=\"let item of incidentsList\">\n            <div class=\"col\">\n              {{item.formatedDate}}\n            </div>\n            <div class=\"col\">\n              {{item.title}}\n            </div>\n          </a>\n        </div>\n        <div class=\"not-items\" *ngIf=\"!incidentsList.length\">\n          На предприятии без происшествий\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -188,7 +187,7 @@ module.exports = "<div class=\"l-page-header\">\n  <div class=\"l-breadcrumbs\">
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.l-incidents {\n  padding-top: 50px;\n  padding-left: 25px;\n  box-sizing: border-box;\n  position: relative; }\n\n.l-incidents .l-incidents-categories {\n    height: 30px;\n    position: absolute;\n    top: -30px; }\n\n.l-incidents .l-incidents-counter {\n    font-size: 34px;\n    font-weight: bold;\n    color: #768692;\n    margin-bottom: 35px; }\n\n.l-incidents .l-incidents-table {\n    display: table;\n    width: 100%;\n    table-layout: fixed;\n    border-collapse: collapse; }\n\n.l-incidents .l-incidents-table .table-head {\n      display: table-row;\n      font-size: 18px;\n      font-weight: bold;\n      color: #898888;\n      border-bottom: 1px solid #707070; }\n\n.l-incidents .l-incidents-table .table-head .col {\n        padding-bottom: 10px; }\n\n.l-incidents .l-incidents-table .row {\n      display: table-row;\n      font-size: 18px;\n      color: #050505;\n      text-decoration: none; }\n\n.l-incidents .l-incidents-table .row:hover {\n        color: #da402b; }\n\n.l-incidents .l-incidents-table .row:nth-child(odd) {\n        background-color: #F7F7F7; }\n\n.l-incidents .l-incidents-table .col {\n      display: table-cell;\n      padding: 25px 20px; }\n\n.l-incidents .l-incidents-table .col:first-child {\n        width: 10%; }\n\n.l-incidents .l-incidents-table .col:last-child {\n        width: 90%; }\n"
+module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.l-incidents-counter {\n  position: absolute;\n  top: 160px;\n  right: 45px;\n  font-size: 34px;\n  font-weight: bold;\n  color: #768692; }\n\n.l-incidents {\n  padding-left: 25px;\n  box-sizing: border-box;\n  position: relative; }\n\n.l-incidents .l-incidents-categories {\n    height: 30px;\n    position: absolute;\n    top: -30px; }\n\n.l-incidents .l-incidents-table {\n    display: table;\n    width: 100%;\n    table-layout: fixed;\n    border-collapse: collapse; }\n\n.l-incidents .l-incidents-table .table-head {\n      display: table-row;\n      font-size: 18px;\n      font-weight: bold;\n      color: #898888;\n      border-bottom: 1px solid #707070; }\n\n.l-incidents .l-incidents-table .table-head .col {\n        padding-bottom: 10px; }\n\n.l-incidents .l-incidents-table .row {\n      display: table-row;\n      font-size: 18px;\n      color: #050505;\n      text-decoration: none; }\n\n.l-incidents .l-incidents-table .row:hover {\n        color: #da402b; }\n\n.l-incidents .l-incidents-table .row:nth-child(odd) {\n        background-color: #F7F7F7; }\n\n.l-incidents .l-incidents-table .col {\n      display: table-cell;\n      padding: 25px 20px; }\n\n.l-incidents .l-incidents-table .col:first-child {\n        width: 10%; }\n\n.l-incidents .l-incidents-table .col:last-child {\n        width: 90%; }\n"
 
 /***/ }),
 
@@ -204,10 +203,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IncidentsPageComponent", function() { return IncidentsPageComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/sidebar/sidebar.service */ "./src/app/services/sidebar/sidebar.service.ts");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var src_app_services_incidents_incidents_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/incidents/incidents.service */ "./src/app/services/incidents/incidents.service.ts");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var src_app_services_incidents_incidents_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/incidents/incidents.service */ "./src/app/services/incidents/incidents.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -221,19 +219,13 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-
 var IncidentsPageComponent = /** @class */ (function () {
-    function IncidentsPageComponent(sidebarService, route, incidentsService) {
-        this.sidebarService = sidebarService;
+    function IncidentsPageComponent(route, incidentsService) {
         this.route = route;
         this.incidentsService = incidentsService;
         this.webId = undefined;
         this.withoutIncidents = null;
         this.incidentsList = [];
-        this.sidebarService.handleSetSettings({
-            showSidebar: false,
-            bgColor: '#fff'
-        });
     }
     IncidentsPageComponent.prototype.getIncidents = function () {
         var _this = this;
@@ -241,12 +233,12 @@ var IncidentsPageComponent = /** @class */ (function () {
             webId: this.webId }).subscribe(function (items) {
             _this.incidentsList = items;
             if (_this.incidentsList.length > 0) {
-                var incidentDate = moment__WEBPACK_IMPORTED_MODULE_3__(_this.incidentsList[0].date, 'YYYY-MM-DD');
-                var currentDate = moment__WEBPACK_IMPORTED_MODULE_3__().startOf('day');
-                var countDays = moment__WEBPACK_IMPORTED_MODULE_3__["duration"](incidentDate.diff(currentDate)).as('days');
+                var incidentDate = moment__WEBPACK_IMPORTED_MODULE_2__(_this.incidentsList[0].date, 'YYYY-MM-DD');
+                var currentDate = moment__WEBPACK_IMPORTED_MODULE_2__().startOf('day');
+                var countDays = moment__WEBPACK_IMPORTED_MODULE_2__["duration"](incidentDate.diff(currentDate)).as('days');
                 _this.withoutIncidents = {
                     daysCount: Math.abs(countDays),
-                    daysHumanize: moment__WEBPACK_IMPORTED_MODULE_3__["duration"](countDays, 'days').humanize()
+                    daysHumanize: moment__WEBPACK_IMPORTED_MODULE_2__["duration"](countDays, 'days').humanize()
                 };
             }
         });
@@ -264,9 +256,8 @@ var IncidentsPageComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./incidents-page.component.html */ "./src/app/incidents/components/incidents-page/incidents-page.component.html"),
             styles: [__webpack_require__(/*! ./incidents-page.component.scss */ "./src/app/incidents/components/incidents-page/incidents-page.component.scss")]
         }),
-        __metadata("design:paramtypes", [src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_2__["SidebarService"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"],
-            src_app_services_incidents_incidents_service__WEBPACK_IMPORTED_MODULE_4__["IncidentsService"]])
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"],
+            src_app_services_incidents_incidents_service__WEBPACK_IMPORTED_MODULE_3__["IncidentsService"]])
     ], IncidentsPageComponent);
     return IncidentsPageComponent;
 }());
@@ -309,24 +300,6 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 var routes = [
     {
-        path: 'root',
-        component: _components_incidents_page_incidents_page_component__WEBPACK_IMPORTED_MODULE_3__["IncidentsPageComponent"],
-        resolve: {
-            groups: src_app_services_security_groups_resolver__WEBPACK_IMPORTED_MODULE_4__["GroupsResolver"],
-            webId: _services_companies_company_web_resolver__WEBPACK_IMPORTED_MODULE_7__["CompanyWebResolver"]
-        },
-        data: { animation: 'fadeAnimation', title: 'Происшествия' }
-    },
-    {
-        path: 'root/:itemId',
-        component: _components_incident_card_page_incident_card_page_component__WEBPACK_IMPORTED_MODULE_2__["IncidentCardPageComponent"],
-        resolve: {
-            groups: src_app_services_security_groups_resolver__WEBPACK_IMPORTED_MODULE_4__["GroupsResolver"],
-            webId: _services_companies_company_web_resolver__WEBPACK_IMPORTED_MODULE_7__["CompanyWebResolver"],
-        },
-        data: { animation: 'fadeAnimation', title: 'Происшествия' }
-    },
-    {
         path: ':id',
         component: _components_incidents_page_incidents_page_component__WEBPACK_IMPORTED_MODULE_3__["IncidentsPageComponent"],
         resolve: {
@@ -342,7 +315,7 @@ var routes = [
             groups: src_app_services_security_groups_resolver__WEBPACK_IMPORTED_MODULE_4__["GroupsResolver"],
             webId: _services_companies_company_web_resolver__WEBPACK_IMPORTED_MODULE_7__["CompanyWebResolver"],
         },
-        data: { animation: 'fadeAnimation', title: 'Происшествия' }
+        data: { animation: 'fadeAnimation', title: 'Происшествие' }
     },
     {
         path: '',
@@ -605,6 +578,7 @@ var IncidentsService = /** @class */ (function (_super) {
             title: item.Title,
             date: new Date(item.Created),
             dateTitle: moment__WEBPACK_IMPORTED_MODULE_3__(item.Created).calendar(),
+            formatedDate: moment__WEBPACK_IMPORTED_MODULE_3__(item.Created).format('DD.MM.YYYY'),
             text: item.slText
         };
         if (item.AttachmentFiles) {

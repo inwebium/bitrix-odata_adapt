@@ -1,3 +1,47 @@
 [
-
+    {
+        "NAME": "УК \"МЕТАЛЛОИНВЕСТ\"",
+        "SORT": 1,
+        "CODE": "fourth",
+        "PROPERTY_VALUES": {
+            "SL_IMAGE": "https://spellabs.sharepoint.com/sites/metalloinvest/Shared%20Documents/logo/Metalloinvest.svg",
+            "SL_URL": "/fourth"
+        }
+    },
+    {
+        "NAME": "ОЭМК",
+        "SORT": 2,
+        "CODE": "fifth",
+        "PROPERTY_VALUES": {
+            "SL_IMAGE": "https://spellabs.sharepoint.com/sites/metalloinvest/Shared%20Documents/logo/Metalloinvest.svg",
+            "SL_URL": "/fifth"
+        }
+    },
+    {
+        "NAME": "МГОК",
+        "SORT": 3,
+        "CODE": "first",
+        "PROPERTY_VALUES": {
+            "SL_IMAGE": "https://spellabs.sharepoint.com/sites/metalloinvest/Shared%20Documents/logo/Metalloinvest.svg",
+            "SL_URL": "/first"
+        }
+    },
+    {
+        "NAME": "ЛГОК",
+        "SORT": 4,
+        "CODE": "second",
+        "PROPERTY_VALUES": {
+            "SL_IMAGE": "https://spellabs.sharepoint.com/sites/metalloinvest/Shared%20Documents/logo/Metalloinvest.svg",
+            "SL_URL": "/second"
+        }
+    },
+    {
+        "NAME": "Уральская сталь",
+        "SORT": 5,
+        "CODE": "third",
+        "PROPERTY_VALUES": {
+            "SL_IMAGE": "https://spellabs.sharepoint.com/sites/metalloinvest/Shared%20Documents/logo/Metalloinvest.svg",
+            "SL_URL": "/third"
+        }
+    }
 ]

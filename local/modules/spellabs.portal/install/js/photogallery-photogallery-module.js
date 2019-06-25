@@ -36,7 +36,7 @@ module.exports = "<div class=\"l-page-header\">\n  <div class=\"l-breadcrumbs\">
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.l-photo-album {\n  max-width: 90%;\n  margin: 0 auto; }\n\n.l-photo-album__list {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-direction: row;\n      flex-direction: row;\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap;\n  -ms-flex-pack: start;\n      justify-content: start;\n  margin: 0 -15px; }\n\n.l-photo-album__item {\n  -ms-flex-preferred-size: 340px;\n      flex-basis: 340px;\n  padding: 0 15px;\n  box-sizing: content-box;\n  margin-bottom: 20px;\n  cursor: pointer; }\n\n.l-photo-album__item.image-view .m-albom-popup {\n    display: block; }\n\n.m-albom-popup {\n  height: 100%; }\n\n.m-photo-album-card {\n  position: relative; }\n\n.m-photo-album-card .photo {\n    height: 225px;\n    position: relative;\n    background-repeat: no-repeat;\n    background-position: center;\n    background-size: cover;\n    overflow: hidden; }\n\n.m-photo-album-card .photo:hover .controls {\n      bottom: 0; }\n\n.m-photo-album-card .photo .controls {\n      position: absolute;\n      left: 0;\n      right: 0;\n      bottom: -135px;\n      transition: bottom 0.3s;\n      padding: 15px 20px;\n      box-sizing: border-box;\n      height: 135px;\n      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.01) 0%, rgba(88, 88, 88, 0.8) 100%);\n      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#03000000', endColorstr='#cc585858', GradientType=0); }\n\n.m-photo-album-card .photo .controls .control {\n        position: absolute;\n        right: 20px;\n        bottom: 15px; }\n\n.m-photo-album-card .photo .controls .control .btn-download {\n          z-index: 100; }\n\n.m-photo-album-card .photo .controls .control .btn-download span {\n            text-transform: uppercase;\n            font-weight: 400; }\n\n.m-albom-popup-card {\n  position: relative; }\n\n.m-albom-popup-card:before {\n    display: block;\n    content: \" \";\n    width: 100%;\n    padding-bottom: 71.42857143%; }\n\n.m-albom-popup-card > .content {\n    position: absolute;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0; }\n\n.m-albom-popup-card .content {\n    padding: 15px;\n    box-sizing: border-box;\n    background-color: #fff; }\n\n.m-albom-popup-card .title {\n    font-size: 14px;\n    color: #fff;\n    font-weight: 600;\n    position: absolute;\n    z-index: 10;\n    bottom: -50px;\n    height: 35px;\n    line-height: 35px;\n    display: inline-block;\n    background-color: #000;\n    padding: 0 15px;\n    border-radius: 15px;\n    left: 50%;\n    -webkit-transform: translateX(-50%);\n        -ms-transform: translateX(-50%);\n            transform: translateX(-50%); }\n\n.m-albom-popup-card .photo {\n    height: 100%;\n    background-size: cover;\n    background-position: center;\n    background-repeat: no-repeat;\n    position: relative; }\n\n.m-albom-popup-card .photo .controls {\n      position: absolute;\n      left: 0;\n      right: 0;\n      bottom: 0;\n      transition: bottom 0.3s;\n      padding: 15px 20px;\n      box-sizing: border-box;\n      height: 135px;\n      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.01) 0%, rgba(46, 46, 46, 0.8) 100%);\n      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#03000000', endColorstr='#cc585858', GradientType=0); }\n\n.m-albom-popup-card .photo .controls .control {\n        position: absolute;\n        right: 20px;\n        bottom: 15px; }\n\n.m-albom-popup-card .photo .controls .control .btn-download {\n          z-index: 100; }\n\n.m-albom-popup-card .photo .controls .control .btn-download span {\n            text-transform: uppercase;\n            font-weight: 400; }\n"
+module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.l-photo-album {\n  max-width: 90%;\n  margin: 0 auto; }\n\n.l-photo-album__list {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-direction: row;\n      flex-direction: row;\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap;\n  -ms-flex-pack: start;\n      justify-content: start;\n  margin: 0 -15px; }\n\n.l-photo-album__item {\n  -ms-flex-preferred-size: 340px;\n      flex-basis: 340px;\n  padding: 0 15px;\n  box-sizing: content-box;\n  margin-bottom: 20px;\n  cursor: pointer; }\n\n@media screen and (max-width: 1440px) {\n    .l-photo-album__item {\n      -ms-flex-preferred-size: 300px;\n          flex-basis: 300px; } }\n\n.l-photo-album__item.image-view .m-albom-popup {\n    display: block; }\n\n.m-albom-popup {\n  height: 100%; }\n\n.m-photo-album-card {\n  position: relative; }\n\n.m-photo-album-card .photo {\n    height: 225px;\n    position: relative;\n    background-repeat: no-repeat;\n    background-position: center;\n    background-size: cover;\n    overflow: hidden; }\n\n.m-photo-album-card .photo:hover .controls {\n      bottom: 0; }\n\n.m-photo-album-card .photo .controls {\n      position: absolute;\n      left: 0;\n      right: 0;\n      bottom: -135px;\n      transition: bottom 0.3s;\n      padding: 15px 20px;\n      box-sizing: border-box;\n      height: 135px;\n      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.01) 0%, rgba(88, 88, 88, 0.8) 100%);\n      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#03000000', endColorstr='#cc585858', GradientType=0); }\n\n.m-photo-album-card .photo .controls .control {\n        position: absolute;\n        right: 20px;\n        bottom: 15px; }\n\n.m-photo-album-card .photo .controls .control .btn-download {\n          z-index: 100; }\n\n.m-photo-album-card .photo .controls .control .btn-download span {\n            text-transform: uppercase;\n            font-weight: 400; }\n\n.m-albom-popup-card {\n  position: relative; }\n\n.m-albom-popup-card:before {\n    display: block;\n    content: \" \";\n    width: 100%;\n    padding-bottom: 71.42857143%; }\n\n.m-albom-popup-card > .content {\n    position: absolute;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0; }\n\n.m-albom-popup-card .content {\n    padding: 15px;\n    box-sizing: border-box;\n    background-color: #fff; }\n\n.m-albom-popup-card .title {\n    font-size: 14px;\n    color: #fff;\n    font-weight: 600;\n    position: absolute;\n    z-index: 10;\n    bottom: -50px;\n    height: 35px;\n    line-height: 35px;\n    display: inline-block;\n    background-color: #000;\n    padding: 0 15px;\n    border-radius: 15px;\n    left: 50%;\n    -webkit-transform: translateX(-50%);\n        -ms-transform: translateX(-50%);\n            transform: translateX(-50%); }\n\n.m-albom-popup-card .photo {\n    height: 100%;\n    background-size: cover;\n    background-position: center;\n    background-repeat: no-repeat;\n    position: relative; }\n\n.m-albom-popup-card .photo .controls {\n      position: absolute;\n      left: 0;\n      right: 0;\n      bottom: 0;\n      transition: bottom 0.3s;\n      padding: 15px 20px;\n      box-sizing: border-box;\n      height: 135px;\n      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.01) 0%, rgba(46, 46, 46, 0.8) 100%);\n      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#03000000', endColorstr='#cc585858', GradientType=0); }\n\n.m-albom-popup-card .photo .controls .control {\n        position: absolute;\n        right: 20px;\n        bottom: 15px; }\n\n.m-albom-popup-card .photo .controls .control .btn-download {\n          z-index: 100; }\n\n.m-albom-popup-card .photo .controls .control .btn-download span {\n            text-transform: uppercase;\n            font-weight: 400; }\n"
 
 /***/ }),
 
@@ -52,8 +52,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PhotoalbumPageComponent", function() { return PhotoalbumPageComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/sidebar/sidebar.service */ "./src/app/services/sidebar/sidebar.service.ts");
-/* harmony import */ var src_app_services_images_images_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/images/images.service */ "./src/app/services/images/images.service.ts");
+/* harmony import */ var src_app_services_images_images_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/images/images.service */ "./src/app/services/images/images.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -66,11 +65,9 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-
 var PhotoalbumPageComponent = /** @class */ (function () {
-    function PhotoalbumPageComponent(route, sidebarService, imagesService) {
+    function PhotoalbumPageComponent(route, imagesService) {
         this.route = route;
-        this.sidebarService = sidebarService;
         this.imagesService = imagesService;
         this.photos = null;
         this.album = null;
@@ -78,7 +75,6 @@ var PhotoalbumPageComponent = /** @class */ (function () {
         this.currentSlide = null;
         this.companyId = null;
         this.sub = null;
-        this.sidebarService.handleSetSettings({ showSidebar: false, bgColor: '#fff' });
     }
     PhotoalbumPageComponent.prototype.getFileNameAndExtension = function (path) {
         var str = path
@@ -106,15 +102,15 @@ var PhotoalbumPageComponent = /** @class */ (function () {
             return 0;
         });
         this.album = this.route.snapshot.data.album;
-        this.sub = this.route.params.subscribe(function (params) {
-            if (params.pic) {
-                _this.photos.forEach(function (value) {
-                    if (value.id === +params.pic) {
-                        _this.currentSlide = _this.photos.indexOf(value);
-                    }
-                });
-            }
-        });
+        // this.sub = this.route.params.subscribe(params => {
+        //   if (params.pic) {
+        //     this.photos.forEach(value => {
+        //       if (value.id === +params.pic) {
+        //         this.currentSlide = this.photos.indexOf(value);
+        //       }
+        //     });
+        //   }
+        // });
         this.sub = this.route.parent.params.subscribe(function (params) {
             if (params.id) {
                 _this.companyId = params.id;
@@ -138,8 +134,7 @@ var PhotoalbumPageComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./photoalbum-page.component.scss */ "./src/app/photogallery/components/photoalbum-page/photoalbum-page.component.scss")]
         }),
         __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"],
-            src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_2__["SidebarService"],
-            src_app_services_images_images_service__WEBPACK_IMPORTED_MODULE_3__["ImagesService"]])
+            src_app_services_images_images_service__WEBPACK_IMPORTED_MODULE_2__["ImagesService"]])
     ], PhotoalbumPageComponent);
     return PhotoalbumPageComponent;
 }());
@@ -155,7 +150,7 @@ var PhotoalbumPageComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"l-page-header\">\n  <div class=\"l-breadcrumbs\">\n    <div class=\"l-breadcrumb\"><a [routerLink]=\"companyId ? ['/enterprise/' + companyId] : ['/']\">Главная</a></div>\n    <div class=\"l-breadcrumb\"><a [routerLink]=\"webId ? ['../../../../../'] : ['../../']\">Медиагалерея</a></div>\n    <div class=\"l-breadcrumb\">Фотогалерея</div>\n  </div>\n  <div class=\"title\">Фотогалерея</div>\n</div>\n<div class=\"l-page\">\n  <div class=\"l-page-inner\">\n    <div class=\"l-page__content\">\n      <div class=\"l-photo-gallery\">\n        <div class=\"l-photo-gallery__list\">\n          <div class=\"l-photo-gallery__item\" *ngFor=\"let item of albums\">\n            <div class=\"m-photo-gallery-card\">\n              <div class=\"admin-controls\">\n                  <app-admin-controls [item]=\"item\" (create)=\"create()\" (edit)=\"edit($event)\" (remove)=\"remove($event)\">\n                  </app-admin-controls>\n              </div>\n              <div\n                class=\"photo\"\n                [routerLink]=\"[item.id]\"\n                [ngStyle]=\"{ 'background-image': 'url(' + item.albumCover + ')' }\"\n              ></div>\n              <a class=\"title\">{{ item.title }}</a>\n              <div class=\"description\" *ngIf=\"item.albumDescription\">{{ item.albumDescription }}</div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"l-page-header\">\n  <div class=\"l-breadcrumbs\">\n    <div class=\"l-breadcrumb\">\n      <a [routerLink]=\"companyId ? ['/enterprise/' + companyId] : ['/']\"\n        >Главная</a\n      >\n    </div>\n    <div class=\"l-breadcrumb\">\n      <a [routerLink]=\"webId ? ['../../../../../'] : ['../../']\"\n        >Медиагалерея</a\n      >\n    </div>\n    <div class=\"l-breadcrumb\">Фотогалерея</div>\n  </div>\n  <div class=\"title\">Фотогалерея</div>\n</div>\n<div class=\"l-page\">\n  <div class=\"l-page-inner\">\n    <div class=\"l-page__content\">\n      <div class=\"l-photo-gallery\">\n        <div class=\"l-photo-gallery__list\">\n          <div class=\"l-photo-gallery__item\" *ngFor=\"let item of albums\">\n            <div class=\"card\">\n              <div class=\"admin-controls\">\n                <app-admin-controls\n                  [item]=\"item\"\n                  (create)=\"create()\"\n                  (edit)=\"edit($event)\"\n                  (remove)=\"remove($event)\"\n                >\n                </app-admin-controls>\n              </div>\n              <div class=\"photo\">\n                <div\n                  class=\"content\"\n                  [routerLink]=\"[item.id]\"\n                  [ngStyle]=\"{\n                    'background-image': 'url(' + item.albumCover + ')'\n                  }\"\n                ></div>\n              </div>\n              <a class=\"title\">{{ item.title }}</a>\n              <div class=\"description\" *ngIf=\"item.albumDescription\">\n                {{ item.albumDescription }}\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -166,7 +161,7 @@ module.exports = "<div class=\"l-page-header\">\n  <div class=\"l-breadcrumbs\">
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.l-photo-gallery {\n  max-width: 90%;\n  margin: 0 auto; }\n\n.l-photo-gallery__list {\n  margin: 0 -15px;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap;\n  text-align: left;\n  -ms-flex-direction: row;\n      flex-direction: row; }\n\n.l-photo-gallery__item {\n  padding: 0 15px;\n  -ms-flex-preferred-size: 340px;\n      flex-basis: 340px;\n  margin-bottom: 40px; }\n\n.m-photo-gallery-card {\n  position: relative; }\n\n.m-photo-gallery-card:hover .admin-controls {\n    display: block; }\n\n.m-photo-gallery-card .photo {\n    height: 225px;\n    background-repeat: no-repeat;\n    background-position: center;\n    background-size: cover;\n    margin-bottom: 15px;\n    position: relative;\n    background-color: #e4e4e4;\n    cursor: pointer; }\n\n.m-photo-gallery-card .title {\n    display: block;\n    display: -webkit-box;\n    display: block;\n    text-overflow: ellipsis;\n    -webkit-line-clamp: 2;\n    overflow: hidden;\n    max-height: 50px;\n    text-decoration: none;\n    font-size: 22px;\n    line-height: 25px;\n    color: #000;\n    margin-bottom: 15px; }\n\n.m-photo-gallery-card .description {\n    display: block;\n    display: -webkit-box;\n    display: block;\n    text-overflow: ellipsis;\n    -webkit-line-clamp: 3;\n    overflow: hidden;\n    max-height: 60px;\n    font-size: 14px;\n    color: #636363;\n    line-height: 20px; }\n\n.admin-controls {\n  display: none; }\n"
+module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.l-photo-gallery {\n  max-width: 90%;\n  margin: 0 auto; }\n\n.l-photo-gallery__list {\n  margin: 0 -15px;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-wrap: wrap;\n      flex-wrap: wrap;\n  text-align: left;\n  -ms-flex-direction: row;\n      flex-direction: row; }\n\n.l-photo-gallery__item {\n  padding: 0 15px;\n  -ms-flex-preferred-size: 340px;\n      flex-basis: 340px;\n  margin-bottom: 40px; }\n\n@media screen and (max-width: 1440px) {\n    .l-photo-gallery__item {\n      -ms-flex-preferred-size: 300px;\n          flex-basis: 300px; } }\n\n.card {\n  height: 100%;\n  position: relative; }\n\n.card:hover .admin-controls {\n    display: block; }\n\n.card .photo {\n    margin-bottom: 15px;\n    background-color: #e4e4e4;\n    cursor: pointer;\n    position: relative; }\n\n.card .photo:before {\n      display: block;\n      content: \" \";\n      width: 100%;\n      padding-bottom: 66.66666667%; }\n\n.card .photo > .content {\n      position: absolute;\n      top: 0;\n      left: 0;\n      right: 0;\n      bottom: 0; }\n\n.card .photo .content {\n      background-repeat: no-repeat;\n      background-position: center;\n      background-size: cover; }\n\n.card .title {\n    display: block;\n    display: -webkit-box;\n    display: block;\n    text-overflow: ellipsis;\n    -webkit-line-clamp: 2;\n    overflow: hidden;\n    max-height: 50px;\n    text-decoration: none;\n    font-size: 22px;\n    line-height: 25px;\n    color: #000;\n    margin-bottom: 15px; }\n\n.card .description {\n    display: block;\n    display: -webkit-box;\n    display: block;\n    text-overflow: ellipsis;\n    -webkit-line-clamp: 3;\n    overflow: hidden;\n    max-height: 60px;\n    font-size: 14px;\n    color: #636363;\n    line-height: 20px; }\n\n.admin-controls {\n  display: none; }\n"
 
 /***/ }),
 
@@ -184,10 +179,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var ngx_cookie_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-cookie-service */ "./node_modules/ngx-cookie-service/index.js");
-/* harmony import */ var src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/sidebar/sidebar.service */ "./src/app/services/sidebar/sidebar.service.ts");
-/* harmony import */ var src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/sharepoint/sharepoint.service */ "./src/app/services/sharepoint/sharepoint.service.ts");
-/* harmony import */ var src_app_services_photo_library_photo_library_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/photo-library/photo-library.service */ "./src/app/services/photo-library/photo-library.service.ts");
-/* harmony import */ var src_app_constants_content_types__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/constants/content-types */ "./src/app/constants/content-types.ts");
+/* harmony import */ var src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/sharepoint/sharepoint.service */ "./src/app/services/sharepoint/sharepoint.service.ts");
+/* harmony import */ var src_app_services_photo_library_photo_library_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/photo-library/photo-library.service */ "./src/app/services/photo-library/photo-library.service.ts");
+/* harmony import */ var src_app_constants_content_types__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/constants/content-types */ "./src/app/constants/content-types.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -207,12 +201,10 @@ var __param = (undefined && undefined.__param) || function (paramIndex, decorato
 
 
 
-
 var PhotogalleryPageComponent = /** @class */ (function () {
-    function PhotogalleryPageComponent(document, route, sidebarService, sharepointService, photoLibraryService, cookieService) {
+    function PhotogalleryPageComponent(document, route, sharepointService, photoLibraryService, cookieService) {
         this.document = document;
         this.route = route;
-        this.sidebarService = sidebarService;
         this.sharepointService = sharepointService;
         this.photoLibraryService = photoLibraryService;
         this.cookieService = cookieService;
@@ -224,7 +216,6 @@ var PhotogalleryPageComponent = /** @class */ (function () {
         this.companyId = null;
         this.s4 = null;
         this.isLoadingItems = false;
-        this.sidebarService.handleSetSettings({ showSidebar: false, bgColor: '#fff' });
     }
     PhotogalleryPageComponent.prototype.loadMore = function () {
         var _this = this;
@@ -237,7 +228,7 @@ var PhotogalleryPageComponent = /** @class */ (function () {
     };
     PhotogalleryPageComponent.prototype.load = function () {
         var _this = this;
-        this.photoLibraryService.getItemsPaged({ filter: "ContentType eq '" + src_app_constants_content_types__WEBPACK_IMPORTED_MODULE_7__["contentTypes"].album + "'",
+        this.photoLibraryService.getItemsPaged({ filter: "ContentType eq '" + src_app_constants_content_types__WEBPACK_IMPORTED_MODULE_6__["contentTypes"].album + "'",
             top: 8, orderBy: [['slAlbumIndex', true]] })
             .subscribe(function (page) {
             _this.page = page;
@@ -300,9 +291,8 @@ var PhotogalleryPageComponent = /** @class */ (function () {
         __param(0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(_angular_common__WEBPACK_IMPORTED_MODULE_1__["DOCUMENT"])),
         __metadata("design:paramtypes", [Document,
             _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
-            src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_4__["SidebarService"],
-            src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_5__["SharepointService"],
-            src_app_services_photo_library_photo_library_service__WEBPACK_IMPORTED_MODULE_6__["PhotoLibraryService"],
+            src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_4__["SharepointService"],
+            src_app_services_photo_library_photo_library_service__WEBPACK_IMPORTED_MODULE_5__["PhotoLibraryService"],
             ngx_cookie_service__WEBPACK_IMPORTED_MODULE_3__["CookieService"]])
     ], PhotogalleryPageComponent);
     return PhotogalleryPageComponent;

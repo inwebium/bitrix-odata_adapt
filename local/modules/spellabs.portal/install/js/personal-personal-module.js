@@ -71,7 +71,7 @@ var ActivityComponent = /** @class */ (function () {
             },
             {
                 date: 'вчера',
-                time: '15: 10',
+                time: '15:10',
                 full_name: 'Абрикосов Олег Владимирович',
                 position: 'Менеджер отдела рекламы',
                 report: 'Добавил статью «Стальная арматура» в Базу знаний',
@@ -79,7 +79,7 @@ var ActivityComponent = /** @class */ (function () {
             },
             {
                 date: 'вчера',
-                time: '15: 03',
+                time: '15:03',
                 full_name: 'Пиатровский Станислав Тарасович',
                 position: 'Графический дизайнер',
                 report: 'Прокомментировал новость Европейская ассоциация стали',
@@ -87,7 +87,7 @@ var ActivityComponent = /** @class */ (function () {
             },
             {
                 date: 'вчера',
-                time: '12: 47',
+                time: '12:47',
                 full_name: 'Волконский Андрей Сергеевич',
                 position: 'Графический дизайнер',
                 report: 'Прокомментировал новость Европейская ассоциация стали',
@@ -226,7 +226,7 @@ var ContentComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"m-my-info\">\n  <div class=\"row\">\n    <div class=\"content\">\n      <div class=\"column column-3\">\n        <ul class=\"m-information-list\">\n          <li>День рождения 16 января</li>\n          <li>Работает с 01.09.2017</li>\n          <li>Внутренний телефон: 7439</li>\n          <li>Моб. телефон: +7 (925) 254 24 12</li>\n          <li>E-mail: <span>avatarkin_kv@metalloinvest.ru</span></li>\n          <li>Расположение офиса: Москва</li>\n        </ul>\n      </div>\n      <div class=\"column column-7\">\n        <div class=\"submission\">\n          Прямая структура подчинения: <br />\n          ГК Металлоинвест – Михайловский ГОК – Управление коммуникациями –\n          Департамент маркетинга – Отдел дизайна\n        </div>\n      </div>\n      <div\n        class=\"edit\"\n        style=\"background-image: url(assets/icons/personal/icon-personal-edit.svg)\"\n      ></div>\n    </div>\n  </div>\n\n  <div class=\"row\">\n    <div class=\"content\">\n      <div class=\"column column-5\">\n        <div class=\"title\">\n          Ближайшее окружение\n        </div>\n        <div class=\"m-entourage\" *ngIf=\"managerEmployee\">\n          <div class=\"user-thumb\">\n            <app-user-thumb\n              [photo]=\"managerEmployee.photo\"\n              [route]=\"managerEmployee.profileRoute\"\n              width=\"90px\"\n              height=\"90px\"\n            ></app-user-thumb>\n          </div>\n          <div class=\"m-entourage__content\">\n            <div class=\"position\">\n              Руководитель\n            </div>\n            <div class=\"full-name\">\n              {{ managerEmployee.fullName }}\n            </div>\n            <div class=\"full-position\">\n              {{ managerEmployee.positionName }}\n            </div>\n          </div>\n        </div>\n        <div class=\"m-entourage\" *ngIf=\"deputyEmployee\">\n          <div class=\"user-thumb\">\n            <app-user-thumb\n              [photo]=\"deputyEmployee.photo\"\n              [route]=\"deputyEmployee.profileRoute\"\n              width=\"90px\"\n              height=\"90px\"\n            ></app-user-thumb>\n          </div>\n          <div class=\"m-entourage__content\">\n            <div class=\"position\">\n              Заместитель\n            </div>\n            <div class=\"full-name\">\n              {{ deputyEmployee.fullName }}\n            </div>\n            <div class=\"full-position\">\n              {{ deputyEmployee.positionName }}\n            </div>\n          </div>\n        </div>\n      </div>\n      <div class=\"column column-5\">\n        <div class=\"title\">\n          Благодарности\n        </div>\n        <div class=\"l-my-info__thanks\">\n          <div class=\"m-thanks\" *ngFor=\"let item of thanks\">\n            <div class=\"inner\">\n              <div class=\"m-thanks__icon\">\n                <div class=\"icon\" [style.background-image]=\"item.icon\"></div>\n              </div>\n              <div class=\"m-thanks__content\">\n                <div class=\"text\">\n                  {{ item.text }}\n                </div>\n              </div>\n              <div class=\"m-thanks__user\">\n                <div class=\"user-thumb\">\n                  <app-user-thumb [showStatus]=\"false\"></app-user-thumb>\n                </div>\n                <div class=\"user-thumb\">\n                  <app-user-thumb [showStatus]=\"false\"></app-user-thumb>\n                </div>\n                <div class=\"user-thumb\">\n                  <app-user-thumb [showStatus]=\"false\"></app-user-thumb>\n                </div>\n                <div class=\"count\">\n                  +10\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"m-my-info\">\n  <div class=\"row\">\n    <div class=\"content\">\n      <div class=\"column column-3\">\n        <ul class=\"m-information-list\">\n          <li>День рождения {{ employee?.birthdayTitle }}</li>\n          <li>Работает с {{ employee?.startWorkDate | date: 'dd.MM.yyyy'}}</li>\n          <li>Внутренний телефон: {{employee?.phoneInternal}}</li>\n          <li>Моб. телефон: {{employee?.mobile}}</li>\n          <!-- <li>E-mail: <span>{{employee?.email}}</span></li> -->\n          <li>E-mail: <a href=\"{{'mailto:' + employee?.email}}\" class=\"e-mail\">{{employee?.email}}</a></li>\n          <li>Расположение офиса: {{employee?.officeNumber}}</li>\n        </ul>\n      </div>\n      <div class=\"column column-7\">\n        <div class=\"submission\">\n          Прямая структура подчинения: <br />\n          {{employee?.structureTitles}}\n        </div>\n      </div>\n      <div\n        class=\"edit\"\n        style=\"background-image: url(assets/icons/personal/icon-personal-edit.svg)\"\n      ></div>\n    </div>\n  </div>\n\n  <div class=\"row\">\n    <div class=\"content\">\n      <div class=\"column column-5\">\n        <div class=\"title\">\n          Ближайшее окружение\n        </div>\n        <div class=\"m-entourage\" *ngIf=\"managerEmployee\">\n          <div class=\"user-thumb\">\n            <app-user-thumb\n              [photo]=\"managerEmployee.photo\"\n              [route]=\"managerEmployee.profileRoute\"\n              width=\"90px\"\n              height=\"90px\"\n            ></app-user-thumb>\n          </div>\n          <div class=\"m-entourage__content\">\n            <div class=\"position\">\n              Руководитель\n            </div>\n            <div class=\"full-name\">\n              {{ managerEmployee.fullName }}\n            </div>\n            <div class=\"full-position\">\n              {{ managerEmployee.positionName }}\n            </div>\n          </div>\n        </div>\n        <div class=\"m-entourage\" *ngIf=\"deputyEmployee\">\n          <div class=\"user-thumb\">\n            <app-user-thumb\n              [photo]=\"deputyEmployee.photo\"\n              [route]=\"deputyEmployee.profileRoute\"\n              width=\"90px\"\n              height=\"90px\"\n            ></app-user-thumb>\n          </div>\n          <div class=\"m-entourage__content\">\n            <div class=\"position\">\n              Заместитель\n            </div>\n            <div class=\"full-name\">\n              {{ deputyEmployee.fullName }}\n            </div>\n            <div class=\"full-position\">\n              {{ deputyEmployee.positionName }}\n            </div>\n          </div>\n        </div>\n      </div>\n      <div class=\"column column-5\">\n        <div class=\"title\">\n          Благодарности\n        </div>\n        <div class=\"l-my-info__thanks\">\n          <div class=\"m-thanks\" *ngFor=\"let item of thanks\">\n            <div class=\"inner\">\n              <div class=\"m-thanks__icon\">\n                <div class=\"icon\" [style.background-image]=\"item.icon\"></div>\n              </div>\n              <div class=\"m-thanks__content\">\n                <div class=\"text\">\n                  {{ item.text }}\n                </div>\n              </div>\n              <div class=\"m-thanks__user\">\n                <div class=\"user-thumb\">\n                  <app-user-thumb [showStatus]=\"false\"></app-user-thumb>\n                </div>\n                <div class=\"user-thumb\">\n                  <app-user-thumb [showStatus]=\"false\"></app-user-thumb>\n                </div>\n                <div class=\"user-thumb\">\n                  <app-user-thumb [showStatus]=\"false\"></app-user-thumb>\n                </div>\n                <div class=\"count\">\n                  +10\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -237,7 +237,7 @@ module.exports = "<div class=\"m-my-info\">\n  <div class=\"row\">\n    <div cla
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.row {\n  margin-bottom: 2.25%;\n  padding-bottom: 2.25%;\n  border-bottom: 1px solid rgba(112, 112, 112, 0.5); }\n\n.row:last-child {\n    margin-bottom: 0;\n    padding-bottom: 0;\n    border-bottom: none; }\n\n.row .content {\n    max-width: 1175px; }\n\n.row .column {\n    display: inline-block;\n    vertical-align: top;\n    box-sizing: border-box;\n    height: 100%; }\n\n.row .column + .column {\n      padding-left: 2.5%; }\n\n.row .column-7 {\n    width: 67%; }\n\n.row .column-5 {\n    width: 50%; }\n\n.row .column-3 {\n    width: 33%; }\n\n.m-my-info {\n  position: relative; }\n\n.m-my-info .title {\n    font-size: 16px;\n    font-weight: bold;\n    line-height: 30px;\n    color: #050505; }\n\n@media screen and (max-width: 1440px) {\n      .m-my-info .title {\n        font-size: 14px;\n        line-height: 28px; } }\n\n.m-my-info .edit {\n    position: absolute;\n    top: 0;\n    right: 0;\n    width: 50px;\n    height: 50px;\n    background-color: #F7F7F7;\n    background-position: center;\n    background-repeat: no-repeat;\n    border-radius: 50%;\n    -webkit-transform: translateY(-35%);\n        -ms-transform: translateY(-35%);\n            transform: translateY(-35%);\n    cursor: pointer; }\n\n.m-information-list {\n  font-size: 16px;\n  line-height: 34px;\n  color: #050505;\n  list-style: none;\n  margin: 0;\n  padding: 0; }\n\n.m-information-list span {\n    color: #EE2737; }\n\n@media screen and (max-width: 1440px) {\n    .m-information-list {\n      font-size: 14px;\n      line-height: 30px; } }\n\n.submission {\n  max-width: 550px;\n  padding-right: 50px;\n  font-size: 16px;\n  line-height: 34px;\n  color: #050505; }\n\n@media screen and (max-width: 1440px) {\n    .submission {\n      font-size: 14px;\n      line-height: 30px; } }\n\n.m-entourage {\n  position: relative;\n  padding: 30px 0; }\n\n.m-entourage:before {\n    content: \"\";\n    position: absolute;\n    bottom: 0;\n    left: 0;\n    display: block;\n    width: 70%;\n    height: 100%;\n    border-bottom: 2px dotted #95989A; }\n\n.m-entourage:last-child::before {\n    border-bottom: none; }\n\n.m-entourage .user-thumb,\n  .m-entourage .m-entourage__content {\n    display: inline-block;\n    vertical-align: top;\n    box-sizing: border-box; }\n\n.m-entourage .user-thumb {\n    width: 110px; }\n\n.m-entourage .m-entourage__content {\n    width: calc(100% - 110px); }\n\n.m-entourage .m-entourage__content .position {\n      margin-bottom: 4px;\n      font-size: 16px;\n      color: #768692;\n      text-transform: uppercase; }\n\n@media screen and (max-width: 1440px) {\n        .m-entourage .m-entourage__content .position {\n          font-size: 14px; } }\n\n.m-entourage .m-entourage__content .full-name {\n      margin-bottom: 5px;\n      font-size: 22px;\n      line-height: 34px;\n      font-weight: bold;\n      color: #050505; }\n\n@media screen and (max-width: 1440px) {\n        .m-entourage .m-entourage__content .full-name {\n          font-size: 16px;\n          line-height: 28px; } }\n\n.m-entourage .m-entourage__content .full-position {\n      font-size: 16px;\n      line-height: 20px;\n      color: #050505; }\n\n@media screen and (max-width: 1440px) {\n        .m-entourage .m-entourage__content .full-position {\n          font-size: 14px;\n          line-height: 18px; } }\n\n.l-my-info__thanks {\n  padding-top: 30px; }\n\n.l-my-info__thanks .m-thanks {\n    padding-bottom: 20px; }\n\n.l-my-info__thanks .m-thanks:last-child {\n      padding-bottom: 0; }\n\n.l-my-info__thanks .m-thanks .inner {\n      display: table;\n      width: 100%;\n      border-collapse: collapse;\n      table-layout: fixed; }\n\n.l-my-info__thanks .m-thanks .m-thanks__icon,\n    .l-my-info__thanks .m-thanks .m-thanks__content,\n    .l-my-info__thanks .m-thanks .m-thanks__user {\n      display: table-cell;\n      vertical-align: middle;\n      box-sizing: border-box; }\n\n.l-my-info__thanks .m-thanks .m-thanks__icon {\n      width: 75px; }\n\n.l-my-info__thanks .m-thanks .m-thanks__icon .icon {\n        width: 56px;\n        height: 56px;\n        background-color: #F1F1F4;\n        background-size: auto;\n        background-repeat: no-repeat;\n        background-position: center;\n        border-radius: 50%; }\n\n.l-my-info__thanks .m-thanks .m-thanks__content {\n      padding-right: 25px;\n      width: 170px; }\n\n.l-my-info__thanks .m-thanks .m-thanks__user {\n      position: relative; }\n\n.l-my-info__thanks .m-thanks .m-thanks__user .user-thumb {\n        display: inline-block;\n        vertical-align: middle;\n        box-sizing: border-box; }\n\n.l-my-info__thanks .m-thanks .m-thanks__user .user-thumb + .user-thumb {\n          margin-left: -25px; }\n\n.l-my-info__thanks .m-thanks .m-thanks__user .count {\n        position: absolute;\n        display: inline-block;\n        vertical-align: middle;\n        box-sizing: border-box;\n        width: 56px;\n        height: 56px;\n        margin-left: -25px;\n        font-size: 14px;\n        line-height: 56px;\n        text-align: center;\n        color: #4D4E4D;\n        background-color: #F1F1F4;\n        border-radius: 50%; }\n"
+module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.row {\n  margin-bottom: 2.25%;\n  padding-bottom: 2.25%;\n  border-bottom: 1px solid rgba(112, 112, 112, 0.5); }\n\n.row:last-child {\n    margin-bottom: 0;\n    padding-bottom: 0;\n    border-bottom: none; }\n\n.row .content {\n    max-width: 1175px; }\n\n.row .column {\n    display: inline-block;\n    vertical-align: top;\n    box-sizing: border-box;\n    height: 100%; }\n\n.row .column + .column {\n      padding-left: 2.5%; }\n\n.row .column-7 {\n    width: 67%; }\n\n.row .column-5 {\n    width: 50%; }\n\n.row .column-3 {\n    width: 33%; }\n\n.m-my-info {\n  position: relative; }\n\n.m-my-info .title {\n    font-size: 16px;\n    font-weight: bold;\n    line-height: 30px;\n    color: #050505; }\n\n@media screen and (max-width: 1440px) {\n      .m-my-info .title {\n        font-size: 14px;\n        line-height: 28px; } }\n\n.m-my-info .edit {\n    position: absolute;\n    top: 0;\n    right: 0;\n    width: 50px;\n    height: 50px;\n    background-color: #F7F7F7;\n    background-position: center;\n    background-repeat: no-repeat;\n    border-radius: 50%;\n    -webkit-transform: translateY(-35%);\n        -ms-transform: translateY(-35%);\n            transform: translateY(-35%);\n    cursor: pointer; }\n\n.m-information-list {\n  font-size: 16px;\n  line-height: 34px;\n  color: #050505;\n  list-style: none;\n  margin: 0;\n  padding: 0; }\n\n.m-information-list .e-mail {\n    color: #EE2737; }\n\n@media screen and (max-width: 1440px) {\n    .m-information-list {\n      font-size: 14px;\n      line-height: 30px; } }\n\n.submission {\n  max-width: 550px;\n  padding-right: 50px;\n  font-size: 16px;\n  line-height: 34px;\n  color: #050505; }\n\n@media screen and (max-width: 1440px) {\n    .submission {\n      font-size: 14px;\n      line-height: 30px; } }\n\n.m-entourage {\n  position: relative;\n  padding: 30px 0; }\n\n.m-entourage:before {\n    content: \"\";\n    position: absolute;\n    bottom: 0;\n    left: 0;\n    display: block;\n    width: 70%;\n    height: 100%;\n    border-bottom: 2px dotted #95989A; }\n\n.m-entourage:last-child::before {\n    border-bottom: none; }\n\n.m-entourage .user-thumb,\n  .m-entourage .m-entourage__content {\n    display: inline-block;\n    vertical-align: top;\n    box-sizing: border-box; }\n\n.m-entourage .user-thumb {\n    width: 110px; }\n\n.m-entourage .m-entourage__content {\n    width: calc(100% - 110px); }\n\n.m-entourage .m-entourage__content .position {\n      margin-bottom: 4px;\n      font-size: 16px;\n      color: #768692;\n      text-transform: uppercase; }\n\n@media screen and (max-width: 1440px) {\n        .m-entourage .m-entourage__content .position {\n          font-size: 14px; } }\n\n.m-entourage .m-entourage__content .full-name {\n      margin-bottom: 5px;\n      font-size: 22px;\n      line-height: 34px;\n      font-weight: bold;\n      color: #050505; }\n\n@media screen and (max-width: 1440px) {\n        .m-entourage .m-entourage__content .full-name {\n          font-size: 16px;\n          line-height: 28px; } }\n\n.m-entourage .m-entourage__content .full-position {\n      font-size: 16px;\n      line-height: 20px;\n      color: #050505; }\n\n@media screen and (max-width: 1440px) {\n        .m-entourage .m-entourage__content .full-position {\n          font-size: 14px;\n          line-height: 18px; } }\n\n.l-my-info__thanks {\n  padding-top: 30px; }\n\n.l-my-info__thanks .m-thanks {\n    padding-bottom: 20px; }\n\n.l-my-info__thanks .m-thanks:last-child {\n      padding-bottom: 0; }\n\n.l-my-info__thanks .m-thanks .inner {\n      display: table;\n      width: 100%;\n      border-collapse: collapse;\n      table-layout: fixed; }\n\n.l-my-info__thanks .m-thanks .m-thanks__icon,\n    .l-my-info__thanks .m-thanks .m-thanks__content,\n    .l-my-info__thanks .m-thanks .m-thanks__user {\n      display: table-cell;\n      vertical-align: middle;\n      box-sizing: border-box; }\n\n.l-my-info__thanks .m-thanks .m-thanks__icon {\n      width: 75px; }\n\n.l-my-info__thanks .m-thanks .m-thanks__icon .icon {\n        width: 56px;\n        height: 56px;\n        background-color: #F1F1F4;\n        background-size: auto;\n        background-repeat: no-repeat;\n        background-position: center;\n        border-radius: 50%; }\n\n.l-my-info__thanks .m-thanks .m-thanks__content {\n      padding-right: 25px;\n      width: 170px; }\n\n.l-my-info__thanks .m-thanks .m-thanks__user {\n      position: relative; }\n\n.l-my-info__thanks .m-thanks .m-thanks__user .user-thumb {\n        display: inline-block;\n        vertical-align: middle;\n        box-sizing: border-box; }\n\n.l-my-info__thanks .m-thanks .m-thanks__user .user-thumb + .user-thumb {\n          margin-left: -25px; }\n\n.l-my-info__thanks .m-thanks .m-thanks__user .count {\n        position: absolute;\n        display: inline-block;\n        vertical-align: middle;\n        box-sizing: border-box;\n        width: 56px;\n        height: 56px;\n        margin-left: -25px;\n        font-size: 14px;\n        line-height: 56px;\n        text-align: center;\n        color: #4D4E4D;\n        background-color: #F1F1F4;\n        border-radius: 50%; }\n"
 
 /***/ }),
 
@@ -302,8 +302,6 @@ var MyInfoComponent = /** @class */ (function () {
                 text: 'За вежливость'
             }
         ];
-        this.deputyEmployee = null;
-        this.managerEmployee = null;
     }
     MyInfoComponent.prototype.getEmployeeById = function (id) {
         return this.employeesFactory.getEmployeeById(id);
@@ -312,6 +310,7 @@ var MyInfoComponent = /** @class */ (function () {
     MyInfoComponent.prototype.getEntourage = function () {
         var _this = this;
         this.employeesFactory.getCurrentEmployee().subscribe(function (e) {
+            _this.employee = e;
             if (e.lookupDeputyId) {
                 _this.getEmployeeById(e.lookupDeputyId).subscribe(function (employee) { return (_this.deputyEmployee = employee); });
             }
@@ -346,7 +345,7 @@ var MyInfoComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"l-page-header\">\n  <div class=\"l-header-inner\">\n    <div class=\"user-thumb\">\n      <app-user-thumb width=\"93px\" height=\"93px\"></app-user-thumb>\n    </div>\n    <div class=\"header-info\">\n      <div class=\"full-name\">\n        Константинова Елизавета Алексеевна\n      </div>\n      <div class=\"status\">\n        На работе\n      </div>\n    </div>\n  </div>\n</div>\n\n<div class=\"l-page\">\n  <div class=\"l-page-inner\">\n    <div class=\"l-page__content\">\n        <div class=\"l-personal\">\n          <app-tabs [contentBgColor]=\"'#fff'\">\n            <app-tab [tabTitle]=\"'Контент'\">\n              <app-content></app-content>\n            </app-tab>\n            <app-tab [tabTitle]=\"'Активность'\">\n                <app-activity></app-activity>\n            </app-tab>\n            <app-tab [tabTitle]=\"'Заявки'\">\n                <app-requests></app-requests>   \n            </app-tab>\n            <app-tab [tabTitle]=\"'Личные данные'\">\n                <app-my-info></app-my-info>\n            </app-tab>\n          </app-tabs>\n        </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"l-page-header\">\n  <div class=\"l-header-inner\">\n    <div class=\"user-thumb\">\n      <app-user-thumb width=\"93px\" height=\"93px\"></app-user-thumb>\n    </div>\n    <div class=\"header-info\">\n      <div class=\"full-name\">\n        {{employee?.lastName}} {{employee?.firstName}} {{employee?.fatherName}}\n      </div>\n      <!--div class=\"status\">\n        На работе\n      </div-->\n    </div>\n  </div>\n</div>\n\n<div class=\"l-page\">\n  <div class=\"l-page-inner\">\n    <div class=\"l-page__content\">\n        <div class=\"l-personal\">\n          <app-tabs [contentBgColor]=\"'#fff'\">\n            <app-tab [tabTitle]=\"'Контент'\">\n              <app-content></app-content>\n            </app-tab>\n            <app-tab [tabTitle]=\"'Активность'\">\n                <app-activity></app-activity>\n            </app-tab>\n            <app-tab [tabTitle]=\"'Заявки'\">\n                <app-requests></app-requests>\n            </app-tab>\n            <app-tab [tabTitle]=\"'Личные данные'\">\n                <app-my-info></app-my-info>\n            </app-tab>\n          </app-tabs>\n        </div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -372,7 +371,6 @@ module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shi
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PersonalPageComponent", function() { return PersonalPageComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/sidebar/sidebar.service */ "./src/app/services/sidebar/sidebar.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -382,14 +380,21 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-
+var __param = (undefined && undefined.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 
 var PersonalPageComponent = /** @class */ (function () {
-    function PersonalPageComponent(sidebarService) {
-        this.sidebarService = sidebarService;
-        this.sidebarService.handleSetSettings({ showSidebar: true, bgColor: '#F7F7F7' });
+    function PersonalPageComponent(employeesFactory) {
+        this.employeesFactory = employeesFactory;
+        this.appShowSidebar = true;
+        this.appContainerStyle = { 'background-color': '#f7f7f7' };
     }
     PersonalPageComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.employeesFactory.getCurrentEmployee().subscribe(function (e) {
+            _this.employee = e;
+        });
     };
     PersonalPageComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -397,7 +402,8 @@ var PersonalPageComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./personal-page.component.html */ "./src/app/personal/components/personal-page/personal-page.component.html"),
             styles: [__webpack_require__(/*! ./personal-page.component.scss */ "./src/app/personal/components/personal-page/personal-page.component.scss")]
         }),
-        __metadata("design:paramtypes", [src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_1__["SidebarService"]])
+        __param(0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])('EmployeesFactory')),
+        __metadata("design:paramtypes", [Object])
     ], PersonalPageComponent);
     return PersonalPageComponent;
 }());
@@ -413,7 +419,7 @@ var PersonalPageComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"l-requests\">\n  <div class=\"l-requests__filters\">\n    <div class=\"list\">\n      <label class=\"filter\" *ngFor=\"let item of requestTemplates\">\n        <input type=\"checkbox\" class=\"checkbox\" (change)=\"filterRequestsByType(item.title, $event)\">\n        <div class=\"checkbox__text\">{{item.title}}</div>\n      </label>\n    </div>\n    <input type=\"button\" class=\"apply\" value=\"Подать заявку\" (click)=\"openModal()\">\n  </div>\n  <div class=\"l-requests__list-inner\">\n    <div class=\"bids-list\">\n      <div class=\"bids-table\">\n        <div class=\"bids-head\">\n          <div class=\"bid-theme\" (click)=\"sortByTheme()\">\n            Тема\n          </div>\n          <div class=\"bid-date\" (click)=\"sortByDate()\">\n            Дата\n          </div>\n          <div class=\"bid-status\" (click)=\"sortByStatus()\">\n            Статус\n          </div>\n        </div>\n        <div class=\"m-bid\" *ngFor=\"let item of requests\">\n          <div class=\"bid-name\">\n            {{item.type}}\n          </div>\n          <div class=\"bid-date\">\n            {{item.date}}\n          </div>\n          <div class=\"bid-status\">\n            <span [ngClass]=\"{'approved' : item.statusCode === 'APPROVED', 'refused': item.statusCode === 'REJECTED'}\">\n              {{item.statusTitle || 'На согласовании'}}\n            </span>\n          </div>\n        </div>\n      </div>\n      <div class=\"bids-navigation\">\n        <div class=\"m-page-nav\">\n          <a class=\"to-begin\" (click)=\"hasPrev && toBegin()\" [class.disabled]=\"!hasPrev\">В начало</a>\n          <input type=\"button\" class=\"prev-page\" [disabled]=\"!hasPrev\" (click)=\"prev()\"/>\n          <input type=\"button\" class=\"next-page\" [disabled]=\"!hasNext\" (click)=\"next()\"/>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n<div class=\"l-requests__modal\">\n  <app-requests-modal-form></app-requests-modal-form>\n</div>\n"
+module.exports = "<div class=\"l-requests\">\n  <div class=\"l-requests__filters\">\n    <div class=\"list\">\n      <label class=\"filter\" *ngFor=\"let item of requestTemplates\">\n        <input type=\"checkbox\" class=\"checkbox\" (change)=\"filterRequestsByType(item, $event)\">\n        <div class=\"checkbox__text\">{{item.title}}</div>\n      </label>\n    </div>\n    <input type=\"button\" class=\"apply\" value=\"Подать заявку\" (click)=\"openModal()\">\n  </div>\n  <div class=\"l-requests__list-inner\">\n    <div class=\"bids-list\">\n      <div class=\"bids-table\">\n        <div class=\"bids-head\">\n          <div class=\"bid-theme\" (click)=\"sortByTheme()\">\n            Тема\n          </div>\n          <div class=\"bid-date\" (click)=\"sortByDate()\">\n            Дата\n          </div>\n          <div class=\"bid-status\" (click)=\"sortByStatus()\">\n            Статус\n          </div>\n        </div>\n        <div class=\"m-bid\" *ngFor=\"let item of requests\">\n          <div class=\"bid-name\">\n            {{item.type}}\n          </div>\n          <div class=\"bid-date\">\n            {{item.date}}\n          </div>\n          <div class=\"bid-status\">\n            <span [ngClass]=\"{'approved' : item.statusCode === 'APPROVED', 'refused': item.statusCode === 'REJECTED'}\">\n              {{item.statusTitle || 'На согласовании'}}\n            </span>\n          </div>\n        </div>\n      </div>\n      <div class=\"bids-navigation\">\n        <a class=\"go-to-start\" (click)=\"hasPrev && toBegin()\" [class.disabled]=\"!hasPrev\">В начало</a>\n        <input type=\"button\" class=\"go-to-left\" [class.disabled]=\"!hasPrev\" (click)=\"prev()\"/>\n        <input type=\"button\" class=\"go-to-right\" [class.disabled]=\"!hasNext\" (click)=\"next()\"/>\n      </div>\n    </div>\n  </div>\n</div>\n<div class=\"l-requests__modal\">\n  <app-requests-modal-form (load)=\"load()\"></app-requests-modal-form>\n</div>\n"
 
 /***/ }),
 
@@ -424,7 +430,7 @@ module.exports = "<div class=\"l-requests\">\n  <div class=\"l-requests__filters
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.l-requests {\n  box-sizing: border-box;\n  position: relative;\n  min-height: 500px; }\n\n.l-requests__filters {\n  padding-right: 215px;\n  box-sizing: border-box; }\n\n.l-requests__filters .list {\n    margin-left: 30px; }\n\n.l-requests__filters .list .filter {\n      display: inline-block;\n      vertical-align: middle;\n      padding-right: 70px;\n      padding-bottom: 40px; }\n\n.l-requests__filters .list .filter .checkbox {\n        position: absolute;\n        z-index: -1;\n        width: 20px;\n        height: 20px; }\n\n.l-requests__filters .list .filter .checkbox__text {\n        position: relative;\n        padding-left: 35px;\n        font-size: 16px;\n        line-height: 20px;\n        color: #768692;\n        cursor: pointer; }\n\n.l-requests__filters .list .filter .checkbox__text:before {\n        content: '';\n        box-sizing: border-box;\n        position: absolute;\n        top: 0;\n        left: 0;\n        width: 20px;\n        height: 20px;\n        border-radius: 3px;\n        background: transparent;\n        border: 1px solid #768692; }\n\n.l-requests__filters .list .filter .checkbox__text:after {\n        content: 'v';\n        position: absolute;\n        top: 0;\n        left: 0;\n        width: 20px;\n        height: 20px;\n        text-align: center;\n        background: transparent;\n        opacity: 0; }\n\n.l-requests__filters .list .filter .checkbox:checked + .checkbox__text:after {\n        opacity: 1; }\n\n.l-requests__filters .apply {\n    box-sizing: border-box;\n    position: absolute;\n    top: 0;\n    right: 0;\n    padding: 1.2% 3%;\n    font-size: 16px;\n    font-weight: bold;\n    color: #FFF;\n    text-transform: uppercase;\n    background-color: #EE2737;\n    border-radius: 3px;\n    -webkit-transform: translateY(-35%);\n        -ms-transform: translateY(-35%);\n            transform: translateY(-35%);\n    cursor: pointer; }\n\n.l-requests__filters .apply:hover {\n      background-color: #c73a27; }\n\n@media screen and (max-width: 1440px) {\n      .l-requests__filters .apply {\n        font-size: 14px; } }\n\n.l-requests__list-inner {\n  height: 100%;\n  width: 100%;\n  display: table;\n  position: relative; }\n\n.l-requests__list-inner .bids-list {\n    display: table-cell;\n    vertical-align: top; }\n\n.l-requests__list-inner .bids-list .bids-table {\n      display: table;\n      table-layout: fixed;\n      width: 100%;\n      margin-bottom: 80px; }\n\n.l-requests__list-inner .bids-list .bids-table .bids-head {\n        display: table-row;\n        font-size: 16px;\n        font-weight: bold;\n        color: #768692;\n        border-bottom: 1px solid #cacaca; }\n\n.l-requests__list-inner .bids-list .bids-table .bids-head .bid-theme {\n          display: table-cell;\n          width: 70%;\n          padding: 0 0 15px 30px;\n          cursor: pointer; }\n\n.l-requests__list-inner .bids-list .bids-table .bids-head .bid-date {\n          display: table-cell;\n          width: 10%;\n          cursor: pointer; }\n\n.l-requests__list-inner .bids-list .bids-table .bids-head .bid-status {\n          display: table-cell;\n          width: 20%;\n          text-align: center;\n          padding-right: 15px;\n          cursor: pointer; }\n\n.l-requests__list-inner .bids-list .bids-table .bids-head .bid-status.approved {\n            color: #078916; }\n\n.l-requests__list-inner .bids-list .bids-table .bids-head .bid-status.refused {\n            color: #EE2737; }\n\n.l-requests__list-inner .bids-list .bids-table .m-bid {\n        display: table-row;\n        width: 100%;\n        height: 67px; }\n\n.l-requests__list-inner .bids-list .bids-table .m-bid:nth-child(odd) {\n          background-color: #F7F7F7; }\n\n.l-requests__list-inner .bids-list .bids-table .m-bid:nth-last-of-type(1) {\n          border-bottom: none; }\n\n.l-requests__list-inner .bids-list .bids-table .m-bid .bid-name {\n          display: table-cell;\n          position: relative;\n          width: 80%;\n          font-size: 18px;\n          vertical-align: middle;\n          max-width: 950px;\n          height: 67px;\n          overflow: hidden;\n          text-overflow: ellipsis;\n          padding: 25px 30px;\n          box-sizing: border-box; }\n\n.l-requests__list-inner .bids-list .bids-table .m-bid .bid-date {\n          display: table-cell;\n          width: 10%;\n          vertical-align: middle;\n          font-size: 18px;\n          color: #969696; }\n\n.l-requests__list-inner .bids-list .bids-table .m-bid .bid-status {\n          display: table-cell;\n          width: 10%;\n          vertical-align: middle; }\n\n.l-requests__list-inner .bids-list .bids-table .m-bid .bid-status span {\n            display: block;\n            font-size: 16px;\n            text-align: center; }\n\n.l-requests__list-inner .bids-list .bids-table .m-bid .bid-status span.marked {\n              color: #da402b; }\n\n.l-requests__list-inner .bids-list .bids-navigation {\n      text-align: center;\n      height: 20px; }\n\n.l-requests__list-inner .bids-list .bids-navigation .m-page-nav .to-begin {\n        font-size: 16px;\n        line-height: 20px;\n        height: 20px;\n        margin-right: 30px;\n        text-transform: lowercase;\n        text-decoration: none; }\n\n.l-requests__list-inner .bids-list .bids-navigation .m-page-nav input[type=\"button\"] {\n        height: 20px;\n        width: 35px;\n        margin-right: 25px; }\n"
+module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.l-requests {\n  box-sizing: border-box;\n  position: relative;\n  min-height: 500px; }\n\n.l-requests__filters {\n  padding-right: 215px;\n  box-sizing: border-box; }\n\n.l-requests__filters .list {\n    margin-left: 30px; }\n\n.l-requests__filters .list .filter {\n      display: inline-block;\n      vertical-align: middle;\n      padding-right: 70px;\n      padding-bottom: 40px; }\n\n.l-requests__filters .list .filter .checkbox {\n        position: absolute;\n        z-index: -1;\n        width: 20px;\n        height: 20px; }\n\n.l-requests__filters .list .filter .checkbox__text {\n        position: relative;\n        padding-left: 35px;\n        font-size: 16px;\n        line-height: 20px;\n        color: #768692;\n        cursor: pointer; }\n\n.l-requests__filters .list .filter .checkbox__text:before {\n        content: '';\n        box-sizing: border-box;\n        position: absolute;\n        top: 0;\n        left: 0;\n        width: 20px;\n        height: 20px;\n        border-radius: 3px;\n        background: transparent;\n        border: 1px solid #768692; }\n\n.l-requests__filters .list .filter .checkbox__text:after {\n        content: 'v';\n        position: absolute;\n        top: 0;\n        left: 0;\n        width: 20px;\n        height: 20px;\n        text-align: center;\n        background: transparent;\n        opacity: 0; }\n\n.l-requests__filters .list .filter .checkbox:checked + .checkbox__text:after {\n        opacity: 1; }\n\n.l-requests__filters .apply {\n    box-sizing: border-box;\n    position: absolute;\n    top: 0;\n    right: 0;\n    padding: 1.2% 3%;\n    font-size: 16px;\n    font-weight: bold;\n    color: #FFF;\n    text-transform: uppercase;\n    background-color: #EE2737;\n    border-radius: 3px;\n    -webkit-transform: translateY(-35%);\n        -ms-transform: translateY(-35%);\n            transform: translateY(-35%);\n    cursor: pointer; }\n\n.l-requests__filters .apply:hover {\n      background-color: #c73a27; }\n\n@media screen and (max-width: 1440px) {\n      .l-requests__filters .apply {\n        font-size: 14px; } }\n\n.l-requests__list-inner {\n  height: 100%;\n  width: 100%;\n  display: table;\n  position: relative; }\n\n.l-requests__list-inner .bids-list {\n    display: table-cell;\n    vertical-align: top; }\n\n.l-requests__list-inner .bids-list .bids-table {\n      display: table;\n      table-layout: fixed;\n      width: 100%;\n      margin-bottom: 80px; }\n\n.l-requests__list-inner .bids-list .bids-table .bids-head {\n        display: table-row;\n        font-size: 16px;\n        font-weight: bold;\n        color: #768692;\n        border-bottom: 1px solid #cacaca; }\n\n.l-requests__list-inner .bids-list .bids-table .bids-head .bid-theme {\n          display: table-cell;\n          width: 70%;\n          padding: 0 0 15px 30px;\n          cursor: pointer; }\n\n.l-requests__list-inner .bids-list .bids-table .bids-head .bid-date {\n          display: table-cell;\n          width: 10%;\n          cursor: pointer; }\n\n.l-requests__list-inner .bids-list .bids-table .bids-head .bid-status {\n          display: table-cell;\n          width: 20%;\n          text-align: center;\n          padding-right: 15px;\n          cursor: pointer; }\n\n.l-requests__list-inner .bids-list .bids-table .bids-head .bid-status.approved {\n            color: #078916; }\n\n.l-requests__list-inner .bids-list .bids-table .bids-head .bid-status.refused {\n            color: #EE2737; }\n\n.l-requests__list-inner .bids-list .bids-table .m-bid {\n        display: table-row;\n        width: 100%;\n        height: 67px; }\n\n.l-requests__list-inner .bids-list .bids-table .m-bid:nth-child(odd) {\n          background-color: #F7F7F7; }\n\n.l-requests__list-inner .bids-list .bids-table .m-bid:nth-last-of-type(1) {\n          border-bottom: none; }\n\n.l-requests__list-inner .bids-list .bids-table .m-bid .bid-name {\n          display: table-cell;\n          position: relative;\n          width: 80%;\n          font-size: 18px;\n          vertical-align: middle;\n          max-width: 950px;\n          height: 67px;\n          overflow: hidden;\n          text-overflow: ellipsis;\n          padding: 25px 30px;\n          box-sizing: border-box; }\n\n.l-requests__list-inner .bids-list .bids-table .m-bid .bid-date {\n          display: table-cell;\n          width: 10%;\n          vertical-align: middle;\n          font-size: 18px;\n          color: #969696; }\n\n.l-requests__list-inner .bids-list .bids-table .m-bid .bid-status {\n          display: table-cell;\n          width: 10%;\n          vertical-align: middle; }\n\n.l-requests__list-inner .bids-list .bids-table .m-bid .bid-status span {\n            display: block;\n            font-size: 16px;\n            text-align: center; }\n\n.l-requests__list-inner .bids-list .bids-table .m-bid .bid-status span.marked {\n              color: #da402b; }\n\n.l-requests__list-inner .bids-list .bids-navigation {\n      margin-top: 80px;\n      text-align: center; }\n\n.l-requests__list-inner .bids-list .bids-navigation .go-to-start,\n      .l-requests__list-inner .bids-list .bids-navigation .go-to-left,\n      .l-requests__list-inner .bids-list .bids-navigation .go-to-right {\n        margin: 0;\n        padding: 0;\n        border: none;\n        min-width: 0;\n        vertical-align: middle;\n        cursor: pointer; }\n\n.l-requests__list-inner .bids-list .bids-navigation .go-to-start {\n        color: #768692;\n        font-size: 18px;\n        background: none;\n        margin-right: 35px; }\n\n.l-requests__list-inner .bids-list .bids-navigation .go-to-left,\n      .l-requests__list-inner .bids-list .bids-navigation .go-to-right {\n        width: 50px;\n        height: 50px;\n        background-color: #768692;\n        background-size: 27px 27px;\n        background-repeat: no-repeat;\n        background-position: center;\n        background-image: url(/assets/icons/icon-arrow-right-white-thin.svg); }\n\n.l-requests__list-inner .bids-list .bids-navigation .go-to-left {\n        -webkit-transform: rotate(180deg);\n            -ms-transform: rotate(180deg);\n                transform: rotate(180deg);\n        margin-right: 25px; }\n\n.l-requests__list-inner .bids-list .bids-navigation .disabled {\n        opacity: 0.4; }\n"
 
 /***/ }),
 
@@ -442,7 +448,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/sharepoint/sharepoint.service */ "./src/app/services/sharepoint/sharepoint.service.ts");
 /* harmony import */ var _requests_services_requests_modal_requests_modal_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../requests/services/requests-modal/requests-modal.service */ "./src/app/requests/services/requests-modal/requests-modal.service.ts");
-/* harmony import */ var _requests_services_requests_requests_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../requests/services/requests/requests.service */ "./src/app/requests/services/requests/requests.service.ts");
+/* harmony import */ var src_app_requests_services_requests_workflow_requests_workflow_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/requests/services/requests-workflow/requests-workflow.service */ "./src/app/requests/services/requests-workflow/requests-workflow.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -458,21 +464,25 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 var RequestsComponent = /** @class */ (function () {
-    function RequestsComponent(requestsModalService, sharepointService, requestsService, route) {
+    function RequestsComponent(requestsModalService, sharepointService, zone, requestWorkflowService, route) {
         this.requestsModalService = requestsModalService;
         this.sharepointService = sharepointService;
-        this.requestsService = requestsService;
+        this.zone = zone;
+        this.requestWorkflowService = requestWorkflowService;
         this.route = route;
+        this.url = '';
+        this.webId = undefined;
         this.showBids = false;
         this.showHistory = false;
         this.pages = [];
         this.index = 0;
         this.userId = null;
-        this.currentFilter = [];
         this.sortField = 'Created';
         this.sortOrder = false;
         this.hasPrev = false;
         this.hasNext = false;
+        this.statuses = null;
+        this.templates = [];
         this.requests = [];
         this.requestTemplates = null;
     }
@@ -487,10 +497,13 @@ var RequestsComponent = /** @class */ (function () {
                     .getNext()
                     .subscribe(function (page) {
                     _this.index++;
-                    _this.requests = page.items;
-                    _this.hasNext = page.hasNext;
-                    _this.hasPrev = true;
+                    _this.zone.run(function () {
+                        _this.requests = page.items;
+                        _this.hasNext = page.hasNext;
+                        _this.hasPrev = true;
+                    });
                     _this.pages.push(page);
+                    _this.scrollUp();
                 });
             }
             else {
@@ -498,15 +511,20 @@ var RequestsComponent = /** @class */ (function () {
                 this.requests = this.pages[this.index].items;
                 this.hasNext = this.pages[this.index].hasNext;
                 this.hasPrev = true;
+                this.scrollUp();
             }
         }
     };
     RequestsComponent.prototype.prev = function () {
+        var _this = this;
         if (this.hasPrev) {
             this.index--;
-            this.requests = this.pages[this.index].items;
-            this.hasNext = true;
-            this.hasPrev = this.index > 0;
+            this.zone.run(function () {
+                _this.requests = _this.pages[_this.index].items;
+                _this.hasNext = true;
+                _this.hasPrev = _this.index > 0;
+                _this.scrollUp();
+            });
         }
     };
     RequestsComponent.prototype.sortByTheme = function () {
@@ -517,7 +535,7 @@ var RequestsComponent = /** @class */ (function () {
             this.sortField = 'Title';
             this.sortOrder = true;
         }
-        this.getPagedRequests();
+        this.load();
     };
     RequestsComponent.prototype.sortByDate = function () {
         if (this.sortField === 'Created') {
@@ -527,7 +545,7 @@ var RequestsComponent = /** @class */ (function () {
             this.sortField = 'Created';
             this.sortOrder = true;
         }
-        this.getPagedRequests();
+        this.load();
     };
     RequestsComponent.prototype.sortByStatus = function () {
         if (this.sortField === 'slRequestStatusLookup/Title') {
@@ -537,71 +555,56 @@ var RequestsComponent = /** @class */ (function () {
             this.sortField = 'slRequestStatusLookup/Title';
             this.sortOrder = true;
         }
-        this.getPagedRequests();
+        this.load();
     };
     RequestsComponent.prototype.filterRequestsByType = function (type, event) {
-        var _this = this;
-        this.setFilter(type, event.target.checked);
-        var f = this.getFilter();
-        this.requestsService
-            .getItemsPaged({
-            filter: f !== null
-                ? f + " and Author/Id eq " + this.userId
-                : "Author/Id eq " + this.userId
-        })
-            .subscribe(function (p) {
-            _this.resetPage();
-            _this.pages.push(p);
-            _this.requests = p.items;
-            _this.hasNext = p.hasNext;
-        });
+        if (event.target.checked) {
+            this.templates.push(type);
+        }
+        else {
+            this.templates.splice(this.templates.indexOf(type), 1);
+        }
+        this.load();
     };
     RequestsComponent.prototype.toBegin = function () {
-        this.getPagedRequests();
+        this.load();
     };
     RequestsComponent.prototype.resetPage = function () {
-        this.pages = [];
-        this.index = 0;
-        this.hasNext = false;
-        this.hasPrev = false;
-    };
-    RequestsComponent.prototype.setFilter = function (type, checked) {
-        checked
-            ? this.currentFilter.push(type)
-            : this.currentFilter.splice(this.currentFilter.indexOf(type), 1);
-    };
-    RequestsComponent.prototype.getFilter = function () {
-        var filter = this.currentFilter.length
-            ? "Title eq '" + this.currentFilter[0] + "'"
-            : null;
-        if (this.currentFilter.length > 1) {
-            for (var i = 1; i < this.currentFilter.length; i++) {
-                filter += " or Title eq '" + this.currentFilter[i] + "'";
-            }
-        }
-        return filter;
-    };
-    RequestsComponent.prototype.getPagedRequests = function () {
         var _this = this;
-        var f = this.getFilter();
-        this.requestsService
-            .getItemsPaged({
-            filter: f !== null
-                ? f + " and Author/Id eq " + this.userId
-                : "Author/Id eq " + this.userId,
-            orderBy: [[this.sortField, this.sortOrder]]
-        })
-            .subscribe(function (p) {
-            _this.resetPage();
+        this.zone.run(function () {
+            _this.pages = [];
+            _this.index = 0;
+            _this.hasNext = false;
+            _this.hasPrev = false;
+            // this.scrollUp();
+        });
+    };
+    RequestsComponent.prototype.load = function () {
+        var _this = this;
+        this.requestWorkflowService.getRequestsByUserAndTemplatePaged(this.userId, [[this.sortField, this.sortOrder]], this.webId, this.templates).subscribe(function (p) {
+            _this.zone.run(function () {
+                _this.resetPage();
+                _this.requests = p.items;
+                _this.hasNext = p.hasNext;
+            });
             _this.pages.push(p);
-            _this.requests = p.items;
-            _this.hasNext = p.hasNext;
+        });
+    };
+    RequestsComponent.prototype.scrollUp = function () {
+        this.zone.run(function () {
+            document.getElementById('s4-workspace').scrollTop = 0;
         });
     };
     RequestsComponent.prototype.ngOnInit = function () {
+        this.url = this.route.snapshot.data.company && this.route.snapshot.data.company.url;
+        this.webId =
+            this.route.snapshot.data.webId !== 'root'
+                ? this.route.snapshot.data.webId
+                : null;
         this.userId = this.sharepointService.getCurrentUserContext().userId;
         this.requestTemplates = this.route.snapshot.data.templates;
-        this.getPagedRequests();
+        this.statuses = this.route.snapshot.data.statuses;
+        this.load();
     };
     RequestsComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -611,7 +614,8 @@ var RequestsComponent = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [_requests_services_requests_modal_requests_modal_service__WEBPACK_IMPORTED_MODULE_3__["RequestsModalService"],
             src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_2__["SharepointService"],
-            _requests_services_requests_requests_service__WEBPACK_IMPORTED_MODULE_4__["RequestsService"],
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"],
+            src_app_requests_services_requests_workflow_requests_workflow_service__WEBPACK_IMPORTED_MODULE_4__["RequestsWorkflowService"],
             _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"]])
     ], RequestsComponent);
     return RequestsComponent;
@@ -636,6 +640,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_personal_page_personal_page_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/personal-page/personal-page.component */ "./src/app/personal/components/personal-page/personal-page.component.ts");
 /* harmony import */ var _requests_services_requests_groups_requests_groups_resolver__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../requests/services/requests-groups/requests-groups.resolver */ "./src/app/requests/services/requests-groups/requests-groups.resolver.ts");
 /* harmony import */ var _requests_services_requests_templates_requests_templates_resolver__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../requests/services/requests-templates/requests-templates.resolver */ "./src/app/requests/services/requests-templates/requests-templates.resolver.ts");
+/* harmony import */ var _services_companies_current_user_web_resolver__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../services/companies/current-user-web.resolver */ "./src/app/services/companies/current-user-web.resolver.ts");
+/* harmony import */ var _services_companies_current_user_company_resolver__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../services/companies/current-user-company.resolver */ "./src/app/services/companies/current-user-company.resolver.ts");
+/* harmony import */ var _requests_services_requests_statuses_requests_statuses_resolver__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../requests/services/requests-statuses/requests-statuses.resolver */ "./src/app/requests/services/requests-statuses/requests-statuses.resolver.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -647,13 +654,22 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
+
+
 // import { MsalGuard } from '@azure/msal-angular';
 var routes = [
     {
         path: '',
         component: _components_personal_page_personal_page_component__WEBPACK_IMPORTED_MODULE_2__["PersonalPageComponent"],
         // canActivate : [MsalGuard],
-        resolve: { groups: _requests_services_requests_groups_requests_groups_resolver__WEBPACK_IMPORTED_MODULE_3__["RequestsGroupsResolver"], templates: _requests_services_requests_templates_requests_templates_resolver__WEBPACK_IMPORTED_MODULE_4__["RequestsTemplatesResolver"] },
+        resolve: {
+            groups: _requests_services_requests_groups_requests_groups_resolver__WEBPACK_IMPORTED_MODULE_3__["RequestsGroupsResolver"],
+            templates: _requests_services_requests_templates_requests_templates_resolver__WEBPACK_IMPORTED_MODULE_4__["RequestsTemplatesResolver"],
+            webId: _services_companies_current_user_web_resolver__WEBPACK_IMPORTED_MODULE_5__["CurrentUserWebResolver"],
+            company: _services_companies_current_user_company_resolver__WEBPACK_IMPORTED_MODULE_6__["CurrentUserCompanyResolver"],
+            statuses: _requests_services_requests_statuses_requests_statuses_resolver__WEBPACK_IMPORTED_MODULE_7__["RequestsStatusesResolver"]
+        },
         data: { animation: 'fadeAnimation', title: 'Страница сотрудника' }
     }
 ];
@@ -663,7 +679,7 @@ var PersonalRoutingModule = /** @class */ (function () {
     PersonalRoutingModule = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
             imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forChild(routes)],
-            providers: [_requests_services_requests_groups_requests_groups_resolver__WEBPACK_IMPORTED_MODULE_3__["RequestsGroupsResolver"], _requests_services_requests_templates_requests_templates_resolver__WEBPACK_IMPORTED_MODULE_4__["RequestsTemplatesResolver"]],
+            providers: [_requests_services_requests_groups_requests_groups_resolver__WEBPACK_IMPORTED_MODULE_3__["RequestsGroupsResolver"], _requests_services_requests_templates_requests_templates_resolver__WEBPACK_IMPORTED_MODULE_4__["RequestsTemplatesResolver"], _services_companies_current_user_web_resolver__WEBPACK_IMPORTED_MODULE_5__["CurrentUserWebResolver"], _services_companies_current_user_company_resolver__WEBPACK_IMPORTED_MODULE_6__["CurrentUserCompanyResolver"]],
             exports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]]
         })
     ], PersonalRoutingModule);
@@ -837,6 +853,88 @@ var ContentLinksService = /** @class */ (function (_super) {
     ], ContentLinksService);
     return ContentLinksService;
 }(src_app_services_list_items_service__WEBPACK_IMPORTED_MODULE_1__["ListItemsService"]));
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/companies/current-user-company.resolver.ts":
+/*!*********************************************************************!*\
+  !*** ./src/app/services/companies/current-user-company.resolver.ts ***!
+  \*********************************************************************/
+/*! exports provided: CurrentUserCompanyResolver */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CurrentUserCompanyResolver", function() { return CurrentUserCompanyResolver; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _companies_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./companies.service */ "./src/app/services/companies/companies.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var CurrentUserCompanyResolver = /** @class */ (function () {
+    function CurrentUserCompanyResolver(companiesService) {
+        this.companiesService = companiesService;
+    }
+    CurrentUserCompanyResolver.prototype.resolve = function (route, state) {
+        return this.companiesService.getCompanyForCurrentUser();
+    };
+    CurrentUserCompanyResolver = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __metadata("design:paramtypes", [_companies_service__WEBPACK_IMPORTED_MODULE_1__["CompaniesService"]])
+    ], CurrentUserCompanyResolver);
+    return CurrentUserCompanyResolver;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/companies/current-user-web.resolver.ts":
+/*!*****************************************************************!*\
+  !*** ./src/app/services/companies/current-user-web.resolver.ts ***!
+  \*****************************************************************/
+/*! exports provided: CurrentUserWebResolver */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CurrentUserWebResolver", function() { return CurrentUserWebResolver; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _companies_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./companies.service */ "./src/app/services/companies/companies.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var CurrentUserWebResolver = /** @class */ (function () {
+    function CurrentUserWebResolver(companiesService) {
+        this.companiesService = companiesService;
+    }
+    CurrentUserWebResolver.prototype.resolve = function (route, state) {
+        return this.companiesService.getWebIdForCurrentUser();
+    };
+    CurrentUserWebResolver = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __metadata("design:paramtypes", [_companies_service__WEBPACK_IMPORTED_MODULE_1__["CompaniesService"]])
+    ], CurrentUserWebResolver);
+    return CurrentUserWebResolver;
+}());
 
 
 

@@ -38,7 +38,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/sidebar/sidebar.service */ "./src/app/services/sidebar/sidebar.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -55,13 +54,11 @@ var __param = (undefined && undefined.__param) || function (paramIndex, decorato
 
 
 
-
 var NewEmployeesPageComponent = /** @class */ (function () {
-    function NewEmployeesPageComponent(route, employeesFactory, sidebarService) {
+    function NewEmployeesPageComponent(route, employeesFactory) {
         var _this = this;
         this.route = route;
         this.employeesFactory = employeesFactory;
-        this.sidebarService = sidebarService;
         this.pages = [];
         this.index = 0;
         this.employees = [];
@@ -71,7 +68,6 @@ var NewEmployeesPageComponent = /** @class */ (function () {
         this.quater = Math.floor((new Date().getMonth()) / 3);
         this.month = new Date().getMonth() - this.quater * 3;
         this.months = Array.apply(0, Array(3)).map(function (v, i) { return moment__WEBPACK_IMPORTED_MODULE_2__().month(i + _this.quater * 3).format('MMMM'); });
-        this.sidebarService.handleSetSettings({ showSidebar: false, bgColor: '#fff' });
     }
     NewEmployeesPageComponent.prototype.ngOnInit = function () {
         this.pages.push(this.route.snapshot.data.newEmployees);
@@ -164,7 +160,7 @@ var NewEmployeesPageComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./new-employees-page.component.scss */ "./src/app/new-employees/components/new-employees-page/new-employees-page.component.scss")]
         }),
         __param(1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])('EmployeesFactory')),
-        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"], Object, src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_4__["SidebarService"]])
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"], Object])
     ], NewEmployeesPageComponent);
     return NewEmployeesPageComponent;
 }());

@@ -118,10 +118,12 @@ abstract class AbstractExpandableProperty
         
         if ($arProperty["MULTIPLE"] == "Y") {
             while ($element = $resElements->GetNext()) {
+                $element['ID'] = intval($element['ID']);
                 $result[] = $element;
             }
         } else {
             if ($element = $resElements->GetNext()) {
+                $element['ID'] = intval($element['ID']);
                 $result = $element;
             }
         }

@@ -53,6 +53,12 @@ class RequestParser
         }
     }*/
     
+    /**
+     * Вызывает парсер скобок и фильтра. Возвращает подготовленный под битрикс
+     * массив с фильтром
+     * 
+     * @return array
+     */
     public function parseFilter()
     {
         $arFilter = [];
@@ -63,7 +69,7 @@ class RequestParser
         $arParentheses = $parenthesesParser->parse('(' . $this->requestParams['filter'] . ')');
         $arNodes = $filterParser->parseNodes($arParentheses);
         $arFilter = $filterParser->buildFilter($arNodes);
-        
+
         return $arFilter;
     }
     

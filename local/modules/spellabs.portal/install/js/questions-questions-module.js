@@ -34,8 +34,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "QuestionsPageComponent", function() { return QuestionsPageComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _questions_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./questions.service */ "./src/app/questions/components/questions-page/questions.service.ts");
-/* harmony import */ var src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/sidebar/sidebar.service */ "./src/app/services/sidebar/sidebar.service.ts");
-/* harmony import */ var src_app_services_feedback_feedback_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/feedback/feedback.service */ "./src/app/services/feedback/feedback.service.ts");
+/* harmony import */ var src_app_services_feedback_feedback_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/feedback/feedback.service */ "./src/app/services/feedback/feedback.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -48,17 +47,14 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-
 var QuestionsPageComponent = /** @class */ (function () {
-    function QuestionsPageComponent(questionsService, feedbackService, sidebarService) {
+    function QuestionsPageComponent(questionsService, feedbackService) {
         this.questionsService = questionsService;
         this.feedbackService = feedbackService;
-        this.sidebarService = sidebarService;
         this.itemsLength = 0;
         this.hasNext = null;
         this.hasPrev = null;
         this.questionList = [];
-        this.sidebarService.handleSetSettings({ showSidebar: false, bgColor: '#fff' });
     }
     QuestionsPageComponent.prototype.toggleQuestion = function (question, event) {
         event.stopPropagation();
@@ -120,8 +116,7 @@ var QuestionsPageComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./questions-page.component.scss */ "./src/app/questions/components/questions-page/questions-page.component.scss")]
         }),
         __metadata("design:paramtypes", [_questions_service__WEBPACK_IMPORTED_MODULE_1__["QuestionsService"],
-            src_app_services_feedback_feedback_service__WEBPACK_IMPORTED_MODULE_3__["FeedbackService"],
-            src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_2__["SidebarService"]])
+            src_app_services_feedback_feedback_service__WEBPACK_IMPORTED_MODULE_2__["FeedbackService"]])
     ], QuestionsPageComponent);
     return QuestionsPageComponent;
 }());

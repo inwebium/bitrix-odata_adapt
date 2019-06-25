@@ -2,6 +2,7 @@
 namespace Spellabs\Portal\Rest;
 
 use Processor\Type\TypeInterface;
+use Processor\Type;
 
 class Field
 {    
@@ -129,6 +130,6 @@ class Field
     
     public function handleValue($value)
     {
-        return $this->type::parseValue();
+        return $this->type::parseValue($value);
     }
 }

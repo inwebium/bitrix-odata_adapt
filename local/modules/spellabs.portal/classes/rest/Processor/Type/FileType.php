@@ -5,8 +5,26 @@ class FileType extends AbstractType
 {
     public static function parseValue($value)
     {
-        $filepath = \CFile::GetPath($value);
+        $result = [];
         
-        return $filepath;
+        if (is_array($value)) {
+            
+            foreach ($value as $key => $fileId) {
+                if (is_numeric($fileId)) {
+                    $result[] = ['ServerRelativeUrl' => \CFile::GetPath($fileId)];
+                }
+            }
+            
+        } else {
+            if (is_numeric($value)) {
+                $result[] = ['ServerRelativeUrl' => \CFile::GetPath($value)];
+            }
+        }
+        
+        if (count($result) > 0) {
+            return $result;
+        } else {
+            return $value;
+        }
     }
 }

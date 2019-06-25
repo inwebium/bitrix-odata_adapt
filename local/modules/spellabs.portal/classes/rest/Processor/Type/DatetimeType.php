@@ -9,8 +9,10 @@ class DatetimeType extends AbstractType
         $bitrixDatetime = new \Bitrix\Main\Type\DateTime($value);
         $dt = new \DateTime();
         
-        $dt->createFromFormat($siteFormat, $value, $bitrixDatetime->getTimeZone());
+        return $bitrixDatetime->format(\DateTime::ISO8601);
         
-        return $dt->format(DateTime::ISO8601);
+        /*$dt->createFromFormat($siteFormat, $value, $bitrixDatetime->getTimeZone());
+
+        return $dt->format(\DateTime::ISO8601);*/
     }
 }

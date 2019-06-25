@@ -30,7 +30,7 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
     
     protected $iblockId;
     protected $iblockCode;
-    //protected static $propertiesAssoc;
+    protected $name;
     protected $expandedValues;
     
     public function __construct(RequestParameters $requestParameters)
@@ -79,6 +79,16 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
     {
         return $this->iblockCode;
     }
+    
+    /**
+     * name getter
+     * 
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 
     /**
      * iblockCode setter
@@ -89,6 +99,18 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
     public function setIblockCode($iblockCode)
     {
         $this->iblockCode = $iblockCode;
+        return $this;
+    }
+    
+    /**
+     * name setter
+     * 
+     * @param string $name Символьный код инфоблока
+     * @return $this
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
         return $this;
     }
     
@@ -129,14 +151,14 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
     }
     
     /**
-     * Реализация метода запроса GET
+     * Реализация метода запроса GET. По сути вызывает CIBlockElement::GetList
+     * с отпарсенными select, filter, top, expand, order
      * 
      * @return array
      */
     public function get()
     {
         $result = false;
-
         $this->getRequestParameters()->appendFilter(['IBLOCK_ID' => $this->getIblockId()]);
         
         // В arSelect минимум нужны IBLOCK_ID и ID
@@ -151,10 +173,10 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         }
         
         $arOrder = $this->getRequestParameters()->getOrder();
-        $arFilter = $this->getRequestParameters()->getFilter();
         $arGroup = false;
         $arNav = $this->getRequestParameters()->getTop();
         $this->expand();
+        $arFilter = $this->getRequestParameters()->getFilter();
         $arSelect = $this->getRequestParameters()->getSelect();
 
         $this->adaptSelect($arSelect);
@@ -178,9 +200,10 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         if (!isset($arFilter['ID']) || is_array($arFilter['ID'])) {
             $result = $arElements;
         } else {
-            $result = $arElements;
+            $result = $arElements[0];
         }
-
+        /*var_dump($result);
+        die();*/
         return $result;
     }
     
@@ -318,8 +341,8 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
      */
     protected function expand()
     {
-        $propertiesToExpand = $this->getRequestParameters()->getExpand();
-        
+        $propertiesToExpand = array_unique($this->getRequestParameters()->getExpand());
+
         foreach ($propertiesToExpand as $num => $fieldCode)
         {
             $this->replaceExpandedFields($fieldCode);
@@ -329,14 +352,14 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
     }
     
     /**
-     * Заменяет expanded поля в select на битриксовые аналоги
+     * Заменяет expanded поля в select и filter на битриксовые аналоги
      * 
-     * @param type $fieldCode
+     * @param string $fieldCode
      */
     protected function replaceExpandedFields($fieldCode)
     {
         
-        foreach ($this->getRequestParameters()->getSelect() as $selectNum => $fieldToSelect)
+        foreach (array_unique($this->getRequestParameters()->getSelect()) as $selectNum => $fieldToSelect)
         {
 
             if (strpos($fieldToSelect, $fieldCode . '/') !== false) {
@@ -354,18 +377,56 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
                     );
                 }
 
-            } /*else {
-                $this->getRequestParameters()->replaceSelect(
-                    $fieldToSelect, 
-                    AssociativeReplacer::replace($fieldToSelect, $this->getFieldsAssociations())
-                );
-                
-            }*/
+            }
         }
-        /*var_dump($fieldCode);
-        var_dump($this->getRequestParameters()->getSelect());*/
+        
+        //if ($fieldCode == 'slNewsRubricLookup') {
+            
+        
+        $arFilter = $this->replaceExpandedFieldsRecursive(
+            $this->getRequestParameters()->getFilter(), 
+            $fieldCode
+        );
+        //var_dump($arFilter);
+        $this->getRequestParameters()->setFilter($arFilter);
+        //}
+    }
+    
+    protected function replaceExpandedFieldsRecursive($array, $fieldCode) {
+        $result = [];
+        //echo "\nreplaceExpandedFieldsRecursive \n";
+        foreach ($array as $key => $value)
+        {
+            if (strpos($key, $fieldCode . '/') !== false) {
+                $classForExpand = "Spellabs\\Portal\\Rest\\Repository\\Fields\\" . $fieldCode;
 
-        //die();
+                if (class_exists($classForExpand)) {
+                    //echo "\nfound class $classForExpand\n";
+                    $objectToExpand = new $classForExpand();
+                    //echo "\nexploded key part " . explode('/', $key)[1] . "\n";
+                    //var_dump($objectToExpand->getFieldsAssoc());
+                    $key = 'PROPERTY_' . 
+                        $objectToExpand->getPropertyCode() . 
+                        '.' . 
+                        AssociativeReplacer::replace(
+                            explode('/', $key)[1], 
+                            $objectToExpand->getFieldsAssoc()
+                        )
+                    ;
+                }
+            }
+            
+            //echo "\nkey $key\n";
+            
+            if (is_array($value)) {
+                $result[$key] = $this->replaceExpandedFieldsRecursive($value, $fieldCode);
+            } else {
+                $result[$key] = $value;
+            }
+        }
+        //echo "\nreplaceExpandedFieldsRecursive END\n";
+        //var_dump($result);
+        return $result;
     }
     
     protected function getExpandedValues()
@@ -375,12 +436,22 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
     
     protected function setExpandedValues($array)
     {
-        $this->expandedValues = $array;
+        //var_dump($array);
+        foreach ($array as $key => $value) {
+            foreach ($value as $fieldCode => $fieldArray) {
+                $this->expandedValues[$key][$fieldCode] = $fieldArray;
+            }
+            
+        }
+        //var_dump($this->expandedValues);
+        //die();
         return $this;
     }
     
     protected function placeExpandedValues(&$element)
     {
+        //var_dump("\nplaceExpandedValues\n");
+        //var_dump($this->getExpandedValues());
         if (isset($this->getExpandedValues()[$element['ID']])) {
             //var_dump($this->getExpandedValues()[$element['ID']]);
             
@@ -389,6 +460,7 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
                 $element[$propertyCode] = $arValue;
             }
         }
+        //die();
     }
     
     /**
@@ -499,6 +571,10 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
             $arResult['DETAIL_PICTURE'] = \CFile::GetPath($arResult['DETAIL_PICTURE']);
         }
         
+        if (!empty($arResult['NAME'])) {
+            $arResult['NAME'] = $arResult['~NAME'];
+        }
+        
         if (!empty($arResult['PREVIEW_TEXT'])) {
             $arResult['PREVIEW_TEXT'] = $arResult['~PREVIEW_TEXT'];
         }
@@ -516,10 +592,15 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         
         foreach ($arResult as $key => $value)
         {
+            
             if (in_array($key, array_keys($arPropsCodes))) {
-                $arResult[$arPropsCodes[$key]] = $value;
+                $newCode = $arPropsCodes[$key];
+                $arResult[$newCode] = $value;
                 unset($arResult[$key]);
+                $key = $newCode;
             }
+            
+            $arResult[$key] = $this->getFieldsCollection()->getField($key)->handleValue($value);
         }
     }
 }

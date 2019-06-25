@@ -52,11 +52,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MediagalleryPageComponent", function() { return MediagalleryPageComponent; });
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/sidebar/sidebar.service */ "./src/app/services/sidebar/sidebar.service.ts");
-/* harmony import */ var src_app_services_photo_library_photo_library_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/photo-library/photo-library.service */ "./src/app/services/photo-library/photo-library.service.ts");
-/* harmony import */ var src_app_services_images_images_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/images/images.service */ "./src/app/services/images/images.service.ts");
-/* harmony import */ var src_app_services_videos_videos_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/videos/videos.service */ "./src/app/services/videos/videos.service.ts");
-/* harmony import */ var src_app_constants_content_types__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/constants/content-types */ "./src/app/constants/content-types.ts");
+/* harmony import */ var src_app_services_photo_library_photo_library_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/photo-library/photo-library.service */ "./src/app/services/photo-library/photo-library.service.ts");
+/* harmony import */ var src_app_services_images_images_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/images/images.service */ "./src/app/services/images/images.service.ts");
+/* harmony import */ var src_app_services_videos_videos_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/videos/videos.service */ "./src/app/services/videos/videos.service.ts");
+/* harmony import */ var src_app_constants_content_types__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/constants/content-types */ "./src/app/constants/content-types.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -72,10 +71,8 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-
 var MediagalleryPageComponent = /** @class */ (function () {
-    function MediagalleryPageComponent(sidebarService, photoLibraryService, imagesService, videosService, route) {
-        this.sidebarService = sidebarService;
+    function MediagalleryPageComponent(photoLibraryService, imagesService, videosService, route) {
         this.photoLibraryService = photoLibraryService;
         this.imagesService = imagesService;
         this.videosService = videosService;
@@ -87,7 +84,6 @@ var MediagalleryPageComponent = /** @class */ (function () {
         this.webId = null;
         this.subscription = null;
         this.companyId = null;
-        this.sidebarService.handleSetSettings({ showSidebar: false, bgColor: '#fff' });
     }
     MediagalleryPageComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -99,9 +95,9 @@ var MediagalleryPageComponent = /** @class */ (function () {
                 _this.companyId = params.id;
             }
         });
-        this.photoLibraryService.getItems({ filter: "ContentType eq '" + encodeURI(src_app_constants_content_types__WEBPACK_IMPORTED_MODULE_6__["contentTypes"].album) + "'", top: 5000, webId: this.webId })
+        this.photoLibraryService.getItems({ filter: "ContentType eq '" + encodeURI(src_app_constants_content_types__WEBPACK_IMPORTED_MODULE_5__["contentTypes"].album) + "'", top: 5000, webId: this.webId })
             .subscribe(function (items) { return _this.albumsTotal = items.length; });
-        this.photoLibraryService.getRandomItems({ top: 1, filter: "ContentType eq '" + encodeURI(src_app_constants_content_types__WEBPACK_IMPORTED_MODULE_6__["contentTypes"].photo) + "'", webId: this.webId })
+        this.photoLibraryService.getRandomItems({ top: 1, filter: "ContentType eq '" + encodeURI(src_app_constants_content_types__WEBPACK_IMPORTED_MODULE_5__["contentTypes"].photo) + "'", webId: this.webId })
             .subscribe(function (photos) {
             if (photos.length > 0) {
                 _this.photoUrl = photos[0].url;
@@ -146,10 +142,9 @@ var MediagalleryPageComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./mediagallery-page.component.html */ "./src/app/mediagallery/components/mediagallery-page/mediagallery-page.component.html"),
             styles: [__webpack_require__(/*! ./mediagallery-page.component.scss */ "./src/app/mediagallery/components/mediagallery-page/mediagallery-page.component.scss")]
         }),
-        __metadata("design:paramtypes", [src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_2__["SidebarService"],
-            src_app_services_photo_library_photo_library_service__WEBPACK_IMPORTED_MODULE_3__["PhotoLibraryService"],
-            src_app_services_images_images_service__WEBPACK_IMPORTED_MODULE_4__["ImagesService"],
-            src_app_services_videos_videos_service__WEBPACK_IMPORTED_MODULE_5__["VideosService"],
+        __metadata("design:paramtypes", [src_app_services_photo_library_photo_library_service__WEBPACK_IMPORTED_MODULE_2__["PhotoLibraryService"],
+            src_app_services_images_images_service__WEBPACK_IMPORTED_MODULE_3__["ImagesService"],
+            src_app_services_videos_videos_service__WEBPACK_IMPORTED_MODULE_4__["VideosService"],
             _angular_router__WEBPACK_IMPORTED_MODULE_0__["ActivatedRoute"]])
     ], MediagalleryPageComponent);
     return MediagalleryPageComponent;

@@ -1,5 +1,253 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["booking-booking-module"],{
 
+/***/ "./node_modules/ng-click-outside/lib/click-outside.directive.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/ng-click-outside/lib/click-outside.directive.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var common_1 = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+var ClickOutsideDirective = /** @class */ (function () {
+    function ClickOutsideDirective(_el, _ngZone, platformId) {
+        this._el = _el;
+        this._ngZone = _ngZone;
+        this.platformId = platformId;
+        this.clickOutsideEnabled = true;
+        this.attachOutsideOnClick = false;
+        this.delayClickOutsideInit = false;
+        this.emitOnBlur = false;
+        this.exclude = '';
+        this.excludeBeforeClick = false;
+        this.clickOutsideEvents = '';
+        this.clickOutside = new core_1.EventEmitter();
+        this._nodesExcluded = [];
+        this._events = ['click'];
+        this._initOnClickBody = this._initOnClickBody.bind(this);
+        this._onClickBody = this._onClickBody.bind(this);
+        this._onWindowBlur = this._onWindowBlur.bind(this);
+    }
+    ClickOutsideDirective.prototype.ngOnInit = function () {
+        if (!common_1.isPlatformBrowser(this.platformId)) {
+            return;
+        }
+        this._init();
+    };
+    ClickOutsideDirective.prototype.ngOnDestroy = function () {
+        if (!common_1.isPlatformBrowser(this.platformId)) {
+            return;
+        }
+        this._removeClickOutsideListener();
+        this._removeAttachOutsideOnClickListener();
+        this._removeWindowBlurListener();
+    };
+    ClickOutsideDirective.prototype.ngOnChanges = function (changes) {
+        if (!common_1.isPlatformBrowser(this.platformId)) {
+            return;
+        }
+        if (changes['attachOutsideOnClick'] || changes['exclude'] || changes['emitOnBlur']) {
+            this._init();
+        }
+    };
+    ClickOutsideDirective.prototype._init = function () {
+        if (this.clickOutsideEvents !== '') {
+            this._events = this.clickOutsideEvents.split(',').map(function (e) { return e.trim(); });
+        }
+        this._excludeCheck();
+        if (this.attachOutsideOnClick) {
+            this._initAttachOutsideOnClickListener();
+        }
+        else {
+            this._initOnClickBody();
+        }
+        if (this.emitOnBlur) {
+            this._initWindowBlurListener();
+        }
+    };
+    ClickOutsideDirective.prototype._initOnClickBody = function () {
+        if (this.delayClickOutsideInit) {
+            setTimeout(this._initClickOutsideListener.bind(this));
+        }
+        else {
+            this._initClickOutsideListener();
+        }
+    };
+    ClickOutsideDirective.prototype._excludeCheck = function () {
+        if (this.exclude) {
+            try {
+                var nodes = Array.from(document.querySelectorAll(this.exclude));
+                if (nodes) {
+                    this._nodesExcluded = nodes;
+                }
+            }
+            catch (err) {
+                console.error('[ng-click-outside] Check your exclude selector syntax.', err);
+            }
+        }
+    };
+    ClickOutsideDirective.prototype._onClickBody = function (ev) {
+        if (!this.clickOutsideEnabled) {
+            return;
+        }
+        if (this.excludeBeforeClick) {
+            this._excludeCheck();
+        }
+        if (!this._el.nativeElement.contains(ev.target) && !this._shouldExclude(ev.target)) {
+            this._emit(ev);
+            if (this.attachOutsideOnClick) {
+                this._removeClickOutsideListener();
+            }
+        }
+    };
+    /**
+     * Resolves problem with outside click on iframe
+     * @see https://github.com/arkon/ng-click-outside/issues/32
+     */
+    /**
+       * Resolves problem with outside click on iframe
+       * @see https://github.com/arkon/ng-click-outside/issues/32
+       */
+    ClickOutsideDirective.prototype._onWindowBlur = /**
+       * Resolves problem with outside click on iframe
+       * @see https://github.com/arkon/ng-click-outside/issues/32
+       */
+    function (ev) {
+        var _this = this;
+        setTimeout(function () {
+            if (!document.hidden) {
+                _this._emit(ev);
+            }
+        });
+    };
+    ClickOutsideDirective.prototype._emit = function (ev) {
+        var _this = this;
+        if (!this.clickOutsideEnabled) {
+            return;
+        }
+        this._ngZone.run(function () { return _this.clickOutside.emit(ev); });
+    };
+    ClickOutsideDirective.prototype._shouldExclude = function (target) {
+        for (var _i = 0, _a = this._nodesExcluded; _i < _a.length; _i++) {
+            var excludedNode = _a[_i];
+            if (excludedNode.contains(target)) {
+                return true;
+            }
+        }
+        return false;
+    };
+    ClickOutsideDirective.prototype._initClickOutsideListener = function () {
+        var _this = this;
+        this._ngZone.runOutsideAngular(function () {
+            _this._events.forEach(function (e) { return document.body.addEventListener(e, _this._onClickBody); });
+        });
+    };
+    ClickOutsideDirective.prototype._removeClickOutsideListener = function () {
+        var _this = this;
+        this._ngZone.runOutsideAngular(function () {
+            _this._events.forEach(function (e) { return document.body.removeEventListener(e, _this._onClickBody); });
+        });
+    };
+    ClickOutsideDirective.prototype._initAttachOutsideOnClickListener = function () {
+        var _this = this;
+        this._ngZone.runOutsideAngular(function () {
+            _this._events.forEach(function (e) { return _this._el.nativeElement.addEventListener(e, _this._initOnClickBody); });
+        });
+    };
+    ClickOutsideDirective.prototype._removeAttachOutsideOnClickListener = function () {
+        var _this = this;
+        this._ngZone.runOutsideAngular(function () {
+            _this._events.forEach(function (e) { return _this._el.nativeElement.removeEventListener(e, _this._initOnClickBody); });
+        });
+    };
+    ClickOutsideDirective.prototype._initWindowBlurListener = function () {
+        var _this = this;
+        this._ngZone.runOutsideAngular(function () {
+            window.addEventListener('blur', _this._onWindowBlur);
+        });
+    };
+    ClickOutsideDirective.prototype._removeWindowBlurListener = function () {
+        var _this = this;
+        this._ngZone.runOutsideAngular(function () {
+            window.removeEventListener('blur', _this._onWindowBlur);
+        });
+    };
+    ClickOutsideDirective.decorators = [
+        { type: core_1.Injectable },
+        { type: core_1.Directive, args: [{ selector: '[clickOutside]' },] },
+    ];
+    /** @nocollapse */
+    ClickOutsideDirective.ctorParameters = function () { return [
+        { type: core_1.ElementRef, },
+        { type: core_1.NgZone, },
+        { type: Object, decorators: [{ type: core_1.Inject, args: [core_1.PLATFORM_ID,] },] },
+    ]; };
+    ClickOutsideDirective.propDecorators = {
+        "clickOutsideEnabled": [{ type: core_1.Input },],
+        "attachOutsideOnClick": [{ type: core_1.Input },],
+        "delayClickOutsideInit": [{ type: core_1.Input },],
+        "emitOnBlur": [{ type: core_1.Input },],
+        "exclude": [{ type: core_1.Input },],
+        "excludeBeforeClick": [{ type: core_1.Input },],
+        "clickOutsideEvents": [{ type: core_1.Input },],
+        "clickOutside": [{ type: core_1.Output },],
+    };
+    return ClickOutsideDirective;
+}());
+exports.ClickOutsideDirective = ClickOutsideDirective;
+
+
+/***/ }),
+
+/***/ "./node_modules/ng-click-outside/lib/click-outside.module.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/ng-click-outside/lib/click-outside.module.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var click_outside_directive_1 = __webpack_require__(/*! ./click-outside.directive */ "./node_modules/ng-click-outside/lib/click-outside.directive.js");
+var ClickOutsideModule = /** @class */ (function () {
+    function ClickOutsideModule() {
+    }
+    ClickOutsideModule.decorators = [
+        { type: core_1.NgModule, args: [{
+                    declarations: [click_outside_directive_1.ClickOutsideDirective],
+                    exports: [click_outside_directive_1.ClickOutsideDirective]
+                },] },
+    ];
+    return ClickOutsideModule;
+}());
+exports.ClickOutsideModule = ClickOutsideModule;
+
+
+/***/ }),
+
+/***/ "./node_modules/ng-click-outside/lib/index.js":
+/*!****************************************************!*\
+  !*** ./node_modules/ng-click-outside/lib/index.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var click_outside_directive_1 = __webpack_require__(/*! ./click-outside.directive */ "./node_modules/ng-click-outside/lib/click-outside.directive.js");
+exports.ClickOutsideDirective = click_outside_directive_1.ClickOutsideDirective;
+var click_outside_module_1 = __webpack_require__(/*! ./click-outside.module */ "./node_modules/ng-click-outside/lib/click-outside.module.js");
+exports.ClickOutsideModule = click_outside_module_1.ClickOutsideModule;
+
+
+/***/ }),
+
 /***/ "./node_modules/ng2-date-picker/fesm5/ng2-date-picker.js":
 /*!***************************************************************!*\
   !*** ./node_modules/ng2-date-picker/fesm5/ng2-date-picker.js ***!
@@ -4639,277 +4887,586 @@ var DpDatePickerModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/booking-master-page/booking-master-page.component.html":
-/*!************************************************************************!*\
-  !*** ./src/app/booking-master-page/booking-master-page.component.html ***!
-  \************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"l-page-header\">\n  <div class=\"l-breadcrumbs\">\n    <div class=\"l-breadcrumb\"><a [routerLink]=\"['/company']\">Главная</a></div>\n    <div class=\"l-breadcrumb\"><a [routerLink]=\"['/booking']\">Бронирование переговорной</a></div>\n    <div class=\"l-breadcrumb\">Мастер бронирования</div>\n  </div>\n  <div class=\"title\" *ngIf=\"isFirstStep\">Мастер бронирования переговорных</div>\n  <div class=\"title\" *ngIf=\"!isFirstStep\">Подтверждение бронирования</div>\n</div>\n<div class=\"l-page\">\n  <div class=\"l-page-inner\">\n    <div class=\"l-page__content\">\n      <div class=\"l-booking-master\">\n        <ng-container *ngIf=\"isFirstStep\">\n          <app-booking-master-step-one \n            [pickedRoom]=\"pickedRoom\" \n            [isFirstStep]=\"isFirstStep\"\n            (changeStep)=\"currentStep($event)\"\n            (selectRoom)=\"selectedRoom($event)\">\n          </app-booking-master-step-one>\n        </ng-container>\n        <ng-container *ngIf=\"!isFirstStep\">\n          <app-booking-master-step-two \n            [pickedRoom]=\"pickedRoom\"\n            [isFirstStep]=\"isFirstStep\"\n            (changeStep)=\"currentStep($event)\">\n          </app-booking-master-step-two>\n        </ng-container>\n      </div>\n    </div>\n  </div>\n</div>"
-
-/***/ }),
-
-/***/ "./src/app/booking-master-page/booking-master-page.component.scss":
-/*!************************************************************************!*\
-  !*** ./src/app/booking-master-page/booking-master-page.component.scss ***!
-  \************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.l-booking-master {\n  max-width: 1210px;\n  padding: 10px 25px;\n  padding-right: 0;\n  box-sizing: border-box; }\n"
-
-/***/ }),
-
-/***/ "./src/app/booking-master-page/booking-master-page.component.ts":
-/*!**********************************************************************!*\
-  !*** ./src/app/booking-master-page/booking-master-page.component.ts ***!
-  \**********************************************************************/
-/*! exports provided: BookingMasterPageComponent */
+/***/ "./node_modules/npn-slider/fesm5/npn-slider.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/npn-slider/fesm5/npn-slider.js ***!
+  \*****************************************************/
+/*! exports provided: NpnSliderComponent, NpnSliderModule, ɵa */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BookingMasterPageComponent", function() { return BookingMasterPageComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/sidebar/sidebar.service */ "./src/app/services/sidebar/sidebar.service.ts");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NpnSliderComponent", function() { return NpnSliderComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NpnSliderModule", function() { return NpnSliderModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ɵa", function() { return Utilities; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 
 
-var BookingMasterPageComponent = /** @class */ (function () {
-    function BookingMasterPageComponent(sidebarService) {
-        this.sidebarService = sidebarService;
-        this.pickedRoom = null;
-        this.isFirstStep = true;
-        this.sidebarService.handleSetSettings({ showSidebar: false, bgColor: '#fff' });
+
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+var Utilities = /** @class */ (function () {
+    function Utilities() {
     }
-    BookingMasterPageComponent.prototype.currentStep = function (value) {
-        this.isFirstStep = value;
+    /**
+     * @param {?} arr
+     * @return {?}
+     */
+    Utilities.prototype.isNumberArray = /**
+     * @param {?} arr
+     * @return {?}
+     */
+    function (arr) {
+        return (arr && arr.length && arr.filter(function (value) { return !isNaN(value); }).length === arr.length) ? true : false;
     };
-    BookingMasterPageComponent.prototype.selectedRoom = function (value) {
-        this.pickedRoom = value;
+    /**
+     * @param {?} obj
+     * @return {?}
+     */
+    Utilities.prototype.isNullOrEmpty = /**
+     * @param {?} obj
+     * @return {?}
+     */
+    function (obj) {
+        return obj === undefined || obj === null || obj === '';
     };
-    BookingMasterPageComponent.prototype.ngOnInit = function () {
+    /**
+     * @param {?} obj
+     * @param {...?} allowedValues
+     * @return {?}
+     */
+    Utilities.prototype.toBoolean = /**
+     * @param {?} obj
+     * @param {...?} allowedValues
+     * @return {?}
+     */
+    function (obj) {
+        var allowedValues = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            allowedValues[_i - 1] = arguments[_i];
+        }
+        return (obj === '' || obj === 'true' || allowedValues.indexOf(obj) !== -1) ? true : false;
     };
-    BookingMasterPageComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-booking-master-page',
-            template: __webpack_require__(/*! ./booking-master-page.component.html */ "./src/app/booking-master-page/booking-master-page.component.html"),
-            styles: [__webpack_require__(/*! ./booking-master-page.component.scss */ "./src/app/booking-master-page/booking-master-page.component.scss")]
-        }),
-        __metadata("design:paramtypes", [src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_1__["SidebarService"]])
-    ], BookingMasterPageComponent);
-    return BookingMasterPageComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/booking-master-page/booking-master-step-one/booking-master-step-one.component.html":
-/*!****************************************************************************************************!*\
-  !*** ./src/app/booking-master-page/booking-master-step-one/booking-master-step-one.component.html ***!
-  \****************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"booking-master-step-one\">\n  <div class=\"left-side\">\n    <div class=\"title\">Дата</div>\n    <div class=\"pick-date\">\n      <div class=\"month\">\n        Апрель\n      </div>\n      <div class=\"days\">\n        <div class=\"arrow-left\">\n\n        </div>\n        <div class=\"week\">\n          <div class=\"day expired\">\n            <div class=\"number\">1</div>\n            <div class=\"name\">Пн</div>\n          </div>\n          <div class=\"day today\">\n            <div class=\"number\">2</div>\n            <div class=\"name\">Вт</div>\n          </div>\n          <div class=\"day picked\">\n            <div class=\"number\">3</div>\n            <div class=\"name\">Ср</div>\n          </div>\n          <div class=\"day\">\n            <div class=\"number\">4</div>\n            <div class=\"name\">Чт</div>\n          </div>\n          <div class=\"day\">\n            <div class=\"number\">5</div>\n            <div class=\"name\">Пт</div>\n          </div>\n          <div class=\"day\">\n            <div class=\"number\">6</div>\n            <div class=\"name\">Сб</div>\n          </div>\n          <div class=\"day\">\n            <div class=\"number\">7</div>\n            <div class=\"name\">Вс</div>\n          </div>\n        </div>\n        <div class=\"arrow-right\">\n\n        </div>\n      </div>\n    </div>\n    <div class=\"title\">Время</div>\n    <div class=\"pick-time\">\n      <div class=\"progress\">\n        <div class=\"progress-group\">\n          <div class=\"reserve-period\" style=\"width:20%; left: 60%\">\n            <div class=\"counter\">\n              16:30 - 18:30\n              <div class=\"counter-arrow\"></div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n    <div class=\"title\">Кол-во участников</div>\n    <div class=\"pick-people\">\n      <div class=\"progress\">\n        <div class=\"progress-inner\" style=\"width: 30%\">\n          <div class=\"counter\">\n            8\n            <div class=\"counter-arrow\"></div>\n          </div>\n        </div>\n      </div>\n    </div>\n    <div class=\"title\">Оборудование</div>\n    <div class=\"pick-equipment\">\n      <div class=\"equipment\">\n        <input type=\"checkbox\" class=\"checkbox\" id=\"projector\" />\n        <span class=\"checkbox-custom\"></span>\n        <label for=\"projector\" class=\"projector\"></label>\n      </div>\n      <div class=\"equipment\">\n        <input type=\"checkbox\" class=\"checkbox\" id=\"videostaff\" />\n        <span class=\"checkbox-custom\"></span>\n        <label for=\"videostaff\" class=\"videostaff\"></label>\n      </div>\n    </div>\n    <div class=\"button\">\n      <a [routerLink]=\"['/booking']\" class=\"btn btn-to-back\">\n        <i></i> Назад к расписанию\n      </a>\n    </div>\n  </div>\n  <div class=\"right-side\">\n    <div class=\"title\">Доступные переговорные комнаты</div>\n    <div class=\"pick-room\">\n      <div class=\"room-list\">\n        <div class=\"room-preview\" *ngFor=\"let room of freeRooms; let i=index\" (click)=\"pickRoom(room)\">\n          <div class=\"image\">\n            <div class=\"gradient\"></div>\n          </div>\n          <div class=\"info\">\n            <div class=\"room-title\" title=\"{{room.title}}\">\n              {{room.title}}\n            </div>\n            <div class=\"city\">\n              {{room.officeLookupTitle}}\n            </div>\n            <div class=\"sits\">{{room.places}} мест</div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
-
-/***/ }),
-
-/***/ "./src/app/booking-master-page/booking-master-step-one/booking-master-step-one.component.scss":
-/*!****************************************************************************************************!*\
-  !*** ./src/app/booking-master-page/booking-master-step-one/booking-master-step-one.component.scss ***!
-  \****************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "@charset \"UTF-8\";\n#s4-bodyContainer {\n  padding: 0; }\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n.booking-master-step-one {\n  width: 100%;\n  font-size: 0px; }\n.booking-master-step-one .left-side {\n    width: 45%;\n    padding-right: 20px; }\n.booking-master-step-one .right-side {\n    width: 55%; }\n.booking-master-step-one .left-side,\n  .booking-master-step-one .right-side {\n    display: inline-block;\n    font-size: 14px;\n    vertical-align: top;\n    box-sizing: border-box; }\n.booking-master-step-one .left-side .pick-date,\n    .booking-master-step-one .right-side .pick-date {\n      margin-top: 10px;\n      margin-bottom: 30px; }\n.booking-master-step-one .left-side .pick-date .month,\n      .booking-master-step-one .right-side .pick-date .month {\n        color: #dd1e25;\n        margin-bottom: 13px;\n        margin-left: 45px; }\n.booking-master-step-one .left-side .pick-date .arrow-left,\n      .booking-master-step-one .left-side .pick-date .arrow-right,\n      .booking-master-step-one .right-side .pick-date .arrow-left,\n      .booking-master-step-one .right-side .pick-date .arrow-right {\n        display: inline-block;\n        width: 15px;\n        height: 70px;\n        background-image: url(/assets/icons/icon-arrow-left-gray.svg);\n        background-repeat: no-repeat;\n        background-size: 13px 27px;\n        background-position: center;\n        vertical-align: top;\n        cursor: pointer; }\n.booking-master-step-one .left-side .pick-date .arrow-right,\n      .booking-master-step-one .right-side .pick-date .arrow-right {\n        -webkit-transform: rotate(180deg);\n            -ms-transform: rotate(180deg);\n                transform: rotate(180deg); }\n.booking-master-step-one .left-side .pick-date .week,\n      .booking-master-step-one .right-side .pick-date .week {\n        display: inline-block;\n        margin: 0 24px;\n        vertical-align: top; }\n.booking-master-step-one .left-side .pick-date .week .day,\n        .booking-master-step-one .right-side .pick-date .week .day {\n          display: inline-block;\n          margin: 0 5px;\n          width: 50px;\n          height: 70px;\n          background-color: #F7F7F7;\n          border-radius: 3px;\n          color: #050505;\n          padding-top: 15px;\n          padding-bottom: 10px;\n          box-sizing: border-box;\n          text-align: center;\n          cursor: pointer; }\n.booking-master-step-one .left-side .pick-date .week .day .number,\n          .booking-master-step-one .right-side .pick-date .week .day .number {\n            font-size: 22px; }\n.booking-master-step-one .left-side .pick-date .week .day .name,\n          .booking-master-step-one .right-side .pick-date .week .day .name {\n            font-size: 14px; }\n.booking-master-step-one .left-side .pick-date .week .day.expired,\n          .booking-master-step-one .right-side .pick-date .week .day.expired {\n            opacity: 0.5;\n            cursor: default; }\n.booking-master-step-one .left-side .pick-date .week .day.today,\n          .booking-master-step-one .right-side .pick-date .week .day.today {\n            background-color: #CCCCCC;\n            position: relative; }\n.booking-master-step-one .left-side .pick-date .week .day.today:before,\n            .booking-master-step-one .right-side .pick-date .week .day.today:before {\n              content: \"Сегодня\";\n              position: absolute;\n              bottom: -22px;\n              left: 50%;\n              -webkit-transform: translateX(-50%);\n                  -ms-transform: translateX(-50%);\n                      transform: translateX(-50%);\n              font-size: 12px;\n              color: #898888; }\n.booking-master-step-one .left-side .pick-date .week .day.picked,\n          .booking-master-step-one .right-side .pick-date .week .day.picked {\n            background-color: #dd1e25;\n            color: #fff; }\n.booking-master-step-one .left-side .pick-time,\n    .booking-master-step-one .right-side .pick-time {\n      margin-top: 40px;\n      margin-bottom: 60px; }\n.booking-master-step-one .left-side .pick-time:before,\n      .booking-master-step-one .right-side .pick-time:before {\n        content: '';\n        display: inline-block;\n        margin-right: 10px;\n        width: 24px;\n        height: 24px;\n        background-image: url(/assets/icons/icon-clocks.svg);\n        background-size: cover;\n        background-repeat: no-repeat;\n        vertical-align: middle; }\n.booking-master-step-one .left-side .pick-time .progress,\n      .booking-master-step-one .right-side .pick-time .progress {\n        display: inline-block;\n        width: 85%;\n        background-color: #a2b2c8;\n        border-radius: 10px;\n        vertical-align: middle; }\n.booking-master-step-one .left-side .pick-time .progress .progress-group,\n        .booking-master-step-one .right-side .pick-time .progress .progress-group {\n          position: relative;\n          height: 8px; }\n.booking-master-step-one .left-side .pick-time .progress .progress-group .reserve-period,\n          .booking-master-step-one .right-side .pick-time .progress .progress-group .reserve-period {\n            position: absolute;\n            top: 0;\n            background-color: #dd1e25;\n            height: 8px; }\n.booking-master-step-one .left-side .pick-time .progress .progress-group .reserve-period:before, .booking-master-step-one .left-side .pick-time .progress .progress-group .reserve-period:after,\n            .booking-master-step-one .right-side .pick-time .progress .progress-group .reserve-period:before,\n            .booking-master-step-one .right-side .pick-time .progress .progress-group .reserve-period:after {\n              content: '';\n              position: absolute;\n              top: 50%;\n              -webkit-transform: translateY(-50%);\n                  -ms-transform: translateY(-50%);\n                      transform: translateY(-50%);\n              display: block;\n              width: 8px;\n              height: 8px;\n              border-radius: 100%;\n              background-color: #fff;\n              border: 6px solid #dd1e25; }\n.booking-master-step-one .left-side .pick-time .progress .progress-group .reserve-period:before,\n            .booking-master-step-one .right-side .pick-time .progress .progress-group .reserve-period:before {\n              left: -7px; }\n.booking-master-step-one .left-side .pick-time .progress .progress-group .reserve-period:after,\n            .booking-master-step-one .right-side .pick-time .progress .progress-group .reserve-period:after {\n              right: -7px; }\n.booking-master-step-one .left-side .pick-time .progress .progress-group .reserve-period .counter,\n            .booking-master-step-one .right-side .pick-time .progress .progress-group .reserve-period .counter {\n              position: absolute;\n              left: 82%;\n              top: -40px;\n              width: 100px;\n              height: 25px;\n              background-color: #050505;\n              border-radius: 5px;\n              font-size: 14px;\n              color: #fff;\n              font-weight: bold;\n              line-height: 25px;\n              text-align: center; }\n.booking-master-step-one .left-side .pick-time .progress .progress-group .reserve-period .counter .counter-arrow,\n              .booking-master-step-one .right-side .pick-time .progress .progress-group .reserve-period .counter .counter-arrow {\n                position: absolute;\n                top: 25px;\n                left: 10%;\n                display: block;\n                width: 0.5rem;\n                height: 0.25rem; }\n.booking-master-step-one .left-side .pick-time .progress .progress-group .reserve-period .counter .counter-arrow:after,\n                .booking-master-step-one .right-side .pick-time .progress .progress-group .reserve-period .counter .counter-arrow:after {\n                  position: absolute;\n                  display: block;\n                  content: '';\n                  border-color: transparent;\n                  border-style: solid; }\n.booking-master-step-one .left-side .pick-time .progress .progress-group .reserve-period .counter .counter-arrow:after,\n                .booking-master-step-one .right-side .pick-time .progress .progress-group .reserve-period .counter .counter-arrow:after {\n                  top: 0px;\n                  border-top-color: #050505;\n                  border-width: 0.25rem 0.25rem 0 0.25rem; }\n.booking-master-step-one .left-side .pick-people,\n    .booking-master-step-one .right-side .pick-people {\n      margin-top: 60px;\n      margin-bottom: 40px; }\n.booking-master-step-one .left-side .pick-people:before, .booking-master-step-one .left-side .pick-people:after,\n      .booking-master-step-one .right-side .pick-people:before,\n      .booking-master-step-one .right-side .pick-people:after {\n        content: '';\n        display: inline-block;\n        width: 27px;\n        height: 27px;\n        background-size: contain;\n        background-position: center;\n        background-repeat: no-repeat;\n        vertical-align: middle; }\n.booking-master-step-one .left-side .pick-people:before,\n      .booking-master-step-one .right-side .pick-people:before {\n        background-image: url(/assets/icons/icon-human.svg);\n        margin-right: 10px; }\n.booking-master-step-one .left-side .pick-people:after,\n      .booking-master-step-one .right-side .pick-people:after {\n        background-image: url(/assets/icons/icon-more-humans.svg);\n        margin-left: 10px; }\n.booking-master-step-one .left-side .pick-people .progress,\n      .booking-master-step-one .right-side .pick-people .progress {\n        background-color: #a2b2c8;\n        border-radius: 10px;\n        display: inline-block;\n        width: 85%; }\n.booking-master-step-one .left-side .pick-people .progress .progress-inner,\n        .booking-master-step-one .right-side .pick-people .progress .progress-inner {\n          position: relative;\n          height: 8px;\n          background-color: #dd1e25;\n          border-radius: 10px; }\n.booking-master-step-one .left-side .pick-people .progress .progress-inner:after,\n          .booking-master-step-one .right-side .pick-people .progress .progress-inner:after {\n            content: '';\n            position: absolute;\n            right: -7px;\n            top: 50%;\n            -webkit-transform: translateY(-50%);\n                -ms-transform: translateY(-50%);\n                    transform: translateY(-50%);\n            display: block;\n            width: 8px;\n            height: 8px;\n            border-radius: 100%;\n            background-color: #fff;\n            border: 6px solid #dd1e25; }\n.booking-master-step-one .left-side .pick-people .progress .progress-inner .counter,\n          .booking-master-step-one .right-side .pick-people .progress .progress-inner .counter {\n            position: absolute;\n            right: -8px;\n            top: -40px;\n            padding: 0 7px;\n            box-sizing: border-box;\n            height: 25px;\n            background-color: #050505;\n            border-radius: 5px;\n            font-size: 14px;\n            color: #fff;\n            font-weight: bold;\n            line-height: 25px;\n            text-align: center; }\n.booking-master-step-one .left-side .pick-people .progress .progress-inner .counter .counter-arrow,\n            .booking-master-step-one .right-side .pick-people .progress .progress-inner .counter .counter-arrow {\n              position: absolute;\n              top: 25px;\n              left: 50%;\n              -webkit-transform: translateX(-50%);\n                  -ms-transform: translateX(-50%);\n                      transform: translateX(-50%);\n              display: block;\n              width: 0.5rem;\n              height: 0.25rem; }\n.booking-master-step-one .left-side .pick-people .progress .progress-inner .counter .counter-arrow:after,\n              .booking-master-step-one .right-side .pick-people .progress .progress-inner .counter .counter-arrow:after {\n                position: absolute;\n                display: block;\n                content: '';\n                border-color: transparent;\n                border-style: solid; }\n.booking-master-step-one .left-side .pick-people .progress .progress-inner .counter .counter-arrow:after,\n              .booking-master-step-one .right-side .pick-people .progress .progress-inner .counter .counter-arrow:after {\n                top: 0px;\n                border-top-color: #050505;\n                border-width: 0.25rem 0.25rem 0 0.25rem; }\n.booking-master-step-one .left-side .pick-equipment .equipment,\n    .booking-master-step-one .right-side .pick-equipment .equipment {\n      position: relative;\n      margin: 20px 0; }\n.booking-master-step-one .left-side .pick-equipment .equipment:last-child,\n      .booking-master-step-one .right-side .pick-equipment .equipment:last-child {\n        margin-bottom: 0; }\n.booking-master-step-one .left-side .pick-equipment .equipment .checkbox,\n      .booking-master-step-one .right-side .pick-equipment .equipment .checkbox {\n        position: absolute;\n        margin: 0;\n        z-index: 1;\n        width: 30px;\n        height: 30px;\n        box-sizing: border-box;\n        opacity: 0; }\n.booking-master-step-one .left-side .pick-equipment .equipment .checkbox-custom,\n      .booking-master-step-one .right-side .pick-equipment .equipment .checkbox-custom {\n        position: relative;\n        display: inline-block;\n        vertical-align: middle;\n        width: 30px;\n        height: 30px;\n        background-color: #fff;\n        border: 2px solid #cccccc;\n        box-sizing: border-box; }\n.booking-master-step-one .left-side .pick-equipment .equipment label,\n      .booking-master-step-one .right-side .pick-equipment .equipment label {\n        display: inline-block;\n        vertical-align: middle;\n        margin-left: 20px;\n        width: 25px;\n        height: 30px;\n        background-repeat: no-repeat;\n        background-position: center;\n        background-size: contain; }\n.booking-master-step-one .left-side .pick-equipment .equipment label.projector,\n        .booking-master-step-one .right-side .pick-equipment .equipment label.projector {\n          background-image: url(/assets/icons/icon-mrr-master-projector.svg); }\n.booking-master-step-one .left-side .pick-equipment .equipment label.videostaff,\n        .booking-master-step-one .right-side .pick-equipment .equipment label.videostaff {\n          background-image: url(/assets/icons/icon-mrr-master-videostaff.svg); }\n.booking-master-step-one .left-side .pick-equipment .equipment .checkbox:checked + .checkbox-custom::before,\n      .booking-master-step-one .right-side .pick-equipment .equipment .checkbox:checked + .checkbox-custom::before {\n        content: '';\n        display: block;\n        position: absolute;\n        top: 7px;\n        right: 5px;\n        bottom: 6px;\n        left: 5px;\n        background: url(/assets/icons/icon-checkbox-checked.svg);\n        background-repeat: no-repeat;\n        background-position: center;\n        background-size: cover; }\n.booking-master-step-one .left-side .pick-room .room-list,\n    .booking-master-step-one .right-side .pick-room .room-list {\n      margin: 0 -7.5px; }\n.booking-master-step-one .left-side .pick-room .room-list .room-preview,\n      .booking-master-step-one .right-side .pick-room .room-list .room-preview {\n        position: relative;\n        display: inline-block;\n        margin: 7.5px;\n        width: 150px;\n        height: 150px;\n        color: #fff;\n        cursor: pointer; }\n.booking-master-step-one .left-side .pick-room .room-list .room-preview:hover .image,\n        .booking-master-step-one .right-side .pick-room .room-list .room-preview:hover .image {\n          border-color: #dd1e25; }\n.booking-master-step-one .left-side .pick-room .room-list .room-preview.unavailable,\n        .booking-master-step-one .right-side .pick-room .room-list .room-preview.unavailable {\n          opacity: 0.5;\n          cursor: default; }\n.booking-master-step-one .left-side .pick-room .room-list .room-preview .image,\n        .booking-master-step-one .right-side .pick-room .room-list .room-preview .image {\n          position: absolute;\n          left: 0;\n          top: 0;\n          right: 0;\n          bottom: 0;\n          background-repeat: no-repeat;\n          background-size: cover;\n          border: 4px solid #999999;\n          box-sizing: border-box; }\n.booking-master-step-one .left-side .pick-room .room-list .room-preview .image .gradient,\n          .booking-master-step-one .right-side .pick-room .room-list .room-preview .image .gradient {\n            position: absolute;\n            left: 0;\n            top: 0;\n            right: 0;\n            bottom: 0;\n            background-color: #000;\n            opacity: 0.4; }\n.booking-master-step-one .left-side .pick-room .room-list .room-preview .info,\n        .booking-master-step-one .right-side .pick-room .room-list .room-preview .info {\n          position: absolute;\n          left: 0;\n          top: 0;\n          right: 0;\n          bottom: 0;\n          padding: 15px;\n          box-sizing: border-box; }\n.booking-master-step-one .left-side .pick-room .room-list .room-preview .room-title,\n        .booking-master-step-one .right-side .pick-room .room-list .room-preview .room-title {\n          font-size: 24px;\n          margin-bottom: 10px;\n          height: 30px;\n          overflow: hidden;\n          white-space: nowrap;\n          text-overflow: ellipsis; }\n.booking-master-step-one .left-side .pick-room .room-list .room-preview .city,\n        .booking-master-step-one .right-side .pick-room .room-list .room-preview .city {\n          margin-bottom: 6px; }\n.booking-master-step-one .title {\n    font-size: 22px;\n    color: #050505; }\n.booking-master-step-one .button {\n    margin: 30px 0; }\n"
-
-/***/ }),
-
-/***/ "./src/app/booking-master-page/booking-master-step-one/booking-master-step-one.component.ts":
-/*!**************************************************************************************************!*\
-  !*** ./src/app/booking-master-page/booking-master-step-one/booking-master-step-one.component.ts ***!
-  \**************************************************************************************************/
-/*! exports provided: BookingMasterStepOneComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BookingMasterStepOneComponent", function() { return BookingMasterStepOneComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-var BookingMasterStepOneComponent = /** @class */ (function () {
-    function BookingMasterStepOneComponent() {
-        this.changeStep = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
-        this.selectRoom = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
-        this.freeRooms = [
-            {
-                title: '№301',
-                officeLookupTitle: 'Москва',
-                places: 8
-            },
-            {
-                title: '№302',
-                officeLookupTitle: 'Москва',
-                places: 8
-            },
-            {
-                title: '№303',
-                officeLookupTitle: 'Москва',
-                places: 14
-            },
-            {
-                title: '№304',
-                officeLookupTitle: 'Москва',
-                places: 14
-            },
-            {
-                title: '№305',
-                officeLookupTitle: 'Москва',
-                places: 20
-            },
-            {
-                title: '№306',
-                officeLookupTitle: 'Москва',
-                places: 20
+    /**
+     * @param {?} n
+     * @param {?} step
+     * @return {?}
+     */
+    Utilities.prototype.findNextValidStepValue = /**
+     * @param {?} n
+     * @param {?} step
+     * @return {?}
+     */
+    function (n, step) {
+        var /** @type {?} */ divisorsSet1 = [];
+        var /** @type {?} */ divisorsSet2 = [];
+        var /** @type {?} */ sqrtNum = Math.sqrt(n);
+        var /** @type {?} */ newStep = -1;
+        for (var /** @type {?} */ i = 0; i < sqrtNum; i++) {
+            if (n % i === 0) {
+                if ((n / i) === i) {
+                    divisorsSet1.push(i);
+                }
+                else {
+                    divisorsSet1.push(i);
+                    divisorsSet2.push(n / i);
+                }
             }
+        }
+        // Picking newStep by checking large set of divisors first
+        for (var /** @type {?} */ i = 0; i < divisorsSet2.length; i++) {
+            if (step > divisorsSet2[i]) {
+                newStep = divisorsSet2[i];
+                break;
+            }
+        }
+        if (newStep === -1) {
+            // checking set of small divisors if newStep didn't find out till.
+            for (var /** @type {?} */ i = divisorsSet1.length - 1; i >= 0; i--) {
+                if (step > divisorsSet1[i]) {
+                    newStep = divisorsSet1[i];
+                    break;
+                }
+            }
+        }
+        return (newStep === -1) ? 1 : newStep;
+    };
+    return Utilities;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/** @enum {number} */
+var SliderHandlerEnum = {
+    left: 0,
+    right: 1,
+};
+SliderHandlerEnum[SliderHandlerEnum.left] = "left";
+SliderHandlerEnum[SliderHandlerEnum.right] = "right";
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+var NpnSliderComponent = /** @class */ (function (_super) {
+    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"])(NpnSliderComponent, _super);
+    function NpnSliderComponent(el) {
+        var _this = _super.call(this) || this;
+        _this.el = el;
+        _this.sliderModel = [0, 0, 0];
+        _this.step = 1;
+        _this.sliderWidth = 0;
+        _this.totalDiff = 0;
+        _this.startClientX = 0;
+        _this.startPleft = 0;
+        _this.startPRight = 0;
+        _this.sliderInitiated = false;
+        _this.initValues = [];
+        _this.currentValues = [0, 0];
+        _this.handlerX = [0, 0];
+        _this.isHandlerActive = false;
+        _this.isTouchEventStart = false;
+        _this.isMouseEventStart = false;
+        _this.currentHandlerIndex = 0;
+        _this.stepIndicatorPositions = [];
+        _this.isDisabled = false;
+        _this.hideTooltip = false;
+        _this.hideValues = false;
+        _this.handlerIndex = SliderHandlerEnum;
+        _this.showStepIndicator = false;
+        _this.multiRange = true;
+        _this.onChange = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+        return _this;
+    }
+    Object.defineProperty(NpnSliderComponent.prototype, "setMinValues", {
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            if (!isNaN(value)) {
+                this.minValue = Number(value);
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(NpnSliderComponent.prototype, "setMaxValues", {
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            if (!isNaN(value)) {
+                this.maxValue = Number(value);
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(NpnSliderComponent.prototype, "setMinSelectedValues", {
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            if (!isNaN(value) && this.minSelected !== Number(value)) {
+                this.minSelected = Number(value);
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(NpnSliderComponent.prototype, "setMaxSelectedValues", {
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            if (!isNaN(value) && this.maxSelected !== Number(value)) {
+                this.maxSelected = Number(value);
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(NpnSliderComponent.prototype, "stepValue", {
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            if (!isNaN(value)) {
+                this.step = Number(value);
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(NpnSliderComponent.prototype, "setHideTooltip", {
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this.hideTooltip = this.toBoolean(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(NpnSliderComponent.prototype, "setHideValues", {
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this.hideValues = this.toBoolean(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(NpnSliderComponent.prototype, "setDisabled", {
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this.isDisabled = this.toBoolean(value, 'disabled');
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    NpnSliderComponent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+        this.initializeSlider();
+    };
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    NpnSliderComponent.prototype.ngOnChanges = /**
+     * @param {?} changes
+     * @return {?}
+     */
+    function (changes) {
+        if (this.sliderInitiated) {
+            if (!this.isNullOrEmpty(changes["setMinSelectedValues"])
+                && changes["setMinSelectedValues"].previousValue === changes["setMinSelectedValues"].currentValue) {
+                return;
+            }
+            if (!this.isNullOrEmpty(changes["setMaxSelectedValues"])
+                && changes["setMaxSelectedValues"].previousValue === changes["setMaxSelectedValues"].currentValue) {
+                return;
+            }
+            this.resetModel();
+        }
+    };
+    /**
+     * @return {?}
+     */
+    NpnSliderComponent.prototype.initializeSlider = /**
+     * @return {?}
+     */
+    function () {
+        try {
+            // Taking width of slider bar element.
+            this.sliderWidth = this.el.nativeElement.children[0].children[0].offsetWidth;
+            this.resetModel();
+            this.sliderInitiated = true;
+        }
+        catch (/** @type {?} */ e) {
+            console.error(e);
+        }
+    };
+    /**
+     * @return {?}
+     */
+    NpnSliderComponent.prototype.resetModel = /**
+     * @return {?}
+     */
+    function () {
+        this.validateSliderValues();
+        // Setting the model values
+        this.sliderModel = [
+            this.currentValues[0] - this.initValues[0],
+            this.currentValues[1] - this.currentValues[0],
+            this.initValues[1] - this.currentValues[1]
         ];
+        this.totalDiff = this.sliderModel.reduce(function (prevValue, curValue) { return prevValue + curValue; }, 0);
+        // Validation for slider step
+        if (this.totalDiff % this.step !== 0) {
+            var /** @type {?} */ newStep = this.findNextValidStepValue(this.totalDiff, this.step);
+            console.warn('Invalid step value "' + this.step + '" : and took "' + newStep + '" as default step');
+            this.step = newStep;
+        }
+        this.initializeStepIndicator();
+        this.setHandlerPosition();
+    };
+    /**
+     * @return {?}
+     */
+    NpnSliderComponent.prototype.validateSliderValues = /**
+     * @return {?}
+     */
+    function () {
+        if (this.isNullOrEmpty(this.minValue) || this.isNullOrEmpty(this.maxValue)) {
+            this.updateInitValues([0, 0]);
+            this.updateCurrentValue([0, 0], true);
+        }
+        else if (this.minValue > this.maxValue) {
+            this.updateInitValues([0, 0]);
+            this.updateCurrentValue([0, 0], true);
+        }
+        else {
+            this.initValues = [this.minValue, this.maxValue];
+            /*
+                  * Validation for Selected range values
+                  */
+            this.minSelected = this.isNullOrEmpty(this.minSelected) ? 0 : this.minSelected;
+            this.maxSelected = this.isNullOrEmpty(this.maxSelected) ? 0 : this.maxSelected;
+            if (this.minSelected < this.minValue || this.minSelected > this.maxValue) {
+                this.minSelected = this.minValue;
+            }
+            if (this.maxSelected < this.minValue || this.maxSelected > this.maxValue) {
+                this.maxSelected = this.maxValue;
+            }
+            if (this.minSelected > this.maxSelected) {
+                this.minSelected = this.minValue;
+                this.maxSelected = this.maxValue;
+            }
+            this.updateCurrentValue([this.minSelected, this.maxSelected], true);
+        }
+    };
+    /**
+     * @return {?}
+     */
+    NpnSliderComponent.prototype.initializeStepIndicator = /**
+     * @return {?}
+     */
+    function () {
+        if (this.showStepIndicator) {
+            this.stepIndicatorPositions.length = 0;
+            var /** @type {?} */ numOfStepIndicators = this.totalDiff / this.step;
+            if (this.sliderWidth / numOfStepIndicators >= 10) {
+                var /** @type {?} */ increment = this.sliderWidth / numOfStepIndicators;
+                var /** @type {?} */ leftPosition = increment;
+                while (this.stepIndicatorPositions.length < numOfStepIndicators - 1) {
+                    this.stepIndicatorPositions.push(+leftPosition.toFixed(2));
+                    leftPosition += increment;
+                }
+            }
+            else {
+                console.warn("As 'step' value is too small compared to min & max value difference and slider width,\n          Step Indicator can't be displayed!. Provide slight large value for 'step'");
+            }
+        }
+        else {
+            this.stepIndicatorPositions.length = 0;
+        }
+    };
+    /**
+     * @param {?} arrayValue
+     * @param {?=} privateChange
+     * @return {?}
+     */
+    NpnSliderComponent.prototype.updateCurrentValue = /**
+     * @param {?} arrayValue
+     * @param {?=} privateChange
+     * @return {?}
+     */
+    function (arrayValue, privateChange) {
+        if (privateChange === void 0) { privateChange = false; }
+        this.minSelected = this.currentValues[0] = arrayValue[0];
+        this.maxSelected = this.currentValues[1] = arrayValue[1];
+        if (!privateChange) {
+            this.onChange.emit((this.multiRange) ? this.currentValues : [this.currentValues[0]]);
+        }
+    };
+    /**
+     * @param {?} arrayValue
+     * @return {?}
+     */
+    NpnSliderComponent.prototype.updateInitValues = /**
+     * @param {?} arrayValue
+     * @return {?}
+     */
+    function (arrayValue) {
+        this.minValue = this.initValues[0] = arrayValue[0];
+        this.maxValue = this.initValues[1] = arrayValue[1];
+    };
+    /**
+     * @return {?}
+     */
+    NpnSliderComponent.prototype.setHandlerPosition = /**
+     * @return {?}
+     */
+    function () {
+        var /** @type {?} */ runningTotal = 0;
+        // Updating selected values : current values
+        this.updateCurrentValue([
+            this.initValues[0] + this.sliderModel[0],
+            this.initValues[1] - this.sliderModel[2]
+        ]);
+        /*Setting handler position */
+        for (var /** @type {?} */ i = 0, /** @type {?} */ len = this.sliderModel.length - 1; i < len; i++) {
+            runningTotal += this.sliderModel[i];
+            this.handlerX[i] = (runningTotal / this.totalDiff) * 100;
+        }
+    };
+    /**
+     * @param {?} index
+     * @param {?} value
+     * @return {?}
+     */
+    NpnSliderComponent.prototype.setModelValue = /**
+     * @param {?} index
+     * @param {?} value
+     * @return {?}
+     */
+    function (index, value) {
+        if (this.step > 1) {
+            value = Math.round(value / this.step) * this.step;
+        }
+        this.sliderModel[index] = value;
+    };
+    /*Method to disable handler movement*/
+    /*Execute on events:
+    * on-mouseup
+    * on-panend
+    */
+    /**
+     * @return {?}
+     */
+    NpnSliderComponent.prototype.setHandlerActiveOff = /**
+     * @return {?}
+     */
+    function () {
+        this.isMouseEventStart = false;
+        this.isTouchEventStart = false;
+        this.isHandlerActive = false;
+    };
+    /**
+     * @param {?} event
+     * @param {?} handlerIndex
+     * @return {?}
+     */
+    NpnSliderComponent.prototype.setHandlerActive = /**
+     * @param {?} event
+     * @param {?} handlerIndex
+     * @return {?}
+     */
+    function (event, handlerIndex) {
+        event.preventDefault();
+        if (!this.isDisabled) {
+            if (!this.isNullOrEmpty(event.clientX)) {
+                this.startClientX = event.clientX;
+                this.isMouseEventStart = true;
+                this.isTouchEventStart = false;
+            }
+            else if (!this.isNullOrEmpty(event.deltaX)) {
+                this.startClientX = event.deltaX;
+                this.isTouchEventStart = true;
+                this.isMouseEventStart = false;
+            }
+            if (this.isMouseEventStart || this.isTouchEventStart) {
+                this.currentHandlerIndex = handlerIndex;
+                this.startPleft = this.sliderModel[handlerIndex];
+                this.startPRight = this.sliderModel[handlerIndex + 1];
+                this.isHandlerActive = true;
+            }
+        }
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    NpnSliderComponent.prototype.handlerSliding = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        if ((this.isMouseEventStart && event.clientX) || (this.isTouchEventStart && event.deltaX)) {
+            var /** @type {?} */ movedX = Math.round(((event.clientX || event.deltaX) - this.startClientX) / this.sliderWidth * this.totalDiff);
+            var /** @type {?} */ nextPLeft = this.startPleft + movedX;
+            var /** @type {?} */ nextPRight = this.startPRight - movedX;
+            if (nextPLeft >= 0 && nextPRight >= 0) {
+                this.setModelValue(this.currentHandlerIndex, nextPLeft);
+                this.setModelValue(this.currentHandlerIndex + 1, nextPRight);
+                this.setHandlerPosition();
+            }
+        }
+    };
+    NpnSliderComponent.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"], args: [{
+                    selector: 'npn-slider',
+                    template: "<!--npn-slider template-->\n<div class=\"slider\" [class.disabled]=\"isDisabled\">\n  <div class=\"bar\" (mousemove)=\"handlerSliding($event)\" (panmove)=\"handlerSliding($event)\">\n    <span class=\"left-handle\" [ngClass]=\"{'active': isHandlerActive && currentHandlerIndex === handlerIndex.left,\n                      'last-active': currentHandlerIndex === handlerIndex.left\n                    }\"\n      [style.left.%]=\"handlerX[handlerIndex.left]\" (mousedown)=\"setHandlerActive($event, handlerIndex.left)\" (panstart)=\"setHandlerActive($event, handlerIndex.left)\">\n      <span *ngIf=\"!hideTooltip\" class=\"handle-tooltip\">{{currentValues[handlerIndex.left]}}</span>\n    </span>\n    <div class=\"filler\">\n      <div class=\"step-indicators\">\n        <span *ngFor=\"let stepPos of stepIndicatorPositions\" [style.left.px]=\"stepPos\"></span>\n      </div>\n      <span *ngIf=\"multiRange\" [style.left.%]=\"handlerX[0]\" [style.width.%]=\"handlerX[handlerIndex.right] - handlerX[handlerIndex.left]\"></span>\n      <span *ngIf=\"!multiRange\" [style.left.%]=\"0\" [style.width.%]=\"handlerX[0]\"></span>\n    </div>\n    <span *ngIf=\"multiRange\" class=\"right-handle\" [ngClass]=\"{'active': isHandlerActive && currentHandlerIndex === handlerIndex.right,\n                      'last-active': currentHandlerIndex === handlerIndex.right\n                    }\"\n      [style.left.%]=\"handlerX[handlerIndex.right]\" (mousedown)=\"setHandlerActive($event, handlerIndex.right)\"\n      (panstart)=\"setHandlerActive($event, handlerIndex.right)\">\n      <span *ngIf=\"!hideTooltip\" class=\"handle-tooltip\">{{currentValues[handlerIndex.right]}}</span>\n    </span>\n  </div>\n  <div class=\"values\" *ngIf=\"!hideValues\">\n    <span>{{initValues[handlerIndex.left]}}</span>\n    <span>{{initValues[handlerIndex.right]}}</span>\n  </div>\n</div>\n",
+                    styles: [".slider,.slider *{box-sizing:border-box}.slider{display:block;width:100%;height:30px;padding:4px 10px;cursor:default;font-size:12px}.slider .bar{width:100%;background:#e8e8e8;height:10px;position:relative;border-radius:5px;box-shadow:inset 1px 1px 5px #bababa}.slider .bar>span.left-handle,.slider .bar>span.right-handle{display:inline-block;width:22px;height:22px;background:#bedcb2;border:7px solid #71b357;border-radius:50%;position:absolute;top:-7px;margin-left:-10px;z-index:1;cursor:pointer;transition:left .2s ease}.slider .bar>span.left-handle.last-active,.slider .bar>span.right-handle.last-active{z-index:2}.slider .bar>span.left-handle .handle-tooltip,.slider .bar>span.right-handle .handle-tooltip{display:block;position:absolute;top:-34px;left:-14px;border:1px solid #8fc37a;border-radius:4px;padding:1px 4px;min-width:20px;text-align:center;background:#d9ebd2;color:#71b357;font-weight:700;transition:opacity .2s ease;opacity:0}.slider .bar>span.left-handle .handle-tooltip:before,.slider .bar>span.right-handle .handle-tooltip:before{content:\"\";border:5px solid transparent;border-top-color:#8fc37a;position:absolute;top:104%;left:33%}.slider .bar>span.left-handle .handle-tooltip:after,.slider .bar>span.right-handle .handle-tooltip:after{content:\"\";border:5px solid transparent;border-top-color:#d9ebd2;position:absolute;top:100%;left:33%}.slider .bar>span.left-handle.active>.handle-tooltip,.slider .bar>span.left-handle:hover>.handle-tooltip,.slider .bar>span.right-handle.active>.handle-tooltip,.slider .bar>span.right-handle:hover>.handle-tooltip{opacity:1}.slider .bar div.filler{display:block;width:100%;height:100%;position:relative;overflow:hidden;border-radius:5px;border:1px solid #bedcb2}.slider .bar div.filler>span{display:inline-block;height:100%;position:absolute;top:0;background:#bedcb2;transition:all .2s ease}.slider .bar div.filler>div.step-indicators{width:100%;height:100%;position:relative}.slider .bar div.filler>div.step-indicators>span{width:1px;display:inline-block;height:10px;background:#71b357;position:absolute;left:0}.slider .values{display:block;font-weight:700;margin-top:4px;width:102%;margin-left:-1%;color:#908f90}.slider .values span:first-child{float:left}.slider .values span:last-child{float:right}.slider.disabled{opacity:.4}.slider.disabled .bar{box-shadow:none!important}.slider.disabled .bar>span.left-handle,.slider.disabled .bar>span.right-handle{cursor:not-allowed}.slider.disabled .bar>span.left-handle .handle-tooltip,.slider.disabled .bar>span.right-handle .handle-tooltip{display:none}"]
+                },] },
+    ];
+    /** @nocollapse */
+    NpnSliderComponent.ctorParameters = function () { return [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"] }
+    ]; };
+    NpnSliderComponent.propDecorators = {
+        setMinValues: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"], args: ['min',] }],
+        setMaxValues: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"], args: ['max',] }],
+        setMinSelectedValues: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"], args: ['minSelected',] }],
+        setMaxSelectedValues: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"], args: ['maxSelected',] }],
+        stepValue: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"], args: ['step',] }],
+        showStepIndicator: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"] }],
+        multiRange: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"] }],
+        setHideTooltip: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"], args: ['hide-tooltip',] }],
+        setHideValues: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"], args: ['hide-values',] }],
+        setDisabled: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"], args: ['disabled',] }],
+        onChange: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"] }],
+        setHandlerActiveOff: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"], args: ['document:mouseup',] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"], args: ['document:panend',] }]
+    };
+    return NpnSliderComponent;
+}(Utilities));
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+var NpnSliderModule = /** @class */ (function () {
+    function NpnSliderModule() {
     }
-    BookingMasterStepOneComponent.prototype.pickRoom = function (room) {
-        this.pickedRoom = room;
-        this.isFirstStep = !this.isFirstStep;
-        this.selectRoom.emit(this.pickedRoom);
-        this.changeStep.emit(this.isFirstStep);
-    };
-    BookingMasterStepOneComponent.prototype.ngOnInit = function () {
-    };
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", Object)
-    ], BookingMasterStepOneComponent.prototype, "pickedRoom", void 0);
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", Boolean)
-    ], BookingMasterStepOneComponent.prototype, "isFirstStep", void 0);
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])(),
-        __metadata("design:type", Object)
-    ], BookingMasterStepOneComponent.prototype, "changeStep", void 0);
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])(),
-        __metadata("design:type", Object)
-    ], BookingMasterStepOneComponent.prototype, "selectRoom", void 0);
-    BookingMasterStepOneComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-booking-master-step-one',
-            template: __webpack_require__(/*! ./booking-master-step-one.component.html */ "./src/app/booking-master-page/booking-master-step-one/booking-master-step-one.component.html"),
-            styles: [__webpack_require__(/*! ./booking-master-step-one.component.scss */ "./src/app/booking-master-page/booking-master-step-one/booking-master-step-one.component.scss")]
-        }),
-        __metadata("design:paramtypes", [])
-    ], BookingMasterStepOneComponent);
-    return BookingMasterStepOneComponent;
+    NpnSliderModule.decorators = [
+        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"], args: [{
+                    imports: [
+                        _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"]
+                    ],
+                    declarations: [NpnSliderComponent],
+                    exports: [NpnSliderComponent]
+                },] },
+    ];
+    return NpnSliderModule;
 }());
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 
-/***/ }),
 
-/***/ "./src/app/booking-master-page/booking-master-step-two/booking-master-step-two.component.html":
-/*!****************************************************************************************************!*\
-  !*** ./src/app/booking-master-page/booking-master-step-two/booking-master-step-two.component.html ***!
-  \****************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"booking-master-step-two\">\n  <div class=\"left-side\">\n    <div class=\"title\">24 апреля, 12:00-14:00</div>\n    <div class=\"room-preview\">\n      <div class=\"image\">\n        <div class=\"gradient\"></div>\n      </div>\n      <div class=\"info\">\n        <div class=\"room-title\" title=\"pickedRoom.title\">\n          {{pickedRoom.title}}\n        </div>\n        <div class=\"city\">\n          {{pickedRoom.officeLookupTitle}}\n        </div>\n        <div class=\"sits\">{{pickedRoom.places}} мест</div>\n      </div>\n    </div>\n  </div>\n  <div class=\"right-side\">\n    <div class=\"title important\">Тема встречи</div>\n    <input type=\"text\" placeholder=\"Введите текст\">\n    <div class=\"title important\">Внутренние участники</div>\n    <app-sp-user\n      [isMulti]=\"true\"\n      [theme]=\"'new-master'\"\n    ></app-sp-user>\n    <div class=\"title\">Внешние участники</div>\n    <input type=\"text\" placeholder=\"Перечислите участников встречи в свободной форме\">\n    <div class=\"title\">Описание встречи</div>\n    <textarea rows=\"3\" placeholder=\"Введите текст\"></textarea>\n    <div class=\"description\">\n      <div class=\"mark\">*</div>\n      <div class=\"text\">– Обязательные поля</div>\n    </div>\n    <div class=\"controls\">\n      <input type=\"button\" class=\"btn btn-default is-transparent red\" value=\"Отменить\" (click)=\"cancelConfirmation()\">\n      <input type=\"button\" class=\"btn btn-default red\" value=\"Забронировать\">\n    </div>\n  </div>\n</div>"
-
-/***/ }),
-
-/***/ "./src/app/booking-master-page/booking-master-step-two/booking-master-step-two.component.scss":
-/*!****************************************************************************************************!*\
-  !*** ./src/app/booking-master-page/booking-master-step-two/booking-master-step-two.component.scss ***!
-  \****************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.booking-master-step-two {\n  width: 100%;\n  font-size: 0px; }\n\n.booking-master-step-two .left-side {\n    width: 45%;\n    padding-right: 50px; }\n\n.booking-master-step-two .right-side {\n    width: 55%; }\n\n.booking-master-step-two .left-side,\n  .booking-master-step-two .right-side {\n    display: inline-block;\n    font-size: 14px;\n    vertical-align: top;\n    box-sizing: border-box; }\n\n.booking-master-step-two .left-side .room-preview,\n    .booking-master-step-two .right-side .room-preview {\n      position: relative;\n      display: inline-block;\n      width: 100%;\n      position: relative;\n      color: #fff; }\n\n.booking-master-step-two .left-side .room-preview:before,\n      .booking-master-step-two .right-side .room-preview:before {\n        display: block;\n        content: \" \";\n        width: 100%;\n        padding-bottom: 66.66666667%; }\n\n.booking-master-step-two .left-side .room-preview > .content,\n      .booking-master-step-two .right-side .room-preview > .content {\n        position: absolute;\n        top: 0;\n        left: 0;\n        right: 0;\n        bottom: 0; }\n\n.booking-master-step-two .left-side .room-preview .image,\n      .booking-master-step-two .right-side .room-preview .image {\n        position: absolute;\n        left: 0;\n        top: 0;\n        right: 0;\n        bottom: 0;\n        background-repeat: no-repeat;\n        background-size: cover; }\n\n.booking-master-step-two .left-side .room-preview .image .gradient,\n        .booking-master-step-two .right-side .room-preview .image .gradient {\n          position: absolute;\n          left: 0;\n          top: 0;\n          right: 0;\n          bottom: 0;\n          background-color: #000;\n          opacity: 0.4; }\n\n.booking-master-step-two .left-side .room-preview .info,\n      .booking-master-step-two .right-side .room-preview .info {\n        position: absolute;\n        left: 0;\n        top: 0;\n        right: 0;\n        bottom: 0;\n        padding: 20px 30px;\n        box-sizing: border-box;\n        font-size: 22px; }\n\n.booking-master-step-two .left-side .room-preview .room-title,\n      .booking-master-step-two .right-side .room-preview .room-title {\n        font-size: 34px;\n        margin-bottom: 10px;\n        overflow: hidden;\n        white-space: nowrap;\n        text-overflow: ellipsis; }\n\n.booking-master-step-two .left-side .room-preview .city,\n      .booking-master-step-two .right-side .room-preview .city {\n        margin-bottom: 6px; }\n\n.booking-master-step-two .left-side input[type='text'],\n    .booking-master-step-two .right-side input[type='text'] {\n      width: 100%;\n      background-color: #ffffff;\n      font-size: 18px;\n      color: #cccccc;\n      padding: 15px 20px;\n      box-sizing: border-box;\n      margin-bottom: 30px;\n      border: 1px solid #cccccc; }\n\n.booking-master-step-two .left-side textarea,\n    .booking-master-step-two .right-side textarea {\n      font-size: 18px;\n      line-height: 20px;\n      width: 100%;\n      padding: 10px 20px;\n      box-sizing: border-box;\n      border: 1px solid #cccccc;\n      resize: vertical;\n      margin-bottom: 20px; }\n\n.booking-master-step-two .left-side .description,\n    .booking-master-step-two .right-side .description {\n      margin-bottom: 35px; }\n\n.booking-master-step-two .left-side .description .mark,\n      .booking-master-step-two .right-side .description .mark {\n        display: inline-block;\n        height: 50px;\n        font-size: 34px;\n        line-height: 65px;\n        color: #050505;\n        text-align: center;\n        vertical-align: middle;\n        margin-right: 30px; }\n\n.booking-master-step-two .left-side .description .text,\n      .booking-master-step-two .right-side .description .text {\n        display: inline-block;\n        font-size: 18px;\n        font-style: italic;\n        line-height: 30px;\n        color: #4D4E4D;\n        vertical-align: middle; }\n\n.booking-master-step-two .left-side .controls input,\n    .booking-master-step-two .right-side .controls input {\n      margin-right: 25px; }\n\n.booking-master-step-two .title {\n    font-size: 22px;\n    color: #050505;\n    margin-bottom: 8px; }\n\n.booking-master-step-two .title.important::after {\n      content: '*';\n      font-size: 34px;\n      color: #dd1e25; }\n"
-
-/***/ }),
-
-/***/ "./src/app/booking-master-page/booking-master-step-two/booking-master-step-two.component.ts":
-/*!**************************************************************************************************!*\
-  !*** ./src/app/booking-master-page/booking-master-step-two/booking-master-step-two.component.ts ***!
-  \**************************************************************************************************/
-/*! exports provided: BookingMasterStepTwoComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BookingMasterStepTwoComponent", function() { return BookingMasterStepTwoComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-var BookingMasterStepTwoComponent = /** @class */ (function () {
-    function BookingMasterStepTwoComponent() {
-        this.changeStep = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
-    }
-    BookingMasterStepTwoComponent.prototype.cancelConfirmation = function () {
-        this.isFirstStep = !this.isFirstStep;
-        this.changeStep.emit(this.isFirstStep);
-    };
-    BookingMasterStepTwoComponent.prototype.ngOnInit = function () {
-    };
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", Object)
-    ], BookingMasterStepTwoComponent.prototype, "pickedRoom", void 0);
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", Boolean)
-    ], BookingMasterStepTwoComponent.prototype, "isFirstStep", void 0);
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])(),
-        __metadata("design:type", Object)
-    ], BookingMasterStepTwoComponent.prototype, "changeStep", void 0);
-    BookingMasterStepTwoComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-booking-master-step-two',
-            template: __webpack_require__(/*! ./booking-master-step-two.component.html */ "./src/app/booking-master-page/booking-master-step-two/booking-master-step-two.component.html"),
-            styles: [__webpack_require__(/*! ./booking-master-step-two.component.scss */ "./src/app/booking-master-page/booking-master-step-two/booking-master-step-two.component.scss")]
-        }),
-        __metadata("design:paramtypes", [])
-    ], BookingMasterStepTwoComponent);
-    return BookingMasterStepTwoComponent;
-}());
-
-
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibnBuLXNsaWRlci5qcy5tYXAiLCJzb3VyY2VzIjpbIm5nOi8vbnBuLXNsaWRlci9saWIvdXRpbGl0aWVzLnRzIiwibmc6Ly9ucG4tc2xpZGVyL2xpYi9ucG4tc2xpZGVyLmNvbXBvbmVudC50cyIsIm5nOi8vbnBuLXNsaWRlci9saWIvbnBuLXNsaWRlci5tb2R1bGUudHMiXSwic291cmNlc0NvbnRlbnQiOlsiXHJcblxyXG4vKlV0aWxpdGllcyAqL1xyXG5leHBvcnQgY2xhc3MgVXRpbGl0aWVzIHtcclxuXHJcbiAgcHVibGljIGlzTnVtYmVyQXJyYXkoYXJyOiBudW1iZXJbXSk6IGJvb2xlYW4ge1xyXG4gICAgcmV0dXJuIChhcnIgJiYgYXJyLmxlbmd0aCAmJiBhcnIuZmlsdGVyKCh2YWx1ZSkgPT4gIWlzTmFOKHZhbHVlKSkubGVuZ3RoID09PSBhcnIubGVuZ3RoKSA/IHRydWUgOiBmYWxzZTtcclxuICB9XHJcbiAgcHVibGljIGlzTnVsbE9yRW1wdHkob2JqOiBhbnkpOiBib29sZWFuIHtcclxuICAgIHJldHVybiBvYmogPT09IHVuZGVmaW5lZCB8fCBvYmogPT09IG51bGwgfHwgb2JqID09PSAnJztcclxuICB9XHJcbiAgcHVibGljIHRvQm9vbGVhbihvYmo6IGFueSwgLi4uYWxsb3dlZFZhbHVlcyk6IGJvb2xlYW4ge1xyXG4gICAgcmV0dXJuIChvYmogPT09ICcnIHx8IG9iaiA9PT0gJ3RydWUnIHx8IGFsbG93ZWRWYWx1ZXMuaW5kZXhPZihvYmopICE9PSAtMSkgPyB0cnVlIDogZmFsc2U7XHJcbiAgfVxyXG4gIHB1YmxpYyBmaW5kTmV4dFZhbGlkU3RlcFZhbHVlKG46IG51bWJlciwgc3RlcDogbnVtYmVyKTogbnVtYmVyIHtcclxuICAgIGNvbnN0IGRpdmlzb3JzU2V0MTogbnVtYmVyW10gPSBbXTtcclxuICAgIGNvbnN0IGRpdmlzb3JzU2V0MjogbnVtYmVyW10gPSBbXTtcclxuICAgIGNvbnN0IHNxcnROdW0gPSBNYXRoLnNxcnQobik7XHJcbiAgICBsZXQgbmV3U3RlcCA9IC0xO1xyXG4gICAgZm9yIChsZXQgaSA9IDA7IGkgPCBzcXJ0TnVtOyBpKyspIHtcclxuICAgICAgaWYgKG4gJSBpID09PSAwKSB7XHJcbiAgICAgICAgaWYgKChuIC8gaSkgPT09IGkpIHtcclxuICAgICAgICAgIGRpdmlzb3JzU2V0MS5wdXNoKGkpO1xyXG4gICAgICAgIH0gZWxzZSB7XHJcbiAgICAgICAgICBkaXZpc29yc1NldDEucHVzaChpKTtcclxuICAgICAgICAgIGRpdmlzb3JzU2V0Mi5wdXNoKG4gLyBpKTtcclxuICAgICAgICB9XHJcbiAgICAgIH1cclxuICAgIH1cclxuICAgIC8vIFBpY2tpbmcgbmV3U3RlcCBieSBjaGVja2luZyBsYXJnZSBzZXQgb2YgZGl2aXNvcnMgZmlyc3RcclxuICAgIGZvciAobGV0IGkgPSAwOyBpIDwgZGl2aXNvcnNTZXQyLmxlbmd0aDsgaSsrKSB7XHJcbiAgICAgIGlmIChzdGVwID4gZGl2aXNvcnNTZXQyW2ldKSB7XHJcbiAgICAgICAgbmV3U3RlcCA9IGRpdmlzb3JzU2V0MltpXTtcclxuICAgICAgICBicmVhaztcclxuICAgICAgfVxyXG4gICAgfVxyXG4gICAgaWYgKG5ld1N0ZXAgPT09IC0xKSB7IC8vIGNoZWNraW5nIHNldCBvZiBzbWFsbCBkaXZpc29ycyBpZiBuZXdTdGVwIGRpZG4ndCBmaW5kIG91dCB0aWxsLlxyXG4gICAgICBmb3IgKGxldCBpID0gZGl2aXNvcnNTZXQxLmxlbmd0aCAtIDE7IGkgPj0gMDsgaS0tKSB7XHJcbiAgICAgICAgaWYgKHN0ZXAgPiBkaXZpc29yc1NldDFbaV0pIHtcclxuICAgICAgICAgIG5ld1N0ZXAgPSBkaXZpc29yc1NldDFbaV07XHJcbiAgICAgICAgICBicmVhaztcclxuICAgICAgICB9XHJcbiAgICAgIH1cclxuICAgIH1cclxuICAgIHJldHVybiAobmV3U3RlcCA9PT0gLTEpID8gMSA6IG5ld1N0ZXA7XHJcbiAgfVxyXG59XHJcbiIsImltcG9ydCB7XHJcbiAgQ29tcG9uZW50LCBJbnB1dCwgT3V0cHV0LCBFdmVudEVtaXR0ZXIsXHJcbiAgRWxlbWVudFJlZiwgT25Jbml0LCBIb3N0TGlzdGVuZXIsIFNpbXBsZUNoYW5nZXMsIE9uQ2hhbmdlc1xyXG59IGZyb20gJ0Bhbmd1bGFyL2NvcmUnO1xyXG5pbXBvcnQgeyBVdGlsaXRpZXMgfSBmcm9tICcuL3V0aWxpdGllcyc7XHJcbmltcG9ydCB7IFNsaWRlckhhbmRsZXJFbnVtIH0gZnJvbSAnLi9zbGlkZXItaGFuZGxlci5lbnVtJztcclxuXHJcbkBDb21wb25lbnQoe1xyXG4gIHNlbGVjdG9yOiAnbnBuLXNsaWRlcicsXHJcbiAgdGVtcGxhdGU6IGA8IS0tbnBuLXNsaWRlciB0ZW1wbGF0ZS0tPlxyXG48ZGl2IGNsYXNzPVwic2xpZGVyXCIgW2NsYXNzLmRpc2FibGVkXT1cImlzRGlzYWJsZWRcIj5cclxuICA8ZGl2IGNsYXNzPVwiYmFyXCIgKG1vdXNlbW92ZSk9XCJoYW5kbGVyU2xpZGluZygkZXZlbnQpXCIgKHBhbm1vdmUpPVwiaGFuZGxlclNsaWRpbmcoJGV2ZW50KVwiPlxyXG4gICAgPHNwYW4gY2xhc3M9XCJsZWZ0LWhhbmRsZVwiIFtuZ0NsYXNzXT1cInsnYWN0aXZlJzogaXNIYW5kbGVyQWN0aXZlICYmIGN1cnJlbnRIYW5kbGVySW5kZXggPT09IGhhbmRsZXJJbmRleC5sZWZ0LFxyXG4gICAgICAgICAgICAgICAgICAgICAgJ2xhc3QtYWN0aXZlJzogY3VycmVudEhhbmRsZXJJbmRleCA9PT0gaGFuZGxlckluZGV4LmxlZnRcclxuICAgICAgICAgICAgICAgICAgICB9XCJcclxuICAgICAgW3N0eWxlLmxlZnQuJV09XCJoYW5kbGVyWFtoYW5kbGVySW5kZXgubGVmdF1cIiAobW91c2Vkb3duKT1cInNldEhhbmRsZXJBY3RpdmUoJGV2ZW50LCBoYW5kbGVySW5kZXgubGVmdClcIiAocGFuc3RhcnQpPVwic2V0SGFuZGxlckFjdGl2ZSgkZXZlbnQsIGhhbmRsZXJJbmRleC5sZWZ0KVwiPlxyXG4gICAgICA8c3BhbiAqbmdJZj1cIiFoaWRlVG9vbHRpcFwiIGNsYXNzPVwiaGFuZGxlLXRvb2x0aXBcIj57e2N1cnJlbnRWYWx1ZXNbaGFuZGxlckluZGV4LmxlZnRdfX08L3NwYW4+XHJcbiAgICA8L3NwYW4+XHJcbiAgICA8ZGl2IGNsYXNzPVwiZmlsbGVyXCI+XHJcbiAgICAgIDxkaXYgY2xhc3M9XCJzdGVwLWluZGljYXRvcnNcIj5cclxuICAgICAgICA8c3BhbiAqbmdGb3I9XCJsZXQgc3RlcFBvcyBvZiBzdGVwSW5kaWNhdG9yUG9zaXRpb25zXCIgW3N0eWxlLmxlZnQucHhdPVwic3RlcFBvc1wiPjwvc3Bhbj5cclxuICAgICAgPC9kaXY+XHJcbiAgICAgIDxzcGFuICpuZ0lmPVwibXVsdGlSYW5nZVwiIFtzdHlsZS5sZWZ0LiVdPVwiaGFuZGxlclhbMF1cIiBbc3R5bGUud2lkdGguJV09XCJoYW5kbGVyWFtoYW5kbGVySW5kZXgucmlnaHRdIC0gaGFuZGxlclhbaGFuZGxlckluZGV4LmxlZnRdXCI+PC9zcGFuPlxyXG4gICAgICA8c3BhbiAqbmdJZj1cIiFtdWx0aVJhbmdlXCIgW3N0eWxlLmxlZnQuJV09XCIwXCIgW3N0eWxlLndpZHRoLiVdPVwiaGFuZGxlclhbMF1cIj48L3NwYW4+XHJcbiAgICA8L2Rpdj5cclxuICAgIDxzcGFuICpuZ0lmPVwibXVsdGlSYW5nZVwiIGNsYXNzPVwicmlnaHQtaGFuZGxlXCIgW25nQ2xhc3NdPVwieydhY3RpdmUnOiBpc0hhbmRsZXJBY3RpdmUgJiYgY3VycmVudEhhbmRsZXJJbmRleCA9PT0gaGFuZGxlckluZGV4LnJpZ2h0LFxyXG4gICAgICAgICAgICAgICAgICAgICAgJ2xhc3QtYWN0aXZlJzogY3VycmVudEhhbmRsZXJJbmRleCA9PT0gaGFuZGxlckluZGV4LnJpZ2h0XHJcbiAgICAgICAgICAgICAgICAgICAgfVwiXHJcbiAgICAgIFtzdHlsZS5sZWZ0LiVdPVwiaGFuZGxlclhbaGFuZGxlckluZGV4LnJpZ2h0XVwiIChtb3VzZWRvd24pPVwic2V0SGFuZGxlckFjdGl2ZSgkZXZlbnQsIGhhbmRsZXJJbmRleC5yaWdodClcIlxyXG4gICAgICAocGFuc3RhcnQpPVwic2V0SGFuZGxlckFjdGl2ZSgkZXZlbnQsIGhhbmRsZXJJbmRleC5yaWdodClcIj5cclxuICAgICAgPHNwYW4gKm5nSWY9XCIhaGlkZVRvb2x0aXBcIiBjbGFzcz1cImhhbmRsZS10b29sdGlwXCI+e3tjdXJyZW50VmFsdWVzW2hhbmRsZXJJbmRleC5yaWdodF19fTwvc3Bhbj5cclxuICAgIDwvc3Bhbj5cclxuICA8L2Rpdj5cclxuICA8ZGl2IGNsYXNzPVwidmFsdWVzXCIgKm5nSWY9XCIhaGlkZVZhbHVlc1wiPlxyXG4gICAgPHNwYW4+e3tpbml0VmFsdWVzW2hhbmRsZXJJbmRleC5sZWZ0XX19PC9zcGFuPlxyXG4gICAgPHNwYW4+e3tpbml0VmFsdWVzW2hhbmRsZXJJbmRleC5yaWdodF19fTwvc3Bhbj5cclxuICA8L2Rpdj5cclxuPC9kaXY+XHJcbmAsXHJcbiAgc3R5bGVzOiBbYC5zbGlkZXIsLnNsaWRlciAqe2JveC1zaXppbmc6Ym9yZGVyLWJveH0uc2xpZGVye2Rpc3BsYXk6YmxvY2s7d2lkdGg6MTAwJTtoZWlnaHQ6MzBweDtwYWRkaW5nOjRweCAxMHB4O2N1cnNvcjpkZWZhdWx0O2ZvbnQtc2l6ZToxMnB4fS5zbGlkZXIgLmJhcnt3aWR0aDoxMDAlO2JhY2tncm91bmQ6I2U4ZThlODtoZWlnaHQ6MTBweDtwb3NpdGlvbjpyZWxhdGl2ZTtib3JkZXItcmFkaXVzOjVweDtib3gtc2hhZG93Omluc2V0IDFweCAxcHggNXB4ICNiYWJhYmF9LnNsaWRlciAuYmFyPnNwYW4ubGVmdC1oYW5kbGUsLnNsaWRlciAuYmFyPnNwYW4ucmlnaHQtaGFuZGxle2Rpc3BsYXk6aW5saW5lLWJsb2NrO3dpZHRoOjIycHg7aGVpZ2h0OjIycHg7YmFja2dyb3VuZDojYmVkY2IyO2JvcmRlcjo3cHggc29saWQgIzcxYjM1Nztib3JkZXItcmFkaXVzOjUwJTtwb3NpdGlvbjphYnNvbHV0ZTt0b3A6LTdweDttYXJnaW4tbGVmdDotMTBweDt6LWluZGV4OjE7Y3Vyc29yOnBvaW50ZXI7dHJhbnNpdGlvbjpsZWZ0IC4ycyBlYXNlfS5zbGlkZXIgLmJhcj5zcGFuLmxlZnQtaGFuZGxlLmxhc3QtYWN0aXZlLC5zbGlkZXIgLmJhcj5zcGFuLnJpZ2h0LWhhbmRsZS5sYXN0LWFjdGl2ZXt6LWluZGV4OjJ9LnNsaWRlciAuYmFyPnNwYW4ubGVmdC1oYW5kbGUgLmhhbmRsZS10b29sdGlwLC5zbGlkZXIgLmJhcj5zcGFuLnJpZ2h0LWhhbmRsZSAuaGFuZGxlLXRvb2x0aXB7ZGlzcGxheTpibG9jaztwb3NpdGlvbjphYnNvbHV0ZTt0b3A6LTM0cHg7bGVmdDotMTRweDtib3JkZXI6MXB4IHNvbGlkICM4ZmMzN2E7Ym9yZGVyLXJhZGl1czo0cHg7cGFkZGluZzoxcHggNHB4O21pbi13aWR0aDoyMHB4O3RleHQtYWxpZ246Y2VudGVyO2JhY2tncm91bmQ6I2Q5ZWJkMjtjb2xvcjojNzFiMzU3O2ZvbnQtd2VpZ2h0OjcwMDt0cmFuc2l0aW9uOm9wYWNpdHkgLjJzIGVhc2U7b3BhY2l0eTowfS5zbGlkZXIgLmJhcj5zcGFuLmxlZnQtaGFuZGxlIC5oYW5kbGUtdG9vbHRpcDpiZWZvcmUsLnNsaWRlciAuYmFyPnNwYW4ucmlnaHQtaGFuZGxlIC5oYW5kbGUtdG9vbHRpcDpiZWZvcmV7Y29udGVudDpcIlwiO2JvcmRlcjo1cHggc29saWQgdHJhbnNwYXJlbnQ7Ym9yZGVyLXRvcC1jb2xvcjojOGZjMzdhO3Bvc2l0aW9uOmFic29sdXRlO3RvcDoxMDQlO2xlZnQ6MzMlfS5zbGlkZXIgLmJhcj5zcGFuLmxlZnQtaGFuZGxlIC5oYW5kbGUtdG9vbHRpcDphZnRlciwuc2xpZGVyIC5iYXI+c3Bhbi5yaWdodC1oYW5kbGUgLmhhbmRsZS10b29sdGlwOmFmdGVye2NvbnRlbnQ6XCJcIjtib3JkZXI6NXB4IHNvbGlkIHRyYW5zcGFyZW50O2JvcmRlci10b3AtY29sb3I6I2Q5ZWJkMjtwb3NpdGlvbjphYnNvbHV0ZTt0b3A6MTAwJTtsZWZ0OjMzJX0uc2xpZGVyIC5iYXI+c3Bhbi5sZWZ0LWhhbmRsZS5hY3RpdmU+LmhhbmRsZS10b29sdGlwLC5zbGlkZXIgLmJhcj5zcGFuLmxlZnQtaGFuZGxlOmhvdmVyPi5oYW5kbGUtdG9vbHRpcCwuc2xpZGVyIC5iYXI+c3Bhbi5yaWdodC1oYW5kbGUuYWN0aXZlPi5oYW5kbGUtdG9vbHRpcCwuc2xpZGVyIC5iYXI+c3Bhbi5yaWdodC1oYW5kbGU6aG92ZXI+LmhhbmRsZS10b29sdGlwe29wYWNpdHk6MX0uc2xpZGVyIC5iYXIgZGl2LmZpbGxlcntkaXNwbGF5OmJsb2NrO3dpZHRoOjEwMCU7aGVpZ2h0OjEwMCU7cG9zaXRpb246cmVsYXRpdmU7b3ZlcmZsb3c6aGlkZGVuO2JvcmRlci1yYWRpdXM6NXB4O2JvcmRlcjoxcHggc29saWQgI2JlZGNiMn0uc2xpZGVyIC5iYXIgZGl2LmZpbGxlcj5zcGFue2Rpc3BsYXk6aW5saW5lLWJsb2NrO2hlaWdodDoxMDAlO3Bvc2l0aW9uOmFic29sdXRlO3RvcDowO2JhY2tncm91bmQ6I2JlZGNiMjt0cmFuc2l0aW9uOmFsbCAuMnMgZWFzZX0uc2xpZGVyIC5iYXIgZGl2LmZpbGxlcj5kaXYuc3RlcC1pbmRpY2F0b3Jze3dpZHRoOjEwMCU7aGVpZ2h0OjEwMCU7cG9zaXRpb246cmVsYXRpdmV9LnNsaWRlciAuYmFyIGRpdi5maWxsZXI+ZGl2LnN0ZXAtaW5kaWNhdG9ycz5zcGFue3dpZHRoOjFweDtkaXNwbGF5OmlubGluZS1ibG9jaztoZWlnaHQ6MTBweDtiYWNrZ3JvdW5kOiM3MWIzNTc7cG9zaXRpb246YWJzb2x1dGU7bGVmdDowfS5zbGlkZXIgLnZhbHVlc3tkaXNwbGF5OmJsb2NrO2ZvbnQtd2VpZ2h0OjcwMDttYXJnaW4tdG9wOjRweDt3aWR0aDoxMDIlO21hcmdpbi1sZWZ0Oi0xJTtjb2xvcjojOTA4ZjkwfS5zbGlkZXIgLnZhbHVlcyBzcGFuOmZpcnN0LWNoaWxke2Zsb2F0OmxlZnR9LnNsaWRlciAudmFsdWVzIHNwYW46bGFzdC1jaGlsZHtmbG9hdDpyaWdodH0uc2xpZGVyLmRpc2FibGVke29wYWNpdHk6LjR9LnNsaWRlci5kaXNhYmxlZCAuYmFye2JveC1zaGFkb3c6bm9uZSFpbXBvcnRhbnR9LnNsaWRlci5kaXNhYmxlZCAuYmFyPnNwYW4ubGVmdC1oYW5kbGUsLnNsaWRlci5kaXNhYmxlZCAuYmFyPnNwYW4ucmlnaHQtaGFuZGxle2N1cnNvcjpub3QtYWxsb3dlZH0uc2xpZGVyLmRpc2FibGVkIC5iYXI+c3Bhbi5sZWZ0LWhhbmRsZSAuaGFuZGxlLXRvb2x0aXAsLnNsaWRlci5kaXNhYmxlZCAuYmFyPnNwYW4ucmlnaHQtaGFuZGxlIC5oYW5kbGUtdG9vbHRpcHtkaXNwbGF5Om5vbmV9YF1cclxufSlcclxuZXhwb3J0IGNsYXNzIE5wblNsaWRlckNvbXBvbmVudCBleHRlbmRzIFV0aWxpdGllcyBpbXBsZW1lbnRzIE9uSW5pdCwgT25DaGFuZ2VzIHtcclxuICBwcml2YXRlIHNsaWRlck1vZGVsID0gWzAsIDAsIDBdO1xyXG4gIHByaXZhdGUgc3RlcCA9IDE7XHJcbiAgcHJpdmF0ZSBzbGlkZXJXaWR0aCA9IDA7XHJcbiAgcHJpdmF0ZSB0b3RhbERpZmYgPSAwO1xyXG4gIHByaXZhdGUgc3RhcnRDbGllbnRYID0gMDtcclxuICBwcml2YXRlIHN0YXJ0UGxlZnQgPSAwO1xyXG4gIHByaXZhdGUgc3RhcnRQUmlnaHQgPSAwO1xyXG4gIHByaXZhdGUgbWluVmFsdWU6IG51bWJlcjtcclxuICBwcml2YXRlIG1heFZhbHVlOiBudW1iZXI7XHJcbiAgcHJpdmF0ZSBtaW5TZWxlY3RlZDogbnVtYmVyO1xyXG4gIHByaXZhdGUgbWF4U2VsZWN0ZWQ6IG51bWJlcjtcclxuICBwcml2YXRlIHNsaWRlckluaXRpYXRlZCA9IGZhbHNlO1xyXG5cclxuICBwdWJsaWMgaW5pdFZhbHVlczogbnVtYmVyW10gPSBbXTtcclxuICBwdWJsaWMgY3VycmVudFZhbHVlczogbnVtYmVyW10gPSBbMCwgMF07XHJcbiAgcHVibGljIGhhbmRsZXJYOiBudW1iZXJbXSA9IFswLCAwXTtcclxuICBwdWJsaWMgaXNIYW5kbGVyQWN0aXZlID0gZmFsc2U7XHJcbiAgcHVibGljIGlzVG91Y2hFdmVudFN0YXJ0ID0gZmFsc2U7XHJcbiAgcHVibGljIGlzTW91c2VFdmVudFN0YXJ0ID0gZmFsc2U7XHJcbiAgcHVibGljIGN1cnJlbnRIYW5kbGVySW5kZXggPSAwO1xyXG4gIHB1YmxpYyBzdGVwSW5kaWNhdG9yUG9zaXRpb25zID0gW107XHJcbiAgcHVibGljIGlzRGlzYWJsZWQgPSBmYWxzZTtcclxuICBwdWJsaWMgaGlkZVRvb2x0aXAgPSBmYWxzZTtcclxuICBwdWJsaWMgaGlkZVZhbHVlcyA9IGZhbHNlO1xyXG5cclxuICBwdWJsaWMgaGFuZGxlckluZGV4ID0gU2xpZGVySGFuZGxlckVudW07XHJcblxyXG4gIGNvbnN0cnVjdG9yKHByaXZhdGUgZWw6IEVsZW1lbnRSZWYpIHtcclxuICAgIHN1cGVyKCk7XHJcbiAgfVxyXG5cclxuICBASW5wdXQoJ21pbicpXHJcbiAgc2V0IHNldE1pblZhbHVlcyh2YWx1ZTogbnVtYmVyKSB7XHJcbiAgICBpZiAoIWlzTmFOKHZhbHVlKSkge1xyXG4gICAgICB0aGlzLm1pblZhbHVlID0gTnVtYmVyKHZhbHVlKTtcclxuICAgIH1cclxuICB9XHJcblxyXG4gIEBJbnB1dCgnbWF4JylcclxuICBzZXQgc2V0TWF4VmFsdWVzKHZhbHVlOiBudW1iZXIpIHtcclxuICAgIGlmICghaXNOYU4odmFsdWUpKSB7XHJcbiAgICAgIHRoaXMubWF4VmFsdWUgPSBOdW1iZXIodmFsdWUpO1xyXG4gICAgfVxyXG4gIH1cclxuXHJcbiAgQElucHV0KCdtaW5TZWxlY3RlZCcpXHJcbiAgc2V0IHNldE1pblNlbGVjdGVkVmFsdWVzKHZhbHVlOiBudW1iZXIpIHtcclxuICAgIGlmICghaXNOYU4odmFsdWUpICYmIHRoaXMubWluU2VsZWN0ZWQgIT09IE51bWJlcih2YWx1ZSkpIHtcclxuICAgICAgdGhpcy5taW5TZWxlY3RlZCA9IE51bWJlcih2YWx1ZSk7XHJcbiAgICB9XHJcbiAgfVxyXG5cclxuICBASW5wdXQoJ21heFNlbGVjdGVkJylcclxuICBzZXQgc2V0TWF4U2VsZWN0ZWRWYWx1ZXModmFsdWU6IG51bWJlcikge1xyXG4gICAgaWYgKCFpc05hTih2YWx1ZSkgJiYgdGhpcy5tYXhTZWxlY3RlZCAhPT0gTnVtYmVyKHZhbHVlKSkge1xyXG4gICAgICB0aGlzLm1heFNlbGVjdGVkID0gTnVtYmVyKHZhbHVlKTtcclxuICAgIH1cclxuICB9XHJcbiAgQElucHV0KCdzdGVwJylcclxuICBzZXQgc3RlcFZhbHVlKHZhbHVlOiBudW1iZXIpIHtcclxuICAgIGlmICghaXNOYU4odmFsdWUpKSB7XHJcbiAgICAgIHRoaXMuc3RlcCA9IE51bWJlcih2YWx1ZSk7XHJcbiAgICB9XHJcbiAgfVxyXG5cclxuICBASW5wdXQoKSBzaG93U3RlcEluZGljYXRvciA9IGZhbHNlO1xyXG4gIEBJbnB1dCgpIG11bHRpUmFuZ2UgPSB0cnVlO1xyXG4gIEBJbnB1dCgnaGlkZS10b29sdGlwJylcclxuICBzZXQgc2V0SGlkZVRvb2x0aXAodmFsdWU6IGJvb2xlYW4pIHtcclxuICAgIHRoaXMuaGlkZVRvb2x0aXAgPSB0aGlzLnRvQm9vbGVhbih2YWx1ZSk7XHJcbiAgfVxyXG4gIEBJbnB1dCgnaGlkZS12YWx1ZXMnKVxyXG4gIHNldCBzZXRIaWRlVmFsdWVzKHZhbHVlOiBib29sZWFuKSB7XHJcbiAgICB0aGlzLmhpZGVWYWx1ZXMgPSB0aGlzLnRvQm9vbGVhbih2YWx1ZSk7XHJcbiAgfVxyXG5cclxuICBASW5wdXQoJ2Rpc2FibGVkJylcclxuICBzZXQgc2V0RGlzYWJsZWQodmFsdWU6IHN0cmluZykge1xyXG4gICAgdGhpcy5pc0Rpc2FibGVkID0gdGhpcy50b0Jvb2xlYW4odmFsdWUsICdkaXNhYmxlZCcpO1xyXG4gIH1cclxuXHJcbiAgQE91dHB1dCgpIG9uQ2hhbmdlID0gbmV3IEV2ZW50RW1pdHRlcjxudW1iZXJbXT4oKTtcclxuXHJcbiAgbmdPbkluaXQoKSB7XHJcbiAgICB0aGlzLmluaXRpYWxpemVTbGlkZXIoKTtcclxuICB9XHJcblxyXG4gIG5nT25DaGFuZ2VzKGNoYW5nZXM6IFNpbXBsZUNoYW5nZXMpIHtcclxuICAgIGlmICh0aGlzLnNsaWRlckluaXRpYXRlZCkge1xyXG4gICAgICBpZiAoIXRoaXMuaXNOdWxsT3JFbXB0eShjaGFuZ2VzLnNldE1pblNlbGVjdGVkVmFsdWVzKVxyXG4gICAgICAgICYmIGNoYW5nZXMuc2V0TWluU2VsZWN0ZWRWYWx1ZXMucHJldmlvdXNWYWx1ZSA9PT0gY2hhbmdlcy5zZXRNaW5TZWxlY3RlZFZhbHVlcy5jdXJyZW50VmFsdWUpIHtcclxuICAgICAgICByZXR1cm47XHJcbiAgICAgIH1cclxuICAgICAgaWYgKCF0aGlzLmlzTnVsbE9yRW1wdHkoY2hhbmdlcy5zZXRNYXhTZWxlY3RlZFZhbHVlcylcclxuICAgICAgICAmJiBjaGFuZ2VzLnNldE1heFNlbGVjdGVkVmFsdWVzLnByZXZpb3VzVmFsdWUgPT09IGNoYW5nZXMuc2V0TWF4U2VsZWN0ZWRWYWx1ZXMuY3VycmVudFZhbHVlKSB7XHJcbiAgICAgICAgcmV0dXJuO1xyXG4gICAgICB9XHJcbiAgICAgIHRoaXMucmVzZXRNb2RlbCgpO1xyXG4gICAgfVxyXG4gIH1cclxuXHJcbiAgLypNZXRob2QgdG8gaW5pdGFpbGl6ZSBlbnRpcmUgU2xpZGVyKi9cclxuICBwdWJsaWMgaW5pdGlhbGl6ZVNsaWRlcigpIHtcclxuICAgIHRyeSB7XHJcbiAgICAgIC8vIFRha2luZyB3aWR0aCBvZiBzbGlkZXIgYmFyIGVsZW1lbnQuXHJcbiAgICAgIHRoaXMuc2xpZGVyV2lkdGggPSB0aGlzLmVsLm5hdGl2ZUVsZW1lbnQuY2hpbGRyZW5bMF0uY2hpbGRyZW5bMF0ub2Zmc2V0V2lkdGg7XHJcbiAgICAgIHRoaXMucmVzZXRNb2RlbCgpO1xyXG4gICAgICB0aGlzLnNsaWRlckluaXRpYXRlZCA9IHRydWU7XHJcbiAgICB9IGNhdGNoIChlKSB7XHJcbiAgICAgIGNvbnNvbGUuZXJyb3IoZSk7XHJcbiAgICB9XHJcbiAgfVxyXG5cclxuICAvKk1ldGhvZCB0byBpbml0aWFsaXplIHZhcmlhYmxlcyBhbmQgbW9kZWwgdmFsdWVzICovXHJcbiAgcHJpdmF0ZSByZXNldE1vZGVsKCkge1xyXG4gICAgdGhpcy52YWxpZGF0ZVNsaWRlclZhbHVlcygpO1xyXG4gICAgLy8gU2V0dGluZyB0aGUgbW9kZWwgdmFsdWVzXHJcbiAgICB0aGlzLnNsaWRlck1vZGVsID0gW1xyXG4gICAgICB0aGlzLmN1cnJlbnRWYWx1ZXNbMF0gLSB0aGlzLmluaXRWYWx1ZXNbMF0sXHJcbiAgICAgIHRoaXMuY3VycmVudFZhbHVlc1sxXSAtIHRoaXMuY3VycmVudFZhbHVlc1swXSxcclxuICAgICAgdGhpcy5pbml0VmFsdWVzWzFdIC0gdGhpcy5jdXJyZW50VmFsdWVzWzFdXHJcbiAgICBdO1xyXG5cclxuICAgIHRoaXMudG90YWxEaWZmID0gdGhpcy5zbGlkZXJNb2RlbC5yZWR1Y2UoKHByZXZWYWx1ZSwgY3VyVmFsdWUpID0+IHByZXZWYWx1ZSArIGN1clZhbHVlLCAwKTtcclxuXHJcbiAgICAvLyBWYWxpZGF0aW9uIGZvciBzbGlkZXIgc3RlcFxyXG4gICAgaWYgKHRoaXMudG90YWxEaWZmICUgdGhpcy5zdGVwICE9PSAwKSB7XHJcbiAgICAgIGNvbnN0IG5ld1N0ZXAgPSB0aGlzLmZpbmROZXh0VmFsaWRTdGVwVmFsdWUodGhpcy50b3RhbERpZmYsIHRoaXMuc3RlcCk7XHJcbiAgICAgIGNvbnNvbGUud2FybignSW52YWxpZCBzdGVwIHZhbHVlIFwiJyArIHRoaXMuc3RlcCArICdcIiA6IGFuZCB0b29rIFwiJyArIG5ld1N0ZXAgKyAnXCIgYXMgZGVmYXVsdCBzdGVwJyk7XHJcbiAgICAgIHRoaXMuc3RlcCA9IG5ld1N0ZXA7XHJcbiAgICB9XHJcbiAgICB0aGlzLmluaXRpYWxpemVTdGVwSW5kaWNhdG9yKCk7XHJcbiAgICB0aGlzLnNldEhhbmRsZXJQb3NpdGlvbigpO1xyXG4gIH1cclxuXHJcbiAgLypNZXRob2QgdG8gZG8gdmFsaWRhdGlvbiBvZiBpbml0IGFuZCBzZWxldGVkIHJhbmdlIHZhbHVlcyovXHJcbiAgcHJpdmF0ZSB2YWxpZGF0ZVNsaWRlclZhbHVlcygpIHtcclxuICAgIGlmICh0aGlzLmlzTnVsbE9yRW1wdHkodGhpcy5taW5WYWx1ZSkgfHwgdGhpcy5pc051bGxPckVtcHR5KHRoaXMubWF4VmFsdWUpKSB7XHJcbiAgICAgIHRoaXMudXBkYXRlSW5pdFZhbHVlcyhbMCwgMF0pO1xyXG4gICAgICB0aGlzLnVwZGF0ZUN1cnJlbnRWYWx1ZShbMCwgMF0sIHRydWUpO1xyXG4gICAgfSBlbHNlIGlmICh0aGlzLm1pblZhbHVlID4gdGhpcy5tYXhWYWx1ZSkge1xyXG4gICAgICB0aGlzLnVwZGF0ZUluaXRWYWx1ZXMoWzAsIDBdKTtcclxuICAgICAgdGhpcy51cGRhdGVDdXJyZW50VmFsdWUoWzAsIDBdLCB0cnVlKTtcclxuICAgIH0gZWxzZSB7XHJcbiAgICAgIHRoaXMuaW5pdFZhbHVlcyA9IFt0aGlzLm1pblZhbHVlLCB0aGlzLm1heFZhbHVlXTtcclxuICAgICAgLypcclxuICAgICAgKiBWYWxpZGF0aW9uIGZvciBTZWxlY3RlZCByYW5nZSB2YWx1ZXNcclxuICAgICAgKi9cclxuICAgICAgdGhpcy5taW5TZWxlY3RlZCA9IHRoaXMuaXNOdWxsT3JFbXB0eSh0aGlzLm1pblNlbGVjdGVkKSA/IDAgOiB0aGlzLm1pblNlbGVjdGVkO1xyXG4gICAgICB0aGlzLm1heFNlbGVjdGVkID0gdGhpcy5pc051bGxPckVtcHR5KHRoaXMubWF4U2VsZWN0ZWQpID8gMCA6IHRoaXMubWF4U2VsZWN0ZWQ7XHJcblxyXG4gICAgICBpZiAodGhpcy5taW5TZWxlY3RlZCA8IHRoaXMubWluVmFsdWUgfHwgdGhpcy5taW5TZWxlY3RlZCA+IHRoaXMubWF4VmFsdWUpIHtcclxuICAgICAgICB0aGlzLm1pblNlbGVjdGVkID0gdGhpcy5taW5WYWx1ZTtcclxuICAgICAgfVxyXG4gICAgICBpZiAodGhpcy5tYXhTZWxlY3RlZCA8IHRoaXMubWluVmFsdWUgfHwgdGhpcy5tYXhTZWxlY3RlZCA+IHRoaXMubWF4VmFsdWUpIHtcclxuICAgICAgICB0aGlzLm1heFNlbGVjdGVkID0gdGhpcy5tYXhWYWx1ZTtcclxuICAgICAgfVxyXG4gICAgICBpZiAodGhpcy5taW5TZWxlY3RlZCA+IHRoaXMubWF4U2VsZWN0ZWQpIHtcclxuICAgICAgICB0aGlzLm1pblNlbGVjdGVkID0gdGhpcy5taW5WYWx1ZTtcclxuICAgICAgICB0aGlzLm1heFNlbGVjdGVkID0gdGhpcy5tYXhWYWx1ZTtcclxuICAgICAgfVxyXG4gICAgICB0aGlzLnVwZGF0ZUN1cnJlbnRWYWx1ZShbdGhpcy5taW5TZWxlY3RlZCwgdGhpcy5tYXhTZWxlY3RlZF0sIHRydWUpO1xyXG4gICAgfVxyXG4gIH1cclxuXHJcbiAgLypNZXRob2QgdG8gYWRkIHN0ZXAgaW5pZGljYXRvciB0byBzbGlkZXIgKi9cclxuICBwcml2YXRlIGluaXRpYWxpemVTdGVwSW5kaWNhdG9yKCkge1xyXG4gICAgaWYgKHRoaXMuc2hvd1N0ZXBJbmRpY2F0b3IpIHtcclxuICAgICAgdGhpcy5zdGVwSW5kaWNhdG9yUG9zaXRpb25zLmxlbmd0aCA9IDA7XHJcbiAgICAgIGNvbnN0IG51bU9mU3RlcEluZGljYXRvcnMgPSB0aGlzLnRvdGFsRGlmZiAvIHRoaXMuc3RlcDtcclxuICAgICAgaWYgKHRoaXMuc2xpZGVyV2lkdGggLyBudW1PZlN0ZXBJbmRpY2F0b3JzID49IDEwKSB7XHJcbiAgICAgICAgY29uc3QgaW5jcmVtZW50ID0gdGhpcy5zbGlkZXJXaWR0aCAvIG51bU9mU3RlcEluZGljYXRvcnM7XHJcbiAgICAgICAgbGV0IGxlZnRQb3NpdGlvbiA9IGluY3JlbWVudDtcclxuICAgICAgICB3aGlsZSAodGhpcy5zdGVwSW5kaWNhdG9yUG9zaXRpb25zLmxlbmd0aCA8IG51bU9mU3RlcEluZGljYXRvcnMgLSAxKSB7XHJcbiAgICAgICAgICB0aGlzLnN0ZXBJbmRpY2F0b3JQb3NpdGlvbnMucHVzaCgrbGVmdFBvc2l0aW9uLnRvRml4ZWQoMikpO1xyXG4gICAgICAgICAgbGVmdFBvc2l0aW9uICs9IGluY3JlbWVudDtcclxuICAgICAgICB9XHJcbiAgICAgIH0gZWxzZSB7XHJcbiAgICAgICAgY29uc29sZS53YXJuKGBBcyAnc3RlcCcgdmFsdWUgaXMgdG9vIHNtYWxsIGNvbXBhcmVkIHRvIG1pbiAmIG1heCB2YWx1ZSBkaWZmZXJlbmNlIGFuZCBzbGlkZXIgd2lkdGgsXHJcbiAgICAgICAgICBTdGVwIEluZGljYXRvciBjYW4ndCBiZSBkaXNwbGF5ZWQhLiBQcm92aWRlIHNsaWdodCBsYXJnZSB2YWx1ZSBmb3IgJ3N0ZXAnYCk7XHJcbiAgICAgIH1cclxuICAgIH0gZWxzZSB7XHJcbiAgICAgIHRoaXMuc3RlcEluZGljYXRvclBvc2l0aW9ucy5sZW5ndGggPSAwO1xyXG4gICAgfVxyXG4gIH1cclxuXHJcbiAgLypNZXRob2QgdG8gc2V0IGN1cnJlbnQgc2VsZWN0ZWQgdmFsdWVzICovXHJcbiAgcHJpdmF0ZSB1cGRhdGVDdXJyZW50VmFsdWUoYXJyYXlWYWx1ZTogbnVtYmVyW10sIHByaXZhdGVDaGFuZ2U6IGJvb2xlYW4gPSBmYWxzZSkge1xyXG4gICAgdGhpcy5taW5TZWxlY3RlZCA9IHRoaXMuY3VycmVudFZhbHVlc1swXSA9IGFycmF5VmFsdWVbMF07XHJcbiAgICB0aGlzLm1heFNlbGVjdGVkID0gdGhpcy5jdXJyZW50VmFsdWVzWzFdID0gYXJyYXlWYWx1ZVsxXTtcclxuICAgIGlmICghcHJpdmF0ZUNoYW5nZSkge1xyXG4gICAgICB0aGlzLm9uQ2hhbmdlLmVtaXQoKHRoaXMubXVsdGlSYW5nZSkgPyB0aGlzLmN1cnJlbnRWYWx1ZXMgOiBbdGhpcy5jdXJyZW50VmFsdWVzWzBdXSk7XHJcbiAgICB9XHJcbiAgfVxyXG5cclxuICAvKk1ldGhvZCB0byBzZXQgY3VycmVudCBzZWxlY3RlZCB2YWx1ZXMgKi9cclxuICBwcml2YXRlIHVwZGF0ZUluaXRWYWx1ZXMoYXJyYXlWYWx1ZTogbnVtYmVyW10pIHtcclxuICAgIHRoaXMubWluVmFsdWUgPSB0aGlzLmluaXRWYWx1ZXNbMF0gPSBhcnJheVZhbHVlWzBdO1xyXG4gICAgdGhpcy5tYXhWYWx1ZSA9IHRoaXMuaW5pdFZhbHVlc1sxXSA9IGFycmF5VmFsdWVbMV07XHJcbiAgfVxyXG5cclxuICAvKk1ldGhvZCB0byBzZXQgaGFuZGxlciBwb3NpdGlvbiAqL1xyXG4gIHByaXZhdGUgc2V0SGFuZGxlclBvc2l0aW9uKCkge1xyXG4gICAgbGV0IHJ1bm5pbmdUb3RhbCA9IDA7XHJcbiAgICAvLyBVcGRhdGluZyBzZWxlY3RlZCB2YWx1ZXMgOiBjdXJyZW50IHZhbHVlc1xyXG4gICAgdGhpcy51cGRhdGVDdXJyZW50VmFsdWUoW1xyXG4gICAgICB0aGlzLmluaXRWYWx1ZXNbMF0gKyB0aGlzLnNsaWRlck1vZGVsWzBdLFxyXG4gICAgICB0aGlzLmluaXRWYWx1ZXNbMV0gLSB0aGlzLnNsaWRlck1vZGVsWzJdXHJcbiAgICBdKTtcclxuICAgIC8qU2V0dGluZyBoYW5kbGVyIHBvc2l0aW9uICovXHJcbiAgICBmb3IgKGxldCBpID0gMCwgbGVuID0gdGhpcy5zbGlkZXJNb2RlbC5sZW5ndGggLSAxOyBpIDwgbGVuOyBpKyspIHtcclxuICAgICAgcnVubmluZ1RvdGFsICs9IHRoaXMuc2xpZGVyTW9kZWxbaV07XHJcbiAgICAgIHRoaXMuaGFuZGxlclhbaV0gPSAocnVubmluZ1RvdGFsIC8gdGhpcy50b3RhbERpZmYpICogMTAwO1xyXG4gICAgfVxyXG4gIH1cclxuXHJcbiAgLypNZXRob2QgdG8gc2V0IG1vZGVsIGFycmF5IHZhbHVlcyAtIHdpbGwgdHJ5IHRvIHJlZmluZSB0aGUgdmFsdWVzIHVzaW5nIHN0ZXAgKi9cclxuICBwcml2YXRlIHNldE1vZGVsVmFsdWUoaW5kZXg6IG51bWJlciwgdmFsdWU6IG51bWJlcikge1xyXG4gICAgaWYgKHRoaXMuc3RlcCA+IDEpIHtcclxuICAgICAgdmFsdWUgPSBNYXRoLnJvdW5kKHZhbHVlIC8gdGhpcy5zdGVwKSAqIHRoaXMuc3RlcDtcclxuICAgIH1cclxuICAgIHRoaXMuc2xpZGVyTW9kZWxbaW5kZXhdID0gdmFsdWU7XHJcbiAgfVxyXG5cclxuICAvKk1ldGhvZCB0byBkaXNhYmxlIGhhbmRsZXIgbW92ZW1lbnQqL1xyXG4gIC8qRXhlY3V0ZSBvbiBldmVudHM6XHJcbiAgKiBvbi1tb3VzZXVwXHJcbiAgKiBvbi1wYW5lbmRcclxuICAqL1xyXG4gIEBIb3N0TGlzdGVuZXIoJ2RvY3VtZW50Om1vdXNldXAnKVxyXG4gIEBIb3N0TGlzdGVuZXIoJ2RvY3VtZW50OnBhbmVuZCcpXHJcbiAgc2V0SGFuZGxlckFjdGl2ZU9mZigpIHtcclxuICAgIHRoaXMuaXNNb3VzZUV2ZW50U3RhcnQgPSBmYWxzZTtcclxuICAgIHRoaXMuaXNUb3VjaEV2ZW50U3RhcnQgPSBmYWxzZTtcclxuICAgIHRoaXMuaXNIYW5kbGVyQWN0aXZlID0gZmFsc2U7XHJcbiAgfVxyXG5cclxuICAvKk1ldGhvZCB0byBkZXRlY3Qgc3RhcnQgZHJhZ2luZyBoYW5kbGVyKi9cclxuICAvKkV4ZWN1dGUgb24gZXZlbnRzOlxyXG4gICogb24tbW91c2Vkb3duXHJcbiAgKiBvbi1wYW5zdGFydFxyXG4gICovXHJcbiAgcHVibGljIHNldEhhbmRsZXJBY3RpdmUoZXZlbnQ6IGFueSwgaGFuZGxlckluZGV4OiBudW1iZXIpIHtcclxuICAgIGV2ZW50LnByZXZlbnREZWZhdWx0KCk7XHJcbiAgICBpZiAoIXRoaXMuaXNEaXNhYmxlZCkge1xyXG5cclxuICAgICAgaWYgKCF0aGlzLmlzTnVsbE9yRW1wdHkoZXZlbnQuY2xpZW50WCkpIHtcclxuICAgICAgICB0aGlzLnN0YXJ0Q2xpZW50WCA9IGV2ZW50LmNsaWVudFg7XHJcbiAgICAgICAgdGhpcy5pc01vdXNlRXZlbnRTdGFydCA9IHRydWU7XHJcbiAgICAgICAgdGhpcy5pc1RvdWNoRXZlbnRTdGFydCA9IGZhbHNlO1xyXG4gICAgICB9IGVsc2UgaWYgKCF0aGlzLmlzTnVsbE9yRW1wdHkoZXZlbnQuZGVsdGFYKSkge1xyXG4gICAgICAgIHRoaXMuc3RhcnRDbGllbnRYID0gZXZlbnQuZGVsdGFYO1xyXG4gICAgICAgIHRoaXMuaXNUb3VjaEV2ZW50U3RhcnQgPSB0cnVlO1xyXG4gICAgICAgIHRoaXMuaXNNb3VzZUV2ZW50U3RhcnQgPSBmYWxzZTtcclxuICAgICAgfVxyXG4gICAgICBpZiAodGhpcy5pc01vdXNlRXZlbnRTdGFydCB8fCB0aGlzLmlzVG91Y2hFdmVudFN0YXJ0KSB7XHJcbiAgICAgICAgdGhpcy5jdXJyZW50SGFuZGxlckluZGV4ID0gaGFuZGxlckluZGV4O1xyXG4gICAgICAgIHRoaXMuc3RhcnRQbGVmdCA9IHRoaXMuc2xpZGVyTW9kZWxbaGFuZGxlckluZGV4XTtcclxuICAgICAgICB0aGlzLnN0YXJ0UFJpZ2h0ID0gdGhpcy5zbGlkZXJNb2RlbFtoYW5kbGVySW5kZXggKyAxXTtcclxuICAgICAgICB0aGlzLmlzSGFuZGxlckFjdGl2ZSA9IHRydWU7XHJcbiAgICAgIH1cclxuICAgIH1cclxuICB9XHJcblxyXG5cclxuICAvKk1ldGhvZCB0byBjYWxjdWxhdGUgc2lsZGVyIGhhbmRsZXIgbW92ZW1lbnQgKi9cclxuICAvKkV4ZWN1dGUgb24gZXZlbnRzOlxyXG4gICogb24tbW91c2Vtb3ZlXHJcbiAgKiBvbi1wYW5tb3ZlXHJcbiAgKi9cclxuICBwdWJsaWMgaGFuZGxlclNsaWRpbmcoZXZlbnQ6IGFueSkge1xyXG4gICAgaWYgKCh0aGlzLmlzTW91c2VFdmVudFN0YXJ0ICYmIGV2ZW50LmNsaWVudFgpIHx8ICh0aGlzLmlzVG91Y2hFdmVudFN0YXJ0ICYmIGV2ZW50LmRlbHRhWCkpIHtcclxuICAgICAgY29uc3QgbW92ZWRYID0gTWF0aC5yb3VuZCgoKGV2ZW50LmNsaWVudFggfHwgZXZlbnQuZGVsdGFYKSAtIHRoaXMuc3RhcnRDbGllbnRYKSAvIHRoaXMuc2xpZGVyV2lkdGggKiB0aGlzLnRvdGFsRGlmZik7XHJcbiAgICAgIGNvbnN0IG5leHRQTGVmdCA9IHRoaXMuc3RhcnRQbGVmdCArIG1vdmVkWDtcclxuICAgICAgY29uc3QgbmV4dFBSaWdodCA9IHRoaXMuc3RhcnRQUmlnaHQgLSBtb3ZlZFg7XHJcbiAgICAgIGlmIChuZXh0UExlZnQgPj0gMCAmJiBuZXh0UFJpZ2h0ID49IDApIHtcclxuICAgICAgICB0aGlzLnNldE1vZGVsVmFsdWUodGhpcy5jdXJyZW50SGFuZGxlckluZGV4LCBuZXh0UExlZnQpO1xyXG4gICAgICAgIHRoaXMuc2V0TW9kZWxWYWx1ZSh0aGlzLmN1cnJlbnRIYW5kbGVySW5kZXggKyAxLCBuZXh0UFJpZ2h0KTtcclxuICAgICAgICB0aGlzLnNldEhhbmRsZXJQb3NpdGlvbigpO1xyXG4gICAgICB9XHJcbiAgICB9XHJcbiAgfVxyXG59XHJcbiIsImltcG9ydCB7IE5nTW9kdWxlIH0gZnJvbSAnQGFuZ3VsYXIvY29yZSc7XHJcbmltcG9ydCB7IENvbW1vbk1vZHVsZSB9IGZyb20gJ0Bhbmd1bGFyL2NvbW1vbic7XHJcbmltcG9ydCB7IE5wblNsaWRlckNvbXBvbmVudCB9IGZyb20gJy4vbnBuLXNsaWRlci5jb21wb25lbnQnO1xyXG5cclxuQE5nTW9kdWxlKHtcclxuICBpbXBvcnRzOiBbXHJcbiAgICBDb21tb25Nb2R1bGVcclxuICBdLFxyXG4gIGRlY2xhcmF0aW9uczogW05wblNsaWRlckNvbXBvbmVudF0sXHJcbiAgZXhwb3J0czogW05wblNsaWRlckNvbXBvbmVudF1cclxufSlcclxuZXhwb3J0IGNsYXNzIE5wblNsaWRlck1vZHVsZSB7IH1cclxuIl0sIm5hbWVzIjpbInRzbGliXzEuX19leHRlbmRzIl0sIm1hcHBpbmdzIjoiOzs7Ozs7OztBQUdBLElBQUE7Ozs7Ozs7SUFFUyxpQ0FBYTs7OztjQUFDLEdBQWE7UUFDaEMsT0FBTyxDQUFDLEdBQUcsSUFBSSxHQUFHLENBQUMsTUFBTSxJQUFJLEdBQUcsQ0FBQyxNQUFNLENBQUMsVUFBQyxLQUFLLElBQUssT0FBQSxDQUFDLEtBQUssQ0FBQyxLQUFLLENBQUMsR0FBQSxDQUFDLENBQUMsTUFBTSxLQUFLLEdBQUcsQ0FBQyxNQUFNLElBQUksSUFBSSxHQUFHLEtBQUssQ0FBQzs7Ozs7O0lBRW5HLGlDQUFhOzs7O2NBQUMsR0FBUTtRQUMzQixPQUFPLEdBQUcsS0FBSyxTQUFTLElBQUksR0FBRyxLQUFLLElBQUksSUFBSSxHQUFHLEtBQUssRUFBRSxDQUFDOzs7Ozs7O0lBRWxELDZCQUFTOzs7OztjQUFDLEdBQVE7UUFBRSx1QkFBZ0I7YUFBaEIsVUFBZ0IsRUFBaEIscUJBQWdCLEVBQWhCLElBQWdCO1lBQWhCLHNDQUFnQjs7UUFDekMsT0FBTyxDQUFDLEdBQUcsS0FBSyxFQUFFLElBQUksR0FBRyxLQUFLLE1BQU0sSUFBSSxhQUFhLENBQUMsT0FBTyxDQUFDLEdBQUcsQ0FBQyxLQUFLLENBQUMsQ0FBQyxJQUFJLElBQUksR0FBRyxLQUFLLENBQUM7Ozs7Ozs7SUFFckYsMENBQXNCOzs7OztjQUFDLENBQVMsRUFBRSxJQUFZO1FBQ25ELHFCQUFNLFlBQVksR0FBYSxFQUFFLENBQUM7UUFDbEMscUJBQU0sWUFBWSxHQUFhLEVBQUUsQ0FBQztRQUNsQyxxQkFBTSxPQUFPLEdBQUcsSUFBSSxDQUFDLElBQUksQ0FBQyxDQUFDLENBQUMsQ0FBQztRQUM3QixxQkFBSSxPQUFPLEdBQUcsQ0FBQyxDQUFDLENBQUM7UUFDakIsS0FBSyxxQkFBSSxDQUFDLEdBQUcsQ0FBQyxFQUFFLENBQUMsR0FBRyxPQUFPLEVBQUUsQ0FBQyxFQUFFLEVBQUU7WUFDaEMsSUFBSSxDQUFDLEdBQUcsQ0FBQyxLQUFLLENBQUMsRUFBRTtnQkFDZixJQUFJLENBQUMsQ0FBQyxHQUFHLENBQUMsTUFBTSxDQUFDLEVBQUU7b0JBQ2pCLFlBQVksQ0FBQyxJQUFJLENBQUMsQ0FBQyxDQUFDLENBQUM7aUJBQ3RCO3FCQUFNO29CQUNMLFlBQVksQ0FBQyxJQUFJLENBQUMsQ0FBQyxDQUFDLENBQUM7b0JBQ3JCLFlBQVksQ0FBQyxJQUFJLENBQUMsQ0FBQyxHQUFHLENBQUMsQ0FBQyxDQUFDO2lCQUMxQjthQUNGO1NBQ0Y7O1FBRUQsS0FBSyxxQkFBSSxDQUFDLEdBQUcsQ0FBQyxFQUFFLENBQUMsR0FBRyxZQUFZLENBQUMsTUFBTSxFQUFFLENBQUMsRUFBRSxFQUFFO1lBQzVDLElBQUksSUFBSSxHQUFHLFlBQVksQ0FBQyxDQUFDLENBQUMsRUFBRTtnQkFDMUIsT0FBTyxHQUFHLFlBQVksQ0FBQyxDQUFDLENBQUMsQ0FBQztnQkFDMUIsTUFBTTthQUNQO1NBQ0Y7UUFDRCxJQUFJLE9BQU8sS0FBSyxDQUFDLENBQUMsRUFBRTs7WUFDbEIsS0FBSyxxQkFBSSxDQUFDLEdBQUcsWUFBWSxDQUFDLE1BQU0sR0FBRyxDQUFDLEVBQUUsQ0FBQyxJQUFJLENBQUMsRUFBRSxDQUFDLEVBQUUsRUFBRTtnQkFDakQsSUFBSSxJQUFJLEdBQUcsWUFBWSxDQUFDLENBQUMsQ0FBQyxFQUFFO29CQUMxQixPQUFPLEdBQUcsWUFBWSxDQUFDLENBQUMsQ0FBQyxDQUFDO29CQUMxQixNQUFNO2lCQUNQO2FBQ0Y7U0FDRjtRQUNELE9BQU8sQ0FBQyxPQUFPLEtBQUssQ0FBQyxDQUFDLElBQUksQ0FBQyxHQUFHLE9BQU8sQ0FBQzs7b0JBNUMxQztJQThDQzs7Ozs7Ozs7Ozs7Ozs7Ozs7OztJQ0x1Q0Esc0NBQVM7SUE0Qi9DLDRCQUFvQixFQUFjO1FBQWxDLFlBQ0UsaUJBQU8sU0FDUjtRQUZtQixRQUFFLEdBQUYsRUFBRSxDQUFZOzRCQTNCWixDQUFDLENBQUMsRUFBRSxDQUFDLEVBQUUsQ0FBQyxDQUFDO3FCQUNoQixDQUFDOzRCQUNNLENBQUM7MEJBQ0gsQ0FBQzs2QkFDRSxDQUFDOzJCQUNILENBQUM7NEJBQ0EsQ0FBQztnQ0FLRyxLQUFLOzJCQUVELEVBQUU7OEJBQ0MsQ0FBQyxDQUFDLEVBQUUsQ0FBQyxDQUFDO3lCQUNYLENBQUMsQ0FBQyxFQUFFLENBQUMsQ0FBQztnQ0FDVCxLQUFLO2tDQUNILEtBQUs7a0NBQ0wsS0FBSztvQ0FDSCxDQUFDO3VDQUNFLEVBQUU7MkJBQ2QsS0FBSzs0QkFDSixLQUFLOzJCQUNOLEtBQUs7NkJBRUgsaUJBQWlCO2tDQXdDVixLQUFLOzJCQUNaLElBQUk7eUJBZUwsSUFBSSxZQUFZLEVBQVk7O0tBcERoRDtJQUVELHNCQUNJLDRDQUFZOzs7OztRQURoQixVQUNpQixLQUFhO1lBQzVCLElBQUksQ0FBQyxLQUFLLENBQUMsS0FBSyxDQUFDLEVBQUU7Z0JBQ2pCLElBQUksQ0FBQyxRQUFRLEdBQUcsTUFBTSxDQUFDLEtBQUssQ0FBQyxDQUFDO2FBQy9CO1NBQ0Y7OztPQUFBO0lBRUQsc0JBQ0ksNENBQVk7Ozs7O1FBRGhCLFVBQ2lCLEtBQWE7WUFDNUIsSUFBSSxDQUFDLEtBQUssQ0FBQyxLQUFLLENBQUMsRUFBRTtnQkFDakIsSUFBSSxDQUFDLFFBQVEsR0FBRyxNQUFNLENBQUMsS0FBSyxDQUFDLENBQUM7YUFDL0I7U0FDRjs7O09BQUE7SUFFRCxzQkFDSSxvREFBb0I7Ozs7O1FBRHhCLFVBQ3lCLEtBQWE7WUFDcEMsSUFBSSxDQUFDLEtBQUssQ0FBQyxLQUFLLENBQUMsSUFBSSxJQUFJLENBQUMsV0FBVyxLQUFLLE1BQU0sQ0FBQyxLQUFLLENBQUMsRUFBRTtnQkFDdkQsSUFBSSxDQUFDLFdBQVcsR0FBRyxNQUFNLENBQUMsS0FBSyxDQUFDLENBQUM7YUFDbEM7U0FDRjs7O09BQUE7SUFFRCxzQkFDSSxvREFBb0I7Ozs7O1FBRHhCLFVBQ3lCLEtBQWE7WUFDcEMsSUFBSSxDQUFDLEtBQUssQ0FBQyxLQUFLLENBQUMsSUFBSSxJQUFJLENBQUMsV0FBVyxLQUFLLE1BQU0sQ0FBQyxLQUFLLENBQUMsRUFBRTtnQkFDdkQsSUFBSSxDQUFDLFdBQVcsR0FBRyxNQUFNLENBQUMsS0FBSyxDQUFDLENBQUM7YUFDbEM7U0FDRjs7O09BQUE7SUFDRCxzQkFDSSx5Q0FBUzs7Ozs7UUFEYixVQUNjLEtBQWE7WUFDekIsSUFBSSxDQUFDLEtBQUssQ0FBQyxLQUFLLENBQUMsRUFBRTtnQkFDakIsSUFBSSxDQUFDLElBQUksR0FBRyxNQUFNLENBQUMsS0FBSyxDQUFDLENBQUM7YUFDM0I7U0FDRjs7O09BQUE7SUFJRCxzQkFDSSw4Q0FBYzs7Ozs7UUFEbEIsVUFDbUIsS0FBYztZQUMvQixJQUFJLENBQUMsV0FBVyxHQUFHLElBQUksQ0FBQyxTQUFTLENBQUMsS0FBSyxDQUFDLENBQUM7U0FDMUM7OztPQUFBO0lBQ0Qsc0JBQ0ksNkNBQWE7Ozs7O1FBRGpCLFVBQ2tCLEtBQWM7WUFDOUIsSUFBSSxDQUFDLFVBQVUsR0FBRyxJQUFJLENBQUMsU0FBUyxDQUFDLEtBQUssQ0FBQyxDQUFDO1NBQ3pDOzs7T0FBQTtJQUVELHNCQUNJLDJDQUFXOzs7OztRQURmLFVBQ2dCLEtBQWE7WUFDM0IsSUFBSSxDQUFDLFVBQVUsR0FBRyxJQUFJLENBQUMsU0FBUyxDQUFDLEtBQUssRUFBRSxVQUFVLENBQUMsQ0FBQztTQUNyRDs7O09BQUE7Ozs7SUFJRCxxQ0FBUTs7O0lBQVI7UUFDRSxJQUFJLENBQUMsZ0JBQWdCLEVBQUUsQ0FBQztLQUN6Qjs7Ozs7SUFFRCx3Q0FBVzs7OztJQUFYLFVBQVksT0FBc0I7UUFDaEMsSUFBSSxJQUFJLENBQUMsZUFBZSxFQUFFO1lBQ3hCLElBQUksQ0FBQyxJQUFJLENBQUMsYUFBYSxDQUFDLE9BQU8seUJBQXNCO21CQUNoRCxPQUFPLHlCQUFzQixhQUFhLEtBQUssT0FBTyx5QkFBc0IsWUFBWSxFQUFFO2dCQUM3RixPQUFPO2FBQ1I7WUFDRCxJQUFJLENBQUMsSUFBSSxDQUFDLGFBQWEsQ0FBQyxPQUFPLHlCQUFzQjttQkFDaEQsT0FBTyx5QkFBc0IsYUFBYSxLQUFLLE9BQU8seUJBQXNCLFlBQVksRUFBRTtnQkFDN0YsT0FBTzthQUNSO1lBQ0QsSUFBSSxDQUFDLFVBQVUsRUFBRSxDQUFDO1NBQ25CO0tBQ0Y7Ozs7SUFHTSw2Q0FBZ0I7Ozs7UUFDckIsSUFBSTs7WUFFRixJQUFJLENBQUMsV0FBVyxHQUFHLElBQUksQ0FBQyxFQUFFLENBQUMsYUFBYSxDQUFDLFFBQVEsQ0FBQyxDQUFDLENBQUMsQ0FBQyxRQUFRLENBQUMsQ0FBQyxDQUFDLENBQUMsV0FBVyxDQUFDO1lBQzdFLElBQUksQ0FBQyxVQUFVLEVBQUUsQ0FBQztZQUNsQixJQUFJLENBQUMsZUFBZSxHQUFHLElBQUksQ0FBQztTQUM3QjtRQUFDLHdCQUFPLENBQUMsRUFBRTtZQUNWLE9BQU8sQ0FBQyxLQUFLLENBQUMsQ0FBQyxDQUFDLENBQUM7U0FDbEI7Ozs7O0lBSUssdUNBQVU7Ozs7UUFDaEIsSUFBSSxDQUFDLG9CQUFvQixFQUFFLENBQUM7O1FBRTVCLElBQUksQ0FBQyxXQUFXLEdBQUc7WUFDakIsSUFBSSxDQUFDLGFBQWEsQ0FBQyxDQUFDLENBQUMsR0FBRyxJQUFJLENBQUMsVUFBVSxDQUFDLENBQUMsQ0FBQztZQUMxQyxJQUFJLENBQUMsYUFBYSxDQUFDLENBQUMsQ0FBQyxHQUFHLElBQUksQ0FBQyxhQUFhLENBQUMsQ0FBQyxDQUFDO1lBQzdDLElBQUksQ0FBQyxVQUFVLENBQUMsQ0FBQyxDQUFDLEdBQUcsSUFBSSxDQUFDLGFBQWEsQ0FBQyxDQUFDLENBQUM7U0FDM0MsQ0FBQztRQUVGLElBQUksQ0FBQyxTQUFTLEdBQUcsSUFBSSxDQUFDLFdBQVcsQ0FBQyxNQUFNLENBQUMsVUFBQyxTQUFTLEVBQUUsUUFBUSxJQUFLLE9BQUEsU0FBUyxHQUFHLFFBQVEsR0FBQSxFQUFFLENBQUMsQ0FBQyxDQUFDOztRQUczRixJQUFJLElBQUksQ0FBQyxTQUFTLEdBQUcsSUFBSSxDQUFDLElBQUksS0FBSyxDQUFDLEVBQUU7WUFDcEMscUJBQU0sT0FBTyxHQUFHLElBQUksQ0FBQyxzQkFBc0IsQ0FBQyxJQUFJLENBQUMsU0FBUyxFQUFFLElBQUksQ0FBQyxJQUFJLENBQUMsQ0FBQztZQUN2RSxPQUFPLENBQUMsSUFBSSxDQUFDLHNCQUFzQixHQUFHLElBQUksQ0FBQyxJQUFJLEdBQUcsZ0JBQWdCLEdBQUcsT0FBTyxHQUFHLG1CQUFtQixDQUFDLENBQUM7WUFDcEcsSUFBSSxDQUFDLElBQUksR0FBRyxPQUFPLENBQUM7U0FDckI7UUFDRCxJQUFJLENBQUMsdUJBQXVCLEVBQUUsQ0FBQztRQUMvQixJQUFJLENBQUMsa0JBQWtCLEVBQUUsQ0FBQzs7Ozs7SUFJcEIsaURBQW9COzs7O1FBQzFCLElBQUksSUFBSSxDQUFDLGFBQWEsQ0FBQyxJQUFJLENBQUMsUUFBUSxDQUFDLElBQUksSUFBSSxDQUFDLGFBQWEsQ0FBQyxJQUFJLENBQUMsUUFBUSxDQUFDLEVBQUU7WUFDMUUsSUFBSSxDQUFDLGdCQUFnQixDQUFDLENBQUMsQ0FBQyxFQUFFLENBQUMsQ0FBQyxDQUFDLENBQUM7WUFDOUIsSUFBSSxDQUFDLGtCQUFrQixDQUFDLENBQUMsQ0FBQyxFQUFFLENBQUMsQ0FBQyxFQUFFLElBQUksQ0FBQyxDQUFDO1NBQ3ZDO2FBQU0sSUFBSSxJQUFJLENBQUMsUUFBUSxHQUFHLElBQUksQ0FBQyxRQUFRLEVBQUU7WUFDeEMsSUFBSSxDQUFDLGdCQUFnQixDQUFDLENBQUMsQ0FBQyxFQUFFLENBQUMsQ0FBQyxDQUFDLENBQUM7WUFDOUIsSUFBSSxDQUFDLGtCQUFrQixDQUFDLENBQUMsQ0FBQyxFQUFFLENBQUMsQ0FBQyxFQUFFLElBQUksQ0FBQyxDQUFDO1NBQ3ZDO2FBQU07WUFDTCxJQUFJLENBQUMsVUFBVSxHQUFHLENBQUMsSUFBSSxDQUFDLFFBQVEsRUFBRSxJQUFJLENBQUMsUUFBUSxDQUFDLENBQUM7Ozs7WUFJakQsSUFBSSxDQUFDLFdBQVcsR0FBRyxJQUFJLENBQUMsYUFBYSxDQUFDLElBQUksQ0FBQyxXQUFXLENBQUMsR0FBRyxDQUFDLEdBQUcsSUFBSSxDQUFDLFdBQVcsQ0FBQztZQUMvRSxJQUFJLENBQUMsV0FBVyxHQUFHLElBQUksQ0FBQyxhQUFhLENBQUMsSUFBSSxDQUFDLFdBQVcsQ0FBQyxHQUFHLENBQUMsR0FBRyxJQUFJLENBQUMsV0FBVyxDQUFDO1lBRS9FLElBQUksSUFBSSxDQUFDLFdBQVcsR0FBRyxJQUFJLENBQUMsUUFBUSxJQUFJLElBQUksQ0FBQyxXQUFXLEdBQUcsSUFBSSxDQUFDLFFBQVEsRUFBRTtnQkFDeEUsSUFBSSxDQUFDLFdBQVcsR0FBRyxJQUFJLENBQUMsUUFBUSxDQUFDO2FBQ2xDO1lBQ0QsSUFBSSxJQUFJLENBQUMsV0FBVyxHQUFHLElBQUksQ0FBQyxRQUFRLElBQUksSUFBSSxDQUFDLFdBQVcsR0FBRyxJQUFJLENBQUMsUUFBUSxFQUFFO2dCQUN4RSxJQUFJLENBQUMsV0FBVyxHQUFHLElBQUksQ0FBQyxRQUFRLENBQUM7YUFDbEM7WUFDRCxJQUFJLElBQUksQ0FBQyxXQUFXLEdBQUcsSUFBSSxDQUFDLFdBQVcsRUFBRTtnQkFDdkMsSUFBSSxDQUFDLFdBQVcsR0FBRyxJQUFJLENBQUMsUUFBUSxDQUFDO2dCQUNqQyxJQUFJLENBQUMsV0FBVyxHQUFHLElBQUksQ0FBQyxRQUFRLENBQUM7YUFDbEM7WUFDRCxJQUFJLENBQUMsa0JBQWtCLENBQUMsQ0FBQyxJQUFJLENBQUMsV0FBVyxFQUFFLElBQUksQ0FBQyxXQUFXLENBQUMsRUFBRSxJQUFJLENBQUMsQ0FBQztTQUNyRTs7Ozs7SUFJSyxvREFBdUI7Ozs7UUFDN0IsSUFBSSxJQUFJLENBQUMsaUJBQWlCLEVBQUU7WUFDMUIsSUFBSSxDQUFDLHNCQUFzQixDQUFDLE1BQU0sR0FBRyxDQUFDLENBQUM7WUFDdkMscUJBQU0sbUJBQW1CLEdBQUcsSUFBSSxDQUFDLFNBQVMsR0FBRyxJQUFJLENBQUMsSUFBSSxDQUFDO1lBQ3ZELElBQUksSUFBSSxDQUFDLFdBQVcsR0FBRyxtQkFBbUIsSUFBSSxFQUFFLEVBQUU7Z0JBQ2hELHFCQUFNLFNBQVMsR0FBRyxJQUFJLENBQUMsV0FBVyxHQUFHLG1CQUFtQixDQUFDO2dCQUN6RCxxQkFBSSxZQUFZLEdBQUcsU0FBUyxDQUFDO2dCQUM3QixPQUFPLElBQUksQ0FBQyxzQkFBc0IsQ0FBQyxNQUFNLEdBQUcsbUJBQW1CLEdBQUcsQ0FBQyxFQUFFO29CQUNuRSxJQUFJLENBQUMsc0JBQXNCLENBQUMsSUFBSSxDQUFDLENBQUMsWUFBWSxDQUFDLE9BQU8sQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDO29CQUMzRCxZQUFZLElBQUksU0FBUyxDQUFDO2lCQUMzQjthQUNGO2lCQUFNO2dCQUNMLE9BQU8sQ0FBQyxJQUFJLENBQUMsNEtBQytELENBQUMsQ0FBQzthQUMvRTtTQUNGO2FBQU07WUFDTCxJQUFJLENBQUMsc0JBQXNCLENBQUMsTUFBTSxHQUFHLENBQUMsQ0FBQztTQUN4Qzs7Ozs7OztJQUlLLCtDQUFrQjs7Ozs7Y0FBQyxVQUFvQixFQUFFLGFBQThCO1FBQTlCLDhCQUFBLEVBQUEscUJBQThCO1FBQzdFLElBQUksQ0FBQyxXQUFXLEdBQUcsSUFBSSxDQUFDLGFBQWEsQ0FBQyxDQUFDLENBQUMsR0FBRyxVQUFVLENBQUMsQ0FBQyxDQUFDLENBQUM7UUFDekQsSUFBSSxDQUFDLFdBQVcsR0FBRyxJQUFJLENBQUMsYUFBYSxDQUFDLENBQUMsQ0FBQyxHQUFHLFVBQVUsQ0FBQyxDQUFDLENBQUMsQ0FBQztRQUN6RCxJQUFJLENBQUMsYUFBYSxFQUFFO1lBQ2xCLElBQUksQ0FBQyxRQUFRLENBQUMsSUFBSSxDQUFDLENBQUMsSUFBSSxDQUFDLFVBQVUsSUFBSSxJQUFJLENBQUMsYUFBYSxHQUFHLENBQUMsSUFBSSxDQUFDLGFBQWEsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUM7U0FDdEY7Ozs7OztJQUlLLDZDQUFnQjs7OztjQUFDLFVBQW9CO1FBQzNDLElBQUksQ0FBQyxRQUFRLEdBQUcsSUFBSSxDQUFDLFVBQVUsQ0FBQyxDQUFDLENBQUMsR0FBRyxVQUFVLENBQUMsQ0FBQyxDQUFDLENBQUM7UUFDbkQsSUFBSSxDQUFDLFFBQVEsR0FBRyxJQUFJLENBQUMsVUFBVSxDQUFDLENBQUMsQ0FBQyxHQUFHLFVBQVUsQ0FBQyxDQUFDLENBQUMsQ0FBQzs7Ozs7SUFJN0MsK0NBQWtCOzs7O1FBQ3hCLHFCQUFJLFlBQVksR0FBRyxDQUFDLENBQUM7O1FBRXJCLElBQUksQ0FBQyxrQkFBa0IsQ0FBQztZQUN0QixJQUFJLENBQUMsVUFBVSxDQUFDLENBQUMsQ0FBQyxHQUFHLElBQUksQ0FBQyxXQUFXLENBQUMsQ0FBQyxDQUFDO1lBQ3hDLElBQUksQ0FBQyxVQUFVLENBQUMsQ0FBQyxDQUFDLEdBQUcsSUFBSSxDQUFDLFdBQVcsQ0FBQyxDQUFDLENBQUM7U0FDekMsQ0FBQyxDQUFDOztRQUVILEtBQUsscUJBQUksQ0FBQyxHQUFHLENBQUMsbUJBQUUsR0FBRyxHQUFHLElBQUksQ0FBQyxXQUFXLENBQUMsTUFBTSxHQUFHLENBQUMsRUFBRSxDQUFDLEdBQUcsR0FBRyxFQUFFLENBQUMsRUFBRSxFQUFFO1lBQy9ELFlBQVksSUFBSSxJQUFJLENBQUMsV0FBVyxDQUFDLENBQUMsQ0FBQyxDQUFDO1lBQ3BDLElBQUksQ0FBQyxRQUFRLENBQUMsQ0FBQyxDQUFDLEdBQUcsQ0FBQyxZQUFZLEdBQUcsSUFBSSxDQUFDLFNBQVMsSUFBSSxHQUFHLENBQUM7U0FDMUQ7Ozs7Ozs7SUFJSywwQ0FBYTs7Ozs7Y0FBQyxLQUFhLEVBQUUsS0FBYTtRQUNoRCxJQUFJLElBQUksQ0FBQyxJQUFJLEdBQUcsQ0FBQyxFQUFFO1lBQ2pCLEtBQUssR0FBRyxJQUFJLENBQUMsS0FBSyxDQUFDLEtBQUssR0FBRyxJQUFJLENBQUMsSUFBSSxDQUFDLEdBQUcsSUFBSSxDQUFDLElBQUksQ0FBQztTQUNuRDtRQUNELElBQUksQ0FBQyxXQUFXLENBQUMsS0FBSyxDQUFDLEdBQUcsS0FBSyxDQUFDOzs7Ozs7Ozs7O0lBVWxDLGdEQUFtQjs7O0lBRm5CO1FBR0UsSUFBSSxDQUFDLGlCQUFpQixHQUFHLEtBQUssQ0FBQztRQUMvQixJQUFJLENBQUMsaUJBQWlCLEdBQUcsS0FBSyxDQUFDO1FBQy9CLElBQUksQ0FBQyxlQUFlLEdBQUcsS0FBSyxDQUFDO0tBQzlCOzs7Ozs7SUFPTSw2Q0FBZ0I7Ozs7O2NBQUMsS0FBVSxFQUFFLFlBQW9CO1FBQ3RELEtBQUssQ0FBQyxjQUFjLEVBQUUsQ0FBQztRQUN2QixJQUFJLENBQUMsSUFBSSxDQUFDLFVBQVUsRUFBRTtZQUVwQixJQUFJLENBQUMsSUFBSSxDQUFDLGFBQWEsQ0FBQyxLQUFLLENBQUMsT0FBTyxDQUFDLEVBQUU7Z0JBQ3RDLElBQUksQ0FBQyxZQUFZLEdBQUcsS0FBSyxDQUFDLE9BQU8sQ0FBQztnQkFDbEMsSUFBSSxDQUFDLGlCQUFpQixHQUFHLElBQUksQ0FBQztnQkFDOUIsSUFBSSxDQUFDLGlCQUFpQixHQUFHLEtBQUssQ0FBQzthQUNoQztpQkFBTSxJQUFJLENBQUMsSUFBSSxDQUFDLGFBQWEsQ0FBQyxLQUFLLENBQUMsTUFBTSxDQUFDLEVBQUU7Z0JBQzVDLElBQUksQ0FBQyxZQUFZLEdBQUcsS0FBSyxDQUFDLE1BQU0sQ0FBQztnQkFDakMsSUFBSSxDQUFDLGlCQUFpQixHQUFHLElBQUksQ0FBQztnQkFDOUIsSUFBSSxDQUFDLGlCQUFpQixHQUFHLEtBQUssQ0FBQzthQUNoQztZQUNELElBQUksSUFBSSxDQUFDLGlCQUFpQixJQUFJLElBQUksQ0FBQyxpQkFBaUIsRUFBRTtnQkFDcEQsSUFBSSxDQUFDLG1CQUFtQixHQUFHLFlBQVksQ0FBQztnQkFDeEMsSUFBSSxDQUFDLFVBQVUsR0FBRyxJQUFJLENBQUMsV0FBVyxDQUFDLFlBQVksQ0FBQyxDQUFDO2dCQUNqRCxJQUFJLENBQUMsV0FBVyxHQUFHLElBQUksQ0FBQyxXQUFXLENBQUMsWUFBWSxHQUFHLENBQUMsQ0FBQyxDQUFDO2dCQUN0RCxJQUFJLENBQUMsZUFBZSxHQUFHLElBQUksQ0FBQzthQUM3QjtTQUNGOzs7Ozs7SUFTSSwyQ0FBYzs7OztjQUFDLEtBQVU7UUFDOUIsSUFBSSxDQUFDLElBQUksQ0FBQyxpQkFBaUIsSUFBSSxLQUFLLENBQUMsT0FBTyxNQUFNLElBQUksQ0FBQyxpQkFBaUIsSUFBSSxLQUFLLENBQUMsTUFBTSxDQUFDLEVBQUU7WUFDekYscUJBQU0sTUFBTSxHQUFHLElBQUksQ0FBQyxLQUFLLENBQUMsQ0FBQyxDQUFDLEtBQUssQ0FBQyxPQUFPLElBQUksS0FBSyxDQUFDLE1BQU0sSUFBSSxJQUFJLENBQUMsWUFBWSxJQUFJLElBQUksQ0FBQyxXQUFXLEdBQUcsSUFBSSxDQUFDLFNBQVMsQ0FBQyxDQUFDO1lBQ3JILHFCQUFNLFNBQVMsR0FBRyxJQUFJLENBQUMsVUFBVSxHQUFHLE1BQU0sQ0FBQztZQUMzQyxxQkFBTSxVQUFVLEdBQUcsSUFBSSxDQUFDLFdBQVcsR0FBRyxNQUFNLENBQUM7WUFDN0MsSUFBSSxTQUFTLElBQUksQ0FBQyxJQUFJLFVBQVUsSUFBSSxDQUFDLEVBQUU7Z0JBQ3JDLElBQUksQ0FBQyxhQUFhLENBQUMsSUFBSSxDQUFDLG1CQUFtQixFQUFFLFNBQVMsQ0FBQyxDQUFDO2dCQUN4RCxJQUFJLENBQUMsYUFBYSxDQUFDLElBQUksQ0FBQyxtQkFBbUIsR0FBRyxDQUFDLEVBQUUsVUFBVSxDQUFDLENBQUM7Z0JBQzdELElBQUksQ0FBQyxrQkFBa0IsRUFBRSxDQUFDO2FBQzNCO1NBQ0Y7OztnQkEzVEosU0FBUyxTQUFDO29CQUNULFFBQVEsRUFBRSxZQUFZO29CQUN0QixRQUFRLEVBQUUsZzFEQTZCWDtvQkFDQyxNQUFNLEVBQUUsQ0FBQyxnZ0ZBQTQvRSxDQUFDO2lCQUN2Z0Y7Ozs7Z0JBdENDLFVBQVU7OzsrQkF1RVQsS0FBSyxTQUFDLEtBQUs7K0JBT1gsS0FBSyxTQUFDLEtBQUs7dUNBT1gsS0FBSyxTQUFDLGFBQWE7dUNBT25CLEtBQUssU0FBQyxhQUFhOzRCQU1uQixLQUFLLFNBQUMsTUFBTTtvQ0FPWixLQUFLOzZCQUNMLEtBQUs7aUNBQ0wsS0FBSyxTQUFDLGNBQWM7Z0NBSXBCLEtBQUssU0FBQyxhQUFhOzhCQUtuQixLQUFLLFNBQUMsVUFBVTsyQkFLaEIsTUFBTTtzQ0FvSk4sWUFBWSxTQUFDLGtCQUFrQixjQUMvQixZQUFZLFNBQUMsaUJBQWlCOzs2QkFoUmpDO0VBeUN3QyxTQUFTOzs7Ozs7QUN6Q2pEOzs7O2dCQUlDLFFBQVEsU0FBQztvQkFDUixPQUFPLEVBQUU7d0JBQ1AsWUFBWTtxQkFDYjtvQkFDRCxZQUFZLEVBQUUsQ0FBQyxrQkFBa0IsQ0FBQztvQkFDbEMsT0FBTyxFQUFFLENBQUMsa0JBQWtCLENBQUM7aUJBQzlCOzswQkFWRDs7Ozs7Ozs7Ozs7Ozs7OyJ9
 
 /***/ }),
 
@@ -4926,7 +5483,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _components_meeting_room_reservation_page_meeting_room_reservation_page_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/meeting-room-reservation-page/meeting-room-reservation-page.component */ "./src/app/booking/components/meeting-room-reservation-page/meeting-room-reservation-page.component.ts");
-/* harmony import */ var _booking_master_page_booking_master_page_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../booking-master-page/booking-master-page.component */ "./src/app/booking-master-page/booking-master-page.component.ts");
+/* harmony import */ var _components_booking_master_page_booking_master_page_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/booking-master-page/booking-master-page.component */ "./src/app/booking/components/booking-master-page/booking-master-page.component.ts");
 /* harmony import */ var src_app_services_security_groups_resolver__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/security/groups.resolver */ "./src/app/services/security/groups.resolver.ts");
 /* harmony import */ var _services_companies_company_web_resolver__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../services/companies/company-web.resolver */ "./src/app/services/companies/company-web.resolver.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
@@ -4959,7 +5516,7 @@ var routes = [
     },
     {
         path: ':id/master',
-        component: _booking_master_page_booking_master_page_component__WEBPACK_IMPORTED_MODULE_3__["BookingMasterPageComponent"],
+        component: _components_booking_master_page_booking_master_page_component__WEBPACK_IMPORTED_MODULE_3__["BookingMasterPageComponent"],
         resolve: {
             webId: _services_companies_company_web_resolver__WEBPACK_IMPORTED_MODULE_5__["CompanyWebResolver"],
         },
@@ -4977,7 +5534,7 @@ var BookingRoutingModule = /** @class */ (function () {
     BookingRoutingModule = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
             imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forChild(routes)],
-            providers: [src_app_services_security_groups_resolver__WEBPACK_IMPORTED_MODULE_4__["GroupsResolver"]],
+            providers: [src_app_services_security_groups_resolver__WEBPACK_IMPORTED_MODULE_4__["GroupsResolver"], _services_companies_company_web_resolver__WEBPACK_IMPORTED_MODULE_5__["CompanyWebResolver"]],
             exports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]]
         })
     ], BookingRoutingModule);
@@ -5007,16 +5564,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _components_booking_modal_form_booking_modal_form_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/booking-modal-form/booking-modal-form.component */ "./src/app/booking/components/booking-modal-form/booking-modal-form.component.ts");
 /* harmony import */ var _components_booking_master_modal_form_booking_master_modal_form_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/booking-master-modal-form/booking-master-modal-form.component */ "./src/app/booking/components/booking-master-modal-form/booking-master-modal-form.component.ts");
-/* harmony import */ var _booking_master_page_booking_master_page_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../booking-master-page/booking-master-page.component */ "./src/app/booking-master-page/booking-master-page.component.ts");
-/* harmony import */ var _booking_master_page_booking_master_step_one_booking_master_step_one_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../booking-master-page/booking-master-step-one/booking-master-step-one.component */ "./src/app/booking-master-page/booking-master-step-one/booking-master-step-one.component.ts");
-/* harmony import */ var _booking_master_page_booking_master_step_two_booking_master_step_two_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../booking-master-page/booking-master-step-two/booking-master-step-two.component */ "./src/app/booking-master-page/booking-master-step-two/booking-master-step-two.component.ts");
+/* harmony import */ var _components_booking_master_page_booking_master_page_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/booking-master-page/booking-master-page.component */ "./src/app/booking/components/booking-master-page/booking-master-page.component.ts");
+/* harmony import */ var _components_booking_master_page_booking_master_step_one_booking_master_step_one_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/booking-master-page/booking-master-step-one/booking-master-step-one.component */ "./src/app/booking/components/booking-master-page/booking-master-step-one/booking-master-step-one.component.ts");
+/* harmony import */ var _components_booking_master_page_booking_master_step_two_booking_master_step_two_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/booking-master-page/booking-master-step-two/booking-master-step-two.component */ "./src/app/booking/components/booking-master-page/booking-master-step-two/booking-master-step-two.component.ts");
 /* harmony import */ var ng2_date_picker__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ng2-date-picker */ "./node_modules/ng2-date-picker/fesm5/ng2-date-picker.js");
+/* harmony import */ var npn_slider__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! npn-slider */ "./node_modules/npn-slider/fesm5/npn-slider.js");
+/* harmony import */ var ng_click_outside__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ng-click-outside */ "./node_modules/ng-click-outside/lib/index.js");
+/* harmony import */ var ng_click_outside__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(ng_click_outside__WEBPACK_IMPORTED_MODULE_14__);
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
 
 
 
@@ -5039,9 +5601,9 @@ var BookingModule = /** @class */ (function () {
                 _components_meeting_room_reservation_page_meeting_room_reservation_page_component__WEBPACK_IMPORTED_MODULE_2__["MeetingRoomReservationPageComponent"],
                 _components_booking_modal_form_booking_modal_form_component__WEBPACK_IMPORTED_MODULE_7__["BookingModalFormComponent"],
                 _components_booking_master_modal_form_booking_master_modal_form_component__WEBPACK_IMPORTED_MODULE_8__["BookingMasterModalFormComponent"],
-                _booking_master_page_booking_master_page_component__WEBPACK_IMPORTED_MODULE_9__["BookingMasterPageComponent"],
-                _booking_master_page_booking_master_step_one_booking_master_step_one_component__WEBPACK_IMPORTED_MODULE_10__["BookingMasterStepOneComponent"],
-                _booking_master_page_booking_master_step_two_booking_master_step_two_component__WEBPACK_IMPORTED_MODULE_11__["BookingMasterStepTwoComponent"]
+                _components_booking_master_page_booking_master_page_component__WEBPACK_IMPORTED_MODULE_9__["BookingMasterPageComponent"],
+                _components_booking_master_page_booking_master_step_one_booking_master_step_one_component__WEBPACK_IMPORTED_MODULE_10__["BookingMasterStepOneComponent"],
+                _components_booking_master_page_booking_master_step_two_booking_master_step_two_component__WEBPACK_IMPORTED_MODULE_11__["BookingMasterStepTwoComponent"]
             ],
             imports: [
                 _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
@@ -5049,7 +5611,9 @@ var BookingModule = /** @class */ (function () {
                 _shared_shared_module__WEBPACK_IMPORTED_MODULE_3__["SharedModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_6__["FormsModule"],
                 _angular_router__WEBPACK_IMPORTED_MODULE_5__["RouterModule"],
-                ng2_date_picker__WEBPACK_IMPORTED_MODULE_12__["DpDatePickerModule"]
+                ng2_date_picker__WEBPACK_IMPORTED_MODULE_12__["DpDatePickerModule"],
+                npn_slider__WEBPACK_IMPORTED_MODULE_13__["NpnSliderModule"],
+                ng_click_outside__WEBPACK_IMPORTED_MODULE_14__["ClickOutsideModule"]
             ]
         })
     ], BookingModule);
@@ -5067,7 +5631,7 @@ var BookingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"l-master-modal\">\n  <div class=\"l-master__block\">\n    <div class=\"l-master__header\">\n      <div class=\"stageline\">\n        <div class=\"stage active\">\n          <div class=\"count\">1</div>\n          <div class=\"text\">шаг</div>\n        </div>\n        <div class=\"stage\" [class.active]=\"isSecondStage || isThirdStage\">\n          <div class=\"count\">2</div>\n          <div class=\"text\">шаг</div>\n        </div>\n        <div class=\"stage\" [class.active]=\"isThirdStage\">\n          <div class=\"count\">3</div>\n          <div class=\"text\">шаг</div>\n        </div>\n      </div>\n      <div class=\"header-text\">\n        <div class=\"title\">\n          Мастер бронирования\n        </div>\n        <div class=\"description\">\n          Введите данные для подбора переговорной комнаты\n        </div>\n      </div>\n      <div class=\"close\">\n        <input\n          type=\"button\"\n          class=\"btn-close-gray-bold\"\n          (click)=\"resetMaster()\"\n        />\n      </div>\n    </div>\n    <div class=\"l-master__body\">\n      <div class=\"master-body__content\">\n        <div class=\"first-stage\" *ngIf=\"isFirstStage\">\n          <div class=\"content\">\n            <div class=\"label important\">\n              Кол-во участников\n            </div>\n            <input [(ngModel)]=\"firstStageParameters.count\" type=\"number\" placeholder=\"0\" min=\"0\" max=\"999\" />\n            <div class=\"label important\">\n              Дата\n            </div>\n            <dp-date-picker [(ngModel)]=\"firstStageParameters.date\" [config]=\"datePickerConfig\" placeholder=\"Не выбрано\" theme=\"dp-material\"></dp-date-picker> \n            <div class=\"label important\">\n              Время\n            </div>\n            <input [(ngModel)]=\"firstStageParameters.time\" type=\"text\" placeholder=\"00:00\" />\n            <div class=\"label important\">\n              Продолжительность\n            </div>\n            <select [(ngModel)]=\"duration\" (change)=\"changeDuration($event)\">\n              <option *ngFor=\"let key of objectKeys(durations)\" value=\"{{key}}\">{{durations[key]}}</option>\n            </select>\n            <div class=\"label\">\n              Оборудование\n            </div>\n            <div class=\"equipment\">\n              <input [(ngModel)]=\"firstStageParameters.projector\" type=\"checkbox\" class=\"checkbox\" id=\"projector\" />\n              <span class=\"checkbox-custom\"></span>\n              <label for=\"projector\" class=\"projector\"></label>\n            </div>\n            <div class=\"equipment\">\n              <input [(ngModel)]=\"firstStageParameters.videoStaff\" type=\"checkbox\" class=\"checkbox\" id=\"videostaff\" />\n              <span class=\"checkbox-custom\"></span>\n              <label for=\"videostaff\" class=\"videostaff\"></label>\n            </div>\n          </div>\n\n          <div class=\"l-master-controls\">\n            <div class=\"description\">\n              <div class=\"mark\">*</div>\n              <div class=\"text\">– Обязательные поля</div>\n            </div>\n            <div class=\"buttons\">\n              <input\n                (click)=\"resetMaster()\"\n                type=\"button\"\n                class=\"btn btn-default is-transparent red\"\n                value=\"Отменить\"\n              />\n              <input\n                (click)=\"goToSecondStage()\"\n                type=\"button\"\n                class=\"btn btn-default red\"\n                value=\"Далее\"\n              />\n            </div>\n          </div>\n        </div>\n        <div class=\"second-stage\" *ngIf=\"isSecondStage\">\n          <div class=\"content\">\n            <div class=\"label\">\n              Доступные переговорные комнаты\n            </div>\n            <div class=\"room-list\">\n              <div class=\"room-preview\" *ngFor=\"let room of freeRooms; let i=index\" (click)=\"isActive=i; pickedRoom=room\" [class.selected]=\"isActive==i\">\n                <div class=\"image\" >\n                  <div class=\"gradient\"></div>\n                </div>\n                <div class=\"info\">\n                  <div class=\"room-title\" title=\"{{room.title}}\">\n                    {{room.title}}\n                  </div>\n                  <div class=\"city\">\n                    {{room.officeLookupTitle}}\n                  </div>\n                  <!-- <div class=\"sits\">{{room.places}} мест</div> -->\n                </div>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"l-master-controls\">\n            <div class=\"buttons\">\n              <input\n                (click)=\"resetMaster()\"\n                type=\"button\"\n                class=\"btn btn-default is-transparent red\"\n                value=\"Отменить\"\n              />\n              <input\n                (click)=\"goToThirdStage()\"\n                type=\"button\"\n                class=\"btn btn-default red\"\n                value=\"Далее\"\n              />\n            </div>\n          </div>\n        </div>\n        <div class=\"third-stage\" *ngIf=\"isThirdStage\">\n          <div class=\"content\">\n            <div class=\"label important\">\n              Тема встречи\n            </div>\n            <input [(ngModel)]=\"editableReservation.title\" type=\"text\" placeholder=\"Введите текст\" />\n            <div class=\"label important\">\n              Тип встречи\n            </div>\n            <select [(ngModel)]=\"editableReservation.meetingTypeLookupId\">\n              <option *ngFor=\"let type of meetingTypes\" [attr.value]=\"type.id\" [attr.selected]=\"editableReservation.meetingTypeLookupId === type.id? '' : null\">{{type.title}}</option>\n            </select>\n            <div class=\"label important\">\n              Инициатор\n            </div>\n            <app-sp-user\n              [login]=\"initiatorLogin\"\n              [isMulti]=\"false\"\n              (value)=\"changeInitiator($event)\"\n              [theme]=\"'master'\"\n            ></app-sp-user>\n            <div class=\"label important\">\n              Ответственный\n            </div>\n            <app-sp-user\n              [login]=\"responsibleLogin\"\n              [isMulti]=\"false\"\n              (value)=\"changeResponsible($event)\"\n              [theme]=\"'master'\"\n            ></app-sp-user>\n            <div class=\"label important\">\n              Участники\n            </div>\n            <app-sp-user\n              [login]=\"participantsString\"\n              [isMulti]=\"true\"\n              (value)=\"changeParticipants($event)\"\n              [theme]=\"'master'\"\n            ></app-sp-user>\n            <div class=\"label\">\n              Описание встречи\n            </div>\n            <textarea [(ngModel)]=\"editableReservation.description\" rows=\"3\" placeholder=\"Введите текст\">{{editableReservation.description}}</textarea>\n          </div>\n\n          <div class=\"l-master-controls\">\n            <div class=\"description\">\n              <div class=\"mark\">*</div>\n              <div class=\"text\">– Обязательные поля</div>\n            </div>\n            <div class=\"buttons\">\n              <input\n                (click)=\"resetMaster()\"\n                type=\"button\"\n                class=\"btn btn-default is-transparent red\"\n                value=\"Отменить\"\n              />\n              <input\n                (click)=\"createReservation(editableReservation)\"\n                type=\"button\"\n                class=\"btn btn-default red\"\n                value=\"Забронировать\"\n              />\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"l-master__overlay\"></div>\n</div>\n"
+module.exports = "<div class=\"l-master-modal\">\n  <div class=\"l-master__block\">\n    <div class=\"l-master__header\">\n      <div class=\"stageline\">\n        <div class=\"stage active\">\n          <div class=\"count\">1</div>\n          <div class=\"text\">шаг</div>\n        </div>\n        <div class=\"stage\" [class.active]=\"isSecondStage || isThirdStage\">\n          <div class=\"count\">2</div>\n          <div class=\"text\">шаг</div>\n        </div>\n        <div class=\"stage\" [class.active]=\"isThirdStage\">\n          <div class=\"count\">3</div>\n          <div class=\"text\">шаг</div>\n        </div>\n      </div>\n      <div class=\"header-text\">\n        <div class=\"title\">\n          Мастер бронирования\n        </div>\n        <div class=\"description\">\n          Введите данные для подбора переговорной комнаты\n        </div>\n      </div>\n      <div class=\"close\">\n        <input\n          type=\"button\"\n          class=\"btn-close-gray-bold\"\n          (click)=\"resetMaster()\"\n        />\n      </div>\n    </div>\n    <div class=\"l-master__body\">\n      <div class=\"master-body__content\">\n        <div class=\"first-stage\" *ngIf=\"isFirstStage\">\n          <div class=\"content\">\n            <div class=\"label important\">\n              Кол-во участников\n            </div>\n            <input [(ngModel)]=\"firstStageParameters.count\" type=\"number\" placeholder=\"0\" min=\"0\" max=\"999\" />\n            <div class=\"label important\">\n              Дата\n            </div>\n            <dp-date-picker [(ngModel)]=\"firstStageParameters.date\" #dayPickerMaster (clickOutside)=\"closePicker()\" [config]=\"datePickerConfig\" placeholder=\"Не выбрано\" theme=\"dp-material booking-master\"></dp-date-picker> \n            <div class=\"label important\">\n              Время\n            </div>\n            <select [(ngModel)]=\"firstStageParameters.time\">\n              <option *ngFor=\"let item of timeStart\" value=\"{{item}}\">{{item}}</option>\n            </select>\n            <div class=\"label important\">\n              Продолжительность\n            </div>\n            <select [(ngModel)]=\"duration\" (change)=\"changeDuration($event)\">\n              <option *ngFor=\"let key of objectKeys(durations)\" value=\"{{key}}\">{{durations[key]}}</option>\n            </select>\n            <div class=\"label\">\n              Оборудование\n            </div>\n            <div class=\"equipment\">\n              <input [(ngModel)]=\"firstStageParameters.projector\" type=\"checkbox\" class=\"checkbox\" id=\"projector\" />\n              <span class=\"checkbox-custom\"></span>\n              <label for=\"projector\" class=\"projector\"></label>\n            </div>\n            <div class=\"equipment\">\n              <input [(ngModel)]=\"firstStageParameters.videoStaff\" type=\"checkbox\" class=\"checkbox\" id=\"videostaff\" />\n              <span class=\"checkbox-custom\"></span>\n              <label for=\"videostaff\" class=\"videostaff\"></label>\n            </div>\n          </div>\n\n          <div class=\"l-master-controls\">\n            <div class=\"description\">\n              <div class=\"mark\">*</div>\n              <div class=\"text\">– Обязательные поля</div>\n            </div>\n            <div class=\"buttons\">\n              <input\n                (click)=\"resetMaster()\"\n                type=\"button\"\n                class=\"btn btn-default is-transparent red\"\n                value=\"Отменить\"\n              />\n              <input\n                (click)=\"goToSecondStage()\"\n                type=\"button\"\n                class=\"btn btn-default red\"\n                value=\"Далее\"\n              />\n            </div>\n          </div>\n        </div>\n        <div class=\"second-stage\" *ngIf=\"isSecondStage\">\n          <div class=\"content\">\n            <div class=\"label\">\n              Доступные переговорные комнаты\n            </div>\n            <div class=\"room-list\">\n              <div class=\"room-preview\" *ngFor=\"let room of freeRooms; let i=index\" (click)=\"isActive=i; pickedRoom=room\" [class.selected]=\"isActive==i\">\n                <div class=\"image\" >\n                  <div class=\"gradient\"></div>\n                </div>\n                <div class=\"info\">\n                  <div class=\"room-title\" title=\"{{room.title}}\">\n                    {{room.title}}\n                  </div>\n                  <div class=\"city\">\n                    {{room.officeLookupTitle}}\n                  </div>\n                  <!-- <div class=\"sits\">{{room.places}} мест</div> -->\n                </div>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"l-master-controls\">\n            <div class=\"buttons\">\n              <input\n                (click)=\"resetMaster()\"\n                type=\"button\"\n                class=\"btn btn-default is-transparent red\"\n                value=\"Отменить\"\n              />\n              <input\n                (click)=\"goToThirdStage()\"\n                type=\"button\"\n                class=\"btn btn-default red\"\n                value=\"Далее\"\n              />\n            </div>\n          </div>\n        </div>\n        <div class=\"third-stage\" *ngIf=\"isThirdStage\">\n          <div class=\"content\">\n            <div class=\"label important\">\n              Тема встречи\n            </div>\n            <input [(ngModel)]=\"editableReservation.title\" type=\"text\" placeholder=\"Введите текст\" />\n            <div class=\"label important\">\n              Тип встречи\n            </div>\n            <select [(ngModel)]=\"editableReservation.meetingTypeLookupId\">\n              <option *ngFor=\"let type of meetingTypes\" [attr.value]=\"type.id\" [attr.selected]=\"editableReservation.meetingTypeLookupId === type.id? '' : null\">{{type.title}}</option>\n            </select>\n            <div class=\"label important\">\n              Инициатор\n            </div>\n            <app-sp-user\n              [login]=\"initiatorLogin\"\n              [isMulti]=\"false\"\n              (value)=\"changeInitiator($event)\"\n              [theme]=\"'master'\"\n            ></app-sp-user>\n            <div class=\"label important\">\n              Ответственный\n            </div>\n            <app-sp-user\n              [login]=\"responsibleLogin\"\n              [isMulti]=\"false\"\n              (value)=\"changeResponsible($event)\"\n              [theme]=\"'master'\"\n            ></app-sp-user>\n            <div class=\"label important\">\n              Участники\n            </div>\n            <app-sp-user\n              [login]=\"participantsString\"\n              [isMulti]=\"true\"\n              (value)=\"changeParticipants($event)\"\n              [theme]=\"'master'\"\n            ></app-sp-user>\n            <div class=\"label\">\n              Описание встречи\n            </div>\n            <textarea [(ngModel)]=\"editableReservation.description\" rows=\"3\" placeholder=\"Введите текст\">{{editableReservation.description}}</textarea>\n          </div>\n\n          <div class=\"l-master-controls\">\n            <div class=\"description\">\n              <div class=\"mark\">*</div>\n              <div class=\"text\">– Обязательные поля</div>\n            </div>\n            <div class=\"buttons\">\n              <input\n                (click)=\"resetMaster()\"\n                type=\"button\"\n                class=\"btn btn-default is-transparent red\"\n                value=\"Отменить\"\n              />\n              <input\n                (click)=\"createReservation(editableReservation)\"\n                type=\"button\"\n                class=\"btn btn-default red\"\n                value=\"Забронировать\"\n              />\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"l-master__overlay\"></div>\n</div>\n"
 
 /***/ }),
 
@@ -5078,7 +5642,7 @@ module.exports = "<div class=\"l-master-modal\">\n  <div class=\"l-master__block
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n:host /deep/ button {\n  min-width: 0;\n  padding: 0;\n  margin: 0; }\n\n:host /deep/ .dp-picker-input {\n  width: 100% !important;\n  height: auto !important;\n  background-color: #ffffff;\n  font-size: 18px !important;\n  color: #898888;\n  padding: 15px 20px;\n  box-sizing: border-box !important;\n  border: none;\n  background-image: url(/assets/icons/icon-calendar-gray.svg);\n  background-repeat: no-repeat;\n  background-size: 25px 25px;\n  background-position: right 14px center; }\n\ndp-date-picker {\n  margin-bottom: 40px; }\n\n.l-master-modal .l-master__block {\n  position: fixed;\n  top: 17%;\n  bottom: 0;\n  left: 50%;\n  -webkit-transform: translateX(-50%);\n      -ms-transform: translateX(-50%);\n          transform: translateX(-50%);\n  width: 45%;\n  z-index: 99999;\n  background-color: #fff; }\n\n.l-master-modal .l-master__block .l-master__header {\n    position: relative;\n    background-color: #dedfe0;\n    height: 25%;\n    padding: 4% 5% 4% 15%;\n    box-sizing: border-box;\n    color: #050505;\n    background-image: url(/assets/icons/icon-booking-master.svg);\n    background-size: 20% 40%;\n    background-position: left top 50%;\n    background-repeat: no-repeat; }\n\n.l-master-modal .l-master__block .l-master__header .stageline {\n      position: absolute;\n      top: -55%;\n      left: 50%;\n      -webkit-transform: translateX(-50%);\n          -ms-transform: translateX(-50%);\n              transform: translateX(-50%); }\n\n.l-master-modal .l-master__block .l-master__header .stageline .stage {\n        display: inline-block;\n        margin-right: 5vw; }\n\n.l-master-modal .l-master__block .l-master__header .stageline .stage.active .count {\n          background-color: #ee2737;\n          color: #fff; }\n\n.l-master-modal .l-master__block .l-master__header .stageline .stage.active .count:before {\n            background-color: #ee2737; }\n\n.l-master-modal .l-master__block .l-master__header .stageline .stage:first-child .count:before {\n          display: none; }\n\n.l-master-modal .l-master__block .l-master__header .stageline .stage:last-child {\n          margin-right: 0; }\n\n.l-master-modal .l-master__block .l-master__header .stageline .stage .count {\n          width: 56px;\n          height: 56px;\n          border-radius: 50%;\n          background-color: #898888;\n          color: #bcbcbc;\n          text-align: center;\n          font-size: 34px;\n          font-weight: bold;\n          line-height: 56px;\n          margin-bottom: 5px;\n          position: relative; }\n\n.l-master-modal .l-master__block .l-master__header .stageline .stage .count:before {\n            content: '';\n            position: absolute;\n            left: -5vw;\n            top: 50%;\n            -webkit-transform: translateY(-50%);\n                -ms-transform: translateY(-50%);\n                    transform: translateY(-50%);\n            width: 5vw;\n            height: 4px;\n            background-color: #898888; }\n\n.l-master-modal .l-master__block .l-master__header .stageline .stage .text {\n          font-size: 14px;\n          text-align: center;\n          color: #fff; }\n\n.l-master-modal .l-master__block .l-master__header .header-text {\n      position: absolute;\n      left: 17%;\n      top: 50%;\n      -webkit-transform: translateY(-50%);\n          -ms-transform: translateY(-50%);\n              transform: translateY(-50%); }\n\n.l-master-modal .l-master__block .l-master__header .header-text .title {\n        font-size: 24px;\n        overflow: hidden;\n        text-overflow: ellipsis;\n        line-height: 30px;\n        max-height: 30px;\n        font-weight: bold;\n        margin-bottom: 10px; }\n\n@media (min-width: 1440px) {\n          .l-master-modal .l-master__block .l-master__header .header-text .title {\n            font-size: calc( 0.02083333 * 100vw + -6px);\n            line-height: calc( 0.02083333 * 100vw + 0px);\n            max-height: calc( 0.02083333 * 100vw + 0px);\n            -webkit-line-clamp: 1; } }\n\n@media (min-width: 1920px) {\n          .l-master-modal .l-master__block .l-master__header .header-text .title {\n            font-size: 34px;\n            line-height: 40px;\n            max-height: 40px; } }\n\n.l-master-modal .l-master__block .l-master__header .header-text .description {\n        font-size: 14px;\n        overflow: hidden;\n        text-overflow: ellipsis;\n        line-height: 20px;\n        max-height: 20px; }\n\n@media (min-width: 1440px) {\n          .l-master-modal .l-master__block .l-master__header .header-text .description {\n            font-size: calc( 0.01666667 * 100vw + -10px);\n            line-height: calc( 0.01666667 * 100vw + -4px);\n            max-height: calc( 0.01666667 * 100vw + -4px);\n            -webkit-line-clamp: 1; } }\n\n@media (min-width: 1920px) {\n          .l-master-modal .l-master__block .l-master__header .header-text .description {\n            font-size: 22px;\n            line-height: 28px;\n            max-height: 28px; } }\n\n.l-master-modal .l-master__block .l-master__header .close {\n      position: absolute;\n      right: 35px;\n      top: 35px; }\n\n.l-master-modal .l-master__block .l-master__body {\n    width: 100%;\n    height: 75%;\n    overflow: auto;\n    margin: 0 auto;\n    padding: 50px;\n    box-sizing: border-box; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content {\n      width: 100%;\n      background-color: #f1f1f4;\n      box-sizing: border-box; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .label {\n        font-size: 22px;\n        color: #050505;\n        margin-bottom: 10px; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .label:after {\n          display: none;\n          content: '*';\n          font-size: 34px;\n          color: #ee2737; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .label.important:after {\n          display: inline; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content input[type='text'],\n      .l-master-modal .l-master__block .l-master__body .master-body__content input[type='number'],\n      .l-master-modal .l-master__block .l-master__body .master-body__content select {\n        width: 100%;\n        background-color: #ffffff;\n        font-size: 18px;\n        color: #898888;\n        padding: 15px 20px;\n        box-sizing: border-box;\n        margin-bottom: 40px;\n        border: none; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content select {\n        -webkit-appearance: none;\n           -moz-appearance: none;\n                appearance: none;\n        background-image: url(/assets/icons/icon-arrow-bottom-gray-flat.svg);\n        background-repeat: no-repeat;\n        background-size: 14px 7px;\n        background-position: right 25px center; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .first-stage .content {\n        padding: 40px 0;\n        box-sizing: border-box;\n        width: 250px;\n        margin: 0 auto; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .first-stage .content .equipment {\n          position: relative;\n          margin: 20px 0; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .first-stage .content .equipment:last-child {\n            margin-bottom: 0; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .first-stage .content .equipment .checkbox {\n            position: absolute;\n            margin: 0;\n            z-index: 1;\n            width: 30px;\n            height: 30px;\n            box-sizing: border-box;\n            opacity: 0; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .first-stage .content .equipment .checkbox-custom {\n            position: relative;\n            display: inline-block;\n            vertical-align: middle;\n            width: 30px;\n            height: 30px;\n            background-color: #fff; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .first-stage .content .equipment label {\n            display: inline-block;\n            vertical-align: middle;\n            margin-left: 30px;\n            width: 25px;\n            height: 30px;\n            background-repeat: no-repeat;\n            background-position: center;\n            background-size: contain; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .first-stage .content .equipment label.projector {\n              background-image: url(/assets/icons/icon-mrr-master-projector.svg); }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .first-stage .content .equipment label.videostaff {\n              background-image: url(/assets/icons/icon-mrr-master-videostaff.svg); }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .first-stage .content .equipment .checkbox:checked + .checkbox-custom::before {\n            content: '';\n            display: block;\n            position: absolute;\n            top: 7px;\n            right: 5px;\n            bottom: 6px;\n            left: 5px;\n            background: url(/assets/icons/icon-checkbox-checked.svg);\n            background-repeat: no-repeat;\n            background-position: center;\n            background-size: cover; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .second-stage .content {\n        padding: 40px 55px;\n        box-sizing: border-box; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .second-stage .content .room-list {\n          margin: 0 -15px; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .second-stage .content .room-list .room-preview {\n            position: relative;\n            display: inline-block;\n            margin: 3.5px;\n            width: 150px;\n            height: 150px;\n            color: #fff;\n            cursor: pointer; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .second-stage .content .room-list .room-preview.selected .image {\n              border-color: #ee2737; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .second-stage .content .room-list .room-preview .image {\n              position: absolute;\n              left: 0;\n              top: 0;\n              right: 0;\n              bottom: 0;\n              background-repeat: no-repeat;\n              background-size: cover;\n              border: 4px solid #f1f1f4;\n              box-sizing: border-box; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .second-stage .content .room-list .room-preview .image .gradient {\n                position: absolute;\n                left: 0;\n                top: 0;\n                right: 0;\n                bottom: 0;\n                background-color: #000;\n                opacity: 0.4; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .second-stage .content .room-list .room-preview .info {\n              position: absolute;\n              left: 0;\n              top: 0;\n              right: 0;\n              bottom: 0;\n              padding: 15px;\n              box-sizing: border-box; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .second-stage .content .room-list .room-preview .room-title {\n              font-size: 24px;\n              margin-bottom: 10px;\n              height: 30px;\n              overflow: hidden;\n              white-space: nowrap;\n              text-overflow: ellipsis; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .second-stage .content .room-list .room-preview .city {\n              margin-bottom: 6px; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .third-stage .content {\n        padding: 40px 55px;\n        box-sizing: border-box; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .third-stage .content textarea {\n          font-size: 18px;\n          line-height: 20px;\n          width: 100%;\n          padding: 10px 20px;\n          box-sizing: border-box;\n          border: none;\n          resize: vertical; }\n\n.l-master-modal .l-master__block .l-master__body .l-master-controls {\n      padding-top: 40px;\n      box-sizing: border-box;\n      background-color: #fff; }\n\n.l-master-modal .l-master__block .l-master__body .l-master-controls .description {\n        display: inline-block; }\n\n.l-master-modal .l-master__block .l-master__body .l-master-controls .description .mark {\n          display: inline-block;\n          width: 50px;\n          height: 50px;\n          background-color: #f1f1f4;\n          border-radius: 100%;\n          font-size: 34px;\n          line-height: 65px;\n          color: #050505;\n          text-align: center;\n          vertical-align: middle;\n          margin-right: 12px; }\n\n.l-master-modal .l-master__block .l-master__body .l-master-controls .description .text {\n          display: inline-block;\n          font-size: 18px;\n          font-style: italic;\n          line-height: 30px;\n          color: #4d4e4d;\n          vertical-align: middle; }\n\n.l-master-modal .l-master__block .l-master__body .l-master-controls .buttons {\n        display: inline-block;\n        float: right; }\n\n.l-master-modal .l-master__block .l-master__body .l-master-controls .buttons .btn {\n          width: 155px;\n          margin-right: 30px;\n          padding: 0; }\n\n.l-master-modal .l-master__block .l-master__body .l-master-controls .buttons .btn:last-child {\n            margin-right: 0; }\n\n.l-master-modal .l-master__overlay {\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: rgba(0, 0, 0, 0.5);\n  z-index: 99998; }\n"
+module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n:host /deep/ button {\n  min-width: 0;\n  padding: 0;\n  margin: 0; }\n\n:host /deep/ .booking-master .dp-picker-input {\n  width: 100%;\n  height: auto;\n  background-color: #ffffff;\n  font-size: 18px;\n  color: #898888;\n  padding: 15px 20px;\n  box-sizing: border-box;\n  border: none;\n  background-image: url(/assets/icons/icon-calendar-gray.svg);\n  background-repeat: no-repeat;\n  background-size: 25px 25px;\n  background-position: right 14px center; }\n\ndp-date-picker {\n  margin-bottom: 40px; }\n\n.l-master-modal .l-master__block {\n  position: fixed;\n  top: 17%;\n  bottom: 0;\n  left: 50%;\n  -webkit-transform: translateX(-50%);\n      -ms-transform: translateX(-50%);\n          transform: translateX(-50%);\n  width: 45%;\n  z-index: 99999;\n  background-color: #fff; }\n\n.l-master-modal .l-master__block .l-master__header {\n    position: relative;\n    background-color: #dedfe0;\n    height: 25%;\n    padding: 4% 5% 4% 15%;\n    box-sizing: border-box;\n    color: #050505;\n    background-image: url(/assets/icons/icon-booking-master.svg);\n    background-size: auto 40%;\n    background-position: left 7% top 50%;\n    background-repeat: no-repeat; }\n\n.l-master-modal .l-master__block .l-master__header .stageline {\n      position: absolute;\n      top: -55%;\n      left: 50%;\n      -webkit-transform: translateX(-50%);\n          -ms-transform: translateX(-50%);\n              transform: translateX(-50%); }\n\n.l-master-modal .l-master__block .l-master__header .stageline .stage {\n        display: inline-block;\n        margin-right: 5vw; }\n\n.l-master-modal .l-master__block .l-master__header .stageline .stage.active .count {\n          background-color: #ee2737;\n          color: #fff; }\n\n.l-master-modal .l-master__block .l-master__header .stageline .stage.active .count:before {\n            background-color: #ee2737; }\n\n.l-master-modal .l-master__block .l-master__header .stageline .stage:first-child .count:before {\n          display: none; }\n\n.l-master-modal .l-master__block .l-master__header .stageline .stage:last-child {\n          margin-right: 0; }\n\n.l-master-modal .l-master__block .l-master__header .stageline .stage .count {\n          width: 56px;\n          height: 56px;\n          border-radius: 50%;\n          background-color: #898888;\n          color: #bcbcbc;\n          text-align: center;\n          font-size: 34px;\n          font-weight: bold;\n          line-height: 56px;\n          margin-bottom: 5px;\n          position: relative; }\n\n.l-master-modal .l-master__block .l-master__header .stageline .stage .count:before {\n            content: '';\n            position: absolute;\n            left: -5vw;\n            top: 50%;\n            -webkit-transform: translateY(-50%);\n                -ms-transform: translateY(-50%);\n                    transform: translateY(-50%);\n            width: 5vw;\n            height: 4px;\n            background-color: #898888; }\n\n.l-master-modal .l-master__block .l-master__header .stageline .stage .text {\n          font-size: 14px;\n          text-align: center;\n          color: #fff; }\n\n.l-master-modal .l-master__block .l-master__header .header-text {\n      position: absolute;\n      left: 17%;\n      top: 50%;\n      -webkit-transform: translateY(-50%);\n          -ms-transform: translateY(-50%);\n              transform: translateY(-50%); }\n\n.l-master-modal .l-master__block .l-master__header .header-text .title {\n        font-size: 24px;\n        overflow: hidden;\n        text-overflow: ellipsis;\n        line-height: 30px;\n        max-height: 30px;\n        font-weight: bold;\n        margin-bottom: 10px; }\n\n@media (min-width: 1440px) {\n          .l-master-modal .l-master__block .l-master__header .header-text .title {\n            font-size: calc( 0.02083333 * 100vw + -6px);\n            line-height: calc( 0.02083333 * 100vw + 0px);\n            max-height: calc( 0.02083333 * 100vw + 0px);\n            -webkit-line-clamp: 1; } }\n\n@media (min-width: 1920px) {\n          .l-master-modal .l-master__block .l-master__header .header-text .title {\n            font-size: 34px;\n            line-height: 40px;\n            max-height: 40px; } }\n\n.l-master-modal .l-master__block .l-master__header .header-text .description {\n        font-size: 14px;\n        overflow: hidden;\n        text-overflow: ellipsis;\n        line-height: 20px;\n        max-height: 20px; }\n\n@media (min-width: 1440px) {\n          .l-master-modal .l-master__block .l-master__header .header-text .description {\n            font-size: calc( 0.01666667 * 100vw + -10px);\n            line-height: calc( 0.01666667 * 100vw + -4px);\n            max-height: calc( 0.01666667 * 100vw + -4px);\n            -webkit-line-clamp: 1; } }\n\n@media (min-width: 1920px) {\n          .l-master-modal .l-master__block .l-master__header .header-text .description {\n            font-size: 22px;\n            line-height: 28px;\n            max-height: 28px; } }\n\n.l-master-modal .l-master__block .l-master__header .close {\n      position: absolute;\n      right: 35px;\n      top: 35px; }\n\n.l-master-modal .l-master__block .l-master__body {\n    width: 100%;\n    height: 75%;\n    overflow: auto;\n    margin: 0 auto;\n    padding: 50px;\n    box-sizing: border-box; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content {\n      width: 100%;\n      background-color: #f1f1f4;\n      box-sizing: border-box; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .label {\n        font-size: 22px;\n        color: #050505;\n        margin-bottom: 10px; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .label:after {\n          display: none;\n          content: '*';\n          font-size: 34px;\n          color: #ee2737; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .label.important:after {\n          display: inline; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content input[type='text'],\n      .l-master-modal .l-master__block .l-master__body .master-body__content input[type='number'],\n      .l-master-modal .l-master__block .l-master__body .master-body__content select {\n        width: 100%;\n        background-color: #ffffff;\n        font-size: 18px;\n        color: #898888;\n        padding: 15px 20px;\n        box-sizing: border-box;\n        margin-bottom: 40px;\n        border: none; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content select {\n        -webkit-appearance: none;\n           -moz-appearance: none;\n                appearance: none;\n        background-image: url(/assets/icons/icon-arrow-bottom-gray-flat.svg);\n        background-repeat: no-repeat;\n        background-size: 14px 7px;\n        background-position: right 25px center; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .first-stage .content {\n        padding: 40px 0;\n        box-sizing: border-box;\n        width: 250px;\n        margin: 0 auto; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .first-stage .content .equipment {\n          position: relative;\n          margin: 20px 0; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .first-stage .content .equipment:last-child {\n            margin-bottom: 0; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .first-stage .content .equipment .checkbox {\n            position: absolute;\n            margin: 0;\n            z-index: 1;\n            width: 30px;\n            height: 30px;\n            box-sizing: border-box;\n            opacity: 0; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .first-stage .content .equipment .checkbox-custom {\n            position: relative;\n            display: inline-block;\n            vertical-align: middle;\n            width: 30px;\n            height: 30px;\n            background-color: #fff; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .first-stage .content .equipment label {\n            display: inline-block;\n            vertical-align: middle;\n            margin-left: 30px;\n            width: 25px;\n            height: 30px;\n            background-repeat: no-repeat;\n            background-position: center;\n            background-size: contain; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .first-stage .content .equipment label.projector {\n              background-image: url(/assets/icons/icon-mrr-master-projector.svg); }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .first-stage .content .equipment label.videostaff {\n              background-image: url(/assets/icons/icon-mrr-master-videostaff.svg); }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .first-stage .content .equipment .checkbox:checked + .checkbox-custom::before {\n            content: '';\n            display: block;\n            position: absolute;\n            top: 7px;\n            right: 5px;\n            bottom: 6px;\n            left: 5px;\n            background: url(/assets/icons/icon-checkbox-checked.svg);\n            background-repeat: no-repeat;\n            background-position: center;\n            background-size: cover; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .second-stage .content {\n        padding: 40px 55px;\n        box-sizing: border-box; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .second-stage .content .room-list {\n          margin: 0 -15px; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .second-stage .content .room-list .room-preview {\n            position: relative;\n            display: inline-block;\n            margin: 3.5px;\n            width: 150px;\n            height: 150px;\n            color: #fff;\n            cursor: pointer; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .second-stage .content .room-list .room-preview.selected .image {\n              border-color: #ee2737; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .second-stage .content .room-list .room-preview .image {\n              position: absolute;\n              left: 0;\n              top: 0;\n              right: 0;\n              bottom: 0;\n              background-repeat: no-repeat;\n              background-size: cover;\n              border: 4px solid #f1f1f4;\n              box-sizing: border-box; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .second-stage .content .room-list .room-preview .image .gradient {\n                position: absolute;\n                left: 0;\n                top: 0;\n                right: 0;\n                bottom: 0;\n                background-color: #000;\n                opacity: 0.4; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .second-stage .content .room-list .room-preview .info {\n              position: absolute;\n              left: 0;\n              top: 0;\n              right: 0;\n              bottom: 0;\n              padding: 15px;\n              box-sizing: border-box; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .second-stage .content .room-list .room-preview .room-title {\n              font-size: 24px;\n              margin-bottom: 10px;\n              height: 30px;\n              overflow: hidden;\n              white-space: nowrap;\n              text-overflow: ellipsis; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .second-stage .content .room-list .room-preview .city {\n              margin-bottom: 6px; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .third-stage .content {\n        padding: 40px 55px;\n        box-sizing: border-box; }\n\n.l-master-modal .l-master__block .l-master__body .master-body__content .third-stage .content textarea {\n          font-size: 18px;\n          line-height: 20px;\n          width: 100%;\n          padding: 10px 20px;\n          box-sizing: border-box;\n          border: none;\n          resize: vertical; }\n\n.l-master-modal .l-master__block .l-master__body .l-master-controls {\n      padding-top: 40px;\n      box-sizing: border-box;\n      background-color: #fff; }\n\n.l-master-modal .l-master__block .l-master__body .l-master-controls .description {\n        display: inline-block; }\n\n.l-master-modal .l-master__block .l-master__body .l-master-controls .description .mark {\n          display: inline-block;\n          width: 50px;\n          height: 50px;\n          background-color: #f1f1f4;\n          border-radius: 100%;\n          font-size: 34px;\n          line-height: 65px;\n          color: #050505;\n          text-align: center;\n          vertical-align: middle;\n          margin-right: 12px; }\n\n.l-master-modal .l-master__block .l-master__body .l-master-controls .description .text {\n          display: inline-block;\n          font-size: 18px;\n          font-style: italic;\n          line-height: 30px;\n          color: #4d4e4d;\n          vertical-align: middle; }\n\n.l-master-modal .l-master__block .l-master__body .l-master-controls .buttons {\n        display: inline-block;\n        float: right; }\n\n.l-master-modal .l-master__block .l-master__body .l-master-controls .buttons .btn {\n          width: 155px;\n          margin-right: 30px;\n          padding: 0; }\n\n.l-master-modal .l-master__block .l-master__body .l-master-controls .buttons .btn:last-child {\n            margin-right: 0; }\n\n.l-master-modal .l-master__overlay {\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: rgba(0, 0, 0, 0.5);\n  z-index: 99998; }\n"
 
 /***/ }),
 
@@ -5094,10 +5658,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BookingMasterModalFormComponent", function() { return BookingMasterModalFormComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var src_app_booking_services_reservations_reservations_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/booking/services/reservations/reservations.service */ "./src/app/booking/services/reservations/reservations.service.ts");
-/* harmony import */ var src_app_booking_services_rooms_rooms_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/booking/services/rooms/rooms.service */ "./src/app/booking/services/rooms/rooms.service.ts");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var ng2_date_picker__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ng2-date-picker */ "./node_modules/ng2-date-picker/fesm5/ng2-date-picker.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5113,8 +5677,9 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 var BookingMasterModalFormComponent = /** @class */ (function () {
-    function BookingMasterModalFormComponent(roomsService, route, reservationsService) {
-        this.roomsService = roomsService;
+    function BookingMasterModalFormComponent(
+    //private roomsService: RoomsService,
+    route, reservationsService) {
         this.route = route;
         this.reservationsService = reservationsService;
         this.webId = undefined;
@@ -5122,7 +5687,10 @@ var BookingMasterModalFormComponent = /** @class */ (function () {
         this.masterIsOpen = false;
         this.datePickerConfig = {
             format: 'DD.MM.YYYY',
-            firstDayOfWeek: 'mo'
+            firstDayOfWeek: 'mo',
+            disableKeypress: true,
+            unSelectOnClick: false,
+            hideOnOutsideClick: false
         };
         this.pickedRoom = null;
         this.freeRooms = [];
@@ -5138,23 +5706,28 @@ var BookingMasterModalFormComponent = /** @class */ (function () {
             projector: false,
             videoStaff: false
         };
+        this.timeStart = ['08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00',
+            '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30'];
         this.objectKeys = Object.keys;
         this.durations = {
-            '0.5': '30 минут',
-            '1': '1 час',
-            '1.5': '1.5 часа',
-            '2': '2 часа',
-            '2.5': '2.5 часа',
-            '3': '3 часа',
-            '3.5': '3.5 часа',
-            '4': '4 часа',
-            '4.5': '4.5 часа',
-            '5': '5 часов'
+            '+0.5': '30 минут',
+            '+1': '1 час',
+            '+1.5': '1.5 часа',
+            '+2': '2 часа',
+            '+2.5': '2.5 часа',
+            '+3': '3 часа',
+            '+3.5': '3.5 часа',
+            '+4': '4 часа',
+            '+4.5': '4.5 часа',
+            '+5': '5 часов'
         };
         this.isFirstStage = true;
         this.isSecondStage = false;
         this.isThirdStage = false;
     }
+    BookingMasterModalFormComponent.prototype.closePicker = function () {
+        this.datePicker.api.close();
+    };
     BookingMasterModalFormComponent.prototype.changeDuration = function (newValue) {
         this.duration = newValue.target.value;
     };
@@ -5182,19 +5755,18 @@ var BookingMasterModalFormComponent = /** @class */ (function () {
     };
     BookingMasterModalFormComponent.prototype.timeCheck = function () {
         var _this = this;
-        var time = moment__WEBPACK_IMPORTED_MODULE_3__(this.firstStageParameters.time, 'HH:mm');
+        var time = moment__WEBPACK_IMPORTED_MODULE_2__(this.firstStageParameters.time, 'HH:mm');
         this.dateStart = this.firstStageParameters.date.set({
             hour: time.get('hour'),
             minute: time.get('minute'),
             second: time.get('second')
         });
-        this.dateEnd = moment__WEBPACK_IMPORTED_MODULE_3__(this.dateStart).add(Number(this.duration), 'hours');
+        this.dateEnd = moment__WEBPACK_IMPORTED_MODULE_2__(this.dateStart).add(Number(this.duration), 'hours');
         this.endHour = this.dateEnd.format('HH:mm');
-        var filter = "((datetime'" + moment__WEBPACK_IMPORTED_MODULE_3__(this.dateStart).toISOString() + "' ge EventDate and datetime'" + moment__WEBPACK_IMPORTED_MODULE_3__(this.dateStart).toISOString() + "' lt EndDate)";
-        filter += " or (datetime'" + moment__WEBPACK_IMPORTED_MODULE_3__(this.dateEnd).toISOString() + "' gt EventDate and datetime'" + moment__WEBPACK_IMPORTED_MODULE_3__(this.dateEnd).toISOString() + "' le EndDate))";
-        filter += " or (datetime'" + moment__WEBPACK_IMPORTED_MODULE_3__(this.dateStart).toISOString() + "' lt EventDate and datetime'" + moment__WEBPACK_IMPORTED_MODULE_3__(this.dateEnd).toISOString() + "' gt EndDate)";
+        var filter = "((datetime'" + moment__WEBPACK_IMPORTED_MODULE_2__(this.dateStart).toISOString() + "' ge EventDate and datetime'" + moment__WEBPACK_IMPORTED_MODULE_2__(this.dateStart).toISOString() + "' lt EndDate)\n      or (datetime'" + moment__WEBPACK_IMPORTED_MODULE_2__(this.dateEnd).toISOString() + "' gt EventDate and datetime'" + moment__WEBPACK_IMPORTED_MODULE_2__(this.dateEnd).toISOString() + "' le EndDate))\n      or (datetime'" + moment__WEBPACK_IMPORTED_MODULE_2__(this.dateStart).toISOString() + "' lt EventDate and datetime'" + moment__WEBPACK_IMPORTED_MODULE_2__(this.dateEnd).toISOString() + "' gt EndDate)";
         this.reservationsService.getItems({
-            filter: filter
+            filter: filter,
+            webId: this.webId
         }).subscribe(function (reservations) {
             reservations.forEach(function (reservation) {
                 _this.freeRooms.forEach(function (room) {
@@ -5207,18 +5779,17 @@ var BookingMasterModalFormComponent = /** @class */ (function () {
     };
     BookingMasterModalFormComponent.prototype.goToSecondStage = function () {
         var _this = this;
-        var videoStaff = (this.firstStageParameters.videoStaff) === false ? 'Нет' : 'Да';
-        var projector = (this.firstStageParameters.projector === false) ? 'Нет' : 'Да';
+        this.freeRooms = [];
         this.timeCheck();
+        // TODO: известно, что после алерта о незаполненном поле обязательно ставить фокус ввода в это поле. Сделать!
         if (((this.firstStageParameters.count === undefined) ? '' : this.firstStageParameters.count) <= 0) {
-            alert('Поле "Количество участников" обязательно к заполнению');
+            alert('Поле "Количество участников" обязательно к заполнению'); // TODO: на основании чего решено, что это обязательно?
         }
-        else if (this.firstStageParameters.date.length === null) {
+        else if (this.firstStageParameters.date === undefined) {
             alert('Поле "Дата" обязательно к заполнению');
         }
-        else if ((moment__WEBPACK_IMPORTED_MODULE_3__(this.firstStageParameters.date + this.firstStageParameters.time, 'DD.MM.YYYY HH:mm').unix() < moment__WEBPACK_IMPORTED_MODULE_3__(this.firstStageParameters.date + '08:00', 'DD.MM.YYYY HH:mm').unix()) ||
-            (moment__WEBPACK_IMPORTED_MODULE_3__(this.firstStageParameters.date + this.firstStageParameters.time, 'DD.MM.YYYY HH:mm').unix() > moment__WEBPACK_IMPORTED_MODULE_3__(this.firstStageParameters.date + '19:30', 'DD.MM.YYYY HH:mm').unix())) {
-            alert('Поле "Время" обязательно к заполнению, и должно находиться в промежутке между 08:00 и 19:30 включительно');
+        else if (this.firstStageParameters.time === '00:00') {
+            alert('Поле "Время" обязательно к заполнению');
         }
         else if (this.duration === 'Не выбрано') {
             alert('Необходимо выбрать продолжительность бронирования');
@@ -5226,25 +5797,30 @@ var BookingMasterModalFormComponent = /** @class */ (function () {
         else if (parseInt(this.endHour.replace(':', ''), 10) > 2000) {
             alert('Событие должно заканчиваться не позднее, чем в 20:00');
         }
-        else if (this.firstStageParameters.videoStaff === false && this.firstStageParameters.projector === false) {
-            this.roomsService.getItems().subscribe(function (rooms) {
-                rooms.forEach(function (room) {
-                    _this.freeRooms.push(room);
-                });
-            });
-        }
         else {
-            this.roomsService.getItems({
-                filter: "slVideoStaff eq '" + videoStaff + "' and slProjector eq '" + projector + "'"
-            }).subscribe(function (rooms) {
-                rooms.forEach(function (room) {
-                    _this.freeRooms.push(room);
-                });
-            });
+            if (this.firstStageParameters.videoStaff === false && this.firstStageParameters.projector === false) {
+                // this.roomsService.getItems().subscribe((rooms: Rooms[]) => {
+                //   rooms.forEach(room => {
+                //     this.freeRooms.push(room);
+                //   });
+                // });
+                this.rooms.forEach(function (r) { return _this.freeRooms.push(r); });
+            }
+            else {
+                // this.roomsService.getItems ({
+                //   filter: `slVideoStaff eq '${videoStaff}' and slProjector eq '${projector}'`
+                // }).subscribe((rooms: Rooms[] ) => {
+                //   rooms.forEach(room => {
+                //     this.freeRooms.push(room);
+                //   });
+                // });
+                this.rooms.filter(function (r) { return (!_this.firstStageParameters.videoStaff || r.videoStaff) &&
+                    (!_this.firstStageParameters.projector || r.projector); }).forEach(function (r) { return _this.freeRooms.push(r); });
+            }
+            this.timeCheck();
+            this.isFirstStage = false;
+            this.isSecondStage = true;
         }
-        this.timeCheck();
-        this.isFirstStage = false;
-        this.isSecondStage = true;
     };
     BookingMasterModalFormComponent.prototype.goToThirdStage = function () {
         this.editableReservation.roomLookupId = this.pickedRoom.id;
@@ -5252,8 +5828,8 @@ var BookingMasterModalFormComponent = /** @class */ (function () {
         this.editableReservation.count = this.firstStageParameters.count;
         this.editableReservation.projector = (this.firstStageParameters.projector === true ? 'Да' : 'Нет');
         this.editableReservation.videoStaff = (this.firstStageParameters.videoStaff === true ? 'Да' : 'Нет');
-        this.editableReservation.eventDate = moment__WEBPACK_IMPORTED_MODULE_3__(this.dateStart).toISOString();
-        this.editableReservation.endDate = moment__WEBPACK_IMPORTED_MODULE_3__(this.dateEnd).toISOString();
+        this.editableReservation.eventDate = moment__WEBPACK_IMPORTED_MODULE_2__(this.dateStart).toISOString();
+        this.editableReservation.endDate = moment__WEBPACK_IMPORTED_MODULE_2__(this.dateEnd).toISOString();
         this.editableReservation.title = undefined;
         this.editableReservation.meetingTypeLookupId = undefined;
         this.editableReservation.description = undefined;
@@ -5265,17 +5841,17 @@ var BookingMasterModalFormComponent = /** @class */ (function () {
         if (((item.title === undefined) ? '' : item.title).length <= 0) {
             alert('Поле "Тема встречи" обязательно к заполнению');
         }
-        else if (item.meetingTypeLookupId === undefined) {
+        else if (item.meetingTypeLookupId === null) {
             alert('Поле "Тип встречи" обязательно к заполнению');
         }
-        else if (item.initiatorId === undefined) {
+        else if (item.initiatorId === null) {
             alert('Поле "Инициатор" обязательно к заполнению');
         }
-        else if (item.responsibleId === undefined) {
+        else if (item.responsibleId === null) {
             alert('Поле "Ответственный" обязательно к заполнению');
         }
-        else if (item.participants === undefined) {
-            alert('Поле "Участники" обязательно к заполнению');
+        else if (item.participants === null) {
+            alert('Поле "Участники" обязательно к заполнению'); // TODO: на основании чего решено, что это обязательно?
         }
         else {
             this.timeCheck();
@@ -5331,6 +5907,14 @@ var BookingMasterModalFormComponent = /** @class */ (function () {
                 : null;
     };
     __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('dayPickerMaster'),
+        __metadata("design:type", ng2_date_picker__WEBPACK_IMPORTED_MODULE_4__["DatePickerComponent"])
+    ], BookingMasterModalFormComponent.prototype, "datePicker", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", String)
+    ], BookingMasterModalFormComponent.prototype, "webId", void 0);
+    __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])(),
         __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"])
     ], BookingMasterModalFormComponent.prototype, "close", void 0);
@@ -5360,11 +5944,589 @@ var BookingMasterModalFormComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./booking-master-modal-form.component.html */ "./src/app/booking/components/booking-master-modal-form/booking-master-modal-form.component.html"),
             styles: [__webpack_require__(/*! ./booking-master-modal-form.component.scss */ "./src/app/booking/components/booking-master-modal-form/booking-master-modal-form.component.scss")]
         }),
-        __metadata("design:paramtypes", [src_app_booking_services_rooms_rooms_service__WEBPACK_IMPORTED_MODULE_2__["RoomsService"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"],
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"],
             src_app_booking_services_reservations_reservations_service__WEBPACK_IMPORTED_MODULE_1__["ReservationsService"]])
     ], BookingMasterModalFormComponent);
     return BookingMasterModalFormComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/booking/components/booking-master-page/booking-master-page.component.html":
+/*!*******************************************************************************************!*\
+  !*** ./src/app/booking/components/booking-master-page/booking-master-page.component.html ***!
+  \*******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"l-page-header\">\n  <div class=\"l-breadcrumbs\">\n    <div class=\"l-breadcrumb\"><a [routerLink]=\"['/company']\">Главная</a></div>\n    <div class=\"l-breadcrumb\"><a [routerLink]=\"['/booking']\">Бронирование переговорных</a></div>\n    <div class=\"l-breadcrumb\">Мастер бронирования</div>\n  </div>\n  <div class=\"title\" *ngIf=\"isFirstStep\">Мастер бронирования переговорных</div>\n  <div class=\"title\" *ngIf=\"!isFirstStep\">Подтверждение бронирования</div>\n</div>\n<div class=\"l-page\">\n  <div class=\"l-page-inner\">\n    <div class=\"l-page__content\">\n      <div class=\"l-booking-master\">\n        <ng-container *ngIf=\"isFirstStep\">\n          <app-booking-master-step-one\n            [pickedRoom]=\"pickedRoom\"\n            [isFirstStep]=\"isFirstStep\"\n            [pickedDay]=\"pickedDay\" \n            [timeStart]=\"timeStart\"\n            [timeEnd]=\"timeEnd\"\n            [peopleCounter]=\"peopleCounter\"\n            [equipment]=\"equipment\"\n            (changeStep)=\"currentStep($event)\"\n            (selectRoom)=\"selectedRoom($event)\"\n            (pickDay)=\"selectedDay($event)\"\n            (pickStartTime)=\"selectedStartTime($event)\"\n            (pickEndTime)=\"selectedEndTime($event)\"\n            (pickCount)=\"selectedCount($event)\">\n          </app-booking-master-step-one>\n        </ng-container>\n        <ng-container *ngIf=\"!isFirstStep\">\n          <app-booking-master-step-two\n            [pickedRoom]=\"pickedRoom\"\n            [pickedDay]=\"pickedDay\" \n            [timeStart]=\"timeStart\"\n            [timeEnd]=\"timeEnd\"\n            [peopleCounter]=\"peopleCounter\"\n            [equipment]=\"equipment\"\n            [isFirstStep]=\"isFirstStep\"\n            (changeStep)=\"currentStep($event)\">\n          </app-booking-master-step-two>\n        </ng-container>\n      </div>\n    </div>\n  </div>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/booking/components/booking-master-page/booking-master-page.component.scss":
+/*!*******************************************************************************************!*\
+  !*** ./src/app/booking/components/booking-master-page/booking-master-page.component.scss ***!
+  \*******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.l-booking-master {\n  max-width: 1210px;\n  padding: 10px 25px;\n  padding-right: 0;\n  box-sizing: border-box; }\n"
+
+/***/ }),
+
+/***/ "./src/app/booking/components/booking-master-page/booking-master-page.component.ts":
+/*!*****************************************************************************************!*\
+  !*** ./src/app/booking/components/booking-master-page/booking-master-page.component.ts ***!
+  \*****************************************************************************************/
+/*! exports provided: BookingMasterPageComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BookingMasterPageComponent", function() { return BookingMasterPageComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var BookingMasterPageComponent = /** @class */ (function () {
+    function BookingMasterPageComponent() {
+        this.pickedRoom = null;
+        this.isFirstStep = true;
+        this.pickedDay = null;
+        this.timeStart = null;
+        this.timeEnd = null;
+        this.peopleCounter = null;
+        this.equipment = {
+            projector: false,
+            videoStaff: false
+        };
+    }
+    BookingMasterPageComponent.prototype.currentStep = function (value) {
+        this.isFirstStep = value;
+    };
+    BookingMasterPageComponent.prototype.selectedRoom = function (value) {
+        this.pickedRoom = value;
+    };
+    BookingMasterPageComponent.prototype.selectedDay = function (value) {
+        this.pickedDay = value;
+    };
+    BookingMasterPageComponent.prototype.selectedStartTime = function (value) {
+        this.timeStart = value;
+    };
+    BookingMasterPageComponent.prototype.selectedEndTime = function (value) {
+        this.timeEnd = value;
+    };
+    BookingMasterPageComponent.prototype.selectedCount = function (value) {
+        this.peopleCounter = value;
+    };
+    BookingMasterPageComponent.prototype.ngOnInit = function () {
+    };
+    BookingMasterPageComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-booking-master-page',
+            template: __webpack_require__(/*! ./booking-master-page.component.html */ "./src/app/booking/components/booking-master-page/booking-master-page.component.html"),
+            styles: [__webpack_require__(/*! ./booking-master-page.component.scss */ "./src/app/booking/components/booking-master-page/booking-master-page.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], BookingMasterPageComponent);
+    return BookingMasterPageComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/booking/components/booking-master-page/booking-master-step-one/booking-master-step-one.component.html":
+/*!***********************************************************************************************************************!*\
+  !*** ./src/app/booking/components/booking-master-page/booking-master-step-one/booking-master-step-one.component.html ***!
+  \***********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"booking-master-step-one\">\n  <div class=\"left-side\">\n    <div class=\"title\">Дата</div>\n    <div class=\"pick-date\">\n      <div class=\"month\">\n        {{showedMonth}}\n      </div>\n      <div class=\"days\">\n        <div class=\"arrow-left\" (click)=\"prevWeek()\"></div>\n        <div class=\"week\">\n          <ng-container *ngFor=\"let day of week\">\n              <div class=\"day\" [class.today]=\"day.number === todayNumber && day.month === thisMonth\" (click)=\"selectDay(day)\" [class.picked]=\"day.number===pickedDay.number && day.month===pickedDay.month\" [class.expired]=\"day.number<todayNumber && day.month===thisMonth\">\n                <div class=\"number\">{{day.number}}</div>\n                <div class=\"name\">{{day.title}}</div>\n              </div>\n          </ng-container>\n        </div>\n        <div class=\"arrow-right\" (click)=\"nextWeek()\"></div>\n      </div>\n    </div>\n    <div class=\"title\">Время</div>\n    <div class=\"pick-time\">\n      <npn-slider hide-tooltip hide-values [min]=\"800\" [max]=\"2000\" [minSelected]=\"1000\" [maxSelected]=\"1200\" [step]=\"50\" (onChange)=\"onTimeChange($event)\">\n      </npn-slider>\n      <div class=\"counter\" [ngStyle]=\"{'left': tooltipPosition, 'transform': tooltipTransform}\">\n        {{timeStart}} - {{timeEnd}}\n        <div class=\"counter-arrow\"></div>\n      </div>\n    </div>\n    <div class=\"title\">Кол-во участников</div>\n    <div class=\"pick-people\">\n      <npn-slider hide-values [min]=\"1\" [max]=\"20\" [minSelected]=\"3\" [multiRange]=\"false\" (onChange)=\"onPeopleChange($event)\"></npn-slider>\n    </div>\n    <div class=\"title\">Оборудование</div>\n    <div class=\"pick-equipment\">\n      <div class=\"equipment\">\n        <input [(ngModel)]=\"equipment.projector\" type=\"checkbox\" class=\"checkbox\" id=\"projector\" />\n        <span class=\"checkbox-custom\"></span>\n        <label for=\"projector\" class=\"projector\"></label>\n      </div>\n      <div class=\"equipment\">\n        <input [(ngModel)]=\"equipment.videoStaff\" type=\"checkbox\" class=\"checkbox\" id=\"videostaff\" />\n        <span class=\"checkbox-custom\"></span>\n        <label for=\"videostaff\" class=\"videostaff\"></label>\n      </div>\n    </div>\n    <div class=\"button\">\n      <a [routerLink]=\"['/booking']\" class=\"btn btn-to-back\">\n        <i></i> Назад к расписанию\n      </a>\n    </div>\n  </div>\n  <div class=\"right-side\">\n    <div class=\"title\">Доступные переговорные комнаты</div>\n    <div class=\"pick-room\">\n      <div class=\"room-list\">\n        <div class=\"room-preview\" *ngFor=\"let room of rooms; let i=index\" (click)=\"pickRoom(room)\" [class.unavailable]=\"busyRooms.includes(room.id)\">\n          <div class=\"image\">\n            <div class=\"gradient\"></div>\n          </div>\n          <div class=\"info\">\n            <div class=\"room-title\" title=\"{{room.title}}\">\n              {{room.title}}\n            </div>\n            <div class=\"city\">\n              {{room.officeLookupTitle}}\n            </div>\n            <!-- <div class=\"sits\">Количество мест</div> -->\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/booking/components/booking-master-page/booking-master-step-one/booking-master-step-one.component.scss":
+/*!***********************************************************************************************************************!*\
+  !*** ./src/app/booking/components/booking-master-page/booking-master-step-one/booking-master-step-one.component.scss ***!
+  \***********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "@charset \"UTF-8\";\n#s4-bodyContainer {\n  padding: 0; }\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n:host /deep/ .slider {\n  display: inline-block !important;\n  width: 85% !important; }\n:host /deep/ .slider .bar {\n    background-color: #a2b2c8 !important;\n    border-radius: 10px !important;\n    height: 8px !important; }\n:host /deep/ .slider .bar .left-handle,\n    :host /deep/ .slider .bar .right-handle {\n      width: 8px !important;\n      height: 8px !important;\n      border-radius: 100% !important;\n      background-color: #fff !important;\n      border: 6px solid #dd1e25 !important;\n      box-sizing: content-box !important; }\n:host /deep/ .slider .bar .left-handle .handle-tooltip,\n      :host /deep/ .slider .bar .right-handle .handle-tooltip {\n        top: -40px !important;\n        left: 50% !important;\n        -webkit-transform: translateX(-50%);\n            -ms-transform: translateX(-50%);\n                transform: translateX(-50%);\n        padding: 0 7px !important;\n        box-sizing: border-box !important;\n        height: 25px !important;\n        background: #050505 !important;\n        border: none !important;\n        border-radius: 5px !important;\n        font-size: 14px !important;\n        color: #fff !important;\n        font-weight: bold !important;\n        line-height: 25px !important;\n        text-align: center !important;\n        opacity: 1 !important; }\n:host /deep/ .slider .bar .left-handle .handle-tooltip:before,\n        :host /deep/ .slider .bar .right-handle .handle-tooltip:before {\n          border-top-color: #050505 !important;\n          top: 100% !important;\n          left: 50% !important;\n          -webkit-transform: translateX(-50%);\n              -ms-transform: translateX(-50%);\n                  transform: translateX(-50%); }\n:host /deep/ .slider .bar .left-handle .handle-tooltip:after,\n        :host /deep/ .slider .bar .right-handle .handle-tooltip:after {\n          display: none; }\n:host /deep/ .slider .bar .filler {\n      border: none !important; }\n:host /deep/ .slider .bar .filler span {\n        background-color: #dd1e25 !important; }\n.booking-master-step-one {\n  width: 100%;\n  font-size: 0px; }\n.booking-master-step-one .left-side {\n    width: 45%;\n    padding-right: 20px; }\n.booking-master-step-one .right-side {\n    width: 55%; }\n.booking-master-step-one .left-side,\n  .booking-master-step-one .right-side {\n    display: inline-block;\n    font-size: 14px;\n    vertical-align: top;\n    box-sizing: border-box; }\n.booking-master-step-one .left-side .pick-date,\n    .booking-master-step-one .right-side .pick-date {\n      margin-top: 10px;\n      margin-bottom: 30px; }\n.booking-master-step-one .left-side .pick-date .month,\n      .booking-master-step-one .right-side .pick-date .month {\n        color: #dd1e25;\n        margin-bottom: 13px;\n        margin-left: 45px;\n        text-transform: capitalize; }\n.booking-master-step-one .left-side .pick-date .arrow-left,\n      .booking-master-step-one .left-side .pick-date .arrow-right,\n      .booking-master-step-one .right-side .pick-date .arrow-left,\n      .booking-master-step-one .right-side .pick-date .arrow-right {\n        display: inline-block;\n        width: 15px;\n        height: 70px;\n        background-image: url(/assets/icons/icon-arrow-left-gray.svg);\n        background-repeat: no-repeat;\n        background-size: 13px 27px;\n        background-position: center;\n        vertical-align: top;\n        cursor: pointer; }\n.booking-master-step-one .left-side .pick-date .arrow-right,\n      .booking-master-step-one .right-side .pick-date .arrow-right {\n        -webkit-transform: rotate(180deg);\n            -ms-transform: rotate(180deg);\n                transform: rotate(180deg); }\n.booking-master-step-one .left-side .pick-date .week,\n      .booking-master-step-one .right-side .pick-date .week {\n        display: inline-block;\n        margin: 0 24px;\n        vertical-align: top; }\n.booking-master-step-one .left-side .pick-date .week .day,\n        .booking-master-step-one .right-side .pick-date .week .day {\n          display: inline-block;\n          margin: 0 5px;\n          width: 50px;\n          height: 70px;\n          background-color: #F7F7F7;\n          border-radius: 3px;\n          color: #050505;\n          padding-top: 15px;\n          padding-bottom: 10px;\n          box-sizing: border-box;\n          text-align: center;\n          cursor: pointer; }\n.booking-master-step-one .left-side .pick-date .week .day .number,\n          .booking-master-step-one .right-side .pick-date .week .day .number {\n            font-size: 22px; }\n.booking-master-step-one .left-side .pick-date .week .day .name,\n          .booking-master-step-one .right-side .pick-date .week .day .name {\n            font-size: 14px; }\n.booking-master-step-one .left-side .pick-date .week .day.expired,\n          .booking-master-step-one .right-side .pick-date .week .day.expired {\n            opacity: 0.5;\n            cursor: default; }\n.booking-master-step-one .left-side .pick-date .week .day.today,\n          .booking-master-step-one .right-side .pick-date .week .day.today {\n            background-color: #CCCCCC;\n            position: relative; }\n.booking-master-step-one .left-side .pick-date .week .day.today:before,\n            .booking-master-step-one .right-side .pick-date .week .day.today:before {\n              content: \"Сегодня\";\n              position: absolute;\n              bottom: -22px;\n              left: 50%;\n              -webkit-transform: translateX(-50%);\n                  -ms-transform: translateX(-50%);\n                      transform: translateX(-50%);\n              font-size: 12px;\n              color: #898888; }\n.booking-master-step-one .left-side .pick-date .week .day.picked,\n          .booking-master-step-one .right-side .pick-date .week .day.picked {\n            background-color: #dd1e25;\n            color: #fff; }\n.booking-master-step-one .left-side .pick-time,\n    .booking-master-step-one .right-side .pick-time {\n      margin-top: 40px;\n      margin-bottom: 60px;\n      position: relative; }\n.booking-master-step-one .left-side .pick-time:before,\n      .booking-master-step-one .right-side .pick-time:before {\n        content: '';\n        display: inline-block;\n        margin-right: 10px;\n        width: 24px;\n        height: 24px;\n        background-image: url(/assets/icons/icon-clocks.svg);\n        background-size: cover;\n        background-repeat: no-repeat;\n        vertical-align: middle; }\n.booking-master-step-one .left-side .pick-time .counter,\n      .booking-master-step-one .right-side .pick-time .counter {\n        position: absolute;\n        top: -40px;\n        left: 50%;\n        -webkit-transform: translateX(-50%);\n            -ms-transform: translateX(-50%);\n                transform: translateX(-50%);\n        width: 100px;\n        height: 25px;\n        background-color: #050505;\n        border-radius: 5px;\n        font-size: 14px;\n        color: #fff;\n        font-weight: bold;\n        line-height: 25px;\n        text-align: center; }\n.booking-master-step-one .left-side .pick-time .counter .counter-arrow,\n        .booking-master-step-one .right-side .pick-time .counter .counter-arrow {\n          position: absolute;\n          top: 25px;\n          left: 50%;\n          -webkit-transform: translateX(-50%);\n              -ms-transform: translateX(-50%);\n                  transform: translateX(-50%);\n          display: block;\n          width: 0.5rem;\n          height: 0.25rem; }\n.booking-master-step-one .left-side .pick-time .counter .counter-arrow:after,\n          .booking-master-step-one .right-side .pick-time .counter .counter-arrow:after {\n            position: absolute;\n            display: block;\n            content: '';\n            border-color: transparent;\n            border-style: solid; }\n.booking-master-step-one .left-side .pick-time .counter .counter-arrow:after,\n          .booking-master-step-one .right-side .pick-time .counter .counter-arrow:after {\n            top: 0px;\n            border-top-color: #050505;\n            border-width: 0.25rem 0.25rem 0 0.25rem; }\n.booking-master-step-one .left-side .pick-people,\n    .booking-master-step-one .right-side .pick-people {\n      margin-top: 60px;\n      margin-bottom: 40px; }\n.booking-master-step-one .left-side .pick-people:before, .booking-master-step-one .left-side .pick-people:after,\n      .booking-master-step-one .right-side .pick-people:before,\n      .booking-master-step-one .right-side .pick-people:after {\n        content: '';\n        display: inline-block;\n        width: 27px;\n        height: 27px;\n        background-size: contain;\n        background-position: center;\n        background-repeat: no-repeat;\n        vertical-align: middle; }\n.booking-master-step-one .left-side .pick-people:before,\n      .booking-master-step-one .right-side .pick-people:before {\n        background-image: url(/assets/icons/icon-human.svg);\n        margin-right: 10px; }\n.booking-master-step-one .left-side .pick-people:after,\n      .booking-master-step-one .right-side .pick-people:after {\n        background-image: url(/assets/icons/icon-more-humans.svg);\n        margin-left: 10px; }\n.booking-master-step-one .left-side .pick-equipment .equipment,\n    .booking-master-step-one .right-side .pick-equipment .equipment {\n      position: relative;\n      margin: 20px 0; }\n.booking-master-step-one .left-side .pick-equipment .equipment:last-child,\n      .booking-master-step-one .right-side .pick-equipment .equipment:last-child {\n        margin-bottom: 0; }\n.booking-master-step-one .left-side .pick-equipment .equipment .checkbox,\n      .booking-master-step-one .right-side .pick-equipment .equipment .checkbox {\n        position: absolute;\n        margin: 0;\n        z-index: 1;\n        width: 30px;\n        height: 30px;\n        box-sizing: border-box;\n        opacity: 0; }\n.booking-master-step-one .left-side .pick-equipment .equipment .checkbox-custom,\n      .booking-master-step-one .right-side .pick-equipment .equipment .checkbox-custom {\n        position: relative;\n        display: inline-block;\n        vertical-align: middle;\n        width: 30px;\n        height: 30px;\n        background-color: #fff;\n        border: 2px solid #cccccc;\n        box-sizing: border-box; }\n.booking-master-step-one .left-side .pick-equipment .equipment label,\n      .booking-master-step-one .right-side .pick-equipment .equipment label {\n        display: inline-block;\n        vertical-align: middle;\n        margin-left: 20px;\n        width: 25px;\n        height: 30px;\n        background-repeat: no-repeat;\n        background-position: center;\n        background-size: contain; }\n.booking-master-step-one .left-side .pick-equipment .equipment label.projector,\n        .booking-master-step-one .right-side .pick-equipment .equipment label.projector {\n          background-image: url(/assets/icons/icon-mrr-master-projector.svg); }\n.booking-master-step-one .left-side .pick-equipment .equipment label.videostaff,\n        .booking-master-step-one .right-side .pick-equipment .equipment label.videostaff {\n          background-image: url(/assets/icons/icon-mrr-master-videostaff.svg); }\n.booking-master-step-one .left-side .pick-equipment .equipment .checkbox:checked + .checkbox-custom::before,\n      .booking-master-step-one .right-side .pick-equipment .equipment .checkbox:checked + .checkbox-custom::before {\n        content: '';\n        display: block;\n        position: absolute;\n        top: 7px;\n        right: 5px;\n        bottom: 6px;\n        left: 5px;\n        background: url(/assets/icons/icon-checkbox-checked.svg);\n        background-repeat: no-repeat;\n        background-position: center;\n        background-size: cover; }\n.booking-master-step-one .left-side .pick-room .room-list,\n    .booking-master-step-one .right-side .pick-room .room-list {\n      margin: 0 -7.5px; }\n.booking-master-step-one .left-side .pick-room .room-list .room-preview,\n      .booking-master-step-one .right-side .pick-room .room-list .room-preview {\n        position: relative;\n        display: inline-block;\n        margin: 7.5px;\n        width: 150px;\n        height: 150px;\n        color: #fff;\n        cursor: pointer; }\n.booking-master-step-one .left-side .pick-room .room-list .room-preview:not(.unavailable):hover .image,\n        .booking-master-step-one .right-side .pick-room .room-list .room-preview:not(.unavailable):hover .image {\n          border-color: #dd1e25; }\n.booking-master-step-one .left-side .pick-room .room-list .room-preview.unavailable,\n        .booking-master-step-one .right-side .pick-room .room-list .room-preview.unavailable {\n          opacity: 0.5;\n          cursor: default; }\n.booking-master-step-one .left-side .pick-room .room-list .room-preview .image,\n        .booking-master-step-one .right-side .pick-room .room-list .room-preview .image {\n          position: absolute;\n          left: 0;\n          top: 0;\n          right: 0;\n          bottom: 0;\n          background-repeat: no-repeat;\n          background-size: cover;\n          border: 4px solid #999999;\n          box-sizing: border-box; }\n.booking-master-step-one .left-side .pick-room .room-list .room-preview .image .gradient,\n          .booking-master-step-one .right-side .pick-room .room-list .room-preview .image .gradient {\n            position: absolute;\n            left: 0;\n            top: 0;\n            right: 0;\n            bottom: 0;\n            background-color: #000;\n            opacity: 0.4; }\n.booking-master-step-one .left-side .pick-room .room-list .room-preview .info,\n        .booking-master-step-one .right-side .pick-room .room-list .room-preview .info {\n          position: absolute;\n          left: 0;\n          top: 0;\n          right: 0;\n          bottom: 0;\n          padding: 15px;\n          box-sizing: border-box; }\n.booking-master-step-one .left-side .pick-room .room-list .room-preview .room-title,\n        .booking-master-step-one .right-side .pick-room .room-list .room-preview .room-title {\n          font-size: 24px;\n          margin-bottom: 10px;\n          height: 30px;\n          overflow: hidden;\n          white-space: nowrap;\n          text-overflow: ellipsis; }\n.booking-master-step-one .left-side .pick-room .room-list .room-preview .city,\n        .booking-master-step-one .right-side .pick-room .room-list .room-preview .city {\n          margin-bottom: 6px; }\n.booking-master-step-one .title {\n    font-size: 22px;\n    color: #050505; }\n.booking-master-step-one .button {\n    margin: 30px 0; }\n"
+
+/***/ }),
+
+/***/ "./src/app/booking/components/booking-master-page/booking-master-step-one/booking-master-step-one.component.ts":
+/*!*********************************************************************************************************************!*\
+  !*** ./src/app/booking/components/booking-master-page/booking-master-step-one/booking-master-step-one.component.ts ***!
+  \*********************************************************************************************************************/
+/*! exports provided: BookingMasterStepOneComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BookingMasterStepOneComponent", function() { return BookingMasterStepOneComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_booking_services_reservations_reservations_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/booking/services/reservations/reservations.service */ "./src/app/booking/services/reservations/reservations.service.ts");
+/* harmony import */ var src_app_booking_services_rooms_rooms_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/booking/services/rooms/rooms.service */ "./src/app/booking/services/rooms/rooms.service.ts");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var BookingMasterStepOneComponent = /** @class */ (function () {
+    function BookingMasterStepOneComponent(route, roomsService, reservationsService) {
+        this.route = route;
+        this.roomsService = roomsService;
+        this.reservationsService = reservationsService;
+        this.changeStep = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.selectRoom = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.pickDay = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.pickStartTime = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.pickEndTime = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.pickCount = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.webId = undefined;
+        this.tooltipPosition = null;
+        this.tooltipTransform = null;
+        this.today = moment__WEBPACK_IMPORTED_MODULE_3__();
+        this.todayNumber = Number(moment__WEBPACK_IMPORTED_MODULE_3__().format('DD'));
+        this.thisMonth = Number(moment__WEBPACK_IMPORTED_MODULE_3__().format('MM'));
+        this.showedWeek = moment__WEBPACK_IMPORTED_MODULE_3__();
+        this.showedMonth = this.showedWeek.weekday(0).format('MMMM');
+        this.week = [];
+        this.busyRooms = [];
+        this.dateStart = null;
+        this.dateEnd = null;
+        this.timeAssotiations = {
+            '800': '08:00', '850': '08:30', '900': '09:00', '950': '09:30', '1000': '10:00', '1050': '10:30', '1100': '11:00', '1150': '11:30',
+            '1200': '12:00', '1250': '12:30', '1300': '13:00', '1350': '13:30', '1400': '14:00', '1450': '14:30', '1500': '15:00', '1550': '15:30',
+            '1600': '16:00', '1650': '16:30', '1700': '17:00', '1750': '17:30', '1800': '18:00', '1850': '18:30', '1900': '19:00', '1950': '19:30',
+            '2000': '20:00'
+        };
+    }
+    BookingMasterStepOneComponent.prototype.timeCheck = function () {
+        var _this = this;
+        this.busyRooms = [];
+        var date = this.pickedDay.date;
+        var timeStart = moment__WEBPACK_IMPORTED_MODULE_3__(this.timeStart, 'HH:mm');
+        var timeEnd = moment__WEBPACK_IMPORTED_MODULE_3__(this.timeEnd, 'HH:mm');
+        this.dateStart = moment__WEBPACK_IMPORTED_MODULE_3__(date).set({
+            hour: timeStart.get('hour'),
+            minute: timeStart.get('minute')
+        });
+        this.dateEnd = moment__WEBPACK_IMPORTED_MODULE_3__(date).set({
+            hour: timeEnd.get('hour'),
+            minute: timeEnd.get('minute')
+        });
+        var filter = "((datetime'" + moment__WEBPACK_IMPORTED_MODULE_3__(this.dateStart).toISOString() + "' ge EventDate and datetime'" + moment__WEBPACK_IMPORTED_MODULE_3__(this.dateStart).toISOString() + "' lt EndDate)\n    or (datetime'" + moment__WEBPACK_IMPORTED_MODULE_3__(this.dateEnd).toISOString() + "' gt EventDate and datetime'" + moment__WEBPACK_IMPORTED_MODULE_3__(this.dateEnd).toISOString() + "' le EndDate))\n    or (datetime'" + moment__WEBPACK_IMPORTED_MODULE_3__(this.dateStart).toISOString() + "' lt EventDate and datetime'" + moment__WEBPACK_IMPORTED_MODULE_3__(this.dateEnd).toISOString() + "' gt EndDate)";
+        this.reservationsService.getItems({
+            filter: filter,
+            webId: this.webId
+        }).subscribe(function (reservations) {
+            reservations.forEach(function (reservation) {
+                _this.busyRooms.push(reservation.roomLookupId);
+            });
+        });
+    };
+    BookingMasterStepOneComponent.prototype.pickRoom = function (room) {
+        if (this.pickedDay === this.today) {
+            alert('Необходимо выбрать дату');
+        }
+        else if (this.busyRooms.includes(room.id)) {
+            alert('В выбранное время данная комната занята');
+        }
+        else {
+            this.pickedRoom = room;
+            this.isFirstStep = !this.isFirstStep;
+            this.selectRoom.emit(this.pickedRoom);
+            this.changeStep.emit(this.isFirstStep);
+            this.pickDay.emit(this.pickedDay);
+            this.pickStartTime.emit(this.timeStart);
+            this.pickEndTime.emit(this.timeEnd);
+            this.pickCount.emit(this.peopleCounter);
+        }
+    };
+    BookingMasterStepOneComponent.prototype.selectDay = function (day) {
+        if (moment__WEBPACK_IMPORTED_MODULE_3__(day.date).format('DD') < moment__WEBPACK_IMPORTED_MODULE_3__(this.today).format('DD') &&
+            moment__WEBPACK_IMPORTED_MODULE_3__(day.date).format('MM') <= moment__WEBPACK_IMPORTED_MODULE_3__(this.today).format('MM')) {
+            return this.pickedDay;
+        }
+        else {
+            this.pickedDay = day;
+        }
+        this.timeCheck();
+    };
+    BookingMasterStepOneComponent.prototype.pushWeek = function () {
+        var i = 0;
+        while (i <= 6) {
+            var thisWeek = this.today.weekday(i++);
+            this.week.push({
+                date: moment__WEBPACK_IMPORTED_MODULE_3__(thisWeek),
+                title: thisWeek.format('dd'),
+                number: Number(thisWeek.format('D')),
+                month: Number(thisWeek.format('MM'))
+            });
+        }
+        this.today = moment__WEBPACK_IMPORTED_MODULE_3__();
+    };
+    BookingMasterStepOneComponent.prototype.prevWeek = function () {
+        var i = 0;
+        var d = 1;
+        this.week = [];
+        var prevWeek = this.showedWeek.subtract(d++, 'weeks');
+        if (prevWeek.weekday(0) < this.today.weekday(0)) {
+            this.pushWeek();
+            this.showedWeek = moment__WEBPACK_IMPORTED_MODULE_3__();
+        }
+        else {
+            this.showedWeek = prevWeek;
+            this.showedMonth = prevWeek.weekday(0).format('MMMM');
+            while (i <= 6) {
+                var week = prevWeek.weekday(i++);
+                this.week.push({
+                    date: week,
+                    title: week.format('dd'),
+                    number: Number(week.format('D')),
+                    month: Number(week.format('MM'))
+                });
+            }
+        }
+    };
+    BookingMasterStepOneComponent.prototype.nextWeek = function () {
+        var i = 0;
+        var d = 1;
+        this.week = [];
+        var nextWeek = this.showedWeek.add(d++, 'weeks');
+        this.showedWeek = nextWeek;
+        this.showedMonth = nextWeek.weekday(0).format('MMMM');
+        while (i <= 6) {
+            var week = nextWeek.weekday(i++);
+            this.week.push({
+                date: week,
+                title: week.format('dd'),
+                number: Number(week.format('D')),
+                month: Number(week.format('MM'))
+            });
+        }
+    };
+    BookingMasterStepOneComponent.prototype.onTimeChange = function (selectedValues) {
+        var start = selectedValues[0];
+        var end = selectedValues[1];
+        this.tooltipPosition = ((start + (end - start) / 2) - 800) * 100 / 1200 + '%';
+        this.tooltipTransform = "translateX(-" + this.tooltipPosition + ")";
+        for (var value in this.timeAssotiations) {
+            if (Number(value) === start) {
+                this.timeStart = this.timeAssotiations[value];
+            }
+            else if (Number(value) === end) {
+                this.timeEnd = this.timeAssotiations[value];
+            }
+        }
+        if (this.pickedDay !== this.today) {
+            this.timeCheck();
+        }
+    };
+    BookingMasterStepOneComponent.prototype.onPeopleChange = function (selectedValue) {
+        this.peopleCounter = selectedValue;
+    };
+    BookingMasterStepOneComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.webId =
+            this.route.snapshot.data.webId !== 'root'
+                ? this.route.snapshot.data.webId
+                : null;
+        this.roomsService.getItems({ webId: this.webId }).subscribe(function (rooms) {
+            _this.rooms = rooms;
+        });
+        this.pushWeek();
+        this.pickedDay = this.today;
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Array)
+    ], BookingMasterStepOneComponent.prototype, "rooms", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Object)
+    ], BookingMasterStepOneComponent.prototype, "pickedRoom", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Object)
+    ], BookingMasterStepOneComponent.prototype, "pickedDay", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Object)
+    ], BookingMasterStepOneComponent.prototype, "timeStart", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Object)
+    ], BookingMasterStepOneComponent.prototype, "timeEnd", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Object)
+    ], BookingMasterStepOneComponent.prototype, "peopleCounter", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Object)
+    ], BookingMasterStepOneComponent.prototype, "equipment", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Boolean)
+    ], BookingMasterStepOneComponent.prototype, "isFirstStep", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])(),
+        __metadata("design:type", Object)
+    ], BookingMasterStepOneComponent.prototype, "changeStep", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])(),
+        __metadata("design:type", Object)
+    ], BookingMasterStepOneComponent.prototype, "selectRoom", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])(),
+        __metadata("design:type", Object)
+    ], BookingMasterStepOneComponent.prototype, "pickDay", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])(),
+        __metadata("design:type", Object)
+    ], BookingMasterStepOneComponent.prototype, "pickStartTime", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])(),
+        __metadata("design:type", Object)
+    ], BookingMasterStepOneComponent.prototype, "pickEndTime", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])(),
+        __metadata("design:type", Object)
+    ], BookingMasterStepOneComponent.prototype, "pickCount", void 0);
+    BookingMasterStepOneComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-booking-master-step-one',
+            template: __webpack_require__(/*! ./booking-master-step-one.component.html */ "./src/app/booking/components/booking-master-page/booking-master-step-one/booking-master-step-one.component.html"),
+            styles: [__webpack_require__(/*! ./booking-master-step-one.component.scss */ "./src/app/booking/components/booking-master-page/booking-master-step-one/booking-master-step-one.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"],
+            src_app_booking_services_rooms_rooms_service__WEBPACK_IMPORTED_MODULE_2__["RoomsService"],
+            src_app_booking_services_reservations_reservations_service__WEBPACK_IMPORTED_MODULE_1__["ReservationsService"]])
+    ], BookingMasterStepOneComponent);
+    return BookingMasterStepOneComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/booking/components/booking-master-page/booking-master-step-two/booking-master-step-two.component.html":
+/*!***********************************************************************************************************************!*\
+  !*** ./src/app/booking/components/booking-master-page/booking-master-step-two/booking-master-step-two.component.html ***!
+  \***********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"booking-master-step-two\">\n  <div class=\"left-side\">\n    <div class=\"title\">{{date}}, {{timeStart}}-{{timeEnd}}</div>\n    <div class=\"room-preview\">\n      <div class=\"image\">\n        <div class=\"gradient\"></div>\n      </div>\n      <div class=\"info\">\n        <div class=\"room-title\" title=\"{{pickedRoom.title}}\">\n          {{pickedRoom.title}}\n        </div>\n        <div class=\"city\">\n          {{pickedRoom.officeLookupTitle}}\n        </div>\n        <!-- <div class=\"sits\">Количество мест</div> -->\n      </div>\n    </div>\n  </div>\n  <div class=\"right-side\">\n    <div class=\"title important\">Тема встречи</div>\n    <input [(ngModel)]=\"reservation.title\" type=\"text\" placeholder=\"Введите текст\" />\n    <div class=\"title important\">Тип встречи</div>\n    <select [(ngModel)]=\"reservation.meetingTypeLookupId\">\n      <option value=\"\"></option>\n      <option *ngFor=\"let type of meetingTypes\" [attr.value]=\"type.id\" [attr.selected]=\"reservation.meetingTypeLookupId === type.id? '' : null\">{{type.title}}</option>\n    </select>\n    <div class=\"title important\">Ответственный</div>\n    <app-sp-user [theme]=\"'new-master'\" (value)=\"changeResponsible($event)\"></app-sp-user>\n    <div class=\"title important\">Внутренние участники</div>\n    <app-sp-user [isMulti]=\"true\" (value)=\"changeParticipants($event)\" [theme]=\"'new-master'\"></app-sp-user>\n    <div class=\"title\">Внешние участники</div>\n    <input [(ngModel)]=\"externalParticipants\" type=\"text\"\n      placeholder=\"Перечислите участников встречи в свободной форме\" />\n    <div class=\"title\">Описание встречи</div>\n    <textarea [(ngModel)]=\"reservation.description\" rows=\"3\" placeholder=\"Введите текст\"></textarea>\n    <div class=\"description\">\n      <div class=\"mark\">*</div>\n      <div class=\"text\">– Обязательные поля</div>\n    </div>\n    <div class=\"controls\">\n      <input type=\"button\" class=\"btn btn-default is-transparent red\" value=\"Отменить\" (click)=\"cancelConfirmation()\" />\n      <input type=\"button\" class=\"btn btn-default red\" value=\"Забронировать\" (click)=\"createReservation(reservation)\" />\n    </div>\n  </div>\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/booking/components/booking-master-page/booking-master-step-two/booking-master-step-two.component.scss":
+/*!***********************************************************************************************************************!*\
+  !*** ./src/app/booking/components/booking-master-page/booking-master-step-two/booking-master-step-two.component.scss ***!
+  \***********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.booking-master-step-two {\n  width: 100%;\n  font-size: 0px; }\n\n.booking-master-step-two .left-side {\n    width: 45%;\n    padding-right: 50px; }\n\n.booking-master-step-two .left-side .title {\n      text-transform: capitalize; }\n\n.booking-master-step-two .right-side {\n    width: 55%; }\n\n.booking-master-step-two .left-side,\n  .booking-master-step-two .right-side {\n    display: inline-block;\n    font-size: 14px;\n    vertical-align: top;\n    box-sizing: border-box; }\n\n.booking-master-step-two .left-side .room-preview,\n    .booking-master-step-two .right-side .room-preview {\n      position: relative;\n      display: inline-block;\n      width: 100%;\n      position: relative;\n      color: #fff; }\n\n.booking-master-step-two .left-side .room-preview:before,\n      .booking-master-step-two .right-side .room-preview:before {\n        display: block;\n        content: \" \";\n        width: 100%;\n        padding-bottom: 66.66666667%; }\n\n.booking-master-step-two .left-side .room-preview > .content,\n      .booking-master-step-two .right-side .room-preview > .content {\n        position: absolute;\n        top: 0;\n        left: 0;\n        right: 0;\n        bottom: 0; }\n\n.booking-master-step-two .left-side .room-preview .image,\n      .booking-master-step-two .right-side .room-preview .image {\n        position: absolute;\n        left: 0;\n        top: 0;\n        right: 0;\n        bottom: 0;\n        background-repeat: no-repeat;\n        background-size: cover; }\n\n.booking-master-step-two .left-side .room-preview .image .gradient,\n        .booking-master-step-two .right-side .room-preview .image .gradient {\n          position: absolute;\n          left: 0;\n          top: 0;\n          right: 0;\n          bottom: 0;\n          background-color: #000;\n          opacity: 0.4; }\n\n.booking-master-step-two .left-side .room-preview .info,\n      .booking-master-step-two .right-side .room-preview .info {\n        position: absolute;\n        left: 0;\n        top: 0;\n        right: 0;\n        bottom: 0;\n        padding: 20px 30px;\n        box-sizing: border-box;\n        font-size: 22px; }\n\n.booking-master-step-two .left-side .room-preview .room-title,\n      .booking-master-step-two .right-side .room-preview .room-title {\n        font-size: 34px;\n        margin-bottom: 10px;\n        overflow: hidden;\n        white-space: nowrap;\n        text-overflow: ellipsis; }\n\n.booking-master-step-two .left-side .room-preview .city,\n      .booking-master-step-two .right-side .room-preview .city {\n        margin-bottom: 6px; }\n\n.booking-master-step-two .left-side input[type='text'],\n    .booking-master-step-two .left-side select,\n    .booking-master-step-two .right-side input[type='text'],\n    .booking-master-step-two .right-side select {\n      width: 100%;\n      background-color: #ffffff;\n      font-size: 18px;\n      color: #444;\n      padding: 15px 20px;\n      box-sizing: border-box;\n      margin-bottom: 30px;\n      border: 1px solid #cccccc; }\n\n.booking-master-step-two .left-side textarea,\n    .booking-master-step-two .right-side textarea {\n      font-size: 18px;\n      line-height: 20px;\n      width: 100%;\n      padding: 10px 20px;\n      box-sizing: border-box;\n      border: 1px solid #cccccc;\n      resize: vertical;\n      margin-bottom: 20px; }\n\n.booking-master-step-two .left-side .description,\n    .booking-master-step-two .right-side .description {\n      margin-bottom: 35px; }\n\n.booking-master-step-two .left-side .description .mark,\n      .booking-master-step-two .right-side .description .mark {\n        display: inline-block;\n        height: 50px;\n        font-size: 34px;\n        line-height: 65px;\n        color: #050505;\n        text-align: center;\n        vertical-align: middle;\n        margin-right: 30px; }\n\n.booking-master-step-two .left-side .description .text,\n      .booking-master-step-two .right-side .description .text {\n        display: inline-block;\n        font-size: 18px;\n        font-style: italic;\n        line-height: 30px;\n        color: #4D4E4D;\n        vertical-align: middle; }\n\n.booking-master-step-two .left-side .controls input,\n    .booking-master-step-two .right-side .controls input {\n      margin-right: 25px; }\n\n.booking-master-step-two .title {\n    font-size: 22px;\n    color: #050505;\n    margin-bottom: 8px; }\n\n.booking-master-step-two .title.important::after {\n      content: '*';\n      font-size: 34px;\n      color: #dd1e25; }\n"
+
+/***/ }),
+
+/***/ "./src/app/booking/components/booking-master-page/booking-master-step-two/booking-master-step-two.component.ts":
+/*!*********************************************************************************************************************!*\
+  !*** ./src/app/booking/components/booking-master-page/booking-master-step-two/booking-master-step-two.component.ts ***!
+  \*********************************************************************************************************************/
+/*! exports provided: BookingMasterStepTwoComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BookingMasterStepTwoComponent", function() { return BookingMasterStepTwoComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_booking_services_reservations_reservations_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/booking/services/reservations/reservations.service */ "./src/app/booking/services/reservations/reservations.service.ts");
+/* harmony import */ var src_app_booking_services_meeting_types_meeting_types_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/booking/services/meeting-types/meeting-types.service */ "./src/app/booking/services/meeting-types/meeting-types.service.ts");
+/* harmony import */ var src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/sharepoint/sharepoint.service */ "./src/app/services/sharepoint/sharepoint.service.ts");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+var BookingMasterStepTwoComponent = /** @class */ (function () {
+    function BookingMasterStepTwoComponent(sharepointService, route, reservationsService, meetingTypesService) {
+        this.sharepointService = sharepointService;
+        this.route = route;
+        this.reservationsService = reservationsService;
+        this.meetingTypesService = meetingTypesService;
+        this.changeStep = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.webId = undefined;
+        this.reservation = {};
+        this.date = null;
+        this.externalParticipants = null;
+        this.currentUser = this.sharepointService.getCurrentUserContext().userLoginName;
+        this.currentUserId = this.sharepointService.getCurrentUserContext().userId;
+    }
+    BookingMasterStepTwoComponent.prototype.changeResponsible = function (users) {
+        this.reservation.responsibleId = users && users.length > 0 ? users[0].Id : null;
+    };
+    BookingMasterStepTwoComponent.prototype.changeParticipants = function (users) {
+        this.reservation.participants = users.map(function (user) {
+            return {
+                Id: user.Id,
+                Title: user.Title,
+                UserName: user.LoginName,
+                EMail: user.Email
+            };
+        });
+    };
+    BookingMasterStepTwoComponent.prototype.cancelConfirmation = function () {
+        this.isFirstStep = !this.isFirstStep;
+        this.changeStep.emit(this.isFirstStep);
+    };
+    BookingMasterStepTwoComponent.prototype.createReservation = function (item) {
+        var _this = this;
+        if (!this.reservation.title) {
+            alert('Поле "Тема встречи" обязательно к заполнению');
+        }
+        else if (!this.reservation.meetingTypeLookupId) {
+            alert('Поле "Тип встречи" обязательно к заполнению');
+        }
+        else if (!this.reservation.responsibleId) {
+            alert('Поле "Ответственный" обязательно к заполнению');
+        }
+        else if (!this.reservation.participants) {
+            alert('Поле "Внутренние участники" обязательно к заполнению');
+        }
+        else {
+            var date = this.pickedDay.date.format('DD.MM.YYYY');
+            this.reservation.videoStaff = this.equipment.videoStaff ? 'Да' : 'Нет';
+            this.reservation.projector = this.equipment.projector ? 'Да' : 'Нет';
+            this.reservation.count = Number(this.peopleCounter);
+            this.reservation.eventDate = moment__WEBPACK_IMPORTED_MODULE_4__(date + ' ' + this.timeStart, 'DD.MM.YYYY HH:mm').toISOString();
+            this.reservation.endDate = moment__WEBPACK_IMPORTED_MODULE_4__(date + ' ' + this.timeEnd, 'DD.MM.YYYY HH:mm').toISOString();
+            this.reservation.officeLookupId = this.pickedRoom.officeLookupId;
+            this.reservation.roomLookupId = this.pickedRoom.id;
+            this.reservation.initiatorLogin = this.currentUser;
+            this.reservation.initiatorId = this.currentUserId;
+            this.reservationsService.createItem({
+                id: undefined,
+                title: item.title,
+                participants: { 'results': item.participants.map(function (user) { return user.Id; }) },
+                videoStaff: item.videoStaff,
+                projector: item.projector,
+                description: item.description,
+                initiator: item.initiator,
+                initiatorId: item.initiatorId,
+                initiatorLogin: item.initiatorLogin,
+                responsible: item.responsible,
+                responsibleId: item.responsibleId,
+                responsibleLogin: item.responsibleLogin,
+                count: item.count,
+                eventDate: item.eventDate,
+                endDate: item.endDate,
+                companyLookupId: item.companyLookupId,
+                officeLookupId: item.officeLookupId,
+                roomLookupId: item.roomLookupId,
+                meetingTypeLookupId: item.meetingTypeLookupId
+            }, this.webId).subscribe(function (itemResived) {
+                _this.cancelConfirmation();
+            });
+        }
+    };
+    BookingMasterStepTwoComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.webId =
+            this.route.snapshot.data.webId !== 'root'
+                ? this.route.snapshot.data.webId
+                : null;
+        this.meetingTypesService.getItems({ webId: this.webId }).subscribe(function (meetingTypes) {
+            _this.meetingTypes = meetingTypes;
+        });
+        this.date = moment__WEBPACK_IMPORTED_MODULE_4__(this.pickedDay.date).format('DD MMMM');
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Object)
+    ], BookingMasterStepTwoComponent.prototype, "pickedRoom", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Boolean)
+    ], BookingMasterStepTwoComponent.prototype, "isFirstStep", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Object)
+    ], BookingMasterStepTwoComponent.prototype, "pickedDay", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", String)
+    ], BookingMasterStepTwoComponent.prototype, "timeStart", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", String)
+    ], BookingMasterStepTwoComponent.prototype, "timeEnd", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Number)
+    ], BookingMasterStepTwoComponent.prototype, "peopleCounter", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Object)
+    ], BookingMasterStepTwoComponent.prototype, "equipment", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])(),
+        __metadata("design:type", Object)
+    ], BookingMasterStepTwoComponent.prototype, "changeStep", void 0);
+    BookingMasterStepTwoComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-booking-master-step-two',
+            template: __webpack_require__(/*! ./booking-master-step-two.component.html */ "./src/app/booking/components/booking-master-page/booking-master-step-two/booking-master-step-two.component.html"),
+            styles: [__webpack_require__(/*! ./booking-master-step-two.component.scss */ "./src/app/booking/components/booking-master-page/booking-master-step-two/booking-master-step-two.component.scss")]
+        }),
+        __metadata("design:paramtypes", [src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_3__["SharepointService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_5__["ActivatedRoute"],
+            src_app_booking_services_reservations_reservations_service__WEBPACK_IMPORTED_MODULE_1__["ReservationsService"],
+            src_app_booking_services_meeting_types_meeting_types_service__WEBPACK_IMPORTED_MODULE_2__["MeetingTypesService"]])
+    ], BookingMasterStepTwoComponent);
+    return BookingMasterStepTwoComponent;
 }());
 
 
@@ -5378,7 +6540,7 @@ var BookingMasterModalFormComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"l-edit-card-modal\" *ngIf=\"modalIsOpen\">\n  <div class=\"l-edit-card__block\">\n    <div class=\"l-edit-card__header\">\n      <div *ngIf=\"isCreateItem === false\" class=\"title\">\n        Изменить бронирование\n      </div>\n      <div *ngIf=\"isCreateItem === true\" class=\"title\">\n        Создать бронирование\n      </div>\n      <div class=\"close\">\n        <input type=\"button\" class=\"btn-close-gray-bold\" (click)=\"closeModal()\">\n      </div>\n    </div>\n    <div class=\"l-edit-card__body\">\n      <table class=\"m-mrss-modal-dialog-content__table\">\n        <tr>\n          <td colspan=\"2\">\n            <b class=\"ce-modal-dialog-block-title important\">Тема:</b>\n            <br />\n            <input [(ngModel)]=\"editableReservation.title\" class=\"ce-modal-dialog-input\" type=\"text\" id=\"MeetingTitle\" maxlength=\"128\" placeholder=\"Тема переговоров\" [attr.value]=\"editableReservation.title\" />\n          </td>\n        </tr>\n        <tr>\n          <td colspan=\"2\">\n            <textarea [(ngModel)]=\"editableReservation.description\" class=\"ce-modal-dialog-textarea\" id=\"MeetingDescription\" maxlength=\"512\" placeholder=\"Описание\">{{editableReservation.description}}</textarea>\n          </td>\n        </tr>\n        <tr>\n          <td>\n            <b class=\"ce-modal-dialog-block-title important\">Переговорная:</b>\n            <select [(ngModel)]=\"editableReservation.roomLookupId\" (change)=\"changeRoom(editableReservationDate)\" class=\"ce-modal-dialog-select\" id=\"MeetingRoom\">\n              <option *ngFor=\"let room of rooms\" [attr.value]=\"room.id\" [attr.selected]=\"editableReservation.roomLookupId === room.id? '' : null\">{{room.title}}</option>\n            </select>\n          </td>\n          <td>\n            <b class=\"ce-modal-dialog-block-title important\">Тип встречи:</b>\n            <br />\n            <select [(ngModel)]=\"editableReservation.meetingTypeLookupId\" class=\"ce-modal-dialog-select\" id=\"MeetingType\">\n              <option *ngFor=\"let type of meetingTypes\" [attr.value]=\"type.id\" [attr.selected]=\"editableReservation.meetingTypeLookupId === type.id? '' : null\">{{type.title}}</option>\n            </select>\n          </td>\n        </tr>\n        <tr>\n          <td colspan=\"2\">\n            <b class=\"ce-modal-dialog-block-title important\">Инициатор:</b>\n            <app-sp-user\n              [login]=\"editableReservation.initiatorLogin\"\n              [isMulti]=\"false\"\n              (value)=\"changeInitiator($event)\"\n              theme=\"booking-modal\"\n            ></app-sp-user>\n          </td>\n        </tr>\n        <tr>\n          <td colspan=\"2\">\n            <b class=\"ce-modal-dialog-block-title important\">Ответственный:</b>\n              <app-sp-user\n                [login]=\"editableReservation.responsibleLogin\"\n                [isMulti]=\"false\"\n                (value)=\"changeResponsible($event)\"\n                theme=\"booking-modal\"\n              ></app-sp-user>\n          </td>\n        </tr>\n        <tr>\n          <td colspan=\"2\">\n            <b class=\"ce-modal-dialog-block-title important\">Участники встречи:</b>\n            <app-sp-user\n              [login]=\"participantsString\"\n              [isMulti]=\"true\"\n              (value)=\"changeParticipants($event)\"\n              theme=\"booking-modal\"\n            ></app-sp-user>\n          </td>\n        </tr>\n        <tr>\n          <td>\n            <b class=\"ce-modal-dialog-block-title important\">Кол-во участников встречи:</b>\n            <br />\n            <input class=\"ce-modal-dialog-input\" [(ngModel)]=\"editableReservation.count\" type=\"number\" min=\"0\" max=\"999\" id=\"MeetingMembersCount\" placeholder=\"Численное значение\" [attr.value]=\"editableReservation.count\" />\n          </td>\n          <td>\n            <b class=\"ce-modal-dialog-block-title important\">Дата резервирования:</b>\n            <input class=\"ce-modal-dialog-input\" type=\"text\" id=\"EventDate\" (change)=\"changeDay(editableReservationDate)\" [(ngModel)]=\"editableReservationDate\" placeholder=\"дд.мм.гггг\" [value]=\"editableReservationDate\" />\n          </td>\n        </tr>\n        <tr>\n          <td>\n            <b class=\"ce-modal-dialog-block-title important\">Время начала:</b>\n            <br />\n            <select [ngModel]=\"selectStart\" (change)=\"changeStartTime(editableReservationDate, $event)\" id=\"EventDateFromTime\" class=\"ce-modal-dialog-select\" [disabled]=\"isCreateItem && !isDublicateItem\">\n              <ng-container *ngFor=\"let time of timeLine; let i = index\">\n                  <option *ngIf=\"i < timeLine.length-1\" [value]=\"time\">{{time}}</option>\n              </ng-container>\n            </select>\n          </td>\n          <td>\n            <b class=\"ce-modal-dialog-block-title important\">Время окончания:</b>\n            <select [ngModel]=\"selectEnd\" (change)=\"changeEndTime(editableReservationDate, $event)\" id=\"EventDateToTime\" class=\"ce-modal-dialog-select\">\n              <ng-container *ngFor=\"let time of timeLine; let i = index\">\n                  <option *ngIf=\"i > 0\" [value]=\"time\">{{time}}</option>\n              </ng-container>\n            </select>\n          </td>\n        </tr>\n        <tr>\n          <td>\n            <b class=\"ce-modal-dialog-block-title important\">Наличие оборудования для видеоконференции:</b>\n            <select [(ngModel)]=\"editableReservation.videoStaff\" class=\"ce-modal-dialog-select\" id=\"MeetingIsVideo\">\n                <ng-container *ngFor=\"let selector of booleanSelector\">\n                  <option [attr.selected]=\"editableReservation.videoStaff === selector? '' : null\">{{selector}}</option>\n                </ng-container>\n            </select>\n          </td>\n          <td>\n            <b class=\"ce-modal-dialog-block-title important\">Наличие проектора/ТВ:</b>\n            <select [(ngModel)]=\"editableReservation.projector\" class=\"ce-modal-dialog-select\" id=\"MeetingIsProjector\">\n                <ng-container *ngFor=\"let selector of booleanSelector\">\n                  <option [attr.selected]=\"editableReservation.projector === selector? '' : null\">{{selector}}</option>\n                </ng-container>\n            </select>\n          </td>\n        </tr>\n        <tr>\n          <td>\n            <b class=\"ce-modal-dialog-block-title\">Повторяющееся событие:</b>\n            <select class=\"ce-modal-dialog-select\" id=\"MeetingRecurring\">\n              <option value=\"none\">Нет</option>\n              <option value=\"day\">Ежедневно</option>\n              <option value=\"week\">Еженедельно</option>\n              <option value=\"month\">Ежемесячно</option>\n              <option value=\"year\">Ежегодно</option>\n            </select>\n          </td>\n        </tr>\n      </table>\n      <div class=\"buttons\">\n        <input \n          type=\"button\" \n          value=\"Отменить\" \n          class=\"btn btn-default is-transparent red\" \n          (click)=\"closeModal()\" \n        />\n        <input \n          *ngIf=\"!isCreateItem\" \n          type=\"button\" \n          value=\"Сохранить\" \n          class=\"btn btn-default red\" \n          (click)=\"changeOfficeId(); updateReservation(editableReservation)\" \n        />\n        <input \n          *ngIf=\"isCreateItem && !isDublicateItem\" \n          type=\"button\" \n          value=\"Сохранить\" \n          class=\"btn btn-default red\" \n          (click)=\"changeOfficeId(); createReservation(editableReservation)\" \n        />\n        <input \n          *ngIf=\"isCreateItem && isDublicateItem\" \n          type=\"button\" \n          value=\"Сохранить\" \n          class=\"btn btn-default red\" \n          (click)=\"changeOfficeId(); dublicateReservation(editableReservation)\" \n        />\n      </div>\n    </div>\n  </div>\n  <div class=\"l-edit-card__overlay\"></div>\n</div>"
+module.exports = "<div class=\"l-edit-card-modal\" *ngIf=\"modalIsOpen\">\n  <div class=\"l-edit-card__block\">\n    <div class=\"l-edit-card__header\">\n      <div *ngIf=\"!isCreateItem && !isViewItem\" class=\"title\">\n        Изменить бронирование\n      </div>\n      <div *ngIf=\"isCreateItem || isViewItem\" class=\"title\">\n        Бронирование\n      </div>\n      <div class=\"close\">\n        <input type=\"button\" class=\"btn-close-gray-bold\" (click)=\"closeModal()\">\n      </div>\n    </div>\n    <div class=\"l-edit-card__body\">\n      <table class=\"m-mrss-modal-dialog-content__table\">\n        <tr>\n          <td colspan=\"2\">\n            <b class=\"ce-modal-dialog-block-title important\">Тема:</b>\n            <br />\n            <input [(ngModel)]=\"editableReservation.title\" class=\"ce-modal-dialog-input\" type=\"text\" id=\"MeetingTitle\" maxlength=\"128\" placeholder=\"Тема встречи\" [attr.value]=\"editableReservation.title\" [disabled]=\"isViewItem\" />\n          </td>\n        </tr>\n        <tr>\n          <td colspan=\"2\">\n            <textarea [(ngModel)]=\"editableReservation.description\" class=\"ce-modal-dialog-textarea\" id=\"MeetingDescription\" maxlength=\"512\" placeholder=\"Описание\" [disabled]=\"isViewItem\">{{editableReservation.description}}</textarea>\n          </td>\n        </tr>\n        <tr>\n          <td>\n            <b class=\"ce-modal-dialog-block-title important\">Переговорная:</b>\n            <select [(ngModel)]=\"editableReservation.roomLookupId\" (change)=\"changeRoom(editableReservationDate)\" class=\"ce-modal-dialog-select\" id=\"MeetingRoom\" [disabled]=\"isViewItem\">\n              <option *ngFor=\"let room of rooms\" [attr.value]=\"room.id\" [attr.selected]=\"editableReservation.roomLookupId === room.id? '' : null\">{{room.title}}</option>\n            </select>\n          </td>\n          <td>\n            <b class=\"ce-modal-dialog-block-title important\">Тип встречи:</b>\n            <br />\n            <select [(ngModel)]=\"editableReservation.meetingTypeLookupId\" class=\"ce-modal-dialog-select\" id=\"MeetingType\" [disabled]=\"isViewItem\">\n              <option *ngFor=\"let type of meetingTypes\" [attr.value]=\"type.id\" [attr.selected]=\"editableReservation.meetingTypeLookupId === type.id? '' : null\">{{type.title}}</option>\n            </select>\n          </td>\n        </tr>\n        <ng-container *ngIf=\"!isViewItem\">\n          <tr>\n            <td colspan=\"2\">\n              <b class=\"ce-modal-dialog-block-title important\">Инициатор:</b>\n              <app-sp-user\n                [login]=\"editableReservation.initiatorLogin\"\n                [isMulti]=\"false\"\n                (value)=\"changeInitiator($event)\"\n                theme=\"booking-modal\"\n              ></app-sp-user>\n            </td>\n          </tr>\n          <tr>\n            <td colspan=\"2\">\n              <b class=\"ce-modal-dialog-block-title important\">Ответственный:</b>\n                <app-sp-user\n                  [login]=\"editableReservation.responsibleLogin\"\n                  [isMulti]=\"false\"\n                  (value)=\"changeResponsible($event)\"\n                  theme=\"booking-modal\"\n                ></app-sp-user>\n            </td>\n          </tr>\n          <tr>\n            <td colspan=\"2\">\n              <b class=\"ce-modal-dialog-block-title important\">Участники встречи:</b>\n              <app-sp-user\n                [login]=\"participantsString\"\n                [isMulti]=\"true\"\n                (value)=\"changeParticipants($event)\"\n                theme=\"booking-modal\"\n              ></app-sp-user>\n            </td>\n          </tr>\n        </ng-container>\n        <ng-container *ngIf=\"isViewItem\">\n          <tr>\n            <td colspan=\"2\">\n              <b class=\"ce-modal-dialog-block-title important\">Инициатор:</b>\n              <div style=\"position:relative\">\n                <app-sp-user\n                  [login]=\"editableReservation.initiatorLogin\"\n                  [isMulti]=\"false\"\n                  (value)=\"changeInitiator($event)\"\n                  theme=\"disabled\"\n                ></app-sp-user>\n              </div>\n            </td>\n          </tr>\n          <tr>\n            <td colspan=\"2\">\n              <b class=\"ce-modal-dialog-block-title important\">Ответственный:</b>\n              <div style=\"position:relative\">\n                <app-sp-user\n                  [login]=\"editableReservation.responsibleLogin\"\n                  [isMulti]=\"false\"\n                  (value)=\"changeResponsible($event)\"\n                  theme=\"disabled\"\n                ></app-sp-user>\n              </div>\n            </td>\n          </tr>\n          <tr>\n            <td colspan=\"2\">\n              <b class=\"ce-modal-dialog-block-title important\">Участники встречи:</b>\n              <div style=\"position:relative\">\n                <app-sp-user\n                  [login]=\"participantsString\"\n                  [isMulti]=\"true\"\n                  (value)=\"changeParticipants($event)\"\n                  theme=\"disabled\"\n                ></app-sp-user>\n              </div>\n            </td>\n          </tr>\n        </ng-container>\n        <tr>\n          <td>\n            <b class=\"ce-modal-dialog-block-title important\">Кол-во участников встречи:</b>\n            <br />\n            <input class=\"ce-modal-dialog-input\" [(ngModel)]=\"editableReservation.count\" [ngStyle]=\"isViewItem && {'background-color': '#fdfdfd', 'color': '#b9b9b9'}\" type=\"number\" min=\"0\" max=\"999\" id=\"MeetingMembersCount\" placeholder=\"Численное значение\" [attr.value]=\"editableReservation.count\" [disabled]=\"isViewItem\" />\n          </td>\n          <td>\n            <b class=\"ce-modal-dialog-block-title important\">Дата резервирования:</b>\n            <dp-date-picker [(ngModel)]=\"editableReservationDate\" (onChange)=\"changeDay(editableReservationDate)\" #dayPickerModal (clickOutside)=\"closePicker()\" [config]=\"datePickerConfig\" [displayDate]=\"editableReservationDate\" placeholder=\"Не выбрано\" theme=\"dp-material modal-form\" [disabled]=\"isViewItem\"></dp-date-picker> \n          </td>\n        </tr>\n        <tr>\n          <td>\n            <b class=\"ce-modal-dialog-block-title important\">Время начала:</b>\n            <br />\n            <select [ngModel]=\"selectStart\" (change)=\"changeStartTime(editableReservationDate, $event)\" id=\"EventDateFromTime\" class=\"ce-modal-dialog-select\" [disabled]=\"isViewItem\">\n              <ng-container *ngFor=\"let time of timeLine; let i = index\">\n                  <option *ngIf=\"i < timeLine.length-1\" [value]=\"time\">{{time}}</option>\n              </ng-container>\n            </select>\n          </td>\n          <td>\n            <b class=\"ce-modal-dialog-block-title important\">Время окончания:</b>\n            <select [ngModel]=\"selectEnd\" (change)=\"changeEndTime(editableReservationDate, $event)\" id=\"EventDateToTime\" class=\"ce-modal-dialog-select\" [disabled]=\"isViewItem\">\n              <ng-container *ngFor=\"let time of timeLine; let i = index\">\n                  <option *ngIf=\"i > 0\" [value]=\"time\">{{time}}</option>\n              </ng-container>\n            </select>\n          </td>\n        </tr>\n        <tr>\n          <td>\n            <b class=\"ce-modal-dialog-block-title important\">Оборудование для видеоконференции:</b>\n            <select [(ngModel)]=\"editableReservation.videoStaff\" class=\"ce-modal-dialog-select\" id=\"MeetingIsVideo\" [disabled]=\"isViewItem\">\n                <ng-container *ngFor=\"let selector of booleanSelector\">\n                  <option [attr.selected]=\"editableReservation.videoStaff === selector? '' : null\">{{selector}}</option>\n                </ng-container>\n            </select>\n          </td>\n          <td>\n            <b class=\"ce-modal-dialog-block-title important\">Наличие проектора/ТВ:</b>\n            <select [(ngModel)]=\"editableReservation.projector\" class=\"ce-modal-dialog-select\" id=\"MeetingIsProjector\" [disabled]=\"isViewItem\">\n                <ng-container *ngFor=\"let selector of booleanSelector\">\n                  <option [attr.selected]=\"editableReservation.projector === selector? '' : null\">{{selector}}</option>\n                </ng-container>\n            </select>\n          </td>\n        </tr>\n        <tr>\n          <td>\n            <b class=\"ce-modal-dialog-block-title\">Повторяющееся событие:</b>\n            <select class=\"ce-modal-dialog-select\" id=\"MeetingRecurring\" [disabled]=\"isViewItem\">\n              <option value=\"none\">Нет</option>\n              <option value=\"day\">Ежедневно</option>\n              <option value=\"week\">Еженедельно</option>\n              <option value=\"month\">Ежемесячно</option>\n              <option value=\"year\">Ежегодно</option>\n            </select>\n          </td>\n        </tr>\n      </table>\n      <div class=\"buttons\">\n        <input\n          type=\"button\"\n          value=\"Отменить\"\n          class=\"btn btn-default is-transparent red\"\n          (click)=\"closeModal()\"\n        />\n        <input\n          *ngIf=\"!isCreateItem && !isViewItem\"\n          type=\"button\"\n          value=\"Сохранить\"\n          class=\"btn btn-default red\"\n          (click)=\"changeOfficeId(); updateReservation(editableReservation)\"\n        />\n        <input\n          *ngIf=\"isCreateItem && !isDublicateItem && !isViewItem\"\n          type=\"button\"\n          value=\"Сохранить\"\n          class=\"btn btn-default red\"\n          (click)=\"changeOfficeId(); createReservation(editableReservation)\"\n        />\n        <input\n          *ngIf=\"isCreateItem && isDublicateItem && !isViewItem\"\n          type=\"button\"\n          value=\"Сохранить\"\n          class=\"btn btn-default red\"\n          (click)=\"changeOfficeId(); dublicateReservation(editableReservation)\"\n        />\n      </div>\n    </div>\n  </div>\n  <div class=\"l-edit-card__overlay\"></div>\n</div>\n"
 
 /***/ }),
 
@@ -5389,7 +6551,7 @@ module.exports = "<div class=\"l-edit-card-modal\" *ngIf=\"modalIsOpen\">\n  <di
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.l-edit-card-modal .l-edit-card__block {\n  position: fixed;\n  top: 0;\n  bottom: 0;\n  left: 50%;\n  -webkit-transform: translateX(-50%);\n      -ms-transform: translateX(-50%);\n          transform: translateX(-50%);\n  width: 50%;\n  z-index: 99999;\n  background-color: #FFF; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__header {\n    position: relative;\n    background-color: #DEDFE0;\n    height: 20%;\n    padding: 4% 5% 4% 15%;\n    box-sizing: border-box;\n    color: #050505;\n    background-image: url(/assets/icons/icon-edit-booking.svg);\n    background-size: 20% 30%;\n    background-position: left top 50%;\n    background-repeat: no-repeat; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__header .title {\n      position: absolute;\n      left: 15%;\n      top: 50%;\n      -webkit-transform: translateY(-50%);\n          -ms-transform: translateY(-50%);\n              transform: translateY(-50%);\n      font-size: 24px;\n      overflow: hidden;\n      text-overflow: ellipsis;\n      line-height: 30px;\n      max-height: 30px;\n      font-weight: bold; }\n\n@media (min-width: 1440px) {\n        .l-edit-card-modal .l-edit-card__block .l-edit-card__header .title {\n          font-size: calc( 0.02083333 * 100vw + -6px);\n          line-height: calc( 0.02083333 * 100vw + 0px);\n          max-height: calc( 0.02083333 * 100vw + 0px);\n          -webkit-line-clamp: 1; } }\n\n@media (min-width: 1920px) {\n        .l-edit-card-modal .l-edit-card__block .l-edit-card__header .title {\n          font-size: 34px;\n          line-height: 40px;\n          max-height: 40px; } }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__header .close {\n      position: absolute;\n      right: 35px;\n      top: 35px; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body {\n    width: 100%;\n    height: 80%;\n    overflow: auto;\n    margin: 0 auto;\n    padding: 30px 8%;\n    box-sizing: border-box; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table {\n      width: 100%;\n      border-collapse: collapse;\n      border-spacing: 10px;\n      margin: -10px;\n      margin-bottom: 60px;\n      font-size: 12px; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table b {\n        font-weight: normal; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table td {\n        width: 50%;\n        border: 10px solid transparent; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table input {\n        height: 30px;\n        line-height: 30px; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table select {\n        height: 26px;\n        border: 1px solid #d1d1d1;\n        border-radius: 3px; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table .ce-modal-dialog-block-title {\n        display: inline-block;\n        margin-bottom: 5px; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table .ce-modal-dialog-block-title.important:after {\n          content: '*';\n          display: inline;\n          color: red; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table input.ce-modal-dialog-input {\n        line-height: 20px;\n        box-sizing: border-box;\n        border-radius: 3px;\n        border: 1px solid #d1d1d1;\n        padding: 2px 5px; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table input#MeetingMembersCount,\n      .l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table #EventDate,\n      .l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table #EventDateFromTime,\n      .l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table #EventDateToTime,\n      .l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table #MeetingIsVideo,\n      .l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table #MeetingIsProjector,\n      .l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table #MeetingInitiator,\n      .l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table #MeetingRoom,\n      .l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table #MeetingType,\n      .l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table #MeetingTitle,\n      .l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table #MeetingRecurringEndDate {\n        width: 100%; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table textarea#MeetingDescription {\n        width: 100%;\n        padding: 2px 5px;\n        box-sizing: border-box;\n        min-height: 50px;\n        border-radius: 3px;\n        border-color: #d1d1d1;\n        resize: vertical; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table input#MeetingRecurringEndCount, .l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table #MeetingEveryWeek, .l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table #MeetingEveryDay, .l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table #MeetingEveryMonthNumber, .l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table #MeetingEveryMonth, .l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table #MeetingEveryYearDay {\n        width: 35px;\n        text-align: center; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table select#MeetingRecurring {\n        width: 100%; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table tr.MeetingRecurringEvent {\n        vertical-align: top; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table .sp-peoplepicker-topLevel, .l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table .sp-peoplepicker-topLevelDisabled {\n        border-radius: 3px;\n        border-color: #d1d1d1; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table input.m-mrss-datepicker {\n        border: none;\n        border-bottom: 1px dashed #444; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table #MeetingMembers_TopSpan, .l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table #MeetingResponsible_TopSpan {\n        line-height: 30px;\n        box-sizing: border-box;\n        border-radius: 3px;\n        border: 1px solid #d1d1d1; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table .m-mrss-modal-dialog-content__table b {\n        padding: 0 5px; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table #MeetingEveryYearMonth_chosen {\n        width: 140px;\n        margin: 0 5px; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table #MeetingResponsible, .l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table #MeetingMembers {\n        height: 30px;\n        line-height: 30px;\n        box-sizing: border-box;\n        border-radius: 3px;\n        border: 1px solid #d1d1d1; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body .buttons {\n      text-align: right; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body .buttons .btn {\n        width: 155px;\n        padding: 0 35px; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body .buttons .btn:first-child {\n          margin-right: 30px; }\n\n.l-edit-card-modal .l-edit-card__overlay {\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: rgba(0, 0, 0, 0.5);\n  z-index: 99998; }\n"
+module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n:host /deep/ button {\n  min-width: 0;\n  padding: 0;\n  margin: 0; }\n\n:host /deep/ .modal-form {\n  width: 100%; }\n\n:host /deep/ .modal-form .dp-picker-input {\n    width: 100%;\n    height: 30px;\n    line-height: 20px;\n    padding: 2px 5px;\n    box-sizing: border-box;\n    border-radius: 3px;\n    color: #444;\n    border: 1px solid #d1d1d1; }\n\n.l-edit-card-modal .l-edit-card__block {\n  position: fixed;\n  top: 10px;\n  bottom: 10px;\n  left: 50%;\n  -webkit-transform: translateX(-50%);\n      -ms-transform: translateX(-50%);\n          transform: translateX(-50%);\n  z-index: 99999;\n  background-color: #FFF; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__header {\n    position: relative;\n    background-color: #DEDFE0;\n    height: 120px;\n    padding: 4% 5% 4% 15%;\n    box-sizing: border-box;\n    color: #050505;\n    background-image: url(/assets/icons/icon-edit-booking.svg);\n    background-size: auto 60%;\n    background-position: left 4% top 50%;\n    background-repeat: no-repeat; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__header .title {\n      position: absolute;\n      left: 15%;\n      top: 50%;\n      -webkit-transform: translateY(-50%);\n          -ms-transform: translateY(-50%);\n              transform: translateY(-50%);\n      font-size: 24px;\n      overflow: hidden;\n      text-overflow: ellipsis;\n      line-height: 30px;\n      max-height: 30px;\n      font-weight: bold; }\n\n@media (min-width: 1440px) {\n        .l-edit-card-modal .l-edit-card__block .l-edit-card__header .title {\n          font-size: calc( 0.02083333 * 100vw + -6px);\n          line-height: calc( 0.02083333 * 100vw + 0px);\n          max-height: calc( 0.02083333 * 100vw + 0px);\n          -webkit-line-clamp: 1; } }\n\n@media (min-width: 1920px) {\n        .l-edit-card-modal .l-edit-card__block .l-edit-card__header .title {\n          font-size: 34px;\n          line-height: 40px;\n          max-height: 40px; } }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__header .close {\n      position: absolute;\n      right: 35px;\n      top: 35px; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body {\n    position: relative;\n    width: 100%;\n    height: 80%;\n    overflow: auto;\n    margin: 0 auto;\n    padding: 30px;\n    box-sizing: border-box;\n    /* Firefox */\n    /* WebKit */\n    /* Opera */\n    height: -o-calc(100% - 120px);\n    /* Standard */\n    height: calc(100% - 120px); }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table {\n      width: 100%;\n      border-collapse: collapse;\n      border-spacing: 10px;\n      margin: -10px;\n      margin-bottom: 60px;\n      font-size: 14px; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table b {\n        font-weight: normal; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table td {\n        width: 50%;\n        border: 10px solid transparent; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table input {\n        height: 30px;\n        line-height: 30px; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table select {\n        height: 26px;\n        border: 1px solid #d1d1d1;\n        border-radius: 3px; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table .ce-modal-dialog-block-title {\n        display: inline-block;\n        margin-bottom: 5px; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table .ce-modal-dialog-block-title.important:after {\n          content: '*';\n          display: inline;\n          color: red; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table input.ce-modal-dialog-input {\n        line-height: 20px;\n        box-sizing: border-box;\n        border-radius: 3px;\n        border: 1px solid #d1d1d1;\n        padding: 2px 5px; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table input#MeetingMembersCount,\n      .l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table #EventDate,\n      .l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table #EventDateFromTime,\n      .l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table #EventDateToTime,\n      .l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table #MeetingIsVideo,\n      .l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table #MeetingIsProjector,\n      .l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table #MeetingInitiator,\n      .l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table #MeetingRoom,\n      .l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table #MeetingType,\n      .l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table #MeetingTitle,\n      .l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table #MeetingRecurringEndDate {\n        width: 100%; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table textarea#MeetingDescription {\n        width: 100%;\n        padding: 2px 5px;\n        box-sizing: border-box;\n        min-height: 50px;\n        border-radius: 3px;\n        border-color: #d1d1d1;\n        resize: vertical; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table input#MeetingRecurringEndCount, .l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table #MeetingEveryWeek, .l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table #MeetingEveryDay, .l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table #MeetingEveryMonthNumber, .l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table #MeetingEveryMonth, .l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table #MeetingEveryYearDay {\n        width: 35px;\n        text-align: center; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table select#MeetingRecurring {\n        width: 100%; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table tr.MeetingRecurringEvent {\n        vertical-align: top; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table .sp-peoplepicker-topLevel, .l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table .sp-peoplepicker-topLevelDisabled {\n        border-radius: 3px;\n        border-color: #d1d1d1; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table input.m-mrss-datepicker {\n        border: none;\n        border-bottom: 1px dashed #444; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table #MeetingMembers_TopSpan, .l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table #MeetingResponsible_TopSpan {\n        line-height: 30px;\n        box-sizing: border-box;\n        border-radius: 3px;\n        border: 1px solid #d1d1d1; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table .m-mrss-modal-dialog-content__table b {\n        padding: 0 5px; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table #MeetingEveryYearMonth_chosen {\n        width: 140px;\n        margin: 0 5px; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table #MeetingResponsible, .l-edit-card-modal .l-edit-card__block .l-edit-card__body .m-mrss-modal-dialog-content__table #MeetingMembers {\n        height: 30px;\n        line-height: 30px;\n        box-sizing: border-box;\n        border-radius: 3px;\n        border: 1px solid #d1d1d1; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body .buttons {\n      text-align: right; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body .buttons .btn {\n        width: 155px;\n        padding: 0 35px; }\n\n.l-edit-card-modal .l-edit-card__block .l-edit-card__body .buttons .btn:first-child {\n          margin-right: 30px; }\n\n.l-edit-card-modal .l-edit-card__overlay {\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: rgba(0, 0, 0, 0.5);\n  z-index: 99998; }\n"
 
 /***/ }),
 
@@ -5411,6 +6573,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var ng2_date_picker__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ng2-date-picker */ "./node_modules/ng2-date-picker/fesm5/ng2-date-picker.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5420,6 +6583,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -5436,6 +6600,13 @@ var BookingModalFormComponent = /** @class */ (function () {
         this.close = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
         this.isCreateItem = false;
         this.modalIsOpen = false;
+        this.datePickerConfig = {
+            format: 'DD.MM.YYYY',
+            firstDayOfWeek: 'mo',
+            disableKeypress: true,
+            unSelectOnClick: false,
+            hideOnOutsideClick: false
+        };
         this.timeLine = ['08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30',
             '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00'];
         this.booleanSelector = ['Да', 'Нет'];
@@ -5443,6 +6614,9 @@ var BookingModalFormComponent = /** @class */ (function () {
         this.selectEnd = '';
         this.formInValid = true;
     }
+    BookingModalFormComponent.prototype.closePicker = function () {
+        this.datePicker.api.close();
+    };
     BookingModalFormComponent.prototype.convertDateToTime = function (date) {
         return moment__WEBPACK_IMPORTED_MODULE_3__(date).format('HH:mm');
     };
@@ -5472,7 +6646,8 @@ var BookingModalFormComponent = /** @class */ (function () {
         var dateEnd = moment__WEBPACK_IMPORTED_MODULE_3__(date, 'DD.MM.YYYY').endOf('day').toISOString();
         this.groupedReservations = [];
         this.reservationsService.getItems({
-            filter: "EventDate ge datetime'" + dateStart + "' and EventDate lt'" + dateEnd + "'"
+            filter: "EventDate ge datetime'" + dateStart + "' and EventDate lt'" + dateEnd + "'",
+            webId: this.webId
         }).subscribe(function (reservations) {
             var groupedByDate = lodash__WEBPACK_IMPORTED_MODULE_4__["groupBy"](reservations, function (reservation) { return _this.convertDateToTime(reservation.eventDate); });
             var timeLine = ['08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00',
@@ -5483,98 +6658,115 @@ var BookingModalFormComponent = /** @class */ (function () {
                     list: groupedByDate[time]
                 });
             });
-            _this.changeStartTime(date, { target: { value: _this.selectStart } });
-            _this.changeEndTime(date, { target: { value: _this.selectEnd } });
+            if (_this.selectStart && _this.selectEnd) {
+                _this.changeStartTime(date, { target: { value: _this.selectStart } });
+                _this.changeEndTime(date, { target: { value: _this.selectEnd } });
+            }
         });
     };
     BookingModalFormComponent.prototype.changeStartTime = function (date, newValue) {
         var _this = this;
-        var proposedTime = this.convertDateToTime(this.editableReservation.eventDate);
-        this.editableReservation.eventDate = moment__WEBPACK_IMPORTED_MODULE_3__(date + ':' + newValue.target.value, 'DD.MM.YYYY:HH:mm').toISOString();
-        var valid = true;
-        this.groupedReservations.forEach(function (data) {
-            var formatedReservationStart = moment__WEBPACK_IMPORTED_MODULE_3__(_this.editableReservation.eventDate).format('X');
-            var formatedReservationEnd = moment__WEBPACK_IMPORTED_MODULE_3__(_this.editableReservation.endDate).format('X');
-            if (data.list !== undefined) {
-                for (var _i = 0, _a = data.list; _i < _a.length; _i++) {
-                    var reservation = _a[_i];
-                    var tempEventStart = moment__WEBPACK_IMPORTED_MODULE_3__(reservation.eventDate).format('X'), tempEventEnd = moment__WEBPACK_IMPORTED_MODULE_3__(reservation.endDate).format('X'), tempRoomId = reservation.roomLookupId;
-                    if ((formatedReservationStart >= tempEventStart) &&
-                        (formatedReservationStart < tempEventEnd) &&
-                        (Number(_this.editableReservation.roomLookupId) === tempRoomId)) {
-                        if (_this.editableReservation.id !== reservation.id) {
-                            valid = false;
-                            newValue.target.value = proposedTime;
+        if (date) {
+            date = moment__WEBPACK_IMPORTED_MODULE_3__(date, 'DD.MM.YYYY').format('DD.MM.YYYY');
+            var proposedTime_1 = this.convertDateToTime(this.editableReservation.eventDate);
+            this.editableReservation.eventDate = moment__WEBPACK_IMPORTED_MODULE_3__(date + ':' + newValue.target.value, 'DD.MM.YYYY:HH:mm').toISOString();
+            var valid_1 = true;
+            this.groupedReservations.forEach(function (data) {
+                var formatedReservationStart = moment__WEBPACK_IMPORTED_MODULE_3__(_this.editableReservation.eventDate).format('X');
+                var formatedReservationEnd = moment__WEBPACK_IMPORTED_MODULE_3__(_this.editableReservation.endDate).format('X');
+                if (data.list !== undefined) {
+                    for (var _i = 0, _a = data.list; _i < _a.length; _i++) {
+                        var reservation = _a[_i];
+                        var tempEventStart = moment__WEBPACK_IMPORTED_MODULE_3__(reservation.eventDate).format('X'), tempEventEnd = moment__WEBPACK_IMPORTED_MODULE_3__(reservation.endDate).format('X'), tempRoomId = reservation.roomLookupId;
+                        if ((formatedReservationStart >= tempEventStart) &&
+                            (formatedReservationStart < tempEventEnd) &&
+                            (Number(_this.editableReservation.roomLookupId) === tempRoomId)) {
+                            if (_this.editableReservation.id !== reservation.id) {
+                                valid_1 = false;
+                                newValue.target.value = proposedTime_1;
+                            }
                         }
-                    }
-                    else if ((formatedReservationStart < tempEventStart) &&
-                        (formatedReservationStart < tempEventEnd) &&
-                        (formatedReservationEnd > tempEventStart) &&
-                        (formatedReservationEnd > tempEventEnd) &&
-                        (Number(_this.editableReservation.roomLookupId) === tempRoomId)) {
-                        if (_this.editableReservation.id !== reservation.id) {
-                            valid = false;
-                            newValue.target.value = proposedTime;
-                            break;
+                        else if ((formatedReservationStart < tempEventStart) &&
+                            (formatedReservationStart < tempEventEnd) &&
+                            (formatedReservationEnd > tempEventStart) &&
+                            (formatedReservationEnd > tempEventEnd) &&
+                            (Number(_this.editableReservation.roomLookupId) === tempRoomId)) {
+                            if (_this.editableReservation.id !== reservation.id) {
+                                valid_1 = false;
+                                newValue.target.value = proposedTime_1;
+                                break;
+                            }
                         }
                     }
                 }
+            });
+            if (!valid_1) {
+                alert('Выбранное время начала занято');
             }
-        });
+        }
         this.editableReservation.eventDate = moment__WEBPACK_IMPORTED_MODULE_3__(date + ':' + newValue.target.value, 'DD.MM.YYYY:HH:mm').toISOString();
         this.editableReservation.eventHeight = this.getEventHeight(this.editableReservation.eventDate, this.editableReservation.endDate);
-        if (!valid) {
-            alert('Выбранное время занято');
+        if (this.isDublicateItem) {
+            this.selectStart = newValue.target.value;
         }
     };
     BookingModalFormComponent.prototype.changeEndTime = function (date, newValue) {
         var _this = this;
-        var proposedTime = this.convertDateToTime(this.editableReservation.endDate);
-        this.editableReservation.endDate = moment__WEBPACK_IMPORTED_MODULE_3__(date + ':' + newValue.target.value, 'DD.MM.YYYY:HH:mm').toISOString();
-        var valid = true;
-        this.groupedReservations.forEach(function (data) {
-            var formatedReservationStart = moment__WEBPACK_IMPORTED_MODULE_3__(_this.editableReservation.eventDate).format('X');
-            var formatedReservationEnd = moment__WEBPACK_IMPORTED_MODULE_3__(_this.editableReservation.endDate).format('X');
-            if (data.list !== undefined) {
-                for (var _i = 0, _a = data.list; _i < _a.length; _i++) {
-                    var reservation = _a[_i];
-                    var tempEventStart = moment__WEBPACK_IMPORTED_MODULE_3__(reservation.eventDate).format('X'), tempEventEnd = moment__WEBPACK_IMPORTED_MODULE_3__(reservation.endDate).format('X'), tempRoomId = reservation.roomLookupId;
-                    if ((formatedReservationEnd > tempEventStart) &&
-                        (formatedReservationEnd <= tempEventEnd) &&
-                        (Number(_this.editableReservation.roomLookupId) === tempRoomId)) {
-                        if (_this.editableReservation.id !== reservation.id) {
-                            valid = false;
-                            newValue.target.value = proposedTime;
+        if (date) {
+            date = moment__WEBPACK_IMPORTED_MODULE_3__(date, 'DD.MM.YYYY').format('DD.MM.YYYY');
+            var proposedTime_2 = this.convertDateToTime(this.editableReservation.endDate);
+            this.editableReservation.endDate = moment__WEBPACK_IMPORTED_MODULE_3__(date + ':' + newValue.target.value, 'DD.MM.YYYY:HH:mm').toISOString();
+            var valid_2 = true;
+            this.groupedReservations.forEach(function (data) {
+                var formatedReservationStart = moment__WEBPACK_IMPORTED_MODULE_3__(_this.editableReservation.eventDate).format('X');
+                var formatedReservationEnd = moment__WEBPACK_IMPORTED_MODULE_3__(_this.editableReservation.endDate).format('X');
+                if (data.list !== undefined) {
+                    for (var _i = 0, _a = data.list; _i < _a.length; _i++) {
+                        var reservation = _a[_i];
+                        var tempEventStart = moment__WEBPACK_IMPORTED_MODULE_3__(reservation.eventDate).format('X'), tempEventEnd = moment__WEBPACK_IMPORTED_MODULE_3__(reservation.endDate).format('X'), tempRoomId = reservation.roomLookupId;
+                        if ((formatedReservationEnd > tempEventStart) &&
+                            (formatedReservationEnd <= tempEventEnd) &&
+                            (Number(_this.editableReservation.roomLookupId) === tempRoomId)) {
+                            if (_this.editableReservation.id !== reservation.id) {
+                                valid_2 = false;
+                                newValue.target.value = proposedTime_2;
+                            }
                         }
-                    }
-                    else if ((formatedReservationStart < tempEventStart) &&
-                        (formatedReservationStart < tempEventEnd) &&
-                        (formatedReservationEnd > tempEventStart) &&
-                        (formatedReservationEnd > tempEventEnd) &&
-                        (Number(_this.editableReservation.roomLookupId) === tempRoomId)) {
-                        if (_this.editableReservation.id !== reservation.id) {
-                            valid = false;
-                            newValue.target.value = proposedTime;
-                            break;
+                        else if ((formatedReservationStart < tempEventStart) &&
+                            (formatedReservationStart < tempEventEnd) &&
+                            (formatedReservationEnd > tempEventStart) &&
+                            (formatedReservationEnd > tempEventEnd) &&
+                            (Number(_this.editableReservation.roomLookupId) === tempRoomId)) {
+                            if (_this.editableReservation.id !== reservation.id) {
+                                valid_2 = false;
+                                newValue.target.value = proposedTime_2;
+                                break;
+                            }
                         }
                     }
                 }
+            });
+            if (!valid_2) {
+                alert('Выбранное время окончания занято');
             }
-        });
+        }
         this.editableReservation.endDate = moment__WEBPACK_IMPORTED_MODULE_3__(date + ':' + newValue.target.value, 'DD.MM.YYYY:HH:mm').toISOString();
         this.editableReservation.eventHeight = this.getEventHeight(this.editableReservation.eventDate, this.editableReservation.endDate);
-        if (!valid) {
-            alert('Выбранное время занято');
+        if (this.isDublicateItem) {
+            this.selectEnd = newValue.target.value;
         }
     };
     BookingModalFormComponent.prototype.changeResponsible = function (users) {
         if (this.editableReservation) {
             this.editableReservation.responsibleId = users && users.length > 0 ? users[0].Id : null;
+            this.editableReservation.responsible = users && users.length > 0 ? users[0].Title : null;
+            this.editableReservation.responsibleLogin = users && users.length > 0 ? users[0].LoginName : null;
         }
     };
     BookingModalFormComponent.prototype.changeInitiator = function (users) {
         if (this.editableReservation) {
             this.editableReservation.initiatorId = users && users.length > 0 ? users[0].Id : null;
+            this.editableReservation.initiator = users && users.length > 0 ? users[0].Title : null;
         }
     };
     BookingModalFormComponent.prototype.changeParticipants = function (users) {
@@ -5599,6 +6791,18 @@ var BookingModalFormComponent = /** @class */ (function () {
         var _this = this;
         var timeStart = moment__WEBPACK_IMPORTED_MODULE_3__(item.eventDate).format('X');
         var timeEnd = moment__WEBPACK_IMPORTED_MODULE_3__(item.endDate).format('X');
+        for (var _i = 0, _a = this.meetingTypes; _i < _a.length; _i++) {
+            var m = _a[_i];
+            if (m.id === Number(item.meetingTypeLookupId)) {
+                if (m.color) {
+                    item.meetingTypeLookupColor = m.color;
+                }
+                else {
+                    item.meetingTypeLookupColor = '#00BC9B';
+                }
+                break;
+            }
+        }
         if (timeStart >= timeEnd) {
             alert('Время окончания не может быть меньше или равняться времени начала');
         }
@@ -5622,20 +6826,15 @@ var BookingModalFormComponent = /** @class */ (function () {
                 companyLookupId: item.companyLookupId,
                 officeLookupId: item.officeLookupId,
                 roomLookupId: item.roomLookupId,
-                meetingTypeLookupId: item.meetingTypeLookupId
+                meetingTypeLookupId: item.meetingTypeLookupId,
+                meetingTypeLookupColor: item.meetingTypeLookupColor
             }, this.webId).subscribe(function (itemResived) {
                 var oldReservation = _this.cell.list[_this.editableReservationIndex];
                 if (_this.convertDateToTime(item.eventDate) !== _this.convertDateToTime(oldReservation.eventDate)) {
-                    _this.reservationsMailService.editTimeNotify(item, oldReservation.eventDate);
+                    _this.reservationsMailService.editTimeNotify(_this.webId, item, oldReservation.eventDate);
                 }
                 else if (item.eventDate !== oldReservation.eventDate) {
-                    _this.reservationsMailService.editDateNotify(item, oldReservation.eventDate);
-                }
-                if (_this.convertDateToDay(oldReservation.eventDate) !== _this.convertDateToDay(_this.editableReservation.eventDate)) {
-                    _this.cell.list.splice(_this.editableReservationIndex, 1);
-                }
-                else {
-                    _this.cell.list[_this.editableReservationIndex] = _this.editableReservation;
+                    _this.reservationsMailService.editDateNotify(_this.webId, item, oldReservation.eventDate);
                 }
                 _this.closeModal();
             });
@@ -5645,6 +6844,25 @@ var BookingModalFormComponent = /** @class */ (function () {
         var _this = this;
         var timeStart = moment__WEBPACK_IMPORTED_MODULE_3__(item.eventDate).format('X');
         var timeEnd = moment__WEBPACK_IMPORTED_MODULE_3__(item.endDate).format('X');
+        for (var _i = 0, _a = this.rooms; _i < _a.length; _i++) {
+            var r = _a[_i];
+            if (r.id === item.roomLookupId) {
+                item.roomLookupTitle = r.title;
+                break;
+            }
+        }
+        for (var _b = 0, _c = this.meetingTypes; _b < _c.length; _b++) {
+            var m = _c[_b];
+            if (m.id === Number(item.meetingTypeLookupId)) {
+                if (m.color) {
+                    item.meetingTypeLookupColor = m.color;
+                }
+                else {
+                    item.meetingTypeLookupColor = '#00BC9B';
+                }
+                break;
+            }
+        }
         if (timeStart >= timeEnd) {
             alert('Время окончания не может быть меньше или равняться времени начала');
         }
@@ -5693,16 +6911,11 @@ var BookingModalFormComponent = /** @class */ (function () {
                     companyLookupId: item.companyLookupId,
                     officeLookupId: item.officeLookupId,
                     roomLookupId: item.roomLookupId,
-                    meetingTypeLookupId: item.meetingTypeLookupId
+                    meetingTypeLookupId: item.meetingTypeLookupId,
+                    meetingTypeLookupColor: item.meetingTypeLookupColor
                 }, this.webId).subscribe(function (itemResived) {
                     _this.editableReservation.id = itemResived.id;
-                    if (_this.cell.list === undefined) {
-                        _this.cell.list = [_this.editableReservation];
-                    }
-                    else {
-                        _this.cell.list.push(_this.editableReservation);
-                    }
-                    _this.reservationsMailService.createNotify(item);
+                    _this.reservationsMailService.createNotify(_this.webId, item);
                     _this.closeModal();
                 });
             }
@@ -5712,7 +6925,22 @@ var BookingModalFormComponent = /** @class */ (function () {
         var _this = this;
         var timeStart = moment__WEBPACK_IMPORTED_MODULE_3__(item.eventDate).format('X');
         var timeEnd = moment__WEBPACK_IMPORTED_MODULE_3__(item.endDate).format('X');
-        if (timeStart >= timeEnd) {
+        for (var _i = 0, _a = this.meetingTypes; _i < _a.length; _i++) {
+            var m = _a[_i];
+            if (m.id === Number(item.meetingTypeLookupId)) {
+                if (m.color) {
+                    item.meetingTypeLookupColor = m.color;
+                }
+                else {
+                    item.meetingTypeLookupColor = '#00BC9B';
+                }
+                break;
+            }
+        }
+        if (!this.editableReservationDate) {
+            alert('Поле "Дата резервирования" обязательно к заполнению');
+        }
+        else if (timeStart >= timeEnd) {
             alert('Время окончания не может быть меньше или равняться времени начала');
         }
         else {
@@ -5760,10 +6988,11 @@ var BookingModalFormComponent = /** @class */ (function () {
                     companyLookupId: item.companyLookupId,
                     officeLookupId: item.officeLookupId,
                     roomLookupId: item.roomLookupId,
-                    meetingTypeLookupId: item.meetingTypeLookupId
+                    meetingTypeLookupId: item.meetingTypeLookupId,
+                    meetingTypeLookupColor: item.meetingTypeLookupColor
                 }, this.webId).subscribe(function (itemResived) {
                     _this.editableReservation.id = itemResived.id;
-                    _this.reservationsMailService.createNotify(item);
+                    _this.reservationsMailService.createNotify(_this.webId, item);
                     _this.closeModal();
                 });
             }
@@ -5774,19 +7003,35 @@ var BookingModalFormComponent = /** @class */ (function () {
             this.route.snapshot.data.webId !== 'root'
                 ? this.route.snapshot.data.webId
                 : null;
-        if (this.isCreateItem === true) {
+        if (this.isCreateItem) {
             this.editableReservation.initiatorLogin = this.currentUser;
             this.editableReservation.roomLookupId = this.newEventRoomId;
             this.editableReservation.eventDate = this.newEventDate;
             this.editableReservation.endDate = moment__WEBPACK_IMPORTED_MODULE_3__(this.editableReservation.eventDate).add(0.5, 'hours').toISOString();
             this.editableReservation.eventHeight = this.getEventHeight(this.editableReservation.eventDate, this.editableReservation.endDate);
-            if (this.isDublicateItem === false) {
+            if (!this.isDublicateItem) {
                 this.editableReservationDate = moment__WEBPACK_IMPORTED_MODULE_3__(this.newEventDate).format('DD.MM.YYYY');
+                this.selectStart = this.convertDateToTime(this.editableReservation.eventDate);
+                this.selectEnd = this.convertDateToTime(this.editableReservation.endDate);
+            }
+            if (this.isDublicateItem) {
+                this.selectStart = '';
+                this.selectEnd = '';
             }
         }
-        this.selectStart = this.convertDateToTime(this.editableReservation.eventDate);
-        this.selectEnd = this.convertDateToTime(this.editableReservation.endDate);
+        if (!this.isCreateItem) {
+            this.selectStart = this.convertDateToTime(this.editableReservation.eventDate);
+            this.selectEnd = this.convertDateToTime(this.editableReservation.endDate);
+        }
+        if (this.isViewItem) {
+            this.selectStart = this.convertDateToTime(this.editableReservation.eventDate);
+            this.selectEnd = this.convertDateToTime(this.editableReservation.endDate);
+        }
     };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('dayPickerModal'),
+        __metadata("design:type", ng2_date_picker__WEBPACK_IMPORTED_MODULE_6__["DatePickerComponent"])
+    ], BookingModalFormComponent.prototype, "datePicker", void 0);
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])(),
         __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"])
@@ -5813,7 +7058,7 @@ var BookingModalFormComponent = /** @class */ (function () {
     ], BookingModalFormComponent.prototype, "currentUser", void 0);
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", Object)
+        __metadata("design:type", Array)
     ], BookingModalFormComponent.prototype, "groupedReservations", void 0);
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
@@ -5847,6 +7092,10 @@ var BookingModalFormComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
         __metadata("design:type", Boolean)
     ], BookingModalFormComponent.prototype, "isDublicateItem", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Boolean)
+    ], BookingModalFormComponent.prototype, "isViewItem", void 0);
     BookingModalFormComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-booking-modal-form',
@@ -5871,7 +7120,7 @@ var BookingModalFormComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"l-page-header\">\n  <div class=\"l-breadcrumbs\">\n    <div class=\"l-breadcrumb\"><a [routerLink]=\"['/company']\">Главная</a></div>\n    <div class=\"l-breadcrumb\">Бронирование переговорной</div>\n  </div>\n  <div class=\"title\">Бронирование переговорной</div>\n  <div class=\"date\">\n    {{getDisplayedDate()}}\n  </div>\n  <div class=\"change-date\">\n    <div class=\"left\"(click)=\"filterByToday(directionFilterByDay.yesterday)\"><</div>\n    <div class=\"reset\" (click)=\"filterByToday(directionFilterByDay.today)\">Сегодня</div>\n    <div class=\"right\"(click)=\"filterByToday(directionFilterByDay.tomorrow)\">></div>\n  </div>\n  <div class=\"booking-master\">\n    <input type=\"button\" value=\"Мастер бронирования\" class=\"btn btn-default is-transparent red\" (click)=\"openMasterModal()\" />\n  </div>\n</div>\n<div class=\"l-page\">\n  <div class=\"l-page-inner\">\n    <div class=\"l-page__content\">\n      <div class=\"l-booking\">\n        <div class=\"l-booking-categories\">\n          <app-filters>\n            <app-filters-item (click)=\"filterByOfficeId(undefined)\">\n              Все\n            </app-filters-item>\n            <app-filters-item *ngFor=\"let office of offices\" (click)=\"filterByOfficeId(office.id)\">\n              {{office.title}}\n            </app-filters-item>\n          </app-filters>\n        </div>\n        <div class=\"l-mrr\">\n          <div class=\"l-mrr__body\">\n            <div class=\"l-mrr__container\">\n              <div class=\"l-mrr__container-inner\">\n                <div class=\"l-mrr-hours\">\n                  <div class=\"l-mrr-hours__head\">\n                    <b>08:00</b>\n                  </div>\n                  <div class=\"l-mrr-hours__body\">\n                    <div class=\"row\">\n                      <b>08:30</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>09:00</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>09:30</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>10:00</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>10:30</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>11:00</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>11:30</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>12:00</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>12:30</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>13:00</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>13:30</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>14:00</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>14:30</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>15:00</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>15:30</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>16:00</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>16:30</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>17:00</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>17:30</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>18:00</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>18:30</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>19:00</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>19:30</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>20:00</b>\n                    </div>\n                  </div>\n                </div>\n                <div class=\"l-mrr-rooms__list\">\n                  <ng-container *ngFor=\"let room of rooms\">\n                    <div class=\"m-mrr-room\" *ngIf=\"officeId === undefined || room.officeLookupId === officeId\">\n                      <div class=\"m-mrr-room__name\" title=\"{{room.title}}\">{{room.title}}</div>\n                      <div class=\"m-mrr-room__head\">\n                        <div class=\"room-facilities\">\n                          <!-- <i class=\"reference-info\" (click)=\"showInfo=!showInfo\"></i>\n                          <div class=\"info\" *ngIf=\"showInfo\">{{room.info}}</div>\n                          <i class=\"user-count\" title=\"Количество вмещаемых человек: {{room.capacity}}\"></i> -->\n                          <i class=\"projector\" title=\"Проектор/ТВ\" *ngIf=\"room.projector\"></i>\n                          <i class=\"webcam\" title=\"Оборудование для видеоконференции\" *ngIf=\"room.videoStaff\"></i>\n                        </div>\n                      </div>\n                      <div class=\"m-mrr-room__body\" >\n                        <div class=\"room-row\" *ngFor=\"let g of groupedReservations\">\n                          <div class=\"add-reservation\" (click)=\"createEvent(displayedDay, g.date, room.id, g)\">+</div>\n                          <ng-container *ngIf=\"g.list\">\n                            <ng-container *ngFor=\"let reservation of g.list; let i = index\">\n                              <ng-container *ngIf=\"room.officeLookupId == reservation.officeLookupId\">\n                                <ng-container *ngIf=\"room.id == reservation.roomLookupId\">\n                                  <div class=\"m-mrr-card\" style=\"background-color: #00BC9B\" [attr.data-height]=\"reservation.eventHeight\">\n                                    <div class=\"m-mrr-card__header\">\n                                      <div class=\"theme\">{{reservation.title}}</div>\n                                      <div class=\"times\">{{this.getEventTime(reservation.eventDate)}} – {{this.getEventTime(reservation.endDate)}}</div>\n                                    </div>\n                                    <div class=\"m-mrr-card__body\">\n                                      <div class=\"card-info\"><b>Инициатор: </b>{{reservation.initiator}}</div>\n                                      <div class=\"card-info\"><b>Ответственный: </b>{{reservation.responsible}}</div>\n                                      <div class=\"card-info\"><b>Кол-во участников: </b>{{reservation.count}}</div>\n                                      <div class=\"card-info\" *ngIf=\"reservation.description\"><b>Описание: </b>{{reservation.description}}</div>\n                                      <div class=\"card-actions\">\n                                        <i class=\"action edit\" title=\"Редактировать\" (click)=\"openEditorModal(reservation, g, i)\"></i>\n                                        <i class=\"action copy\" title=\"Дублировать\" (click)=\"openDublicateModal(reservation)\"></i>\n                                        <i class=\"action delete\" title=\"Удалить\" (click)=\"showAlert = true\"></i>\n                                        <div class=\"warning-alert\" *ngIf=\"showAlert\">\n                                          <div class=\"text\"><span>Вы действительно хотите удалить элемент?</span></div>\n                                          <div class=\"buttons\">\n                                            <div class=\"inner\">\n                                              <input type=\"button\" value=\"Отмена\" (click)=\"showAlert = false\" />\n                                              <input type=\"button\" value=\"Ок\" (click)=\"remove(reservation); showAlert = false\" />\n                                            </div>\n                                          </div>\n                                        </div>\n                                      </div>\n                                    </div>\n                                  </div>\n                                </ng-container>\n                              </ng-container>\n                            </ng-container>\n                          </ng-container>\n                        </div>\n                      </div>\n                    </div>\n                  </ng-container>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n        <div class=\"l-booking-master\" style=\"display: none;\">\n          <div class=\"l-booking-master__block\">\n            <div class=\"l-booking-master__header\">\n              <div class=\"title\">\n                Мастер бронирования\n              </div>\n              <div class=\"close\">\n                <input type=\"button\" class=\"btn-close-gray-bold\" (click)=\"resetMaster()\">\n              </div>\n            </div>\n            <div class=\"l-booking-master__body\">\n              <div class=\"first-stage\" [hidden]=\"!isFirstStage\">\n                <div class=\"pick-city\">\n                  <div class=\"title\">\n                    1.Выберите город\n                  </div>\n                  <div class=\"checkblock\" *ngFor=\"let city of cities\" [class.active]=\"active === city\" (click)=\"active = (active === city ? null :city)\">\n                    {{city}}\n                  </div>\n                </div>\n                <div class=\"pick-office\">\n                  <div class=\"title\">\n                    2.Выберите офис\n                  </div>\n                  <div class=\"checkblock\" *ngFor=\"let office of offices\">\n                    {{office.title}}\n                  </div>\n                </div>\n                <div class=\"pick-people\">\n                  <div class=\"title\">\n                    3.Количество участников\n                  </div>\n                  <div class=\"icons\">\n                    <div class=\"human\"></div>\n                    <div class=\"humans\"></div>\n                  </div>\n                  <div class=\"progress\">\n                    <div class=\"progress-inner\" style=\"width: 30%\">\n                      <div class=\"counter\">\n                        8\n                        <div class=\"counter-arrow\"></div>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n                <div class=\"pick-date\">\n                  <div class=\"header\">\n                    <div class=\"title\">\n                      4.Дата и время\n                    </div>\n                    <div class=\"date\">24.01.2019</div>\n                  </div>\n                  <div class=\"checkblock\" *ngFor=\"let duration of durations\">\n                    {{duration}}\n                  </div>\n                  <div class=\"progress\">\n                    <div class=\"progress-group\">\n                      <div class=\"start\">8:00</div>\n                      <div class=\"end\">20:00</div>\n                      <div class=\"reserved\" style=\"width:20%; left: 15%\">\n                        <div class=\"start\">12:00</div>\n                        <div class=\"end\">14:00</div>\n                      </div>\n                      <div class=\"reserve-period\" style=\"width:20%; left: 60%\">\n                        <div class=\"counter\">\n                          16:30 - 18:30\n                          <div class=\"counter-arrow\"></div>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n                <div class=\"pick-equipment\">\n                  <div class=\"title\">\n                    5.Оборудование\n                  </div>\n                  <div class=\"checkblock\" *ngFor=\"let item of equipment\">\n                    <div class=\"icon\" [ngStyle]=\"{ 'background-image': 'url(' + item.icon + ')' }\"></div>\n                    <div class=\"text\" appNgslDotdotdot>{{item.title}}</div>\n                  </div>\n                </div>\n              </div>\n              <div class=\"second-stage\" [hidden]=\"isFirstStage\">\n                <div class=\"pick-room\">\n                  <div class=\"title\">\n                    1.Выберите переговорные комнаты из доступных\n                  </div>\n                  <div class=\"room-list\">\n                    <div class=\"room-preview\">\n                      <div class=\"image\" style=\"background-image: url(); display: none;\">\n                        <div class=\"gradient\"></div>\n                      </div>\n                      <div class=\"info\">\n                        <div class=\"room-title\">\n                          №301\n                        </div>\n                        <div class=\"city\">\n                          Москва\n                        </div>\n                        <div class=\"seats\">\n                          8 мест\n                        </div>\n                        <div class=\"equipment\">\n                          <i class=\"phone\"></i>\n                          <i class=\"computer\"></i>\n                          <i class=\"projector\"></i>\n                          <i class=\"wi-fi\"></i>\n                        </div>\n                      </div>\n                    </div>\n                    <div class=\"room-preview\">\n                      <div class=\"image\" style=\"background-image: url(https://atlona.com/wp-content/uploads/2016/06/meeting_room_solution_image1-1024x768.jpg)\">\n                        <div class=\"gradient\"></div>\n                      </div>\n                      <div class=\"info\">\n                        <div class=\"room-title\">\n                          №302\n                        </div>\n                        <div class=\"city\">\n                          Москва\n                        </div>\n                        <div class=\"seats\">\n                          14 мест\n                        </div>\n                        <div class=\"equipment\">\n                          <i class=\"phone\"></i>\n                          <i class=\"computer\"></i>\n                          <i class=\"projector\"></i>\n                          <i class=\"wi-fi\"></i>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n                <div class=\"meeting-title\">\n                  <div class=\"title\">\n                    2.Тема встречи\n                  </div>\n                  <input type=\"text\" class=\"large-input\"  />\n                </div>\n                <div class=\"meeting-responsible\">\n                  <div class=\"title\">\n                    3.Ответственный\n                  </div>\n                  <input type=\"text\" class=\"large-input\" />\n                </div>\n                <div class=\"meeting-participants\">\n                  <div class=\"title\">\n                    4.Участники\n                  </div>\n                  <input type=\"text\" class=\"large-input\" placeholder=\"Введите имена или адреса электронной почты...\" />\n                </div>\n              </div>\n              <div class=\"buttons\">\n                <input type=\"button\" value=\"Отменить\" class=\"btn btn-default is-transparent red\" (click)=\"resetMaster()\" />\n                <input type=\"button\" value=\"Далее\" *ngIf=\"isFirstStage\" (click)=\"isFirstStage=!isFirstStage\" class=\"btn btn-default red\" />\n                <input type=\"button\" value=\"Забронировать\" *ngIf=\"!isFirstStage\" class=\"btn btn-default red\" />\n              </div>\n            </div>\n          </div>\n          <div class=\"l-booking-master__overlay\"></div>\n        </div>\n\n        <div class=\"l-edit-card\" *ngIf=\"modalIsOpen\">\n          <app-booking-modal-form\n            [isCreateItem]=\"isCreateItem\"\n            [modalIsOpen]=\"modalIsOpen\"\n            (close)=\"closeModal()\"\n            [groupedReservations]=\"groupedReservations\"\n            [editableReservation]=\"editableReservation\"\n            [editableReservationIndex]=\"editableReservationIndex\"\n            [editableReservationDate]=\"editableReservationDate\"\n            [rooms]=\"rooms\"\n            [meetingTypes]=\"meetingTypes\"\n            [participantsString]=\"participantsString\"\n            [newEventDate]=\"newEventDate\"\n            [newEventRoomId]=\"newEventRoomId\"\n            [currentUser]=\"currentUser\"\n            [cell]=\"cell\"\n            [isDublicateItem]=\"isDublicateItem\"\n          ></app-booking-modal-form>\n        </div>\n        <div class=\"l-master\" *ngIf=\"masterIsOpen\">\n          <app-booking-master-modal-form\n            [masterIsOpen]=\"masterIsOpen\"\n            (close)=\"resetMaster()\"\n            [editableReservation]=\"editableReservation\"\n            [groupedReservations]=\"groupedReservations\"\n            [rooms]=\"rooms\"\n            [meetingTypes]=\"meetingTypes\"\n          ></app-booking-master-modal-form>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"l-page-header\">\n  <div class=\"l-breadcrumbs\">\n    <div class=\"l-breadcrumb\"><a [routerLink]=\"['/company']\">Главная</a></div>\n    <div class=\"l-breadcrumb\">Бронирование переговорных</div>\n  </div>\n  <div class=\"title\">Бронирование переговорных на</div>\n\n  <div class=\"change-date\">\n    <div class=\"left\"(click)=\"filterByToday(directionFilterByDay.yesterday)\">&lt;</div>\n    <div class=\"date\">\n      <dp-date-picker [(ngModel)]=\"displayedDay\" [config]=\"datePickerConfig\" [displayDate]=\"displayedDay\" theme=\"dp-material all-reservations\" (onChange)=\"pickDate()\" #dayPicker (clickOutside)=\"closePicker()\"></dp-date-picker>\n    </div>\n    <div class=\"right\"(click)=\"filterByToday(directionFilterByDay.tomorrow)\">&gt;</div>\n    <div class=\"set-day-today\" (click)=\"filterByToday(directionFilterByDay.today)\">Сегодня</div>\n  </div>\n  <div class=\"booking-master\" style=\"display: none\">\n    <input type=\"button\" value=\"Мастер бронирования\" class=\"btn btn-default is-transparent red\" (click)=\"openMasterModal()\" />\n  </div>\n</div>\n<div class=\"l-page\">\n  <div class=\"l-page-inner\">\n    <div class=\"l-page__content\">\n      <div class=\"l-booking\">\n        <div class=\"l-booking-categories\">\n          <app-filters>\n            <app-filters-item (click)=\"filterByOfficeId(undefined)\">\n              Все\n            </app-filters-item>\n            <app-filters-item *ngFor=\"let office of offices\" (click)=\"filterByOfficeId(office.id)\">\n              {{office.title}}\n            </app-filters-item>\n          </app-filters>\n        </div>\n        <div class=\"l-mrr\">\n          <div class=\"l-mrr__body\">\n            <div class=\"l-mrr__container\">\n              <div class=\"l-mrr__container-inner\">\n                <div class=\"l-mrr-hours\">\n                  <div class=\"l-mrr-hours__head\">\n                    <b>08:00</b>\n                  </div>\n                  <div class=\"l-mrr-hours__body\">\n                    <div class=\"row\">\n                      <b>08:30</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>09:00</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>09:30</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>10:00</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>10:30</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>11:00</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>11:30</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>12:00</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>12:30</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>13:00</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>13:30</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>14:00</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>14:30</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>15:00</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>15:30</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>16:00</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>16:30</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>17:00</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>17:30</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>18:00</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>18:30</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>19:00</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>19:30</b>\n                    </div>\n                    <div class=\"row\">\n                      <b>20:00</b>\n                    </div>\n                  </div>\n                </div>\n                <div class=\"l-mrr-rooms__list\">\n                  <ng-container *ngFor=\"let room of rooms\">\n                    <div class=\"m-mrr-room\" *ngIf=\"officeId === undefined || room.officeLookupId === officeId\">\n                      <div class=\"m-mrr-room__name\" title=\"{{room.title}}\">{{room.title}}</div>\n                      <div class=\"m-mrr-room__head\">\n                        <div class=\"room-facilities\">\n                          <i class=\"reference-info\" *ngIf=\"room.imageUrl\">\n                            <div class=\"room-image\" [ngStyle]=\"{'background-image': 'url(' + room.imageUrl + ')'}\"></div>\n                          </i>\n                          \n                          <!-- <i class=\"user-count\" title=\"Количество вмещаемых человек: {{room.capacity}}\"></i> -->\n                          <i class=\"projector\" title=\"Проектор/ТВ\" *ngIf=\"room.projector\"></i>\n                          <i class=\"webcam\" title=\"Оборудование для видеоконференции\" *ngIf=\"room.videoStaff\"></i>\n                        </div>\n                      </div>\n                      <div class=\"m-mrr-room__body\" >\n                        <div class=\"room-row\" *ngFor=\"let g of groupedReservations\">\n                          <div class=\"add-reservation\" (click)=\"createEvent(displayedDay, g.date, room.id, g)\">+</div>\n                          <ng-container *ngIf=\"g.list\">\n                            <ng-container *ngFor=\"let reservation of g.list; let i = index\">\n                              <ng-container *ngIf=\"room.officeLookupId == reservation.officeLookupId\">\n                                <ng-container *ngIf=\"room.id == reservation.roomLookupId\">\n                                  <div class=\"m-mrr-card\" [ngStyle]=\"{'background-color': reservation.meetingTypeLookupColor}\" [attr.data-height]=\"reservation.eventHeight\">\n                                    <div class=\"m-mrr-card__main\" (click)=\"openViewModal(reservation)\">\n                                      <div class=\"m-mrr-card__header\">\n                                        <div class=\"theme\" title=\"{{reservation.title}}\">{{reservation.title}}</div>\n                                        <div class=\"times\">{{this.getEventTime(reservation.eventDate)}} – {{this.getEventTime(reservation.endDate)}}</div>\n                                      </div>\n                                      <div class=\"m-mrr-card__body\">\n                                        <div class=\"card-info\"><b>Инициатор: </b>{{reservation.initiator}}</div>\n                                        <div class=\"card-info\"><b>Ответственный: </b>{{reservation.responsible}}</div>\n                                        <div class=\"card-info\"><b>Кол-во участников: </b>{{reservation.count}}</div>\n                                        <div class=\"card-info\" *ngIf=\"reservation.description\"><b>Описание: </b>{{reservation.description}}</div>\n                                      </div>\n                                    </div>\n                                    <div class=\"card-actions\" *ngIf=\"currentUserId === reservation.authorId || isAdminGroup\">\n                                      <i class=\"action edit\" title=\"Редактировать\" (click)=\"openEditorModal(reservation, g, i)\"></i>\n                                      <i class=\"action copy\" title=\"Дублировать\" (click)=\"openDublicateModal(reservation)\"></i>\n                                      <i class=\"action delete\" title=\"Удалить\" (click)=\"showAlert = true\"></i>\n                                    </div>\n                                    <div class=\"warning-alert\" *ngIf=\"showAlert\" (mouseleave)=\"showAlert=false\">\n                                      <div class=\"text\"><span>Вы действительно хотите удалить элемент?</span></div>\n                                      <div class=\"buttons\">\n                                        <div class=\"inner\">\n                                          <input type=\"button\" value=\"Отмена\" (click)=\"showAlert = false\" />\n                                          <input type=\"button\" value=\"Ок\" (click)=\"remove(reservation); showAlert = false\" />\n                                        </div>\n                                      </div>\n                                    </div>\n                                  </div>\n                                </ng-container>\n                              </ng-container>\n                            </ng-container>\n                          </ng-container>\n                        </div>\n                      </div>\n                    </div>\n                  </ng-container>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n        <div class=\"l-booking-master\" style=\"display: none;\">\n          <div class=\"l-booking-master__block\">\n            <div class=\"l-booking-master__header\">\n              <div class=\"title\">\n                Мастер бронирования\n              </div>\n              <div class=\"close\">\n                <input type=\"button\" class=\"btn-close-gray-bold\" (click)=\"resetMaster()\">\n              </div>\n            </div>\n            <div class=\"l-booking-master__body\">\n              <div class=\"first-stage\" [hidden]=\"!isFirstStage\">\n                <div class=\"pick-city\">\n                  <div class=\"title\">\n                    1.Выберите город\n                  </div>\n                  <div class=\"checkblock\" *ngFor=\"let city of cities\" [class.active]=\"active === city\" (click)=\"active = (active === city ? null :city)\">\n                    {{city}}\n                  </div>\n                </div>\n                <div class=\"pick-office\">\n                  <div class=\"title\">\n                    2.Выберите офис\n                  </div>\n                  <div class=\"checkblock\" *ngFor=\"let office of offices\">\n                    {{office.title}}\n                  </div>\n                </div>\n                <div class=\"pick-people\">\n                  <div class=\"title\">\n                    3.Количество участников\n                  </div>\n                  <div class=\"icons\">\n                    <div class=\"human\"></div>\n                    <div class=\"humans\"></div>\n                  </div>\n                  <div class=\"progress\">\n                    <div class=\"progress-inner\" style=\"width: 30%\">\n                      <div class=\"counter\">\n                        8\n                        <div class=\"counter-arrow\"></div>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n                <div class=\"pick-date\">\n                  <div class=\"header\">\n                    <div class=\"title\">\n                      4.Дата и время\n                    </div>\n                    <div class=\"date\">24.01.2019</div>\n                  </div>\n                  <div class=\"checkblock\" *ngFor=\"let duration of durations\">\n                    {{duration}}\n                  </div>\n                  <div class=\"progress\">\n                    <div class=\"progress-group\">\n                      <div class=\"start\">8:00</div>\n                      <div class=\"end\">20:00</div>\n                      <div class=\"reserved\" style=\"width:20%; left: 15%\">\n                        <div class=\"start\">12:00</div>\n                        <div class=\"end\">14:00</div>\n                      </div>\n                      <div class=\"reserve-period\" style=\"width:20%; left: 60%\">\n                        <div class=\"counter\">\n                          16:30 - 18:30\n                          <div class=\"counter-arrow\"></div>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n                <div class=\"pick-equipment\">\n                  <div class=\"title\">\n                    5.Оборудование\n                  </div>\n                  <div class=\"checkblock\" *ngFor=\"let item of equipment\">\n                    <div class=\"icon\" [ngStyle]=\"{ 'background-image': 'url(' + item.icon + ')' }\"></div>\n                    <div class=\"text\" appNgslDotdotdot>{{item.title}}</div>\n                  </div>\n                </div>\n              </div>\n              <div class=\"second-stage\" [hidden]=\"isFirstStage\">\n                <div class=\"pick-room\">\n                  <div class=\"title\">\n                    1.Выберите переговорные комнаты из доступных\n                  </div>\n                  <div class=\"room-list\">\n                    <div class=\"room-preview\">\n                      <div class=\"image\" style=\"background-image: url(); display: none;\">\n                        <div class=\"gradient\"></div>\n                      </div>\n                      <div class=\"info\">\n                        <div class=\"room-title\">\n                          №301\n                        </div>\n                        <div class=\"city\">\n                          Москва\n                        </div>\n                        <div class=\"seats\">\n                          8 мест\n                        </div>\n                        <div class=\"equipment\">\n                          <i class=\"phone\"></i>\n                          <i class=\"computer\"></i>\n                          <i class=\"projector\"></i>\n                          <i class=\"wi-fi\"></i>\n                        </div>\n                      </div>\n                    </div>\n                    <div class=\"room-preview\">\n                      <div class=\"image\" style=\"background-image: url(https://atlona.com/wp-content/uploads/2016/06/meeting_room_solution_image1-1024x768.jpg)\">\n                        <div class=\"gradient\"></div>\n                      </div>\n                      <div class=\"info\">\n                        <div class=\"room-title\">\n                          №302\n                        </div>\n                        <div class=\"city\">\n                          Москва\n                        </div>\n                        <div class=\"seats\">\n                          14 мест\n                        </div>\n                        <div class=\"equipment\">\n                          <i class=\"phone\"></i>\n                          <i class=\"computer\"></i>\n                          <i class=\"projector\"></i>\n                          <i class=\"wi-fi\"></i>\n                        </div>\n                      </div>\n                    </div>\n                  </div>\n                </div>\n                <div class=\"meeting-title\">\n                  <div class=\"title\">\n                    2.Тема встречи\n                  </div>\n                  <input type=\"text\" class=\"large-input\"  />\n                </div>\n                <div class=\"meeting-responsible\">\n                  <div class=\"title\">\n                    3.Ответственный\n                  </div>\n                  <input type=\"text\" class=\"large-input\" />\n                </div>\n                <div class=\"meeting-participants\">\n                  <div class=\"title\">\n                    4.Участники\n                  </div>\n                  <input type=\"text\" class=\"large-input\" placeholder=\"Введите имена или адреса электронной почты...\" />\n                </div>\n              </div>\n              <div class=\"buttons\">\n                <input type=\"button\" value=\"Отменить\" class=\"btn btn-default is-transparent red\" (click)=\"resetMaster()\" />\n                <input type=\"button\" value=\"Далее\" *ngIf=\"isFirstStage\" (click)=\"isFirstStage=!isFirstStage\" class=\"btn btn-default red\" />\n                <input type=\"button\" value=\"Забронировать\" *ngIf=\"!isFirstStage\" class=\"btn btn-default red\" />\n              </div>\n            </div>\n          </div>\n          <div class=\"l-booking-master__overlay\"></div>\n        </div>\n\n        <div class=\"l-edit-card\" *ngIf=\"modalIsOpen\">\n          <app-booking-modal-form\n            [isCreateItem]=\"isCreateItem\"\n            [isViewItem]=\"isViewItem\"\n            [modalIsOpen]=\"modalIsOpen\"\n            (close)=\"closeModal()\"\n            [groupedReservations]=\"groupedReservations\"\n            [editableReservation]=\"editableReservation\"\n            [editableReservationIndex]=\"editableReservationIndex\"\n            [editableReservationDate]=\"editableReservationDate\"\n            [rooms]=\"rooms\"\n            [meetingTypes]=\"meetingTypes\"\n            [participantsString]=\"participantsString\"\n            [newEventDate]=\"newEventDate\"\n            [newEventRoomId]=\"newEventRoomId\"\n            [currentUser]=\"currentUser\"\n            [cell]=\"cell\"\n            [isDublicateItem]=\"isDublicateItem\"\n          ></app-booking-modal-form>\n        </div>\n        <div class=\"l-master\" *ngIf=\"masterIsOpen\">\n          <app-booking-master-modal-form\n            [masterIsOpen]=\"masterIsOpen\"\n            (close)=\"resetMaster()\"\n            [editableReservation]=\"editableReservation\"\n            [groupedReservations]=\"groupedReservations\"\n            [rooms]=\"rooms\"\n            [meetingTypes]=\"meetingTypes\"\n            [webId]=\"webId\"\n          ></app-booking-master-modal-form>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -5882,7 +7131,7 @@ module.exports = "<div class=\"l-page-header\">\n  <div class=\"l-breadcrumbs\">
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.l-page-header {\n  max-width: 100%;\n  position: relative; }\n\n.l-page-header .title {\n    display: inline-block; }\n\n.l-page-header .date {\n    display: inline-block;\n    font-size: 24px;\n    color: #a2b2c8;\n    border-bottom: 2px dashed #050505;\n    cursor: pointer;\n    margin-left: 1.5%;\n    margin-right: 4%; }\n\n.l-page-header .change-date {\n    display: inline-block; }\n\n.l-page-header .change-date .left,\n    .l-page-header .change-date .reset,\n    .l-page-header .change-date .right {\n      display: inline-block;\n      border: 1px solid #666666;\n      padding: 10px 15px;\n      box-sizing: border-box;\n      font-size: 14px;\n      color: #000000;\n      cursor: pointer; }\n\n.l-page-header .change-date .reset {\n      padding: 10px 55px;\n      margin: 0 7px; }\n\n.l-page-header .booking-master {\n    position: absolute;\n    right: 35px;\n    bottom: 60px; }\n\n.l-page-header .booking-master .btn {\n      padding: 0 20px; }\n\n.l-booking {\n  padding: 50px 25px;\n  box-sizing: border-box;\n  position: relative; }\n\n.l-booking .l-booking-categories {\n    height: 30px;\n    position: absolute;\n    top: -30px; }\n\n.l-booking .l-mrr .l-mrr__body {\n    position: relative; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container {\n      position: relative;\n      padding: 25px 25px 50px 50px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner {\n        position: relative; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-hours {\n          position: absolute;\n          top: 0;\n          bottom: 0;\n          right: 100%;\n          width: 13px;\n          border-right-style: solid;\n          border-right-color: #c1c1c1;\n          border-right-width: 1px;\n          margin-top: 40px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-hours .l-mrr-hours__head {\n            height: 58px;\n            border-bottom-style: solid;\n            border-bottom-color: #e1e1e1;\n            border-bottom-width: 1px;\n            line-height: 29px;\n            position: relative; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-hours .l-mrr-hours__head b {\n              position: absolute;\n              bottom: -14.5px;\n              right: 100%;\n              display: inline-block;\n              min-width: 25px;\n              text-align: center;\n              font-size: 10px;\n              font-weight: 100;\n              color: #817f82;\n              padding-right: 7px;\n              white-space: nowrap;\n              margin-bottom: 0px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-hours .l-mrr-hours__body .row {\n            border-bottom-style: solid;\n            border-bottom-color: #e1e1e1;\n            border-bottom-width: 1px;\n            height: 29px;\n            line-height: 29px;\n            position: relative; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-hours .l-mrr-hours__body .row b {\n              position: absolute;\n              bottom: -14.5px;\n              right: 100%;\n              display: inline-block;\n              min-width: 25px;\n              text-align: center;\n              font-size: 10px;\n              font-weight: 100;\n              color: #817f82;\n              padding-right: 7px;\n              white-space: nowrap; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list {\n          width: 100%;\n          overflow-x: auto;\n          white-space: nowrap;\n          min-height: 840px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room {\n            display: inline-block;\n            width: 330px;\n            border-right-style: solid;\n            border-right-color: #c1c1c1;\n            border-right-width: 1px;\n            vertical-align: top;\n            position: relative;\n            margin-top: 40px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__name {\n              position: absolute;\n              top: -40px;\n              left: 0;\n              width: 100%;\n              font-size: 24px;\n              color: #000000;\n              white-space: nowrap;\n              overflow: hidden;\n              text-overflow: ellipsis; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__head {\n              border-bottom-style: solid;\n              border-bottom-color: #e1e1e1;\n              border-bottom-width: 1px;\n              height: 58px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__head .room-facilities {\n                position: relative;\n                padding: 10px 17.5px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__head .room-facilities i {\n                  display: inline-block;\n                  width: 36px;\n                  height: 36px;\n                  margin-right: 17.5px;\n                  background-color: #f1f1f4;\n                  border-radius: 100%;\n                  background-repeat: no-repeat;\n                  background-position: center;\n                  background-size: cover; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__head .room-facilities i.reference-info {\n                    background-image: url(/assets/icons/icon-mrr-reference-info.svg);\n                    cursor: pointer; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__head .room-facilities i.user-count {\n                    background-image: url(/assets/icons/icon-mrr-user-count.svg); }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__head .room-facilities i.computer {\n                    background-image: url(/assets/icons/icon-mrr-computer.svg); }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__head .room-facilities i.projector {\n                    background-image: url(/assets/icons/icon-mrr-projector.svg); }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__head .room-facilities i.webcam {\n                    background-image: url(/assets/icons/icon-mrr-webcam.svg); }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__head .room-facilities .info {\n                  position: absolute;\n                  top: 55px;\n                  left: 10px;\n                  background-color: #e6e6e6;\n                  padding: 10px;\n                  border-radius: 3px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row {\n              position: relative;\n              font-size: 0;\n              border-bottom-style: solid;\n              border-bottom-color: #e1e1e1;\n              border-bottom-width: 1px;\n              height: 29px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:hover .add-reservation {\n                display: block; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n+12) .m-mrr-card[data-height='1']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n+12) .m-mrr-card[data-height='2']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n+12) .m-mrr-card[data-height='3']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n+12) .m-mrr-card[data-height='4']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n+12) .m-mrr-card[data-height='5']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n+12) .m-mrr-card[data-height='6']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n+12) .m-mrr-card[data-height='7']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n+12) .m-mrr-card[data-height='8']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n+12) .m-mrr-card[data-height='9']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n+12) .m-mrr-card[data-height='10']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n+12) .m-mrr-card[data-height='11']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n+12) .m-mrr-card[data-height='12']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n+12) .m-mrr-card[data-height='13']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n+12) .m-mrr-card[data-height='14']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n+12) .m-mrr-card[data-height='15']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n+12) .m-mrr-card[data-height='16']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n+12) .m-mrr-card[data-height='17']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n+12) .m-mrr-card[data-height='18']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n+12) .m-mrr-card[data-height='19']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n+12) .m-mrr-card[data-height='20']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n+12) .m-mrr-card[data-height='21']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n+12) .m-mrr-card[data-height='22']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n+12) .m-mrr-card[data-height='23']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n+12) .m-mrr-card[data-height='24']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n+12) .m-mrr-card[data-height='25']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='1'] {\n                min-height: 30px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='1']:hover {\n                  bottom: 0px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='2'] {\n                min-height: 60px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='2']:hover {\n                  bottom: -30px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='3'] {\n                min-height: 90px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='3']:hover {\n                  bottom: -60px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='4'] {\n                min-height: 120px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='4']:hover {\n                  bottom: -90px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='5'] {\n                min-height: 150px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='5']:hover {\n                  bottom: -120px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='6'] {\n                min-height: 180px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='6']:hover {\n                  bottom: -150px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='7'] {\n                min-height: 210px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='7']:hover {\n                  bottom: -180px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='8'] {\n                min-height: 240px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='8']:hover {\n                  bottom: -210px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='9'] {\n                min-height: 270px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='9']:hover {\n                  bottom: -240px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='10'] {\n                min-height: 300px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='10']:hover {\n                  bottom: -270px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='11'] {\n                min-height: 330px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='11']:hover {\n                  bottom: -300px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='12'] {\n                min-height: 360px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='12']:hover {\n                  bottom: -330px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='13'] {\n                min-height: 390px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='13']:hover {\n                  bottom: -360px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='14'] {\n                min-height: 420px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='14']:hover {\n                  bottom: -390px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='15'] {\n                min-height: 450px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='15']:hover {\n                  bottom: -420px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='16'] {\n                min-height: 480px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='16']:hover {\n                  bottom: -450px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='17'] {\n                min-height: 510px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='17']:hover {\n                  bottom: -480px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='18'] {\n                min-height: 540px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='18']:hover {\n                  bottom: -510px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='19'] {\n                min-height: 570px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='19']:hover {\n                  bottom: -540px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='20'] {\n                min-height: 600px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='20']:hover {\n                  bottom: -570px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='21'] {\n                min-height: 630px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='21']:hover {\n                  bottom: -600px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='22'] {\n                min-height: 660px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='22']:hover {\n                  bottom: -630px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='23'] {\n                min-height: 690px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='23']:hover {\n                  bottom: -660px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='24'] {\n                min-height: 720px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='24']:hover {\n                  bottom: -690px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='25'] {\n                min-height: 750px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n+12) .m-mrr-card[data-height='25']:hover {\n                  bottom: -720px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card {\n                width: 100%;\n                padding: 12px;\n                box-sizing: border-box;\n                position: absolute;\n                left: 0;\n                z-index: 1;\n                border-top: 1px solid #fff; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height=\"1\"] {\n                  min-height: 30px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height=\"2\"] {\n                  min-height: 60px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height=\"3\"] {\n                  min-height: 90px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height=\"4\"] {\n                  min-height: 120px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height=\"5\"] {\n                  min-height: 150px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height=\"6\"] {\n                  min-height: 180px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height=\"7\"] {\n                  min-height: 210px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height=\"8\"] {\n                  min-height: 240px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height=\"9\"] {\n                  min-height: 270px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height=\"10\"] {\n                  min-height: 300px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height=\"11\"] {\n                  min-height: 330px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height=\"12\"] {\n                  min-height: 360px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height=\"13\"] {\n                  min-height: 390px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height=\"14\"] {\n                  min-height: 420px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height=\"15\"] {\n                  min-height: 450px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height=\"16\"] {\n                  min-height: 480px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height=\"17\"] {\n                  min-height: 510px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height=\"18\"] {\n                  min-height: 540px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height=\"19\"] {\n                  min-height: 570px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height=\"20\"] {\n                  min-height: 600px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height=\"21\"] {\n                  min-height: 630px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height=\"22\"] {\n                  min-height: 660px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height=\"23\"] {\n                  min-height: 690px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height=\"24\"] {\n                  min-height: 720px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height=\"25\"] {\n                  min-height: 750px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height='1'] {\n                  padding: 5px 12px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height='1'] .m-mrr-card__header .times {\n                    display: none; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height='1']:hover {\n                    padding: 5px 10px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height='1']:hover .m-mrr-card__header .times {\n                      display: block; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card:hover {\n                  border: 2px solid #ffffff;\n                  padding: 10px;\n                  z-index: 10; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card:hover .m-mrr-card__body {\n                    display: block; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card .m-mrr-card__header {\n                  font-size: 14px;\n                  line-height: 18px;\n                  font-weight: bold;\n                  color: #ffffff; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card .m-mrr-card__header .theme {\n                    white-space: nowrap;\n                    overflow: hidden;\n                    text-overflow: ellipsis;\n                    text-align: justify; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card .m-mrr-card__body {\n                  display: none;\n                  font-size: 14px;\n                  line-height: 21px;\n                  color: #ffffff;\n                  margin-top: 23px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card .m-mrr-card__body .card-info {\n                    white-space: nowrap;\n                    overflow: hidden;\n                    text-overflow: ellipsis; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card .m-mrr-card__body .card-info b {\n                      font-weight: normal; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card .m-mrr-card__body .card-actions {\n                    margin-top: 30px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card .m-mrr-card__body .card-actions .action {\n                      display: inline-block;\n                      width: 36px;\n                      height: 36px;\n                      margin-right: 17.5px;\n                      background-color: #fafafa;\n                      border-radius: 100%;\n                      background-repeat: no-repeat;\n                      background-position: center;\n                      background-size: cover;\n                      cursor: pointer; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card .m-mrr-card__body .card-actions .action.edit {\n                        background-image: url(/assets/icons/icon-mrr-edit.svg); }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card .m-mrr-card__body .card-actions .action.copy {\n                        background-image: url(/assets/icons/icon-mrr-copy.svg); }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card .m-mrr-card__body .card-actions .action.delete {\n                        background-image: url(/assets/icons/icon-mrr-delete.svg); }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .add-reservation {\n                display: none;\n                font-size: 18px;\n                text-align: center;\n                line-height: 30px;\n                cursor: pointer;\n                background-color: #f7f7f7; }\n\n.l-booking .l-booking-master .l-booking-master__block {\n    position: fixed;\n    top: 0;\n    bottom: 0;\n    left: 50%;\n    -webkit-transform: translateX(-50%);\n        -ms-transform: translateX(-50%);\n            transform: translateX(-50%);\n    width: 50%;\n    z-index: 99999;\n    background-color: #fff; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__header {\n      position: relative;\n      background-color: #dedfe0;\n      height: 20%;\n      padding: 4% 5% 4% 15%;\n      box-sizing: border-box;\n      color: #050505;\n      background-image: url(/assets/icons/icon-booking-master.svg);\n      background-size: 20% 30%;\n      background-position: left top 50%;\n      background-repeat: no-repeat; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__header .title {\n        position: absolute;\n        left: 15%;\n        top: 50%;\n        -webkit-transform: translateY(-50%);\n            -ms-transform: translateY(-50%);\n                transform: translateY(-50%);\n        font-size: 24px;\n        overflow: hidden;\n        text-overflow: ellipsis;\n        line-height: 30px;\n        max-height: 30px;\n        font-weight: bold; }\n\n@media (min-width: 1440px) {\n          .l-booking .l-booking-master .l-booking-master__block .l-booking-master__header .title {\n            font-size: calc( 0.02083333 * 100vw + -6px);\n            line-height: calc( 0.02083333 * 100vw + 0px);\n            max-height: calc( 0.02083333 * 100vw + 0px);\n            -webkit-line-clamp: 1; } }\n\n@media (min-width: 1920px) {\n          .l-booking .l-booking-master .l-booking-master__block .l-booking-master__header .title {\n            font-size: 34px;\n            line-height: 40px;\n            max-height: 40px; } }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__header .close {\n        position: absolute;\n        right: 35px;\n        top: 35px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body {\n      width: 100%;\n      height: 80%;\n      overflow: auto;\n      margin: 0 auto;\n      padding: 30px 8%;\n      box-sizing: border-box; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-city {\n        margin-bottom: 45px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-office {\n        margin-bottom: 55px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-office .checkblock {\n          width: 190px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-people {\n        margin-bottom: 60px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-people .icons {\n          height: 20px;\n          margin-bottom: 15px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-people .icons .human {\n            width: 9px;\n            height: 19px;\n            background-image: url(/assets/icons/icon-human.svg);\n            background-size: cover;\n            float: left; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-people .icons .humans {\n            width: 21px;\n            height: 19px;\n            background-image: url(/assets/icons/icon-more-humans.svg);\n            background-size: cover;\n            float: right; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-people .progress {\n          background-color: #f1f1f4; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-people .progress .progress-inner {\n            position: relative;\n            height: 8px;\n            background-color: #768692; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-people .progress .progress-inner:after {\n              content: '';\n              position: absolute;\n              right: -7px;\n              top: 50%;\n              -webkit-transform: translateY(-50%);\n                  -ms-transform: translateY(-50%);\n                      transform: translateY(-50%);\n              display: block;\n              width: 14px;\n              height: 14px;\n              border-radius: 100%;\n              background-color: #050505; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-people .progress .progress-inner .counter {\n              position: absolute;\n              right: -15px;\n              top: -45px;\n              padding: 0 12px;\n              box-sizing: border-box;\n              height: 30px;\n              background-color: #f1f1f4;\n              font-size: 16px;\n              color: #768692;\n              line-height: 30px;\n              text-align: center; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-people .progress .progress-inner .counter .counter-arrow {\n                position: absolute;\n                top: 28px;\n                left: 50%;\n                -webkit-transform: translateX(-50%);\n                    -ms-transform: translateX(-50%);\n                        transform: translateX(-50%);\n                display: block;\n                width: 1rem;\n                height: 0.5rem; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-people .progress .progress-inner .counter .counter-arrow:after {\n                  position: absolute;\n                  display: block;\n                  content: '';\n                  border-color: transparent;\n                  border-style: solid; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-people .progress .progress-inner .counter .counter-arrow:after {\n                  top: 2px;\n                  border-top-color: #f1f1f4;\n                  border-width: 0.5rem 0.5rem 0 0.5rem; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .title {\n        display: inline-block; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .date {\n        display: inline-block;\n        font-size: 24px;\n        color: #a2b2c8;\n        border-bottom: 2px dashed #050505;\n        padding-bottom: 5px;\n        box-sizing: border-box;\n        float: right;\n        cursor: pointer; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .checkblock {\n        width: auto;\n        padding: 10px 15px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress {\n        background-color: #f1f1f4;\n        margin: 80px 0; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group {\n          position: relative;\n          height: 8px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group:before, .l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group:after {\n            content: '';\n            display: block;\n            height: 4px;\n            width: 1px;\n            background-color: #768692;\n            position: absolute;\n            top: 10px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group:before {\n            left: 0; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group:after {\n            right: 0; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group .start,\n          .l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group .end {\n            position: absolute;\n            top: 20px;\n            font-size: 14px;\n            color: #768692; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group .start {\n            left: -17px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group .end {\n            right: -17px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group .reserved {\n            position: absolute;\n            top: 0;\n            background-color: #dd1e25;\n            height: 8px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group .reserved:before, .l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group .reserved:after {\n              content: '';\n              display: block;\n              height: 4px;\n              width: 1px;\n              background-color: #768692;\n              position: absolute;\n              top: 10px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group .reserved:before {\n              left: 0; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group .reserved:after {\n              right: 0; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group .reserved .start,\n            .l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group .reserved .end {\n              position: absolute;\n              top: 20px;\n              font-size: 14px;\n              color: #768692; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group .reserved .start {\n              left: -17px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group .reserved .end {\n              right: -17px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group .reserve-period {\n            position: absolute;\n            top: 0;\n            background-color: #768692;\n            height: 8px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group .reserve-period:before, .l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group .reserve-period:after {\n              content: '';\n              position: absolute;\n              top: 50%;\n              -webkit-transform: translateY(-50%);\n                  -ms-transform: translateY(-50%);\n                      transform: translateY(-50%);\n              display: block;\n              width: 14px;\n              height: 14px;\n              border-radius: 100%;\n              background-color: #050505; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group .reserve-period:before {\n              left: -7px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group .reserve-period:after {\n              right: -7px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group .reserve-period .counter {\n              position: absolute;\n              left: 50%;\n              -webkit-transform: translateX(-50%);\n                  -ms-transform: translateX(-50%);\n                      transform: translateX(-50%);\n              top: -45px;\n              width: 120px;\n              height: 30px;\n              background-color: #f1f1f4;\n              font-size: 16px;\n              color: #768692;\n              line-height: 30px;\n              text-align: center; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group .reserve-period .counter .counter-arrow {\n                position: absolute;\n                top: 28px;\n                left: 50%;\n                -webkit-transform: translateX(-50%);\n                    -ms-transform: translateX(-50%);\n                        transform: translateX(-50%);\n                display: block;\n                width: 1rem;\n                height: 0.5rem; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group .reserve-period .counter .counter-arrow:after {\n                  position: absolute;\n                  display: block;\n                  content: '';\n                  border-color: transparent;\n                  border-style: solid; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group .reserve-period .counter .counter-arrow:after {\n                  top: 2px;\n                  border-top-color: #f1f1f4;\n                  border-width: 0.5rem 0.5rem 0 0.5rem; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-equipment {\n        margin-bottom: 70px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-equipment .checkblock {\n          position: relative;\n          height: 96px;\n          width: 96px;\n          padding: 7px;\n          padding-top: 50px;\n          box-sizing: border-box;\n          background-color: #768692; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-equipment .checkblock .icon {\n            position: absolute;\n            top: 15px;\n            left: 50%;\n            -webkit-transform: translateX(-50%);\n                -ms-transform: translateX(-50%);\n                    transform: translateX(-50%);\n            width: 30px;\n            height: 30px;\n            background-repeat: no-repeat;\n            background-size: cover;\n            background-position: center; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-equipment .checkblock .text {\n            box-sizing: border-box;\n            color: #fff;\n            font-size: 16px;\n            line-height: 19px;\n            max-height: 40px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-equipment .checkblock.active {\n            color: #fff; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-room .room-list {\n        margin-bottom: 45px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-room .room-preview {\n        position: relative;\n        display: inline-block;\n        margin-right: 15px;\n        margin-bottom: 15px;\n        width: 150px;\n        height: 150px;\n        background-color: #768692;\n        color: #fff;\n        cursor: pointer; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-room .room-preview .image {\n          position: absolute;\n          left: 0;\n          top: 0;\n          right: 0;\n          bottom: 0;\n          background-repeat: no-repeat;\n          background-size: cover; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-room .room-preview .image .gradient {\n            position: absolute;\n            left: 0;\n            top: 0;\n            right: 0;\n            bottom: 0;\n            background-color: #000;\n            opacity: 0.4; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-room .room-preview .info {\n          position: absolute;\n          left: 0;\n          top: 0;\n          right: 0;\n          bottom: 0;\n          padding: 15px;\n          box-sizing: border-box; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-room .room-preview .room-title {\n          font-size: 24px;\n          margin-bottom: 10px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-room .room-preview .city {\n          margin-bottom: 6px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-room .room-preview .equipment {\n          position: absolute;\n          left: 15px;\n          bottom: 15px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-room .room-preview .equipment i {\n            display: inline-block;\n            width: 15px;\n            height: 15px;\n            margin-right: 12px;\n            background-repeat: no-repeat;\n            background-size: contain; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-room .room-preview .equipment .phone {\n            background-image: url(/assets/icons/icon-mrr-master-phone.svg); }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-room .room-preview .equipment .computer {\n            background-image: url(/assets/icons/icon-mrr-master-computer.svg); }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-room .room-preview .equipment .projector {\n            background-image: url(/assets/icons/icon-mrr-master-projector.svg); }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-room .room-preview .equipment .wi-fi {\n            background-image: url(/assets/icons/icon-mrr-master-wi-fi.svg); }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .meeting-title .large-input,\n      .l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .meeting-responsible .large-input,\n      .l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .meeting-participants .large-input {\n        width: 100%;\n        height: 70px;\n        border: 1px solid #dedede;\n        font-size: 16px;\n        margin-bottom: 65px;\n        padding: 0 23px;\n        box-sizing: border-box; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .buttons {\n        text-align: right; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .buttons .btn {\n          width: 155px;\n          padding: 0 35px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .buttons .btn:first-child {\n            margin-right: 30px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .buttons .btn:last-child {\n            padding: 0 13px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .title {\n        font-size: 24px;\n        color: #404040;\n        margin-bottom: 20px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .checkblock {\n        display: inline-block;\n        font-size: 16px;\n        line-height: 20px;\n        color: #7e8287;\n        background-color: #f1f1f4;\n        padding: 10px;\n        box-sizing: border-box;\n        width: 170px;\n        margin-right: 10px;\n        margin-bottom: 10px;\n        vertical-align: top;\n        cursor: pointer; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .checkblock.active {\n          color: #fff;\n          background-color: #768692; }\n\n.l-booking .l-booking-master .l-booking-master__overlay {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    background-color: rgba(0, 0, 0, 0.5);\n    z-index: 99998; }\n\n.warning-alert {\n  position: absolute;\n  left: 10px;\n  top: 10px;\n  right: 10px;\n  bottom: 10px;\n  background-color: #fff;\n  z-index: 25; }\n\n.warning-alert .text {\n    height: 65%;\n    position: relative; }\n\n.warning-alert .text span {\n      position: absolute;\n      top: 50%;\n      -webkit-transform: translateY(-50%);\n          -ms-transform: translateY(-50%);\n              transform: translateY(-50%);\n      padding: 0 10px;\n      box-sizing: border-box;\n      font-weight: 400;\n      font-size: 16px;\n      text-align: center;\n      color: #000;\n      white-space: normal; }\n\n.warning-alert .buttons {\n    height: 35%;\n    font-size: 0;\n    position: relative; }\n\n.warning-alert .buttons .inner {\n      position: absolute;\n      top: 50%;\n      left: 0;\n      right: 0;\n      -webkit-transform: translateY(-50%);\n          -ms-transform: translateY(-50%);\n              transform: translateY(-50%);\n      text-align: center; }\n\n.warning-alert .buttons input[type=\"button\"] {\n      padding: 0;\n      margin: 0;\n      border: 0;\n      min-width: 0;\n      background-color: transparent;\n      cursor: pointer;\n      display: inline-block;\n      vertical-align: top;\n      font-size: 18px;\n      height: 45px;\n      color: #fff;\n      background-color: #dd1e25;\n      border: none;\n      border-radius: 5px;\n      padding: 0 25px;\n      box-sizing: border-box;\n      display: inline-block;\n      white-space: nowrap;\n      text-decoration: none; }\n\n.warning-alert .buttons input[type=\"button\"]:focus {\n        outline: none; }\n\n.warning-alert .buttons input[type=\"button\"] + input[type=\"button\"] {\n        margin-left: 15px; }\n"
+module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n:host /deep/ button {\n  min-width: 0;\n  padding: 0;\n  margin: 0; }\n\n:host /deep/ .all-reservations .dp-picker-input {\n  width: 155px;\n  height: auto;\n  background: none;\n  font-size: 28px;\n  color: #da402b;\n  border: none;\n  cursor: pointer; }\n\n.l-page-header {\n  max-width: 100%;\n  position: relative; }\n\n.l-page-header .l-breadcrumbs {\n    margin-bottom: 15px; }\n\n.l-page-header .title {\n    display: inline-block;\n    margin-top: 0;\n    vertical-align: middle; }\n\n.l-page-header .date {\n    display: inline-block;\n    margin-left: 1.5%;\n    margin-right: 4%;\n    border-bottom: 2px dashed #050505;\n    vertical-align: middle; }\n\n.l-page-header .change-date {\n    display: inline-block;\n    width: 300px;\n    position: relative; }\n\n.l-page-header .change-date:hover .set-day-today {\n      display: block; }\n\n.l-page-header .change-date .left,\n    .l-page-header .change-date .right {\n      display: inline-block;\n      border: 1px solid white;\n      padding: 10px 15px;\n      box-sizing: border-box;\n      color: #000000;\n      cursor: pointer;\n      font-size: 22px;\n      font-family: monospace;\n      font-weight: bold;\n      vertical-align: middle; }\n\n.l-page-header .change-date .left:hover,\n      .l-page-header .change-date .right:hover {\n        border: 1px solid silver; }\n\n.l-page-header .change-date .set-day-today {\n      position: absolute;\n      top: 0px;\n      margin-top: 42px;\n      padding-top: 8px;\n      height: 100px;\n      left: 100px;\n      display: none;\n      cursor: pointer; }\n\n.l-page-header .booking-master {\n    position: absolute;\n    right: 35px;\n    bottom: 60px; }\n\n.l-page-header .booking-master .btn {\n      padding: 0 20px; }\n\n.l-booking {\n  padding: 10px 25px;\n  box-sizing: border-box;\n  position: relative; }\n\n.l-booking .l-booking-categories {\n    height: 30px;\n    position: absolute;\n    top: -30px; }\n\n.l-booking .l-mrr .l-mrr__body {\n    position: relative; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container {\n      position: relative;\n      padding: 25px 25px 50px 50px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner {\n        position: relative; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-hours {\n          position: absolute;\n          top: 0;\n          bottom: 0;\n          right: 100%;\n          width: 13px;\n          border-right-style: solid;\n          border-right-color: #c1c1c1;\n          border-right-width: 1px;\n          margin-top: 40px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-hours .l-mrr-hours__head {\n            height: 48px;\n            border-bottom-style: solid;\n            border-bottom-color: #e1e1e1;\n            border-bottom-width: 1px;\n            line-height: 29px;\n            position: relative; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-hours .l-mrr-hours__head b {\n              position: absolute;\n              bottom: -14.5px;\n              right: 100%;\n              display: inline-block;\n              min-width: 25px;\n              text-align: center;\n              font-size: 16px;\n              font-weight: 100;\n              color: #817f82;\n              padding-right: 7px;\n              white-space: nowrap;\n              margin-bottom: 0px;\n              color: black; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-hours .l-mrr-hours__body .row {\n            border-bottom-style: solid;\n            border-bottom-color: #e1e1e1;\n            border-bottom-width: 1px;\n            height: 29px;\n            line-height: 29px;\n            position: relative; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-hours .l-mrr-hours__body .row b {\n              position: absolute;\n              bottom: -14.5px;\n              right: 100%;\n              display: inline-block;\n              min-width: 25px;\n              text-align: center;\n              font-size: 12px;\n              font-weight: 100;\n              color: #817f82;\n              padding-right: 7px;\n              white-space: nowrap; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-hours .l-mrr-hours__body .row:nth-child(even) b {\n              font-size: 16px;\n              color: black; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list {\n          width: 100%;\n          overflow-x: auto;\n          white-space: nowrap;\n          min-height: 840px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room {\n            display: inline-block;\n            width: 330px;\n            border-right-style: solid;\n            border-right-color: #c1c1c1;\n            border-right-width: 1px;\n            vertical-align: top;\n            position: relative;\n            margin-top: 30px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__name {\n              position: absolute;\n              top: -30px;\n              left: 0;\n              width: 100%;\n              font-size: 24px;\n              color: #000000;\n              white-space: nowrap;\n              overflow: hidden;\n              text-overflow: ellipsis;\n              padding-left: 14px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__head {\n              border-bottom-style: solid;\n              border-bottom-color: #e1e1e1;\n              border-bottom-width: 1px;\n              height: 58px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__head .room-facilities {\n                position: relative;\n                padding: 10px 17.5px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__head .room-facilities i {\n                  display: inline-block;\n                  width: 36px;\n                  height: 36px;\n                  margin-right: 17.5px;\n                  background-color: #f1f1f4;\n                  border-radius: 100%;\n                  background-repeat: no-repeat;\n                  background-position: center;\n                  background-size: cover; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__head .room-facilities i.reference-info {\n                    background-image: url(/assets/icons/icon-mrr-reference-info.svg); }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__head .room-facilities i.reference-info:hover .room-image {\n                      display: block; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__head .room-facilities i.user-count {\n                    background-image: url(/assets/icons/icon-mrr-user-count.svg); }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__head .room-facilities i.computer {\n                    background-image: url(/assets/icons/icon-mrr-computer.svg); }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__head .room-facilities i.projector {\n                    background-image: url(/assets/icons/icon-mrr-projector.svg); }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__head .room-facilities i.webcam {\n                    background-image: url(/assets/icons/icon-mrr-webcam.svg); }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__head .room-facilities .room-image {\n                  display: none;\n                  position: absolute;\n                  top: 58px;\n                  left: 30px;\n                  width: 280px;\n                  height: 280px;\n                  background-repeat: no-repeat;\n                  background-size: cover;\n                  background-position: center;\n                  border: 3px solid #F1F1F4;\n                  box-sizing: border-box;\n                  z-index: 3; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row {\n              position: relative;\n              font-size: 0;\n              border-bottom-style: solid;\n              border-bottom-color: #e1e1e1;\n              border-bottom-width: 1px;\n              height: 29px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:hover .add-reservation {\n                display: block; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n + 11) .m-mrr-card[data-height='1']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n + 11) .m-mrr-card[data-height='2']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n + 11) .m-mrr-card[data-height='3']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n + 11) .m-mrr-card[data-height='4']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n + 11) .m-mrr-card[data-height='5']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n + 11) .m-mrr-card[data-height='6']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n + 11) .m-mrr-card[data-height='7']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n + 11) .m-mrr-card[data-height='8']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n + 11) .m-mrr-card[data-height='9']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n + 11) .m-mrr-card[data-height='10']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n + 11) .m-mrr-card[data-height='11']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n + 11) .m-mrr-card[data-height='12']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n + 11) .m-mrr-card[data-height='13']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n + 11) .m-mrr-card[data-height='14']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n + 11) .m-mrr-card[data-height='15']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n + 11) .m-mrr-card[data-height='16']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n + 11) .m-mrr-card[data-height='17']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n + 11) .m-mrr-card[data-height='18']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n + 11) .m-mrr-card[data-height='19']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n + 11) .m-mrr-card[data-height='20']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n + 11) .m-mrr-card[data-height='21']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n + 11) .m-mrr-card[data-height='22']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n + 11) .m-mrr-card[data-height='23']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n + 11) .m-mrr-card[data-height='24']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(-n + 11) .m-mrr-card[data-height='25']:hover {\n                top: 0; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='1'] {\n                min-height: 30px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='1']:hover {\n                  bottom: 0px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='2'] {\n                min-height: 60px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='2']:hover {\n                  bottom: -30px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='3'] {\n                min-height: 90px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='3']:hover {\n                  bottom: -60px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='4'] {\n                min-height: 120px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='4']:hover {\n                  bottom: -90px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='5'] {\n                min-height: 150px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='5']:hover {\n                  bottom: -120px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='6'] {\n                min-height: 180px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='6']:hover {\n                  bottom: -150px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='7'] {\n                min-height: 210px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='7']:hover {\n                  bottom: -180px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='8'] {\n                min-height: 240px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='8']:hover {\n                  bottom: -210px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='9'] {\n                min-height: 270px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='9']:hover {\n                  bottom: -240px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='10'] {\n                min-height: 300px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='10']:hover {\n                  bottom: -270px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='11'] {\n                min-height: 330px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='11']:hover {\n                  bottom: -300px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='12'] {\n                min-height: 360px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='12']:hover {\n                  bottom: -330px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='13'] {\n                min-height: 390px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='13']:hover {\n                  bottom: -360px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='14'] {\n                min-height: 420px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='14']:hover {\n                  bottom: -390px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='15'] {\n                min-height: 450px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='15']:hover {\n                  bottom: -420px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='16'] {\n                min-height: 480px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='16']:hover {\n                  bottom: -450px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='17'] {\n                min-height: 510px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='17']:hover {\n                  bottom: -480px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='18'] {\n                min-height: 540px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='18']:hover {\n                  bottom: -510px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='19'] {\n                min-height: 570px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='19']:hover {\n                  bottom: -540px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='20'] {\n                min-height: 600px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='20']:hover {\n                  bottom: -570px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='21'] {\n                min-height: 630px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='21']:hover {\n                  bottom: -600px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='22'] {\n                min-height: 660px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='22']:hover {\n                  bottom: -630px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='23'] {\n                min-height: 690px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='23']:hover {\n                  bottom: -660px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='24'] {\n                min-height: 720px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='24']:hover {\n                  bottom: -690px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='25'] {\n                min-height: 750px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row:nth-child(n + 12) .m-mrr-card[data-height='25']:hover {\n                  bottom: -720px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card {\n                width: 100%;\n                padding: 12px;\n                box-sizing: border-box;\n                position: absolute;\n                left: 0;\n                z-index: 1;\n                border-top: 1px solid #fff; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height='1'] {\n                  min-height: 30px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height='2'] {\n                  min-height: 60px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height='3'] {\n                  min-height: 90px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height='4'] {\n                  min-height: 120px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height='5'] {\n                  min-height: 150px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height='6'] {\n                  min-height: 180px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height='7'] {\n                  min-height: 210px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height='8'] {\n                  min-height: 240px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height='9'] {\n                  min-height: 270px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height='10'] {\n                  min-height: 300px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height='11'] {\n                  min-height: 330px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height='12'] {\n                  min-height: 360px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height='13'] {\n                  min-height: 390px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height='14'] {\n                  min-height: 420px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height='15'] {\n                  min-height: 450px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height='16'] {\n                  min-height: 480px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height='17'] {\n                  min-height: 510px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height='18'] {\n                  min-height: 540px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height='19'] {\n                  min-height: 570px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height='20'] {\n                  min-height: 600px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height='21'] {\n                  min-height: 630px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height='22'] {\n                  min-height: 660px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height='23'] {\n                  min-height: 690px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height='24'] {\n                  min-height: 720px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height='25'] {\n                  min-height: 750px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height='1'] {\n                  padding: 5px 12px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height='1'] .m-mrr-card__main .m-mrr-card__header .times {\n                    display: none; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height='1']:hover {\n                    padding: 12px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card[data-height='1']:hover .m-mrr-card__main .m-mrr-card__header .times {\n                      display: block; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card:hover {\n                  border: 0px solid #ffffff;\n                  z-index: 10; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card:hover .m-mrr-card__main .m-mrr-card__body {\n                    display: block; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card:hover .card-actions {\n                    display: block; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card:hover .warning-alert {\n                    display: block; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card .m-mrr-card__main .m-mrr-card__header {\n                  font-size: 14px;\n                  line-height: 18px;\n                  font-weight: bold;\n                  color: #ffffff; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card .m-mrr-card__main .m-mrr-card__header .theme {\n                    white-space: nowrap;\n                    overflow: hidden;\n                    text-overflow: ellipsis;\n                    text-align: justify; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card .m-mrr-card__main .m-mrr-card__body {\n                  display: none;\n                  font-size: 14px;\n                  line-height: 21px;\n                  color: #ffffff;\n                  margin-top: 23px;\n                  margin-bottom: 13px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card .m-mrr-card__main .m-mrr-card__body .card-info {\n                    white-space: nowrap;\n                    overflow: hidden;\n                    text-overflow: ellipsis; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card .m-mrr-card__main .m-mrr-card__body .card-info b {\n                      font-weight: normal; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card .card-actions {\n                  display: none;\n                  margin-top: -6px; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card .card-actions .action {\n                    display: inline-block;\n                    width: 36px;\n                    height: 36px;\n                    margin-right: 17.5px;\n                    background-color: #fafafa;\n                    border-radius: 100%;\n                    background-repeat: no-repeat;\n                    background-position: center;\n                    background-size: cover;\n                    cursor: pointer; }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card .card-actions .action.edit {\n                      background-image: url(/assets/icons/icon-mrr-edit.svg); }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card .card-actions .action.copy {\n                      background-image: url(/assets/icons/icon-mrr-copy.svg); }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .m-mrr-card .card-actions .action.delete {\n                      background-image: url(/assets/icons/icon-mrr-delete.svg); }\n\n.l-booking .l-mrr .l-mrr__body .l-mrr__container .l-mrr__container-inner .l-mrr-rooms__list .m-mrr-room .m-mrr-room__body .room-row .add-reservation {\n                display: none;\n                font-size: 18px;\n                text-align: center;\n                line-height: 30px;\n                cursor: pointer;\n                background-color: #f7f7f7; }\n\n.l-booking .l-booking-master .l-booking-master__block {\n    position: fixed;\n    top: 0;\n    bottom: 0;\n    left: 50%;\n    -webkit-transform: translateX(-50%);\n        -ms-transform: translateX(-50%);\n            transform: translateX(-50%);\n    width: 50%;\n    z-index: 99999;\n    background-color: #fff; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__header {\n      position: relative;\n      background-color: #dedfe0;\n      height: 20%;\n      padding: 4% 5% 4% 15%;\n      box-sizing: border-box;\n      color: #050505;\n      background-image: url(/assets/icons/icon-booking-master.svg);\n      background-size: 20% 30%;\n      background-position: left top 50%;\n      background-repeat: no-repeat; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__header .title {\n        position: absolute;\n        left: 15%;\n        top: 50%;\n        -webkit-transform: translateY(-50%);\n            -ms-transform: translateY(-50%);\n                transform: translateY(-50%);\n        font-size: 24px;\n        overflow: hidden;\n        text-overflow: ellipsis;\n        line-height: 30px;\n        max-height: 30px;\n        font-weight: bold; }\n\n@media (min-width: 1440px) {\n          .l-booking .l-booking-master .l-booking-master__block .l-booking-master__header .title {\n            font-size: calc( 0.02083333 * 100vw + -6px);\n            line-height: calc( 0.02083333 * 100vw + 0px);\n            max-height: calc( 0.02083333 * 100vw + 0px);\n            -webkit-line-clamp: 1; } }\n\n@media (min-width: 1920px) {\n          .l-booking .l-booking-master .l-booking-master__block .l-booking-master__header .title {\n            font-size: 34px;\n            line-height: 40px;\n            max-height: 40px; } }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__header .close {\n        position: absolute;\n        right: 35px;\n        top: 35px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body {\n      width: 100%;\n      height: 80%;\n      overflow: auto;\n      margin: 0 auto;\n      padding: 30px 8%;\n      box-sizing: border-box; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-city {\n        margin-bottom: 45px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-office {\n        margin-bottom: 55px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-office .checkblock {\n          width: 190px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-people {\n        margin-bottom: 60px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-people .icons {\n          height: 20px;\n          margin-bottom: 15px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-people .icons .human {\n            width: 9px;\n            height: 19px;\n            background-image: url(/assets/icons/icon-human.svg);\n            background-size: cover;\n            float: left; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-people .icons .humans {\n            width: 21px;\n            height: 19px;\n            background-image: url(/assets/icons/icon-more-humans.svg);\n            background-size: cover;\n            float: right; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-people .progress {\n          background-color: #f1f1f4; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-people .progress .progress-inner {\n            position: relative;\n            height: 8px;\n            background-color: #768692; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-people .progress .progress-inner:after {\n              content: '';\n              position: absolute;\n              right: -7px;\n              top: 50%;\n              -webkit-transform: translateY(-50%);\n                  -ms-transform: translateY(-50%);\n                      transform: translateY(-50%);\n              display: block;\n              width: 14px;\n              height: 14px;\n              border-radius: 100%;\n              background-color: #050505; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-people .progress .progress-inner .counter {\n              position: absolute;\n              right: -15px;\n              top: -45px;\n              padding: 0 12px;\n              box-sizing: border-box;\n              height: 30px;\n              background-color: #f1f1f4;\n              font-size: 16px;\n              color: #768692;\n              line-height: 30px;\n              text-align: center; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-people .progress .progress-inner .counter .counter-arrow {\n                position: absolute;\n                top: 28px;\n                left: 50%;\n                -webkit-transform: translateX(-50%);\n                    -ms-transform: translateX(-50%);\n                        transform: translateX(-50%);\n                display: block;\n                width: 1rem;\n                height: 0.5rem; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-people .progress .progress-inner .counter .counter-arrow:after {\n                  position: absolute;\n                  display: block;\n                  content: '';\n                  border-color: transparent;\n                  border-style: solid; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-people .progress .progress-inner .counter .counter-arrow:after {\n                  top: 2px;\n                  border-top-color: #f1f1f4;\n                  border-width: 0.5rem 0.5rem 0 0.5rem; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .title {\n        display: inline-block; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .date {\n        display: block;\n        font-size: 24px;\n        color: #a2b2c8;\n        border-bottom: 2px dashed #050505;\n        padding-bottom: 5px;\n        box-sizing: border-box;\n        float: right;\n        cursor: pointer; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .checkblock {\n        width: auto;\n        padding: 10px 15px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress {\n        background-color: #f1f1f4;\n        margin: 80px 0; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group {\n          position: relative;\n          height: 8px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group:before, .l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group:after {\n            content: '';\n            display: block;\n            height: 4px;\n            width: 1px;\n            background-color: #768692;\n            position: absolute;\n            top: 10px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group:before {\n            left: 0; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group:after {\n            right: 0; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group .start,\n          .l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group .end {\n            position: absolute;\n            top: 20px;\n            font-size: 14px;\n            color: #768692; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group .start {\n            left: -17px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group .end {\n            right: -17px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group .reserved {\n            position: absolute;\n            top: 0;\n            background-color: #dd1e25;\n            height: 8px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group .reserved:before, .l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group .reserved:after {\n              content: '';\n              display: block;\n              height: 4px;\n              width: 1px;\n              background-color: #768692;\n              position: absolute;\n              top: 10px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group .reserved:before {\n              left: 0; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group .reserved:after {\n              right: 0; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group .reserved .start,\n            .l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group .reserved .end {\n              position: absolute;\n              top: 20px;\n              font-size: 14px;\n              color: #768692; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group .reserved .start {\n              left: -17px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group .reserved .end {\n              right: -17px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group .reserve-period {\n            position: absolute;\n            top: 0;\n            background-color: #768692;\n            height: 8px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group .reserve-period:before, .l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group .reserve-period:after {\n              content: '';\n              position: absolute;\n              top: 50%;\n              -webkit-transform: translateY(-50%);\n                  -ms-transform: translateY(-50%);\n                      transform: translateY(-50%);\n              display: block;\n              width: 14px;\n              height: 14px;\n              border-radius: 100%;\n              background-color: #050505; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group .reserve-period:before {\n              left: -7px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group .reserve-period:after {\n              right: -7px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group .reserve-period .counter {\n              position: absolute;\n              left: 50%;\n              -webkit-transform: translateX(-50%);\n                  -ms-transform: translateX(-50%);\n                      transform: translateX(-50%);\n              top: -45px;\n              width: 120px;\n              height: 30px;\n              background-color: #f1f1f4;\n              font-size: 16px;\n              color: #768692;\n              line-height: 30px;\n              text-align: center; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group .reserve-period .counter .counter-arrow {\n                position: absolute;\n                top: 28px;\n                left: 50%;\n                -webkit-transform: translateX(-50%);\n                    -ms-transform: translateX(-50%);\n                        transform: translateX(-50%);\n                display: block;\n                width: 1rem;\n                height: 0.5rem; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group .reserve-period .counter .counter-arrow:after {\n                  position: absolute;\n                  display: block;\n                  content: '';\n                  border-color: transparent;\n                  border-style: solid; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-date .progress .progress-group .reserve-period .counter .counter-arrow:after {\n                  top: 2px;\n                  border-top-color: #f1f1f4;\n                  border-width: 0.5rem 0.5rem 0 0.5rem; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-equipment {\n        margin-bottom: 70px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-equipment .checkblock {\n          position: relative;\n          height: 96px;\n          width: 96px;\n          padding: 7px;\n          padding-top: 50px;\n          box-sizing: border-box;\n          background-color: #768692; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-equipment .checkblock .icon {\n            position: absolute;\n            top: 15px;\n            left: 50%;\n            -webkit-transform: translateX(-50%);\n                -ms-transform: translateX(-50%);\n                    transform: translateX(-50%);\n            width: 30px;\n            height: 30px;\n            background-repeat: no-repeat;\n            background-size: cover;\n            background-position: center; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-equipment .checkblock .text {\n            box-sizing: border-box;\n            color: #fff;\n            font-size: 16px;\n            line-height: 19px;\n            max-height: 40px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-equipment .checkblock.active {\n            color: #fff; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-room .room-list {\n        margin-bottom: 45px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-room .room-preview {\n        position: relative;\n        display: inline-block;\n        margin-right: 15px;\n        margin-bottom: 15px;\n        width: 150px;\n        height: 150px;\n        background-color: #768692;\n        color: #fff;\n        cursor: pointer; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-room .room-preview .image {\n          position: absolute;\n          left: 0;\n          top: 0;\n          right: 0;\n          bottom: 0;\n          background-repeat: no-repeat;\n          background-size: cover; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-room .room-preview .image .gradient {\n            position: absolute;\n            left: 0;\n            top: 0;\n            right: 0;\n            bottom: 0;\n            background-color: #000;\n            opacity: 0.4; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-room .room-preview .info {\n          position: absolute;\n          left: 0;\n          top: 0;\n          right: 0;\n          bottom: 0;\n          padding: 15px;\n          box-sizing: border-box; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-room .room-preview .room-title {\n          font-size: 24px;\n          margin-bottom: 10px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-room .room-preview .city {\n          margin-bottom: 6px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-room .room-preview .equipment {\n          position: absolute;\n          left: 15px;\n          bottom: 15px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-room .room-preview .equipment i {\n            display: inline-block;\n            width: 15px;\n            height: 15px;\n            margin-right: 12px;\n            background-repeat: no-repeat;\n            background-size: contain; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-room .room-preview .equipment .phone {\n            background-image: url(/assets/icons/icon-mrr-master-phone.svg); }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-room .room-preview .equipment .computer {\n            background-image: url(/assets/icons/icon-mrr-master-computer.svg); }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-room .room-preview .equipment .projector {\n            background-image: url(/assets/icons/icon-mrr-master-projector.svg); }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .pick-room .room-preview .equipment .wi-fi {\n            background-image: url(/assets/icons/icon-mrr-master-wi-fi.svg); }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .meeting-title .large-input,\n      .l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .meeting-responsible .large-input,\n      .l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .meeting-participants .large-input {\n        width: 100%;\n        height: 70px;\n        border: 1px solid #dedede;\n        font-size: 16px;\n        margin-bottom: 65px;\n        padding: 0 23px;\n        box-sizing: border-box; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .buttons {\n        text-align: right; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .buttons .btn {\n          width: 155px;\n          padding: 0 35px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .buttons .btn:first-child {\n            margin-right: 30px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .buttons .btn:last-child {\n            padding: 0 13px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .title {\n        font-size: 24px;\n        color: #404040;\n        margin-bottom: 20px; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .checkblock {\n        display: inline-block;\n        font-size: 16px;\n        line-height: 20px;\n        color: #7e8287;\n        background-color: #f1f1f4;\n        padding: 10px;\n        box-sizing: border-box;\n        width: 170px;\n        margin-right: 10px;\n        margin-bottom: 10px;\n        vertical-align: top;\n        cursor: pointer; }\n\n.l-booking .l-booking-master .l-booking-master__block .l-booking-master__body .checkblock.active {\n          color: #fff;\n          background-color: #768692; }\n\n.l-booking .l-booking-master .l-booking-master__overlay {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    background-color: rgba(0, 0, 0, 0.5);\n    z-index: 99998; }\n\n.warning-alert {\n  display: none;\n  position: absolute;\n  left: 10px;\n  top: 10px;\n  right: 10px;\n  bottom: 10px;\n  background-color: #fff;\n  z-index: 25; }\n\n.warning-alert .text {\n    height: 65%;\n    position: relative; }\n\n.warning-alert .text span {\n      position: absolute;\n      top: 50%;\n      -webkit-transform: translateY(-50%);\n          -ms-transform: translateY(-50%);\n              transform: translateY(-50%);\n      padding: 0 10px;\n      box-sizing: border-box;\n      font-weight: 400;\n      font-size: 16px;\n      text-align: center;\n      color: #000;\n      white-space: normal; }\n\n.warning-alert .buttons {\n    height: 35%;\n    font-size: 0;\n    position: relative; }\n\n.warning-alert .buttons .inner {\n      position: absolute;\n      top: 50%;\n      left: 0;\n      right: 0;\n      -webkit-transform: translateY(-50%);\n          -ms-transform: translateY(-50%);\n              transform: translateY(-50%);\n      text-align: center; }\n\n.warning-alert .buttons input[type='button'] {\n      padding: 0;\n      margin: 0;\n      border: 0;\n      min-width: 0;\n      background-color: transparent;\n      cursor: pointer;\n      display: inline-block;\n      vertical-align: top;\n      font-size: 18px;\n      height: 45px;\n      color: #fff;\n      background-color: #dd1e25;\n      border: none;\n      border-radius: 5px;\n      padding: 0 25px;\n      box-sizing: border-box;\n      display: inline-block;\n      white-space: nowrap;\n      text-decoration: none; }\n\n.warning-alert .buttons input[type='button']:focus {\n        outline: none; }\n\n.warning-alert .buttons input[type='button'] + input[type='button'] {\n        margin-left: 15px; }\n"
 
 /***/ }),
 
@@ -5897,18 +7146,20 @@ module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shi
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MeetingRoomReservationPageComponent", function() { return MeetingRoomReservationPageComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/sidebar/sidebar.service */ "./src/app/services/sidebar/sidebar.service.ts");
-/* harmony import */ var src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/sharepoint/sharepoint.service */ "./src/app/services/sharepoint/sharepoint.service.ts");
-/* harmony import */ var src_app_booking_services_offices_offices_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/booking/services/offices/offices.service */ "./src/app/booking/services/offices/offices.service.ts");
-/* harmony import */ var src_app_booking_services_reservations_reservations_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/booking/services/reservations/reservations.service */ "./src/app/booking/services/reservations/reservations.service.ts");
-/* harmony import */ var src_app_booking_services_rooms_rooms_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/booking/services/rooms/rooms.service */ "./src/app/booking/services/rooms/rooms.service.ts");
-/* harmony import */ var src_app_booking_services_meeting_types_meeting_types_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/booking/services/meeting-types/meeting-types.service */ "./src/app/booking/services/meeting-types/meeting-types.service.ts");
-/* harmony import */ var src_app_booking_services_reservations_mail_reservations_mail_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/booking/services/reservations-mail/reservations-mail.service */ "./src/app/booking/services/reservations-mail/reservations-mail.service.ts");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/sharepoint/sharepoint.service */ "./src/app/services/sharepoint/sharepoint.service.ts");
+/* harmony import */ var src_app_booking_services_offices_offices_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/booking/services/offices/offices.service */ "./src/app/booking/services/offices/offices.service.ts");
+/* harmony import */ var src_app_booking_services_reservations_reservations_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/booking/services/reservations/reservations.service */ "./src/app/booking/services/reservations/reservations.service.ts");
+/* harmony import */ var src_app_booking_services_rooms_rooms_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/booking/services/rooms/rooms.service */ "./src/app/booking/services/rooms/rooms.service.ts");
+/* harmony import */ var src_app_booking_services_meeting_types_meeting_types_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/booking/services/meeting-types/meeting-types.service */ "./src/app/booking/services/meeting-types/meeting-types.service.ts");
+/* harmony import */ var src_app_booking_services_reservations_mail_reservations_mail_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/booking/services/reservations-mail/reservations-mail.service */ "./src/app/booking/services/reservations-mail/reservations-mail.service.ts");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var src_app_services_security_security_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/services/security/security.service */ "./src/app/services/security/security.service.ts");
+/* harmony import */ var src_app_constants_groups__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/constants/groups */ "./src/app/constants/groups.ts");
+/* harmony import */ var ng2_date_picker__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ng2-date-picker */ "./node_modules/ng2-date-picker/fesm5/ng2-date-picker.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5929,34 +7180,45 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
 var MeetingRoomReservationPageComponent = /** @class */ (function () {
-    function MeetingRoomReservationPageComponent(sharepointService, sidebarService, officesService, route, roomsService, reservationsService, meetingTypesService, reservationsMailService) {
+    function MeetingRoomReservationPageComponent(sharepointService, officesService, route, roomsService, reservationsService, meetingTypesService, reservationsMailService, securityService) {
         this.sharepointService = sharepointService;
-        this.sidebarService = sidebarService;
         this.officesService = officesService;
         this.route = route;
         this.roomsService = roomsService;
         this.reservationsService = reservationsService;
         this.meetingTypesService = meetingTypesService;
         this.reservationsMailService = reservationsMailService;
+        this.securityService = securityService;
         this.webId = undefined;
         this.offices = [];
         this.rooms = [];
         this.groupedReservations = [];
-        this.editableReservation = [];
+        this.editableReservation = {};
         this.meetingTypes = [];
         this.participantsString = '';
         this.currentUser = this.sharepointService.getCurrentUserContext().userLoginName;
+        this.currentUserId = this.sharepointService.getCurrentUserContext().userId;
         this.newEventDate = undefined;
         this.newEventRoomId = undefined;
         this.isCreateItem = true;
         this.isDublicateItem = true;
         this.masterIsOpen = false;
         this.modalIsOpen = false;
-        this.showInfo = false;
         this.isFirstStage = true;
         this.showAlert = false;
         this.isDeleteItem = undefined;
+        this.isViewItem = false;
+        this.isAdminGroup = false;
+        this.datePickerConfig = {
+            format: 'DD.MM.YYYY',
+            firstDayOfWeek: 'mo',
+            disableKeypress: true,
+            unSelectOnClick: false,
+            hideOnOutsideClick: false
+        };
         this.cities = ['Москва', 'Владимир', 'Нижний Новогород', 'Урюпинск'];
         this.durations = ['30 минут', '1 час', '1,5 часа', '2 часа', '2,5 часа', '3 часа', '4 часа', '5 часов'];
         this.equipment = [
@@ -5977,13 +7239,15 @@ var MeetingRoomReservationPageComponent = /** @class */ (function () {
                 title: 'Wi-Fi'
             }
         ];
-        this.displayedDay = moment__WEBPACK_IMPORTED_MODULE_9__();
+        this.displayedDay = moment__WEBPACK_IMPORTED_MODULE_8__();
         this.directionFilterByDay = {
             yesterday: 0, today: 1, tomorrow: 2
         };
         this.officeId = undefined;
-        this.sidebarService.handleSetSettings({ showSidebar: false, bgColor: '#fff' });
     }
+    MeetingRoomReservationPageComponent.prototype.closePicker = function () {
+        this.datePicker.api.close();
+    };
     MeetingRoomReservationPageComponent.prototype.openMasterModal = function () {
         this.masterIsOpen = true;
     };
@@ -5992,10 +7256,22 @@ var MeetingRoomReservationPageComponent = /** @class */ (function () {
         this.participantsString = null;
         this.modalIsOpen = true;
         creationDate = creationDate.format('DD.MM.YYYY');
-        this.newEventDate = moment__WEBPACK_IMPORTED_MODULE_9__(creationDate + ':' + startTime, 'DD.MM.YYYY:HH:mm').toISOString();
+        this.newEventDate = moment__WEBPACK_IMPORTED_MODULE_8__(creationDate + ':' + startTime, 'DD.MM.YYYY:HH:mm').toISOString();
         this.newEventRoomId = room;
         this.cell = cell;
         this.isDublicateItem = false;
+    };
+    MeetingRoomReservationPageComponent.prototype.openViewModal = function (reservation) {
+        var _this = this;
+        reservation['participants'].forEach(function (element) {
+            _this.participantsString += (_this.participantsString.length === 0) ? element.UserName : ';' + element.UserName;
+        });
+        this.editableReservation = reservation;
+        this.editableReservationDate = moment__WEBPACK_IMPORTED_MODULE_8__(reservation.eventDate).format('DD.MM.YYYY');
+        this.isCreateItem = false;
+        this.isDublicateItem = false;
+        this.isViewItem = true;
+        this.modalIsOpen = true;
     };
     MeetingRoomReservationPageComponent.prototype.openEditorModal = function (reservation, cell, index) {
         var _this = this;
@@ -6003,7 +7279,7 @@ var MeetingRoomReservationPageComponent = /** @class */ (function () {
             _this.participantsString += (_this.participantsString.length === 0) ? element.UserName : ';' + element.UserName;
         });
         this.editableReservation = JSON.parse(JSON.stringify(reservation));
-        this.editableReservationDate = moment__WEBPACK_IMPORTED_MODULE_9__(reservation.eventDate).format('DD.MM.YYYY');
+        this.editableReservationDate = moment__WEBPACK_IMPORTED_MODULE_8__(reservation.eventDate).format('DD.MM.YYYY');
         this.isCreateItem = false;
         this.modalIsOpen = true;
         this.cell = cell;
@@ -6015,7 +7291,7 @@ var MeetingRoomReservationPageComponent = /** @class */ (function () {
             _this.participantsString += (_this.participantsString.length === 0) ? element.UserName : ';' + element.UserName;
         });
         this.editableReservation = JSON.parse(JSON.stringify(reservation));
-        this.editableReservationDate = moment__WEBPACK_IMPORTED_MODULE_9__(reservation.eventDate).format('DD.MM.YYYY');
+        this.editableReservationDate = moment__WEBPACK_IMPORTED_MODULE_8__(reservation.eventDate).format('DD.MM.YYYY');
         this.editableReservationDate = null;
         this.editableReservation['eventDate'] = null;
         this.editableReservation['endDate'] = null;
@@ -6026,11 +7302,91 @@ var MeetingRoomReservationPageComponent = /** @class */ (function () {
     };
     MeetingRoomReservationPageComponent.prototype.closeModal = function () {
         this.modalIsOpen = false;
-        this.editableReservation = [];
+        this.pickDate();
+        this.editableReservation = {};
         this.participantsString = '';
+        this.isViewItem = false;
     };
     MeetingRoomReservationPageComponent.prototype.resetMaster = function () {
         this.masterIsOpen = false;
+    };
+    MeetingRoomReservationPageComponent.prototype.pickDate = function () {
+        var _this = this;
+        var dateStart = this.displayedDay.startOf('day').toISOString();
+        var dateEnd = this.displayedDay.endOf('day').toISOString();
+        this.getGroupedReservationsByDay(dateStart, dateEnd, function (groupedReservations) {
+            _this.groupedReservations = groupedReservations;
+            _this.filterByOfficeId(_this.officeId);
+        });
+    };
+    MeetingRoomReservationPageComponent.prototype.filterByOfficeId = function (id) {
+        this.officeId = id;
+    };
+    MeetingRoomReservationPageComponent.prototype.filterByToday = function (direction) {
+        var _this = this;
+        var dateStart;
+        var dateEnd;
+        switch (direction) {
+            case this.directionFilterByDay.yesterday: {
+                this.displayedDay = moment__WEBPACK_IMPORTED_MODULE_8__(this.displayedDay).subtract(1, 'days');
+                dateEnd = this.displayedDay.endOf('day').toISOString();
+                dateStart = this.displayedDay.startOf('day').toISOString();
+                break;
+            }
+            case this.directionFilterByDay.today: {
+                dateStart = moment__WEBPACK_IMPORTED_MODULE_8__().startOf('day').toISOString();
+                dateEnd = moment__WEBPACK_IMPORTED_MODULE_8__().endOf('day').toISOString();
+                this.displayedDay = moment__WEBPACK_IMPORTED_MODULE_8__();
+                break;
+            }
+            default: {
+                this.displayedDay = moment__WEBPACK_IMPORTED_MODULE_8__(this.displayedDay).add(1, 'days');
+                dateStart = this.displayedDay.startOf('day').toISOString();
+                dateEnd = this.displayedDay.endOf('day').toISOString();
+                break;
+            }
+        }
+        this.getGroupedReservationsByDay(dateStart, dateEnd, function (groupedReservations) {
+            _this.groupedReservations = groupedReservations;
+            _this.filterByOfficeId(_this.officeId);
+        });
+    };
+    MeetingRoomReservationPageComponent.prototype.getGroupedReservationsByDay = function (dateStart, dateEnd, returnReservations) {
+        var _this = this;
+        this.reservationsService.getItems({
+            filter: "EventDate ge datetime'" + dateStart + "' and EventDate lt'" + dateEnd + "'",
+            webId: this.webId
+        }).subscribe(function (reservations) {
+            var groupedByDate = lodash__WEBPACK_IMPORTED_MODULE_7__["groupBy"](reservations, function (reservation) { return _this.getEventTime(reservation.eventDate); });
+            var timeLine = ['08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00',
+                '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30'];
+            var allReservations = [];
+            timeLine.forEach(function (time) {
+                allReservations.push({
+                    date: time,
+                    list: groupedByDate[time]
+                });
+            });
+            returnReservations(allReservations);
+        });
+    };
+    MeetingRoomReservationPageComponent.prototype.getEventTime = function (date) {
+        return moment__WEBPACK_IMPORTED_MODULE_8__(date).format('HH:mm');
+    };
+    MeetingRoomReservationPageComponent.prototype.getDisplayedDate = function () {
+        return this.displayedDay.format('DD.MM.YYYY');
+    };
+    MeetingRoomReservationPageComponent.prototype.remove = function (item) {
+        var _this = this;
+        this.reservationsService.deleteItem(item, this.webId)
+            .subscribe(function () {
+            _this.groupedReservations.forEach(function (time) {
+                if (time.list !== undefined) {
+                    time.list = time.list.filter(function (i) { return i['id'] !== item['id']; });
+                }
+            });
+            _this.reservationsMailService.removeNotify(_this.webId, item);
+        });
     };
     MeetingRoomReservationPageComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -6052,88 +7408,34 @@ var MeetingRoomReservationPageComponent = /** @class */ (function () {
         this.getGroupedReservationsByDay(today, tomorrow, function (groupedReservations) {
             _this.groupedReservations = groupedReservations;
         });
-    };
-    MeetingRoomReservationPageComponent.prototype.filterByOfficeId = function (id) {
-        this.officeId = id;
-    };
-    MeetingRoomReservationPageComponent.prototype.filterByToday = function (direction) {
-        var _this = this;
-        var dateStart;
-        var dateEnd;
-        switch (direction) {
-            case this.directionFilterByDay.yesterday: {
-                dateEnd = this.displayedDay.startOf('day').toISOString();
-                dateStart = this.displayedDay.subtract(1, 'days').startOf('day').toISOString();
-                break;
+        this.securityService.getCurrentUserGroups()
+            .subscribe(function (g) {
+            if (g && g.some(function (e) { return e === src_app_constants_groups__WEBPACK_IMPORTED_MODULE_11__["groups"].administrator; })) {
+                _this.isAdminGroup = true;
             }
-            case this.directionFilterByDay.today: {
-                dateStart = moment__WEBPACK_IMPORTED_MODULE_9__().startOf('day').toISOString();
-                dateEnd = moment__WEBPACK_IMPORTED_MODULE_9__().add(1, 'days').startOf('day').toISOString();
-                this.displayedDay = moment__WEBPACK_IMPORTED_MODULE_9__();
-                break;
+            else {
+                _this.isAdminGroup = false;
             }
-            default: {
-                dateStart = this.displayedDay.add(1, 'days').startOf('day').toISOString();
-                dateEnd = this.displayedDay.endOf('day').toISOString();
-                break;
-            }
-        }
-        this.getGroupedReservationsByDay(dateStart, dateEnd, function (groupedReservations) {
-            _this.groupedReservations = groupedReservations;
-            _this.filterByOfficeId(_this.officeId);
         });
     };
-    MeetingRoomReservationPageComponent.prototype.getGroupedReservationsByDay = function (dateStart, dateEnd, returnReservations) {
-        var _this = this;
-        this.reservationsService.getItems({
-            filter: "EventDate ge datetime'" + dateStart + "' and EventDate lt'" + dateEnd + "'",
-            webId: this.webId
-        }).subscribe(function (reservations) {
-            var groupedByDate = lodash__WEBPACK_IMPORTED_MODULE_8__["groupBy"](reservations, function (reservation) { return _this.getEventTime(reservation.eventDate); });
-            var timeLine = ['08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00',
-                '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30'];
-            var allReservations = [];
-            timeLine.forEach(function (time) {
-                allReservations.push({
-                    date: time,
-                    list: groupedByDate[time]
-                });
-            });
-            returnReservations(allReservations);
-        });
-    };
-    MeetingRoomReservationPageComponent.prototype.getEventTime = function (date) {
-        return moment__WEBPACK_IMPORTED_MODULE_9__(date).format('HH:mm');
-    };
-    MeetingRoomReservationPageComponent.prototype.getDisplayedDate = function () {
-        return this.displayedDay.format('DD.MM.YYYY');
-    };
-    MeetingRoomReservationPageComponent.prototype.remove = function (item) {
-        var _this = this;
-        this.reservationsService.deleteItem(item)
-            .subscribe(function () {
-            _this.groupedReservations.forEach(function (time) {
-                if (time.list !== undefined) {
-                    time.list = time.list.filter(function (i) { return i['id'] !== item['id']; });
-                }
-            });
-            _this.reservationsMailService.removeNotify(item);
-        });
-    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('dayPicker'),
+        __metadata("design:type", ng2_date_picker__WEBPACK_IMPORTED_MODULE_12__["DatePickerComponent"])
+    ], MeetingRoomReservationPageComponent.prototype, "datePicker", void 0);
     MeetingRoomReservationPageComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-meeting-room-reservation-page',
             template: __webpack_require__(/*! ./meeting-room-reservation-page.component.html */ "./src/app/booking/components/meeting-room-reservation-page/meeting-room-reservation-page.component.html"),
             styles: [__webpack_require__(/*! ./meeting-room-reservation-page.component.scss */ "./src/app/booking/components/meeting-room-reservation-page/meeting-room-reservation-page.component.scss")]
         }),
-        __metadata("design:paramtypes", [src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_2__["SharepointService"],
-            src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_1__["SidebarService"],
-            src_app_booking_services_offices_offices_service__WEBPACK_IMPORTED_MODULE_3__["OfficesService"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_10__["ActivatedRoute"],
-            src_app_booking_services_rooms_rooms_service__WEBPACK_IMPORTED_MODULE_5__["RoomsService"],
-            src_app_booking_services_reservations_reservations_service__WEBPACK_IMPORTED_MODULE_4__["ReservationsService"],
-            src_app_booking_services_meeting_types_meeting_types_service__WEBPACK_IMPORTED_MODULE_6__["MeetingTypesService"],
-            src_app_booking_services_reservations_mail_reservations_mail_service__WEBPACK_IMPORTED_MODULE_7__["ReservationsMailService"]])
+        __metadata("design:paramtypes", [src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_1__["SharepointService"],
+            src_app_booking_services_offices_offices_service__WEBPACK_IMPORTED_MODULE_2__["OfficesService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_9__["ActivatedRoute"],
+            src_app_booking_services_rooms_rooms_service__WEBPACK_IMPORTED_MODULE_4__["RoomsService"],
+            src_app_booking_services_reservations_reservations_service__WEBPACK_IMPORTED_MODULE_3__["ReservationsService"],
+            src_app_booking_services_meeting_types_meeting_types_service__WEBPACK_IMPORTED_MODULE_5__["MeetingTypesService"],
+            src_app_booking_services_reservations_mail_reservations_mail_service__WEBPACK_IMPORTED_MODULE_6__["ReservationsMailService"],
+            src_app_services_security_security_service__WEBPACK_IMPORTED_MODULE_10__["SecurityService"]])
     ], MeetingRoomReservationPageComponent);
     return MeetingRoomReservationPageComponent;
 }());
@@ -6190,7 +7492,7 @@ var MeetingTypesService = /** @class */ (function (_super) {
         return 'Типы встреч';
     };
     MeetingTypesService.prototype.getSelect = function () {
-        return 'Id, Title';
+        return 'Id, Title, slColor';
     };
     MeetingTypesService.prototype.getExpand = function () {
         return null;
@@ -6207,7 +7509,8 @@ var MeetingTypesService = /** @class */ (function (_super) {
     MeetingTypesService.prototype.convertListItemToEntity = function (item) {
         var meetingTypes = {
             id: item.Id,
-            title: item.Title
+            title: item.Title,
+            color: item.slColor
         };
         return meetingTypes;
     };
@@ -6215,7 +7518,8 @@ var MeetingTypesService = /** @class */ (function (_super) {
         throw new Error('Method not implemented.');
     };
     MeetingTypesService.prototype.getMockItems = function () {
-        return [{ id: 1, title: 'Собеседование' }, { id: 2, title: 'Встреча' }, { id: 3, title: 'Совещание' }];
+        //return [{ id: 1, title: 'Собеседование' }, { id: 2, title: 'Встреча' }, { id: 3, title: 'Совещание' }];
+        return null;
     };
     MeetingTypesService.prototype.isMock = function () {
         return false;
@@ -6354,15 +7658,18 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 var ReservationsMailService = /** @class */ (function () {
     function ReservationsMailService(roomsService, mailService) {
-        var _this = this;
         this.roomsService = roomsService;
         this.mailService = mailService;
         this.rooms = [];
-        this.roomsService.getItems().subscribe(function (rooms) {
+    }
+    ReservationsMailService.prototype.getRooms = function (webid) {
+        var _this = this;
+        this.roomsService.getItems({ webId: webid }).subscribe(function (rooms) {
             _this.rooms = rooms;
         });
-    }
-    ReservationsMailService.prototype.createNotify = function (item) {
+    };
+    ReservationsMailService.prototype.createNotify = function (webid, item) {
+        this.getRooms(webid);
         var eventDate = moment__WEBPACK_IMPORTED_MODULE_3__(item.eventDate).format('DD.MM.YYYY' + ' в ' + 'HH:mm');
         var roomTitle = '';
         this.rooms.forEach(function (room) {
@@ -6377,13 +7684,10 @@ var ReservationsMailService = /** @class */ (function () {
             recipients += (recipients.length === 0) ? element.EMail : ';' + element.EMail;
         });
         var recipientsArr = recipients.split(';');
-        console.log('Создал');
-        console.log(recipientsArr);
-        console.log(subject);
-        console.log(body);
         this.mailService.sendEmailByCurrentUser(recipientsArr, subject, body);
     };
-    ReservationsMailService.prototype.editTimeNotify = function (item, oldEventDate) {
+    ReservationsMailService.prototype.editTimeNotify = function (webid, item, oldEventDate) {
+        this.getRooms(webid);
         var eventDate = moment__WEBPACK_IMPORTED_MODULE_3__(item.eventDate).format('HH:mm');
         var oldDate = moment__WEBPACK_IMPORTED_MODULE_3__(oldEventDate).format('DD.MM.YYYY' + ' в ' + 'HH:mm');
         var subject = 'Время встречи изменено';
@@ -6393,13 +7697,10 @@ var ReservationsMailService = /** @class */ (function () {
             recipients += (recipients.length === 0) ? element.EMail : ';' + element.EMail;
         });
         var recipientsArr = recipients.split(';');
-        console.log('Изменил');
-        console.log(recipientsArr);
-        console.log(subject);
-        console.log(body);
         this.mailService.sendEmailByCurrentUser(recipientsArr, subject, body);
     };
-    ReservationsMailService.prototype.editDateNotify = function (item, oldEventDate) {
+    ReservationsMailService.prototype.editDateNotify = function (webid, item, oldEventDate) {
+        this.getRooms(webid);
         var eventDate = moment__WEBPACK_IMPORTED_MODULE_3__(item.eventDate).format('DD.MM.YYYY' + ' в ' + 'HH:mm');
         var oldDate = moment__WEBPACK_IMPORTED_MODULE_3__(oldEventDate).format('DD.MM.YYYY' + ' в ' + 'HH:mm');
         var subject = 'Время и дата встречи изменено';
@@ -6409,13 +7710,10 @@ var ReservationsMailService = /** @class */ (function () {
             recipients += (recipients.length === 0) ? element.EMail : ';' + element.EMail;
         });
         var recipientsArr = recipients.split(';');
-        console.log('Изменил');
-        console.log(recipientsArr);
-        console.log(subject);
-        console.log(body);
         this.mailService.sendEmailByCurrentUser(recipientsArr, subject, body);
     };
-    ReservationsMailService.prototype.removeNotify = function (item) {
+    ReservationsMailService.prototype.removeNotify = function (webid, item) {
+        this.getRooms(webid);
         var eventDate = moment__WEBPACK_IMPORTED_MODULE_3__(item.eventDate).format('DD.MM.YYYY' + ' в ' + 'HH:mm');
         var subject = 'Встреча отменена';
         var body = 'Запланированная встреча на ' + eventDate + ', переговорная ' + item.roomLookupTitle + ' отменена';
@@ -6424,10 +7722,6 @@ var ReservationsMailService = /** @class */ (function () {
             recipients += (recipients.length === 0) ? element.EMail : ';' + element.EMail;
         });
         var recipientsArr = recipients.split(';');
-        console.log('Удалил');
-        console.log(recipientsArr);
-        console.log(subject);
-        console.log(body);
         this.mailService.sendEmailByCurrentUser(recipientsArr, subject, body);
     };
     ReservationsMailService = __decorate([
@@ -6495,10 +7789,11 @@ var ReservationsService = /** @class */ (function (_super) {
         return 'Бронирование переговорной';
     };
     ReservationsService.prototype.getSelect = function () {
-        return "Id, Title, EventDate, EndDate, slOfficeLookup/Title, slOfficeLookup/Id,\n    slParticipants/Title, slParticipants/UserName, slParticipants/EMail, slParticipants/Id, slVideoStaff, slProjector, slTheme,\n    slDescription, slRoomLookup/Title, slRoomLookup/Id, slMeetingTypeLookup/Title, slMeetingTypeLookup/Id, slInitiator/Id,\n    slInitiator/Title, slInitiator/UserName,slResponsible/Id, slResponsible/Title, slResponsible/UserName, slCount";
+        // TODO: при отсутствии slParticipants/EMail падает с ошибкой
+        return "Id, Title, EventDate, EndDate, Author/Id, slOfficeLookup/Title, slOfficeLookup/Id,\n    slParticipants/Title, slParticipants/UserName, slParticipants/Id, slVideoStaff, slProjector, slTheme,\n    slDescription, slRoomLookup/Title, slRoomLookup/Id, slMeetingTypeLookup/Title, slMeetingTypeLookup/Id, slMeetingTypeLookup/slColor,\n    slInitiator/Id, slInitiator/Title, slInitiator/UserName,slResponsible/Id, slResponsible/Title, slResponsible/UserName, slCount";
     };
     ReservationsService.prototype.getExpand = function () {
-        return 'slOfficeLookup, slRoomLookup, slMeetingTypeLookup, slParticipants, slInitiator, slResponsible';
+        return 'slOfficeLookup, slRoomLookup, slMeetingTypeLookup, slParticipants, slInitiator, slResponsible, Author';
     };
     ReservationsService.prototype.getOrderBy = function () {
         return null;
@@ -6526,6 +7821,7 @@ var ReservationsService = /** @class */ (function (_super) {
             count: item.slCount,
             eventDate: item.EventDate,
             endDate: item.EndDate,
+            authorId: item.Author.Id,
             companyLookupId: (item.slCompanyLookup === undefined ? undefined : item.slCompanyLookup.Id),
             companyLookupTitle: (item.slCompanyLookup === undefined ? undefined : item.slCompanyLookup.Title),
             officeLookupId: item.slOfficeLookup.Id,
@@ -6533,13 +7829,13 @@ var ReservationsService = /** @class */ (function (_super) {
             roomLookupId: item.slRoomLookup.Id,
             roomLookupTitle: item.slRoomLookup.Title,
             meetingTypeLookupId: item.slMeetingTypeLookup.Id,
-            meetingTypeLookupTitle: item.slMeetingTypeLookup.Title
+            meetingTypeLookupTitle: item.slMeetingTypeLookup.Title,
+            meetingTypeLookupColor: item.slMeetingTypeLookup.slColor ? item.slMeetingTypeLookup.slColor : '#00BC9B'
         };
         reservations.eventHeight = this.getEventHeight(reservations.eventDate, reservations.endDate);
         return reservations;
     };
     ReservationsService.prototype.convertEntityToListItem = function (entity) {
-        console.log('entity ', entity);
         return {
             Id: entity.id,
             Title: entity.title,
@@ -6632,7 +7928,7 @@ var RoomsService = /** @class */ (function (_super) {
         return 'Переговорные';
     };
     RoomsService.prototype.getSelect = function () {
-        return 'Id, Title, slVideoStaff, slProjector, slOfficeLookup/Title, slOfficeLookup/Id';
+        return 'Id, Title, slVideoStaff, slProjector, slImageUrl, slOfficeLookup/Title, slOfficeLookup/Id';
     };
     RoomsService.prototype.getExpand = function () {
         return 'slOfficeLookup';
@@ -6651,7 +7947,8 @@ var RoomsService = /** @class */ (function (_super) {
             id: item.Id,
             title: item.Title,
             videoStaff: (item.slVideoStaff === 'Да') ? true : false,
-            projector: (item.slProjector === 'Да') ? true : false
+            projector: (item.slProjector === 'Да') ? true : false,
+            imageUrl: item.slImageUrl
         };
         if (item.slOfficeLookup) {
             rooms.officeLookupId = item.slOfficeLookup.Id;

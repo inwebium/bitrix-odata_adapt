@@ -29,13 +29,21 @@ class RequestFilterParser
             }
             else
             {
+                /*echo "\nparseNodes\n";
+                var_dump($child);
+                echo "\n----------\n";*/
                 //$pattern = "/(([\w]+)\[(\w{2})\]=(\d+|'[^']+'|\w+))|(,|;|$)/";
-                $pattern = "/(([\w]+)\[(\w{2})\]=(\d+|'[^']+'|\w+\s?(?:'[^']+')?|\(.*?\)))|(,|;|$)/";
+                $pattern = "/(([\w\/]+)\[(\w{2})\]=(\d+|'[^']+'|\w+\s?(?:'[^']+')?|\(.*?\)))|(,|;|$)/";
                 $matches = [];
                 preg_match_all($pattern, $child, $matches, PREG_SET_ORDER);
-
+                /*echo "\nparseNodes matches\n";
+                var_dump($matches);
+                echo "\n----------\n";*/
                 foreach ($matches as $matchKey => $arMatch)
                 {
+                    if (strpos($arMatch, 'LikedBy') !== false) {
+                        continue;
+                    }
                     $arNode = [];
 
                     if (count($arMatch) == 5 && !empty($arMatch[0]))
@@ -72,7 +80,7 @@ class RequestFilterParser
     }
     
     /**
-     * Строит фильтр для битриксовых GetList
+     * Строит фильтр со сложной логикой для битриксовых GetList
      * 
      * @param array $arNodes
      * @return array
@@ -106,9 +114,9 @@ class RequestFilterParser
                 // если И
                 if ($node['LOGIC'] == ';')
                 {
-                    // До этого уже встретили И 
+                    // До этого уже встретили И?
                     $isLogicContinues = $isLogicStarted && $previousLogic == 'AND';
-                    // До этого уже встретили ИЛИ
+                    // До этого уже встретили ИЛИ?
                     $isOtherLogic = $isLogicStarted && $previousLogic == 'OR';
 
                     // если перед этим уже разбирали И

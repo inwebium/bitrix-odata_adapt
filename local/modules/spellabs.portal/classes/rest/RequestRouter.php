@@ -16,7 +16,7 @@ class RequestRouter
             'List' => ["/[iI]blocks?/", "/[lL]ists?/"],
         ],
         1 => [
-            'getByTitle' => ["/getByTitle\('([\w\d\s%]+)'\)/"],
+            'getByTitle' => ["/getByTitle\('([\w\d\s\-%]+)'\)/"],
             'getByXmlId' => ["/([\w\d]+)/"], // must be last
         ],
         2 => [
@@ -234,7 +234,7 @@ class RequestRouter
     
     private function getByTitle($uriPart)
     {
-        $pattern = "/(\w+)\('([\w\d\s%]+)'\)/";
+        $pattern = "/(\w+)\('([\w\d\s\-%]+)'\)/";
         $matches = [];
         preg_match($pattern, $uriPart, $matches);
         
@@ -249,6 +249,8 @@ class RequestRouter
             $iblock['XML_ID'] = 'slEmployees';
         } elseif (urldecode($matches[2]) == 'Настройки портала') {
             $iblock['XML_ID'] = 'slSettings';
+        } elseif (urldecode($matches[2]) == 'Просмотры новостей') {
+            $iblock['XML_ID'] = 'slNewsViews';
         } else {
             $iblock = IblockUtils::getIblockBy('NAME', urldecode($matches[2]));
         }

@@ -1,6 +1,9 @@
 <?php
 namespace Spellabs\Portal\Rest;
 
+/**
+ * Парсер выражений со скобками
+ */
 class ParenthesesParser
 {
     protected $stack = null;
@@ -13,7 +16,13 @@ class ParenthesesParser
     {
         ;
     }
-
+    
+    /**
+     * Парсит строковое выражение со скобками в массив
+     * 
+     * @param string $string
+     * @return array
+     */
     public function parse($string)
     {
         if (!$string) 

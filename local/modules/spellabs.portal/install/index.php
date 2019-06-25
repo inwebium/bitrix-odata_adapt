@@ -567,24 +567,8 @@ class spellabs_portal extends \CModule
             
             foreach ($arIblocksProps[$iblockCode] as $propertyCode => $arProperty)
             {
-                $propertyType = 'StringType';
+                $propertyType = $this->determinePropertyType($arProperty);
                 $fieldEntity = 'PROPERTY';
-                
-                if (isset($arProperty['RETURNS'])) {
-                    $propertyType = $arProperty['RETURNS'] . 'Type';
-                } elseif (isset($arProperty['PROPERTY_TYPE'])) {
-                    switch ($arProperty['PROPERTY_TYPE'])
-                    {
-                        case 'E':
-                            $propertyType = 'EntityType';
-                            break;
-                        case 'F':
-                            $propertyType = 'FileType';
-                            break;
-                        default:
-                            break;
-                    }
-                }
                 
                 if (
                     isset($arProperty['FIELD_ENTITY']) && 
@@ -624,6 +608,7 @@ class spellabs_portal extends \CModule
                 ->setToken('code', $iblockCode)
                 ->setToken('fields', $fieldInitString)
                 ->setToken('construct', $constructorAdditionals)
+                ->setToken('name', $iblockParams['NAME'])
             ;
             $propertiesString = $repository->arrayToString($arIblockProps);
             $repository
@@ -635,6 +620,45 @@ class spellabs_portal extends \CModule
         }
         
         
+    }
+    
+    private function determinePropertyType($arProperty)
+    {
+        $propertyType = 'StringType';
+        
+        if (isset($arProperty['PROPERTY_TYPE'])) {
+            switch ($arProperty['PROPERTY_TYPE'])
+            {
+                case 'E':
+                    $propertyType = 'EntityType';
+                    break;
+                case 'F':
+                    $propertyType = 'FileType';
+                    break;
+                case 'S':
+                    $propertyType = 'StringType';
+
+                    if (isset($arProperty['USER_TYPE'])) {
+                        switch ($arProperty['USER_TYPE'])
+                        {
+                            case 'DateTime':
+                                $propertyType = 'DatetimeType';
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+        } 
+        
+        if (isset($arProperty['RETURNS'])) {
+            $propertyType = $arProperty['RETURNS'] . 'Type';
+        }
+        
+        return $propertyType;
     }
     
     /**
@@ -703,7 +727,10 @@ class spellabs_portal extends \CModule
 
             foreach ($elements as $key => $elementFields)
             {
-                $this->fillFixtureAttachments($elementFields['PROPERTY_VALUES']);
+                $this->fillFixtureAttachments(
+                    $elementFields['PROPERTY_VALUES'],
+                    $createdIblock['ID']
+                );
                 $elementFields['IBLOCK_ID'] = $createdIblock['ID'];
 
                 // если задана "картинка анонса" и есть такой файл
@@ -778,9 +805,19 @@ class spellabs_portal extends \CModule
         }
     }
     
-    private function fillFixtureAttachments(&$propertyValues)
+    /**
+     * Формирует массив для загрузки файлов в свойства типа файл 
+     * (PROPERTY_TYPE = F). Формируется массив из переданных значений свойств 
+     * фикстуры (ключ PROPERTY_VALUES)
+     * 
+     * @param array $propertyValues Ссылка на ключ PROPERTY_VALUES фикстуры
+     * @param int $iblockId Id инфоблока для создаваемых элементов
+     */
+    private function fillFixtureAttachments(&$propertyValues, $iblockId)
     {
+        // Перебираем значения свойств фикстуры
         foreach ($propertyValues as $propertyCode => $propertyValue) {
+            // Получаем свойство по коду
             $arProperty = Spellabs\Portal\Rest\IblockUtils::getPropertyBy(
                 'CODE', 
                 $propertyCode, 
@@ -805,14 +842,15 @@ class spellabs_portal extends \CModule
                         }
                     }
                 } else {
-                     $filePath = $this->GetPath() . '/../classes/rest/Fixtures/attachments/' . $propertyValue[0];
+                    $filePath = $this->GetPath() . '/../classes/rest/Fixtures/attachments/' . $propertyValue[0];
                         
                     if (file_exists($filePath)) {
                         $attachmentFile = CFile::MakeFileArray($filePath);
                         $attachmentsProperty['n0'] = ['VALUE' => $attachmentFile];
                     }
                 }
-        
+                
+                // Если добавили элементов в массив значения файлового свойства
                 if (count($attachmentsProperty) > 0) {
                     $propertyValues[$propertyCode] = $attachmentsProperty;
                 } else {

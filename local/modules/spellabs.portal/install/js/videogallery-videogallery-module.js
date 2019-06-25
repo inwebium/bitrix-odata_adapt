@@ -392,9 +392,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var src_app_services_videos_videos_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/videos/videos.service */ "./src/app/services/videos/videos.service.ts");
-/* harmony import */ var src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/sidebar/sidebar.service */ "./src/app/services/sidebar/sidebar.service.ts");
-/* harmony import */ var src_app_services_videos_views_videos_views_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/videos-views/videos-views.service */ "./src/app/services/videos-views/videos-views.service.ts");
-/* harmony import */ var src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/sharepoint/sharepoint.service */ "./src/app/services/sharepoint/sharepoint.service.ts");
+/* harmony import */ var src_app_services_videos_views_videos_views_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/videos-views/videos-views.service */ "./src/app/services/videos-views/videos-views.service.ts");
+/* harmony import */ var src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/sharepoint/sharepoint.service */ "./src/app/services/sharepoint/sharepoint.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -411,10 +410,8 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-
 var VideoalbumPageComponent = /** @class */ (function () {
-    function VideoalbumPageComponent(sidebarService, route, videosService, router, videosViewsService, sharepointService) {
-        this.sidebarService = sidebarService;
+    function VideoalbumPageComponent(route, videosService, router, videosViewsService, sharepointService) {
         this.route = route;
         this.videosService = videosService;
         this.router = router;
@@ -424,10 +421,6 @@ var VideoalbumPageComponent = /** @class */ (function () {
         this.next = null;
         this.companyId = null;
         this.webId = null;
-        this.sidebarService.handleSetSettings({
-            showSidebar: false,
-            bgColor: '#fff'
-        });
     }
     VideoalbumPageComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -528,12 +521,11 @@ var VideoalbumPageComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./videoalbum-page.component.html */ "./src/app/videogallery/components/videoalbum-page/videoalbum-page.component.html"),
             styles: [__webpack_require__(/*! ./videoalbum-page.component.scss */ "./src/app/videogallery/components/videoalbum-page/videoalbum-page.component.scss")]
         }),
-        __metadata("design:paramtypes", [src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_5__["SidebarService"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"],
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"],
             src_app_services_videos_videos_service__WEBPACK_IMPORTED_MODULE_4__["VideosService"],
             _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
-            src_app_services_videos_views_videos_views_service__WEBPACK_IMPORTED_MODULE_6__["VideosViewsService"],
-            src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_7__["SharepointService"]])
+            src_app_services_videos_views_videos_views_service__WEBPACK_IMPORTED_MODULE_5__["VideosViewsService"],
+            src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_6__["SharepointService"]])
     ], VideoalbumPageComponent);
     return VideoalbumPageComponent;
 }());
@@ -549,7 +541,7 @@ var VideoalbumPageComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"l-page-header\">\n  <div class=\"l-breadcrumbs\">\n    <div class=\"l-breadcrumb\"><a [routerLink]=\"companyId ? ['/enterprise/' + companyId] : ['/']\">Главная</a></div>\n    <div class=\"l-breadcrumb\"><a [routerLink]=\"['../../']\">Медиагалерея</a></div>\n    <div class=\"l-breadcrumb\">Видеогалерея</div>\n  </div>\n  <div class=\"title\">\n    Видеогалерея\n  </div>\n</div>\n<div class=\"l-page\">\n  <div class=\"l-page-inner\">\n    <div class=\"l-page__content\">\n      <div class=\"l-videogallery\">\n        <div class=\"search\">\n          <input #searchRef placeholder=\"Введите запрос\" type=\"text\" [(ngModel)]=\"search\" />\n        </div>\n        <div class=\"empty-video-list\" *ngIf=\"items.length === 0\">\n            Результаты не найдены\n        </div>\n        <div class=\"video-list\">\n          <div class=\"video-item\" *ngFor=\"let item of items\">\n            <div class=\"video-item__inner\">\n              <div [routerLink]=\"searchOutside? ['../../item', item.id] : ['../item', item.id]\" class=\"cover\">\n                <ng-container *ngIf=\"item.isIFrame\">\n                  <div id=\"block\" style=\"position: absolute; top: 0; left: 0; width: 100%; height: 100%\"></div>\n                  <iframe [src]=\"item.videoUrl | iframeVideo\"></iframe>\n                </ng-container>\n                <ng-container *ngIf=\"!item.isIFrame\">\n                  <video src=\"{{item.videoUrl}}\"></video>\n                </ng-container>\n              </div>\n              <div class=\"info\">\n                <a [routerLink]=\"searchOutside? ['../../item', item.id] : ['../item', item.id]\" class=\"title\" appNgslDotdotdot>\n                  {{item.title}}\n                </a>\n                <div class=\"views\">\n                  {{ getEnding(item.viewsCount, ['просмотр', 'просмотра', 'просмотров']) }}\n                </div>\n                <div class=\"date\">\n                  {{item.createdTitle}}\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"l-page-header\">\n  <div class=\"l-breadcrumbs\">\n    <div class=\"l-breadcrumb\"><a [routerLink]=\"companyId ? ['/enterprise/' + companyId] : ['/']\">Главная</a></div>\n    <div class=\"l-breadcrumb\"><a [routerLink]=\"['../../']\">Медиагалерея</a></div>\n    <div class=\"l-breadcrumb\">Видеогалерея</div>\n  </div>\n  <div class=\"title\">\n    Видеогалерея\n  </div>\n</div>\n<div class=\"l-page\">\n  <div class=\"l-page-inner\">\n    <div class=\"l-page__content\">\n      <div class=\"l-videogallery\">\n        <div class=\"search\">\n          <input #searchRef placeholder=\"Введите запрос\" type=\"text\" [(ngModel)]=\"search\" (keypress)=\"onKeypress($event)\" />\n        </div>\n        <div class=\"empty-video-list\" *ngIf=\"items.length === 0\">\n            Результаты не найдены\n        </div>\n        <div class=\"video-list\">\n          <div class=\"video-item\" *ngFor=\"let item of items\">\n            <div class=\"video-item__inner\">\n              <div [routerLink]=\"searchOutside? ['../../item', item.id] : ['../item', item.id]\" class=\"cover\">\n                <ng-container *ngIf=\"item.isIFrame\">\n                  <div id=\"block\" style=\"position: absolute; top: 0; left: 0; width: 100%; height: 100%\"></div>\n                  <iframe [src]=\"item.videoUrl | iframeVideo\"></iframe>\n                </ng-container>\n                <ng-container *ngIf=\"!item.isIFrame\">\n                  <video src=\"{{item.videoUrl}}\"></video>\n                </ng-container>\n              </div>\n              <div class=\"info\">\n                <a [routerLink]=\"searchOutside? ['../../item', item.id] : ['../item', item.id]\" class=\"title\" appNgslDotdotdot>\n                  {{item.title}}\n                </a>\n                <div class=\"views\">\n                  {{ getEnding(item.viewsCount, ['просмотр', 'просмотра', 'просмотров']) }}\n                </div>\n                <div class=\"date\">\n                  {{item.createdTitle}}\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -579,8 +571,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
 /* harmony import */ var src_app_services_videos_videos_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/videos/videos.service */ "./src/app/services/videos/videos.service.ts");
-/* harmony import */ var src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/sidebar/sidebar.service */ "./src/app/services/sidebar/sidebar.service.ts");
-/* harmony import */ var src_app_services_videos_views_videos_views_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/videos-views/videos-views.service */ "./src/app/services/videos-views/videos-views.service.ts");
+/* harmony import */ var src_app_services_videos_views_videos_views_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/videos-views/videos-views.service */ "./src/app/services/videos-views/videos-views.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -596,10 +587,8 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-
 var VideogalleryPageComponent = /** @class */ (function () {
-    function VideogalleryPageComponent(sidebarService, videosService, route, videosViewsService) {
-        this.sidebarService = sidebarService;
+    function VideogalleryPageComponent(videosService, route, videosViewsService) {
         this.videosService = videosService;
         this.route = route;
         this.videosViewsService = videosViewsService;
@@ -608,7 +597,6 @@ var VideogalleryPageComponent = /** @class */ (function () {
         this.companyId = null;
         this.webId = null;
         this.searchOutside = null;
-        this.sidebarService.handleSetSettings({ showSidebar: false, bgColor: '#fff' });
     }
     VideogalleryPageComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -711,6 +699,12 @@ var VideogalleryPageComponent = /** @class */ (function () {
             });
         }
     };
+    VideogalleryPageComponent.prototype.onKeypress = function (event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            return false;
+        }
+    };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('searchRef'),
         __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
@@ -721,10 +715,9 @@ var VideogalleryPageComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./videogallery-page.component.html */ "./src/app/videogallery/components/videogallery-page/videogallery-page.component.html"),
             styles: [__webpack_require__(/*! ./videogallery-page.component.scss */ "./src/app/videogallery/components/videogallery-page/videogallery-page.component.scss")]
         }),
-        __metadata("design:paramtypes", [src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_5__["SidebarService"],
-            src_app_services_videos_videos_service__WEBPACK_IMPORTED_MODULE_4__["VideosService"],
+        __metadata("design:paramtypes", [src_app_services_videos_videos_service__WEBPACK_IMPORTED_MODULE_4__["VideosService"],
             _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"],
-            src_app_services_videos_views_videos_views_service__WEBPACK_IMPORTED_MODULE_6__["VideosViewsService"]])
+            src_app_services_videos_views_videos_views_service__WEBPACK_IMPORTED_MODULE_5__["VideosViewsService"]])
     ], VideogalleryPageComponent);
     return VideogalleryPageComponent;
 }());

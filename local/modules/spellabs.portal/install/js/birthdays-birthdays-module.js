@@ -114,7 +114,7 @@ var BirthdaysModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"l-page-header\">\n  <div class=\"l-breadcrumbs\">\n    <div class=\"l-breadcrumb\"><a [routerLink]=\"['/company']\">Главная</a></div>\n    <div class=\"l-breadcrumb\">Дни рождения</div>\n  </div>\n  <div class=\"title\">Дни рождения</div>\n</div>\n<div class=\"l-page\">\n  <div class=\"l-page-inner\">\n    <div class=\"l-page__content\">\n      <div class=\"l-birthdays\">\n        <div class=\"l-birthdays__month-list\">\n          <app-filters>\n            <app-filters-item [active]=\"month === i ? true : false\" *ngFor=\"let item of months; let i = index\" (change)=\"getBirthdaysPagetByMonth(i)\">\n              {{ item }}\n            </app-filters-item>\n          </app-filters>\n        </div>\n        <div class=\"l-birthdays__day-list\">\n          <div class=\"reset\">Сегодня</div>\n          <div class=\"day\" *ngFor=\"let day of days\" [class.active]=\"active === day\" (click)=\"active = (active === day ? null :day)\">\n            {{day}}\n          </div>\n        </div>\n        <div class=\"l-birthdays__calendar\">\n          <div class=\"l-birthdays__day\" *ngFor=\"let item of birthdays\">\n            <div class=\"date\">\n              <div class=\"day\">{{ item.birthday }}</div>\n              <div class=\"month\">{{ item.birthmonth }}</div>\n            </div>\n            <div class=\"employees\">\n              <div class=\"m-employees-list\">\n                <div class=\"m-employees-list__item\" *ngFor=\"let employee of item.employees\">\n                  <div class=\"avatar\">\n                    <app-user-thumb [width]=\"'90px'\" [height]=\"'90px'\" [photo]=\"employee.photo\" [route]=\"employee.profileRoute\"></app-user-thumb>\n                  </div>\n                  <div class=\"body\">\n                    <div class=\"name\">\n                      {{ employee.fullName }}\n                    </div>\n                    <div class=\"position\">{{ employee.positionName }}</div>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n        <div class=\"navigation\" *ngIf=\"hasPrev || hasNext\">\n          <div class=\"m-page-nav\">\n            <a class=\"to-begin\" (click)=\"hasPrev && getBirthdaysPagetByMonth()\" [class.disabled]=\"!hasPrev\">В начало</a>\n            <input type=\"button\" class=\"prev-page\" (click)=\"getPrev()\" [class.disabled]=\"!hasPrev\" />\n            <input type=\"button\" class=\"next-page\" (click)=\"getNext()\" [class.disabled]=\"!hasNext\" />\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"l-page-header\">\n  <div class=\"l-breadcrumbs\">\n    <div class=\"l-breadcrumb\"><a [routerLink]=\"['/company']\">Главная</a></div>\n    <div class=\"l-breadcrumb\">Дни рождения</div>\n  </div>\n  <div class=\"title\">Дни рождения</div>\n</div>\n<div class=\"l-page\">\n  <div class=\"l-page-inner\">\n    <div class=\"l-page__content\">\n      <div class=\"l-birthdays\">\n        <div class=\"l-birthdays__month-list\">\n          <app-filters>\n            <app-filters-item [active]=\"month === i ? true : false\" *ngFor=\"let item of months; let i = index\" (change)=\"getBirthdaysPagetByMonth(i)\">\n              {{ item }}\n            </app-filters-item>\n          </app-filters>\n        </div>\n        <div class=\"l-birthdays__day-list\">\n          <div class=\"reset\" (click)=\"getBirthdaysPagetByDayOfMonth(currentDay)\">Сегодня</div>\n          <div class=\"day\" *ngFor=\"let day of days\" [class.active]=\"selectedDay === day\" (click)=\"getBirthdaysPagetByDayOfMonth(day)\">\n            {{day}}\n          </div>\n        </div>\n        <div class=\"l-birthdays__calendar\">\n          <div class=\"l-birthdays__day\" *ngFor=\"let item of birthdays\">\n            <div class=\"date\">\n              <div class=\"day\">{{ item.birthday }}</div>\n              <div class=\"month\">{{ item.birthmonth }}</div>\n            </div>\n            <div class=\"employees\">\n              <div class=\"m-employees-list\">\n                <div class=\"m-employees-list__item\" *ngFor=\"let employee of item.employees\">\n                  <div class=\"avatar\">\n                    <app-user-thumb [width]=\"'90px'\" [height]=\"'90px'\" [photo]=\"employee.photo\" [route]=\"employee.profileRoute\"></app-user-thumb>\n                  </div>\n                  <div class=\"body\">\n                    <div class=\"name\">\n                      {{ employee.fullName }}\n                    </div>\n                    <div class=\"position\">{{ employee.positionName }}</div>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n        <div class=\"navigation\" *ngIf=\"hasPrev || hasNext\">\n          <div class=\"m-page-nav\">\n            <a class=\"to-begin\" (click)=\"hasPrev && getBirthdaysPagetByMonth()\" [class.disabled]=\"!hasPrev\">В начало</a>\n            <input type=\"button\" class=\"prev-page\" (click)=\"getPrev()\" [class.disabled]=\"!hasPrev\" />\n            <input type=\"button\" class=\"next-page\" (click)=\"getNext()\" [class.disabled]=\"!hasNext\" />\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -145,7 +145,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/sidebar/sidebar.service */ "./src/app/services/sidebar/sidebar.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -162,22 +161,21 @@ var __param = (undefined && undefined.__param) || function (paramIndex, decorato
 
 
 
-
 var BirthdaysPageComponent = /** @class */ (function () {
-    function BirthdaysPageComponent(route, employeesFactory, sidebarService) {
+    function BirthdaysPageComponent(route, employeesFactory) {
         this.route = route;
         this.employeesFactory = employeesFactory;
-        this.sidebarService = sidebarService;
         this.pages = [];
         this.index = 0;
         this.employees = [];
         this.birthdays = [];
         this.hasPrev = false;
         this.hasNext = false;
-        this.days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30];
+        this.days = [];
         this.months = Array.apply(0, Array(12)).map(function (v, i) { return moment__WEBPACK_IMPORTED_MODULE_2__().month(i).format('MMMM'); });
-        this.sidebarService.handleSetSettings({ showSidebar: false, bgColor: '#fff' });
+        this.days = Array.apply(0, Array(moment__WEBPACK_IMPORTED_MODULE_2__().daysInMonth())).map(function (v, i) { return i + 1; });
         this.month = new Date().getMonth();
+        this.currentDay = new Date().getDate();
     }
     BirthdaysPageComponent.prototype.ngOnInit = function () {
         this.pages.push(this.route.snapshot.data.birthdays);
@@ -195,6 +193,37 @@ var BirthdaysPageComponent = /** @class */ (function () {
         this.hasPrev = false;
         this.hasNext = false;
         this.employeesFactory.getPagedByMonthBirthday(this.month + 1)
+            .subscribe(function (page) {
+            _this.employees = page.items;
+            _this.birthdays = _this.getBirthdaysForEmployees(_this.employees);
+            _this.hasNext = page.hasNext;
+            _this.pages.push(page);
+        });
+        this.getDaysInMonth(month);
+    };
+    BirthdaysPageComponent.prototype.getDaysInMonth = function (month) {
+        var thisYear = new Date().getFullYear();
+        var date = new Date(thisYear, month, 1);
+        this.days = [];
+        while (date.getMonth() === month) {
+            this.days.push(new Date(date).getDate());
+            date.setDate(date.getDate() + 1);
+        }
+        return this.days;
+    };
+    BirthdaysPageComponent.prototype.getBirthdaysPagetByDayOfMonth = function (day) {
+        var _this = this;
+        if (day === this.currentDay) {
+            this.month = new Date().getMonth();
+        }
+        this.selectedDay = day == null ? this.selectedDay : day;
+        this.index = 0;
+        this.employees = [];
+        this.pages = [];
+        this.birthdays = [];
+        this.hasPrev = false;
+        this.hasNext = false;
+        this.employeesFactory.getPagedByRange(this.month + 1, this.month + 1, this.selectedDay, this.selectedDay)
             .subscribe(function (page) {
             _this.employees = page.items;
             _this.birthdays = _this.getBirthdaysForEmployees(_this.employees);
@@ -254,7 +283,7 @@ var BirthdaysPageComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./birthdays-page.component.scss */ "./src/app/birthdays/components/birthdays-page/birthdays-page.component.scss")]
         }),
         __param(1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])('EmployeesFactory')),
-        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"], Object, src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_4__["SidebarService"]])
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"], Object])
     ], BirthdaysPageComponent);
     return BirthdaysPageComponent;
 }());

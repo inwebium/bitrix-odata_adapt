@@ -1,6 +1,9 @@
 <?php
 namespace Spellabs\Portal\Rest;
 
+/**
+ * Фабрика для порождения объектов-значений фильтра
+ */
 class FilterValueFactory
 {
     private $types = [
@@ -24,6 +27,8 @@ class FilterValueFactory
     }
     
     /**
+     * Возвращаект объект класса типа значения фильтра 
+     * (класса из Spellabs\Portal\Rest\Processor\Filter\)
      * 
      * @param string $string
      * @return FilterValueInterface

@@ -18,7 +18,7 @@ module.exports = "<div class=\"l-news-card-carousel\">\n  <div class=\"content\"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.l-news-card-carousel {\n  position: relative; }\n\n.l-news-card-carousel:before {\n    display: block;\n    content: \" \";\n    width: 100%;\n    padding-bottom: 25%; }\n\n.l-news-card-carousel > .content {\n    position: absolute;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0; }\n\n.photo {\n  height: 100%;\n  padding: 0px;\n  box-sizing: border-box;\n  cursor: pointer; }\n\n.photo .content {\n    height: 100%;\n    background-repeat: no-repeat;\n    background-position: center;\n    background-size: cover; }\n\n.m-news-gallery-popup {\n  position: relative; }\n\n.m-news-gallery-popup:before {\n    display: block;\n    content: \" \";\n    width: 100%;\n    padding-bottom: 71.42857143%; }\n\n.m-news-gallery-popup > .content {\n    position: absolute;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0; }\n\n.m-news-gallery-popup .content {\n    padding: 15px;\n    box-sizing: border-box;\n    background-color: #fff; }\n\n.m-news-gallery-popup .title {\n    font-size: 14px;\n    color: #fff;\n    font-weight: 600;\n    position: absolute;\n    z-index: 10;\n    bottom: -50px;\n    height: 35px;\n    line-height: 35px;\n    display: inline-block;\n    background-color: #000;\n    padding: 0 15px;\n    border-radius: 15px;\n    left: 50%;\n    -webkit-transform: translateX(-50%);\n        -ms-transform: translateX(-50%);\n            transform: translateX(-50%); }\n\n.m-news-gallery-popup .photo {\n    height: 100%;\n    background-size: cover;\n    background-position: center;\n    background-repeat: no-repeat;\n    position: relative; }\n\n.m-news-gallery-popup .photo .controls {\n      position: absolute;\n      left: 0;\n      right: 0;\n      bottom: 0;\n      transition: bottom 0.3s;\n      padding: 15px 20px;\n      box-sizing: border-box;\n      height: 135px;\n      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.01) 0%, rgba(46, 46, 46, 0.8) 100%);\n      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#03000000', endColorstr='#cc585858', GradientType=0); }\n\n.m-news-gallery-popup .photo .controls .control {\n        position: absolute;\n        right: 20px;\n        bottom: 15px; }\n\n.m-news-gallery-popup .photo .controls .control .btn-download {\n          z-index: 100; }\n\n.m-news-gallery-popup .photo .controls .control .btn-download span {\n            text-transform: uppercase;\n            font-weight: 400; }\n"
+module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.l-news-card-carousel {\n  position: relative; }\n\n.l-news-card-carousel:before {\n    display: block;\n    content: \" \";\n    width: 100%;\n    padding-bottom: 25%; }\n\n.l-news-card-carousel > .content {\n    position: absolute;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0; }\n\n.photo {\n  height: 100%;\n  padding: 0px;\n  box-sizing: border-box;\n  cursor: pointer;\n  padding: 0 1px; }\n\n.photo .content {\n    height: 100%;\n    background-repeat: no-repeat;\n    background-position: center;\n    background-size: cover; }\n\n.m-news-gallery-popup {\n  position: relative; }\n\n.m-news-gallery-popup:before {\n    display: block;\n    content: \" \";\n    width: 100%;\n    padding-bottom: 71.42857143%; }\n\n.m-news-gallery-popup > .content {\n    position: absolute;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0; }\n\n.m-news-gallery-popup .content {\n    padding: 15px;\n    box-sizing: border-box;\n    background-color: #fff; }\n\n.m-news-gallery-popup .title {\n    font-size: 14px;\n    color: #fff;\n    font-weight: 600;\n    position: absolute;\n    z-index: 10;\n    bottom: -50px;\n    height: 35px;\n    line-height: 35px;\n    display: inline-block;\n    background-color: #000;\n    padding: 0 15px;\n    border-radius: 15px;\n    left: 50%;\n    -webkit-transform: translateX(-50%);\n        -ms-transform: translateX(-50%);\n            transform: translateX(-50%); }\n\n.m-news-gallery-popup .photo {\n    height: 100%;\n    background-size: cover;\n    background-position: center;\n    background-repeat: no-repeat;\n    position: relative; }\n\n.m-news-gallery-popup .photo .controls {\n      position: absolute;\n      left: 0;\n      right: 0;\n      bottom: 0;\n      transition: bottom 0.3s;\n      padding: 15px 20px;\n      box-sizing: border-box;\n      height: 135px;\n      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.01) 0%, rgba(46, 46, 46, 0.8) 100%);\n      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#03000000', endColorstr='#cc585858', GradientType=0); }\n\n.m-news-gallery-popup .photo .controls .control {\n        position: absolute;\n        right: 20px;\n        bottom: 15px; }\n\n.m-news-gallery-popup .photo .controls .control .btn-download {\n          z-index: 100; }\n\n.m-news-gallery-popup .photo .controls .control .btn-download span {\n            text-transform: uppercase;\n            font-weight: 400; }\n"
 
 /***/ }),
 
@@ -78,7 +78,7 @@ var NewsCardGalleryComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"l-page-header\">\n  <div class=\"l-breadcrumbs\">\n    <div class=\"l-breadcrumb\"><a [routerLink]=\"['/company']\">Главная</a></div>\n    <div class=\"l-breadcrumb\"><a [routerLink]=\"[ getPathNews(), webId]\">Новости</a></div>\n    <div class=\"l-breadcrumb\" appNgslDotdotdot>{{ item.title }}</div>\n  </div>\n  <div class=\"title\">{{ item.title }}</div>\n</div>\n<div class=\"l-page\">\n  <div class=\"l-page-inner\">\n    <div class=\"l-page__content\">\n      <div class=\"l-news-card\">\n        <div class=\"body\">\n          <div class=\"description\">\n            <div class=\"date\">\n              {{ item.newsPublicationDate | date: 'dd.MM.yyyy' }}\n            </div>\n            <div class=\"controls\">\n              <div class=\"views\">{{ this.item.viewsCount || 0 }}</div>\n              <div [ngClass]=\"{'likes': !hasLike(), 'likes-on': hasLike()}\" (click)=\"toggleLike()\">{{\n                this.item.likesCount }}</div>\n            </div>\n            <div class=\"text\" [innerHTML]=\"item.newsBody\"></div>\n          </div>\n        </div>\n        <div class=\"photo\" [ngStyle]=\"{'background-image': 'url(' + prepareLink(item.imageUrl) + ')'}\">\n        </div>\n        <div class=\"gallery\">\n          <div class=\"title\"><span>Галерея</span></div>\n          <div class=\"carousel\" *ngIf=\"item.attachmentFiles.length > 0\">\n            <app-news-card-gallery [items]=\"item.attachmentFiles\"></app-news-card-gallery>\n          </div>\n        </div>\n        <div class=\"button\">\n          <a [routerLink]=\"['/news']\" class=\"btn btn-to-back\">\n            <i></i> К списку новостей\n          </a>\n        </div>\n      </div>\n    </div>\n  </div>\n  <app-button-up></app-button-up>\n</div>\n"
+module.exports = "<div class=\"l-page-header\">\n  <div class=\"l-breadcrumbs\">\n    <div class=\"l-breadcrumb\"><a [routerLink]=\"['/company']\">Главная</a></div>\n    <div class=\"l-breadcrumb\"><a [routerLink]=\"[ getPathNews(), companyId]\">Новости</a></div>\n    <div class=\"l-breadcrumb\" appNgslDotdotdot>{{ item.title }}</div>\n  </div>\n  <div class=\"title\">{{ item.title }}</div>\n</div>\n<div class=\"l-page\">\n  <div class=\"l-page-inner\">\n    <div class=\"l-page__content\">\n      <div class=\"l-news-card\">\n        <div class=\"body\">\n          <div class=\"description\">\n            <div class=\"date\">\n              {{ item.newsPublicationDate | date: 'dd.MM.yyyy' }}\n            </div>\n            <div class=\"controls\">\n              <div class=\"views\">{{ this.item.viewsCount || 0 }}</div>\n              <div [ngClass]=\"{'likes': !hasLike(), 'likes-on': hasLike()}\" (click)=\"toggleLike()\">{{\n                this.item.likesCount }}</div>\n            </div>\n            <div class=\"text\" [innerHTML]=\"item.newsBody\"></div>\n          </div>\n        </div>\n        <div class=\"photo\" [ngStyle]=\"{'background-image': 'url(' + prepareLink(item.imageUrl) + ')'}\">\n        </div>\n        <div class=\"gallery\" *ngIf=\"item.attachmentFiles && item.attachmentFiles.length > 0\">\n          <div class=\"title\"><span>Галерея</span></div>\n          <div class=\"carousel\">\n            <app-news-card-gallery [items]=\"item.attachmentFiles\"></app-news-card-gallery>\n          </div>\n        </div>\n        <div class=\"button\">\n          <a [routerLink]=\"[ getPathNews(), companyId]\" class=\"btn btn-to-back\">\n            <i></i> К списку новостей\n          </a>\n        </div>\n      </div>\n    </div>\n  </div>\n  <app-button-up></app-button-up>\n</div>\n"
 
 /***/ }),
 
@@ -89,7 +89,7 @@ module.exports = "<div class=\"l-page-header\">\n  <div class=\"l-breadcrumbs\">
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.l-breadcrumb:last-child {\n  max-width: 450px;\n  max-height: 16px; }\n\n.l-news-card {\n  max-width: 1065px;\n  padding-left: 25px;\n  padding-top: 0;\n  box-sizing: border-box; }\n\n.photo {\n  display: inline-block;\n  background-repeat: no-repeat;\n  background-position: center;\n  background-size: cover;\n  width: 350px;\n  height: 230px;\n  position: relative;\n  vertical-align: top; }\n\n.body {\n  display: inline-block;\n  width: calc(100% - 350px);\n  padding-right: 30px;\n  box-sizing: border-box; }\n\n.description {\n  min-height: 250px; }\n\n.description .text {\n    margin-bottom: 35px;\n    color: #050505;\n    font-size: 14px;\n    line-height: 26px;\n    line-height: 34px; }\n\n@media (min-width: 1440px) {\n      .description .text {\n        font-size: calc( 0.00833333 * 100vw + 2px);\n        line-height: calc( 0.00833333 * 100vw + 14px); } }\n\n@media (min-width: 1920px) {\n      .description .text {\n        font-size: 18px;\n        line-height: 30px; } }\n\n.description .date {\n    font-size: 16px;\n    font-family: Arial, Helvetica, sans-serif;\n    margin-bottom: 15px;\n    display: inline-block;\n    text-transform: uppercase;\n    color: #050505; }\n\n.description .controls {\n    display: inline-block; }\n\n.description .controls .views,\n    .description .controls .comments,\n    .description .controls .likes,\n    .description .controls .likes-on {\n      display: inline-block;\n      background-size: 25px 16px;\n      background-repeat: no-repeat;\n      background-position: left;\n      padding-left: 35px;\n      font-size: 16px;\n      color: #000000;\n      margin-left: 25px; }\n\n.description .controls .views {\n      background-image: url(\"/assets/icons/icon-news-eye.svg\"); }\n\n.description .controls .likes {\n      background-image: url(\"/assets/icons/icon-news-like-thin.svg\");\n      cursor: pointer; }\n\n.description .controls .likes-on {\n      background-image: url(\"/assets/icons/icon-news-like-on.svg\");\n      cursor: pointer; }\n\n.gallery .title {\n  position: relative;\n  box-sizing: border-box;\n  margin-bottom: 20px; }\n\n.gallery .title:before {\n    position: absolute;\n    content: \"\";\n    display: block;\n    left: 130px;\n    right: 0;\n    bottom: 0;\n    height: 1px;\n    background-color: #B7BAB7; }\n\n.gallery .title span {\n    font-size: 24px;\n    line-height: 18px;\n    color: #050505;\n    font-weight: 600; }\n\n.button {\n  margin: 30px 0; }\n"
+module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.l-breadcrumb:last-child {\n  max-width: 450px;\n  max-height: 16px; }\n\n.l-news-card {\n  max-width: 1065px;\n  padding-left: 25px;\n  padding-top: 0;\n  box-sizing: border-box; }\n\n.photo {\n  display: inline-block;\n  background-repeat: no-repeat;\n  background-position: center;\n  background-size: cover;\n  width: 350px;\n  height: 230px;\n  position: relative;\n  vertical-align: top; }\n\n.body {\n  display: inline-block;\n  width: calc(100% - 350px);\n  padding-right: 30px;\n  box-sizing: border-box; }\n\n.description {\n  min-height: 250px; }\n\n.description .text {\n    margin-bottom: 35px;\n    color: #050505;\n    font-size: 14px;\n    line-height: 26px;\n    line-height: 34px; }\n\n@media (min-width: 1440px) {\n      .description .text {\n        font-size: calc( 0.00833333 * 100vw + 2px);\n        line-height: calc( 0.00833333 * 100vw + 14px); } }\n\n@media (min-width: 1920px) {\n      .description .text {\n        font-size: 18px;\n        line-height: 30px; } }\n\n.description .date {\n    font-size: 16px;\n    font-family: Arial, Helvetica, sans-serif;\n    margin-bottom: 15px;\n    display: inline-block;\n    text-transform: uppercase;\n    color: #050505; }\n\n.description .controls {\n    display: inline-block; }\n\n.description .controls .views,\n    .description .controls .comments,\n    .description .controls .likes,\n    .description .controls .likes-on {\n      display: inline-block;\n      background-size: 25px 16px;\n      background-repeat: no-repeat;\n      background-position: left;\n      padding-left: 35px;\n      font-size: 16px;\n      color: #000000;\n      margin-left: 25px; }\n\n.description .controls .views {\n      background-image: url(\"/assets/icons/icon-news-eye.svg\"); }\n\n.description .controls .likes {\n      background-image: url(\"/assets/icons/icon-news-like-thin.svg\");\n      cursor: pointer; }\n\n.description .controls .likes-on {\n      background-image: url(\"/assets/icons/icon-news-like-on.svg\");\n      cursor: pointer; }\n\n.gallery .title {\n  position: relative;\n  box-sizing: border-box;\n  margin-bottom: 20px; }\n\n.gallery .title:before {\n    position: absolute;\n    content: '';\n    display: block;\n    left: 130px;\n    right: 0;\n    bottom: 0;\n    height: 1px;\n    background-color: #b7bab7; }\n\n.gallery .title span {\n    font-size: 24px;\n    line-height: 18px;\n    color: #050505;\n    font-weight: 600; }\n\n.button {\n  margin: 30px 0; }\n"
 
 /***/ }),
 
@@ -105,11 +105,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NewsCardPageComponent", function() { return NewsCardPageComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/sidebar/sidebar.service */ "./src/app/services/sidebar/sidebar.service.ts");
-/* harmony import */ var src_app_services_news_news_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/news/news.service */ "./src/app/services/news/news.service.ts");
-/* harmony import */ var src_app_services_news_comments_news_comments_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/news-comments/news-comments.service */ "./src/app/services/news-comments/news-comments.service.ts");
-/* harmony import */ var src_app_services_news_views_news_views_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/news-views/news-views.service */ "./src/app/services/news-views/news-views.service.ts");
-/* harmony import */ var src_app_constants_groups__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/constants/groups */ "./src/app/constants/groups.ts");
+/* harmony import */ var src_app_services_news_news_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/news/news.service */ "./src/app/services/news/news.service.ts");
+/* harmony import */ var src_app_services_news_comments_news_comments_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/news-comments/news-comments.service */ "./src/app/services/news-comments/news-comments.service.ts");
+/* harmony import */ var src_app_services_news_views_news_views_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/news-views/news-views.service */ "./src/app/services/news-views/news-views.service.ts");
+/* harmony import */ var src_app_constants_groups__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/constants/groups */ "./src/app/constants/groups.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -125,25 +124,22 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-
 var NewsCardPageComponent = /** @class */ (function () {
-    function NewsCardPageComponent(route, sidebarService, newsService, newsCommentsService, newsViewsService) {
+    function NewsCardPageComponent(route, newsService, newsCommentsService, newsViewsService) {
         this.route = route;
-        this.sidebarService = sidebarService;
         this.newsService = newsService;
         this.newsCommentsService = newsCommentsService;
         this.newsViewsService = newsViewsService;
         this.isAdmin = false;
-        this.webId = null;
-        this.sidebarService.handleSetSettings({ showSidebar: false, bgColor: '#fff' });
+        this.companyId = null;
     }
     NewsCardPageComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.webId = this.route.snapshot.params.id;
+        this.companyId = this.route.snapshot.params.id;
         this.item = this.route.snapshot.data.newsCard;
         this.userId = this.route.snapshot.data.userId;
         var currentGroups = this.route.snapshot.data.groups;
-        if (currentGroups.indexOf(src_app_constants_groups__WEBPACK_IMPORTED_MODULE_6__["groups"].administrator) >= 0) {
+        if (currentGroups.indexOf(src_app_constants_groups__WEBPACK_IMPORTED_MODULE_5__["groups"].administrator) >= 0) {
             this.isAdmin = true;
         }
         this.getComments(this.item.id);
@@ -166,7 +162,7 @@ var NewsCardPageComponent = /** @class */ (function () {
         });
     };
     NewsCardPageComponent.prototype.getPathNews = function () {
-        return this.webId === 'root' ? '/news' : '/enterprise/news';
+        return this.companyId === 'root' ? '/news' : '/enterprise/news';
     };
     NewsCardPageComponent.prototype.createComment = function (comment) {
         var _this = this;
@@ -222,10 +218,9 @@ var NewsCardPageComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./news-card-page.component.scss */ "./src/app/news/components/news-card-page/news-card-page.component.scss")]
         }),
         __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"],
-            src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_2__["SidebarService"],
-            src_app_services_news_news_service__WEBPACK_IMPORTED_MODULE_3__["NewsService"],
-            src_app_services_news_comments_news_comments_service__WEBPACK_IMPORTED_MODULE_4__["NewsCommentsService"],
-            src_app_services_news_views_news_views_service__WEBPACK_IMPORTED_MODULE_5__["NewsViewsService"]])
+            src_app_services_news_news_service__WEBPACK_IMPORTED_MODULE_2__["NewsService"],
+            src_app_services_news_comments_news_comments_service__WEBPACK_IMPORTED_MODULE_3__["NewsCommentsService"],
+            src_app_services_news_views_news_views_service__WEBPACK_IMPORTED_MODULE_4__["NewsViewsService"]])
     ], NewsCardPageComponent);
     return NewsCardPageComponent;
 }());
@@ -241,7 +236,7 @@ var NewsCardPageComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"l-page-header\">\n  <div class=\"l-breadcrumbs\">\n    <div class=\"l-breadcrumb\"><a [routerLink]=\"['/company']\">Главная</a></div>\n    <div class=\"l-breadcrumb\">Новости</div>\n  </div>\n  <div class=\"title\">Новости</div>\n</div>\n<div class=\"l-page\">\n  <div class=\"l-page-inner\">\n    <div class=\"l-page__content\">\n      <div class=\"l-news\">\n        <div class=\"l-new-categories\">\n          <app-filters>\n            <app-filters-item (click)=\"filterByRubricId()\">\n              Все\n            </app-filters-item>\n            <app-filters-item *ngFor=\"let rubric of rubrics\" (click)=\"filterByRubricId(rubric.id)\">\n              {{ rubric.title }}\n            </app-filters-item>\n          </app-filters>\n        </div>\n        <div class=\"l-news__item\" *ngFor=\"let item of news\">\n          <div class=\"m-news-card\">\n            <div class=\"admin-controls\">\n              <app-admin-controls [item]=\"item\" (create)=\"create()\" (edit)=\"edit($event)\" (remove)=\"remove($event)\"></app-admin-controls>\n            </div>\n            <div class=\"thumb\" [routerLink]=\"['item', item.id]\" [ngStyle]=\"{'background-image': 'url(' + prepareLink(item.imageUrl) + ')'}\">\n            </div>\n            <div class=\"content\">\n              <a class=\"title\" [routerLink]=\"['item', item.id]\" appNgslDotdotdot>{{ item.title }}</a>\n              <div class=\"date\">{{ item.newsPublicationDateTitle }}</div>\n              <div class=\"controls\">\n                <div class=\"views\">{{ item.viewsCount }}</div>\n                <div [ngClass]=\"{'likes': !hasLike(item), 'likes-on': hasLike(item)}\"\n                     (click)=\"toggleLike(item)\">{{ item.likesCount }}</div>\n              </div>\n              <div class=\"text\" appNgslDotdotdot [innerHTML]=\"item.newsBody\"></div>\n            </div>\n          </div>\n        </div>\n        <div class=\"l-news__navigation\">\n          <input type=\"button\" value=\"В начало\" class=\"go-to-start\" (click)=\"hasPrev && filterNews()\" [class.disabled]=\"!hasPrev\" />\n          <input type=\"button\" class=\"go-to-left\" (click)=\"getPrevNews()\" [class.disabled]=\"!hasPrev\" />\n          <input type=\"button\" class=\"go-to-right\" (click)=\"getNextNews()\" [class.disabled]=\"!hasNext\" />\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"l-page-header\">\n  <div class=\"l-breadcrumbs\">\n    <div class=\"l-breadcrumb\"><a [routerLink]=\"['/company']\">Главная</a></div>\n    <div class=\"l-breadcrumb\">Новости</div>\n  </div>\n  <div class=\"title\">Новости</div>\n</div>\n<div class=\"l-page\">\n  <div class=\"l-page-inner\">\n    <div class=\"l-page__content\">\n      <div class=\"l-news\">\n        <div class=\"l-new-categories\">\n          <app-filters>\n            <app-filters-item (click)=\"filterByRubricId()\" [active]=\"this.rubricId == null\">\n              Все\n            </app-filters-item>\n            <app-filters-item *ngFor=\"let rubric of rubrics\"\n              (click)=\"filterByRubricId(rubric.id)\" [active]=\"this.rubricId == rubric.id\">\n              {{ rubric.title === 'Событие' ? 'События' : rubric.title }}\n            </app-filters-item>\n          </app-filters>\n        </div>\n        <div class=\"l-news__item\" *ngFor=\"let item of news\">\n          <div class=\"m-news-card\">\n            <div class=\"admin-controls\">\n              <app-admin-controls [item]=\"item\" (create)=\"create()\" (edit)=\"edit($event)\" (remove)=\"remove($event)\"></app-admin-controls>\n            </div>\n            <div class=\"thumb\" [routerLink]=\"[pathToNewsCard(item.id)]\" [ngStyle]=\"{'background-image': 'url(' + prepareLink(item.imageUrl) + ')'}\">\n            </div>\n            <div class=\"content\">\n              <a class=\"title\" [routerLink]=\"[pathToNewsCard(item.id)]\" appNgslDotdotdot>{{ item.title }}</a>\n              <div class=\"date\">{{ item.newsPublicationDateTitle }}</div>\n              <div class=\"controls\">\n                <div class=\"views\">{{ item.viewsCount }}</div>\n                <div [ngClass]=\"{'likes': !hasLike(item), 'likes-on': hasLike(item)}\"\n                     (click)=\"toggleLike(item)\">{{ item.likesCount }}</div>\n              </div>\n              <div class=\"text-news\" appNgslDotdotdot [innerHTML]=\"item.newsBody\"></div>\n            </div>\n          </div>\n        </div>\n        <div class=\"l-news__navigation\">\n          <input type=\"button\" value=\"В начало\" class=\"go-to-start\" (click)=\"hasPrev && filterNews()\" [class.disabled]=\"!hasPrev\" />\n          <input type=\"button\" class=\"go-to-left\" (click)=\"getPrevNews()\" [class.disabled]=\"!hasPrev\" />\n          <input type=\"button\" class=\"go-to-right\" (click)=\"getNextNews()\" [class.disabled]=\"!hasNext\" />\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -252,7 +247,7 @@ module.exports = "<div class=\"l-page-header\">\n  <div class=\"l-breadcrumbs\">
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.l-news {\n  max-width: 1065px;\n  padding: 50px 25px;\n  box-sizing: border-box;\n  position: relative; }\n\n.l-news .l-new-categories {\n    height: 30px;\n    position: absolute;\n    top: -30px; }\n\n.l-news .l-news__navigation {\n    margin-top: 80px;\n    text-align: center; }\n\n.l-news .l-news__navigation .go-to-start,\n    .l-news .l-news__navigation .go-to-left,\n    .l-news .l-news__navigation .go-to-right {\n      margin: 0;\n      padding: 0;\n      border: none;\n      min-width: 0;\n      vertical-align: middle;\n      cursor: pointer; }\n\n.l-news .l-news__navigation .go-to-start {\n      color: #768692;\n      font-size: 18px;\n      background: none;\n      margin-right: 35px; }\n\n.l-news .l-news__navigation .go-to-left,\n    .l-news .l-news__navigation .go-to-right {\n      width: 50px;\n      height: 50px;\n      background-color: #768692;\n      background-size: 27px 27px;\n      background-repeat: no-repeat;\n      background-position: center;\n      background-image: url(/assets/icons/icon-arrow-right-white-thin.svg); }\n\n.l-news .l-news__navigation .go-to-left {\n      -webkit-transform: rotate(180deg);\n          -ms-transform: rotate(180deg);\n              transform: rotate(180deg);\n      margin-right: 25px; }\n\n.l-news .l-news__navigation .disabled {\n      opacity: 0.4; }\n\n.l-news__item {\n  margin-bottom: 50px; }\n\n.l-news__item:hover .admin-controls {\n    display: block; }\n\n.l-news__item .admin-controls {\n    display: none; }\n\n.m-news-card {\n  padding-left: 340px;\n  box-sizing: border-box;\n  position: relative;\n  min-height: 200px; }\n\n.m-news-card .thumb {\n    position: absolute;\n    left: 0;\n    top: 0;\n    width: 300px;\n    height: 200px;\n    background-repeat: no-repeat;\n    background-position: center;\n    background-size: cover;\n    cursor: pointer; }\n\n.m-news-card .thumb:hover {\n      opacity: 0.9; }\n\n.m-news-card .content .date {\n    display: inline-block;\n    font-size: 16px;\n    color: #050505;\n    margin-bottom: 10px;\n    text-transform: uppercase; }\n\n.m-news-card .content .controls {\n    display: inline-block;\n    font-size: 16px;\n    color: #050505;\n    margin-left: 25px; }\n\n.m-news-card .content .controls .views,\n    .m-news-card .content .controls .likes,\n    .m-news-card .content .controls .likes-on {\n      display: inline-block;\n      background-repeat: no-repeat;\n      background-position: left;\n      padding-left: 35px; }\n\n.m-news-card .content .controls .views {\n      background-image: url(/assets/icons/icon-news-eye-black.svg);\n      background-size: 27px 15px;\n      margin-right: 25px; }\n\n.m-news-card .content .controls .likes {\n      background-image: url(/assets/icons/icon-news-like-thin.svg);\n      background-size: 18px 18px;\n      padding-left: 25px;\n      cursor: pointer; }\n\n.m-news-card .content .controls .likes-on {\n      background-image: url(\"/assets/icons/icon-like-red-on.svg\");\n      background-size: 18px 18px;\n      cursor: pointer; }\n\n.m-news-card .content .title {\n    display: block;\n    text-decoration: none;\n    color: #050505;\n    font-weight: bold;\n    margin-bottom: 15px;\n    font-size: 22px;\n    line-height: 32px;\n    max-height: 64px; }\n\n@media screen and (max-width: 1440px) {\n      .m-news-card .content .title {\n        font-size: 18px;\n        line-height: 28px;\n        max-height: 56px; } }\n\n.m-news-card .content .title:hover {\n      color: #dd1e25; }\n\n.m-news-card .content .text {\n    color: #050505;\n    font-size: 16px;\n    line-height: 30px;\n    max-height: 120px; }\n\n@media screen and (max-width: 1440px) {\n      .m-news-card .content .text {\n        font-size: 14px;\n        line-height: 28px;\n        max-height: 112px; } }\n"
+module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.l-news {\n  max-width: 1065px;\n  padding: 50px 25px;\n  box-sizing: border-box;\n  position: relative; }\n\n.l-news .l-new-categories {\n    height: 30px;\n    position: absolute;\n    top: -30px; }\n\n.l-news .l-news__navigation {\n    margin-top: 80px;\n    text-align: center; }\n\n.l-news .l-news__navigation .go-to-start,\n    .l-news .l-news__navigation .go-to-left,\n    .l-news .l-news__navigation .go-to-right {\n      margin: 0;\n      padding: 0;\n      border: none;\n      min-width: 0;\n      vertical-align: middle;\n      cursor: pointer; }\n\n.l-news .l-news__navigation .go-to-start {\n      color: #768692;\n      font-size: 18px;\n      background: none;\n      margin-right: 35px; }\n\n.l-news .l-news__navigation .go-to-left,\n    .l-news .l-news__navigation .go-to-right {\n      width: 50px;\n      height: 50px;\n      background-color: #768692;\n      background-size: 27px 27px;\n      background-repeat: no-repeat;\n      background-position: center;\n      background-image: url(/assets/icons/icon-arrow-right-white-thin.svg); }\n\n.l-news .l-news__navigation .go-to-left {\n      -webkit-transform: rotate(180deg);\n          -ms-transform: rotate(180deg);\n              transform: rotate(180deg);\n      margin-right: 25px; }\n\n.l-news .l-news__navigation .disabled {\n      opacity: 0.4; }\n\n.l-news__item {\n  margin-bottom: 50px; }\n\n.l-news__item:hover .admin-controls {\n    display: block; }\n\n.l-news__item .admin-controls {\n    display: none; }\n\n.m-news-card {\n  padding-left: 340px;\n  box-sizing: border-box;\n  position: relative;\n  min-height: 200px; }\n\n.m-news-card .thumb {\n    position: absolute;\n    left: 0;\n    top: 0;\n    width: 300px;\n    height: 200px;\n    background-repeat: no-repeat;\n    background-position: center;\n    background-size: cover;\n    cursor: pointer; }\n\n.m-news-card .thumb:hover {\n      opacity: 0.9; }\n\n.m-news-card .content .date {\n    display: inline-block;\n    font-size: 16px;\n    color: #050505;\n    margin-bottom: 10px;\n    text-transform: uppercase; }\n\n.m-news-card .content .controls {\n    display: inline-block;\n    font-size: 16px;\n    color: #050505;\n    margin-left: 25px; }\n\n.m-news-card .content .controls .views,\n    .m-news-card .content .controls .likes,\n    .m-news-card .content .controls .likes-on {\n      display: inline-block;\n      background-repeat: no-repeat;\n      background-position: left;\n      padding-left: 35px; }\n\n.m-news-card .content .controls .views {\n      background-image: url(/assets/icons/icon-news-eye-black.svg);\n      background-size: 27px 15px;\n      margin-right: 25px; }\n\n.m-news-card .content .controls .likes {\n      background-image: url(/assets/icons/icon-news-like-thin.svg);\n      background-size: 18px 18px;\n      padding-left: 25px;\n      cursor: pointer; }\n\n.m-news-card .content .controls .likes-on {\n      background-image: url(\"/assets/icons/icon-like-red-on.svg\");\n      background-size: 18px 18px;\n      cursor: pointer; }\n\n.m-news-card .content .title {\n    display: block;\n    text-decoration: none;\n    color: #050505;\n    font-weight: bold;\n    margin-bottom: 15px;\n    font-size: 22px;\n    line-height: 32px;\n    max-height: 64px;\n    overflow: hidden; }\n\n@media screen and (max-width: 1440px) {\n      .m-news-card .content .title {\n        font-size: 18px;\n        line-height: 28px;\n        max-height: 56px; } }\n\n.m-news-card .content .title:hover {\n      color: #dd1e25; }\n\n.m-news-card .content .text-news {\n    color: #050505;\n    font-size: 16px;\n    line-height: 30px;\n    max-height: 120px;\n    overflow: hidden; }\n\n@media screen and (max-width: 1440px) {\n      .m-news-card .content .text-news {\n        font-size: 14px;\n        line-height: 28px;\n        max-height: 112px; } }\n\n:host ::ng-deep .text-news p {\n  margin: 0; }\n"
 
 /***/ }),
 
@@ -269,11 +264,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var src_app_services_news_news_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/news/news.service */ "./src/app/services/news/news.service.ts");
-/* harmony import */ var src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/sidebar/sidebar.service */ "./src/app/services/sidebar/sidebar.service.ts");
-/* harmony import */ var src_app_services_news_views_news_views_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/news-views/news-views.service */ "./src/app/services/news-views/news-views.service.ts");
-/* harmony import */ var src_app_services_news_comments_news_comments_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/news-comments/news-comments.service */ "./src/app/services/news-comments/news-comments.service.ts");
-/* harmony import */ var src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/sharepoint/sharepoint.service */ "./src/app/services/sharepoint/sharepoint.service.ts");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var src_app_services_news_views_news_views_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/news-views/news-views.service */ "./src/app/services/news-views/news-views.service.ts");
+/* harmony import */ var src_app_services_news_comments_news_comments_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/news-comments/news-comments.service */ "./src/app/services/news-comments/news-comments.service.ts");
+/* harmony import */ var src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/sharepoint/sharepoint.service */ "./src/app/services/sharepoint/sharepoint.service.ts");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -290,16 +284,16 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-
 var NewsPageComponent = /** @class */ (function () {
-    function NewsPageComponent(newsService, route, sidebarService, newsViewsService, newsCommentsService, sharepointService) {
+    function NewsPageComponent(newsService, route, newsViewsService, newsCommentsService, sharepointService, router, zone) {
         var _this = this;
         this.newsService = newsService;
         this.route = route;
-        this.sidebarService = sidebarService;
         this.newsViewsService = newsViewsService;
         this.newsCommentsService = newsCommentsService;
         this.sharepointService = sharepointService;
+        this.router = router;
+        this.zone = zone;
         this.rubrics = [];
         this.top = 10;
         this.pages = [];
@@ -313,26 +307,26 @@ var NewsPageComponent = /** @class */ (function () {
         this.company = null;
         this.subscriptionWebId = null;
         this.subscriptionCompany = null;
-        this.sidebarService.handleSetSettings({
-            showSidebar: false,
-            bgColor: '#fff'
-        });
+        this.companyId = null;
         this.subscriptionWebId = this.route.data
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["map"])(function (data) { return data.webId; }))
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (data) { return data.webId; }))
             .subscribe(function (webId) {
             _this.webId = webId;
         });
     }
     NewsPageComponent.prototype.ngOnInit = function () {
         var _this = this;
+        console.log("NEWS ROUTE SNAPSHOT DATA", this.route.snapshot.data);
+        this.companyId = this.route.snapshot.params.id;
         this.userId = this.route.snapshot.data.userId;
+        this.rubricId = this.route.snapshot.params.rubricId;
         this.rubrics = this.route.snapshot.data.newsRubrics;
         this.pages.push(this.route.snapshot.data.news);
         this.news = this.route.snapshot.data.news.items;
         this.loadViewsAndComments(this.news);
         this.hasNext = this.route.snapshot.data.news.hasNext;
         this.subscriptionCompany = this.route.data
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["map"])(function (data) { return data.company; }))
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (data) { return data.company; }))
             .subscribe(function (company) {
             _this.company = company;
         });
@@ -344,6 +338,10 @@ var NewsPageComponent = /** @class */ (function () {
         if (this.subscriptionCompany != null) {
             this.subscriptionCompany.unsubscribe();
         }
+    };
+    NewsPageComponent.prototype.pathToNewsCard = function (newsId) {
+        return this.companyId === 'root' ? "/news/root/item/" + newsId :
+            "/enterprise/news/" + this.companyId + "/item/" + newsId;
     };
     NewsPageComponent.prototype.getNextNews = function () {
         var _this = this;
@@ -358,6 +356,7 @@ var NewsPageComponent = /** @class */ (function () {
                     _this.hasPrev = true;
                     _this.pages.push(page);
                     _this.loadViewsAndComments(_this.news);
+                    _this.scrollUp();
                 });
             }
             else {
@@ -365,8 +364,16 @@ var NewsPageComponent = /** @class */ (function () {
                 this.news = this.pages[this.index].items;
                 this.hasNext = this.pages[this.index].hasNext;
                 this.hasPrev = true;
+                this.scrollUp();
             }
         }
+    };
+    NewsPageComponent.prototype.scrollUp = function () {
+        var _this = this;
+        this.zone.run(function () {
+            _this.router.navigated = false;
+            document.getElementById('s4-workspace').scrollTop = 0;
+        });
     };
     NewsPageComponent.prototype.getPrevNews = function () {
         if (this.hasPrev) {
@@ -374,6 +381,7 @@ var NewsPageComponent = /** @class */ (function () {
             this.news = this.pages[this.index].items;
             this.hasNext = true;
             this.hasPrev = this.index > 0;
+            this.scrollUp();
         }
     };
     NewsPageComponent.prototype.filterByRubricId = function (id) {
@@ -399,6 +407,7 @@ var NewsPageComponent = /** @class */ (function () {
             _this.news = page.items;
             _this.hasNext = page.hasNext;
             _this.loadViewsAndComments(_this.news);
+            _this.scrollUp();
         });
     };
     NewsPageComponent.prototype.loadViewsAndComments = function (news) {
@@ -462,18 +471,18 @@ var NewsPageComponent = /** @class */ (function () {
     NewsPageComponent.prototype.create = function () {
         window.location.href =
             this.sharepointService.getCurrentUserContext().webServerRelativeUrl +
-                (this.company.url + "/Lists/slNews/NewForm.aspx?Source=") +
+                ((this.company && this.company.url != null ? this.company.url : '') + "/Lists/slNews/NewForm.aspx?Source=") +
                 encodeURIComponent(window.location.href);
     };
     NewsPageComponent.prototype.edit = function (item) {
         window.location.href =
             this.sharepointService.getCurrentUserContext().webServerRelativeUrl +
-                (this.company.url + "/Lists/slNews/EditForm.aspx?ID=" + item.id + "&Source=") +
+                ((this.company && this.company.url != null ? this.company.url : '') + "/Lists/slNews/EditForm.aspx?ID=" + item.id + "&Source=") +
                 encodeURIComponent(window.location.href);
     };
     NewsPageComponent.prototype.remove = function (item) {
         var _this = this;
-        this.newsService.recycleItem(item).subscribe(function () { return _this.filterByRubricId(); });
+        this.newsService.recycleItem(item, this.webId).subscribe(function () { return _this.filterByRubricId(); });
     };
     NewsPageComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -483,10 +492,11 @@ var NewsPageComponent = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [src_app_services_news_news_service__WEBPACK_IMPORTED_MODULE_2__["NewsService"],
             _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"],
-            src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_3__["SidebarService"],
-            src_app_services_news_views_news_views_service__WEBPACK_IMPORTED_MODULE_4__["NewsViewsService"],
-            src_app_services_news_comments_news_comments_service__WEBPACK_IMPORTED_MODULE_5__["NewsCommentsService"],
-            src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_6__["SharepointService"]])
+            src_app_services_news_views_news_views_service__WEBPACK_IMPORTED_MODULE_3__["NewsViewsService"],
+            src_app_services_news_comments_news_comments_service__WEBPACK_IMPORTED_MODULE_4__["NewsCommentsService"],
+            src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_5__["SharepointService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]])
     ], NewsPageComponent);
     return NewsPageComponent;
 }());
@@ -565,7 +575,8 @@ var routes = [
             webId: src_app_services_companies_company_web_resolver__WEBPACK_IMPORTED_MODULE_10__["CompanyWebResolver"],
             news: src_app_services_news_news_of_rubric_resolver__WEBPACK_IMPORTED_MODULE_6__["NewsOfRubricResolver"],
             newsRubrics: src_app_services_news_rubrics_news_rubrics_resolver__WEBPACK_IMPORTED_MODULE_4__["NewsRubricsResolver"],
-            userId: src_app_services_security_current_user_id_resolver__WEBPACK_IMPORTED_MODULE_7__["CurrentUserIdResolver"]
+            userId: src_app_services_security_current_user_id_resolver__WEBPACK_IMPORTED_MODULE_7__["CurrentUserIdResolver"],
+            company: src_app_services_companies_company_resolver__WEBPACK_IMPORTED_MODULE_11__["CompanyResolver"]
         },
         data: { animation: 'fadeAnimation', title: 'События' }
     }
@@ -583,7 +594,8 @@ var NewsRoutingModule = /** @class */ (function () {
                 src_app_services_security_current_user_id_resolver__WEBPACK_IMPORTED_MODULE_7__["CurrentUserIdResolver"],
                 src_app_services_security_groups_resolver__WEBPACK_IMPORTED_MODULE_9__["GroupsResolver"],
                 src_app_services_news_news_card_resolver__WEBPACK_IMPORTED_MODULE_8__["NewsCardResolver"],
-                src_app_services_companies_company_web_resolver__WEBPACK_IMPORTED_MODULE_10__["CompanyWebResolver"]
+                src_app_services_companies_company_web_resolver__WEBPACK_IMPORTED_MODULE_10__["CompanyWebResolver"],
+                src_app_services_companies_company_resolver__WEBPACK_IMPORTED_MODULE_11__["CompanyResolver"]
             ],
             exports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]]
         })

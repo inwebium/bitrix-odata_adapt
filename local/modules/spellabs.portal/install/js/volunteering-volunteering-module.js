@@ -74,7 +74,6 @@ module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shi
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VolunteeringCardPageComponent", function() { return VolunteeringCardPageComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/sidebar/sidebar.service */ "./src/app/services/sidebar/sidebar.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -85,26 +84,22 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
-
 var VolunteeringCardPageComponent = /** @class */ (function () {
-    function VolunteeringCardPageComponent(sidebarService) {
-        this.sidebarService = sidebarService;
+    function VolunteeringCardPageComponent() {
         this.title = 'Стань дедом Морозом';
         this.place = 'Москва';
         this.date = '25 декабря';
-        this.text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc elementum turpis vel ullamcorper pretium. Aenean fringilla orci in libero finibus tristique quis nec erat. Nulla aliquam mauris purus, euismod vestibulum nisi ultricies sed. Nunc tortor quam, ultrices a commodo a, bibendum vitae nulla. Interdum et malesuada fames ac ante ipsum primis in faucibus. Morbi consequat lectus vitae ex bibendum, at lobortis erat dictum. Nullam efficitur urna ac nisi sollicitudin porttitor id in nibh. Mauris quam nibh, condimentum at eros nec, feugiat fermentum elit. Nulla et interdum tortor, et luctus sapien. Sed tempus eleifend vehicula. Morbi in scelerisque diam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nunc nec velit non dolor sollicitudin eleifend. Nunc vulputate imperdiet mi, a molestie augue. ';
+        this.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n  Nunc elementum turpis vel ullamcorper pretium. Aenean fringilla\n  orci in libero finibus tristique quis nec erat. Nulla aliquam mauris purus,\n  euismod vestibulum nisi ultricies sed. Nunc tortor quam, ultrices a commodo a,\n  bibendum vitae nulla. Interdum et malesuada fames ac ante ipsum primis in faucibus.\n  Morbi consequat lectus vitae ex bibendum, at lobortis erat dictum. Nullam efficitur\n  urna ac nisi sollicitudin porttitor id in nibh. Mauris quam nibh, condimentum at eros nec,\n  feugiat fermentum elit. Nulla et interdum tortor, et luctus sapien. Sed tempus eleifend vehicula.\n  Morbi in scelerisque diam. Pellentesque habitant morbi tristique senectus et netus et\n  malesuada fames ac turpis egestas. Nunc nec velit non dolor sollicitudin eleifend.\n  Nunc vulputate imperdiet mi, a molestie augue. '";
         this.imageUrl = 'https://jooinn.com/images/picture-2.jpg';
-        this.sidebarService.handleSetSettings({ showSidebar: false, bgColor: '#fff' });
     }
-    VolunteeringCardPageComponent.prototype.ngOnInit = function () {
-    };
+    VolunteeringCardPageComponent.prototype.ngOnInit = function () { };
     VolunteeringCardPageComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-volunteering-card-page',
             template: __webpack_require__(/*! ./volunteering-card-page.component.html */ "./src/app/volunteering/components/volunteering-card-page/volunteering-card-page.component.html"),
             styles: [__webpack_require__(/*! ./volunteering-card-page.component.scss */ "./src/app/volunteering/components/volunteering-card-page/volunteering-card-page.component.scss")]
         }),
-        __metadata("design:paramtypes", [src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_1__["SidebarService"]])
+        __metadata("design:paramtypes", [])
     ], VolunteeringCardPageComponent);
     return VolunteeringCardPageComponent;
 }());
@@ -146,7 +141,6 @@ module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shi
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VolunteeringPageComponent", function() { return VolunteeringPageComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/sidebar/sidebar.service */ "./src/app/services/sidebar/sidebar.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -157,11 +151,8 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
-
 var VolunteeringPageComponent = /** @class */ (function () {
-    function VolunteeringPageComponent(sidebarService) {
-        this.sidebarService = sidebarService;
-        this.sidebarService.handleSetSettings({ showSidebar: false, bgColor: '#fff' });
+    function VolunteeringPageComponent() {
     }
     VolunteeringPageComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -169,7 +160,7 @@ var VolunteeringPageComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./volunteering-page.component.html */ "./src/app/volunteering/components/volunteering-page/volunteering-page.component.html"),
             styles: [__webpack_require__(/*! ./volunteering-page.component.scss */ "./src/app/volunteering/components/volunteering-page/volunteering-page.component.scss")]
         }),
-        __metadata("design:paramtypes", [src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_1__["SidebarService"]])
+        __metadata("design:paramtypes", [])
     ], VolunteeringPageComponent);
     return VolunteeringPageComponent;
 }());

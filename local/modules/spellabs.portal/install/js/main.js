@@ -328,6 +328,14 @@ var map = {
 		"common",
 		"enterprise-enterprise-module"
 	],
+	"../feedback/feedback.module": [
+		"./src/app/feedback/feedback.module.ts",
+		"feedback-feedback-module"
+	],
+	"../hall-of-fame/hall-of-fame.module": [
+		"./src/app/hall-of-fame/hall-of-fame.module.ts",
+		"hall-of-fame-hall-of-fame-module"
+	],
 	"../incidents/incidents.module": [
 		"./src/app/incidents/incidents.module.ts",
 		"default~company-company-module~enterprise-enterprise-module~incidents-incidents-module~news-news-mod~f69a21f4",
@@ -454,7 +462,7 @@ var fadeAnimation = Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["tri
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"app\" [style.backgroundColor]=\"bgColor\" [ngStyle]=\"appContainerStyle\">\n  <div class=\"app-inner\">\n    <div class=\"app-content\" [@fadeAnimation]=\"outlet.isActivated ? outlet.activatedRoute : ''\">\n      <!-- <div [@fadeAnimation]=\"prepareRoute(outlet)\"> -->\n      <router-outlet  #outlet=\"outlet\" (activate)=\"onActivate($event)\"></router-outlet>\n    </div>\n    <div class=\"app-right-sidebar\" *ngIf=\"showSidebar\">\n      <app-right-sidebar>\n        <app-portal-services></app-portal-services>\n        <app-corporative-tv-informer style=\"display: none\"></app-corporative-tv-informer>\n        <app-rightside-banner></app-rightside-banner>\n      </app-right-sidebar>\n    </div>\n  </div>\n  <div class=\"app-modals\">\n    <app-site-map></app-site-map>\n    <app-full-services-page></app-full-services-page>\n    <app-feedback-modal-form></app-feedback-modal-form>\n    <app-incidents-modal></app-incidents-modal>\n  </div>\n</div>\n"
+module.exports = "<div class=\"app\" [ngStyle]=\"appContainerStyle\">\n  <div class=\"app-inner\">\n    <div class=\"app-content\" [@fadeAnimation]=\"outlet.isActivated ? outlet.activatedRoute : ''\">\n      <!-- <div [@fadeAnimation]=\"prepareRoute(outlet)\"> -->\n      <router-outlet  #outlet=\"outlet\" (activate)=\"onActivate($event)\"></router-outlet>\n    </div>\n    <div class=\"app-right-sidebar\" *ngIf=\"appShowSidebar\">\n      <app-right-sidebar>\n        <app-portal-services></app-portal-services>\n        <app-corporative-tv-informer style=\"display: none\"></app-corporative-tv-informer>\n        <app-rightside-banner></app-rightside-banner>\n      </app-right-sidebar>\n    </div>\n  </div>\n  <div class=\"app-modals\">\n    <app-site-map></app-site-map>\n    <app-full-services-page></app-full-services-page>\n    <app-feedback-modal-form></app-feedback-modal-form>\n    <app-incidents-modal></app-incidents-modal>\n  </div>\n</div>\n<ng-progress [showSpinner]='false'></ng-progress>\n"
 
 /***/ }),
 
@@ -465,7 +473,7 @@ module.exports = "<div class=\"app\" [style.backgroundColor]=\"bgColor\" [ngStyl
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "router-outlet ~ * {\n  position: absolute;\n  height: 100%;\n  width: 100%; }\n\n.app {\n  padding: 2%;\n  box-sizing: border-box;\n  background-color: red !important;\n  min-height: calc(100vh - 185px); }\n\n.app .app-inner {\n    display: table;\n    table-layout: fixed;\n    border-collapse: collapse;\n    width: 100%;\n    max-width: 1850px; }\n\n.app .app-inner .app-content,\n    .app .app-inner .app-right-sidebar {\n      display: table-cell;\n      vertical-align: top;\n      box-sizing: border-box;\n      width: auto; }\n\n.app .app-inner .app-content + .app-right-sidebar,\n      .app .app-inner .app-right-sidebar + .app-right-sidebar {\n        padding-left: 2%; }\n\n.app .app-inner .app-right-sidebar {\n      width: 26%; }\n"
+module.exports = "router-outlet ~ * {\n  position: absolute;\n  height: 100%;\n  width: 100%; }\n\n.app {\n  padding: 2%;\n  box-sizing: border-box;\n  background-color: #fff;\n  min-height: calc(100vh - 185px); }\n\n.app .app-inner {\n    display: table;\n    table-layout: fixed;\n    border-collapse: collapse;\n    width: 100%;\n    max-width: 1850px; }\n\n.app .app-inner .app-content,\n    .app .app-inner .app-right-sidebar {\n      display: table-cell;\n      vertical-align: top;\n      box-sizing: border-box;\n      width: auto; }\n\n.app .app-inner .app-content + .app-right-sidebar,\n      .app .app-inner .app-right-sidebar + .app-right-sidebar {\n        padding-left: 2%; }\n\n.app .app-inner .app-right-sidebar {\n      width: 26%; }\n"
 
 /***/ }),
 
@@ -515,9 +523,8 @@ var AppComponent = /** @class */ (function () {
         this.zone = zone;
         this.titleService = titleService;
         this.sharepointService = sharepointService;
-        this.showSidebar = false;
-        this.bgColor = '#F7F7F7';
         this.appContainerStyle = null;
+        this.appShowSidebar = false;
     }
     AppComponent.prototype.prepareRoute = function (outlet) {
         return (outlet &&
@@ -526,12 +533,8 @@ var AppComponent = /** @class */ (function () {
     };
     AppComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.sidebarService.setSettings.subscribe(function (obj) {
-            _this.showSidebar = obj.showSidebar;
-            _this.bgColor = obj.bgColor;
-        });
         this.sidebarService.toggleSidebar.subscribe(function () {
-            _this.showSidebar = !_this.showSidebar;
+            _this.appShowSidebar = !_this.appShowSidebar;
         });
         this.router.events.subscribe(function (evt) {
             if (evt instanceof _angular_router__WEBPACK_IMPORTED_MODULE_1__["NavigationEnd"]) {
@@ -551,13 +554,22 @@ var AppComponent = /** @class */ (function () {
             }
         });
     };
-    AppComponent.prototype.onActivate = function (event) {
-        if (event.appCustomContainerStyle) {
-            this.appContainerStyle = event.appCustomContainerStyle;
+    AppComponent.prototype.setupPage = function (event) {
+        if (event.appContainerStyle) {
+            this.appContainerStyle = event.appContainerStyle;
         }
         else {
             this.appContainerStyle = null;
         }
+        if (event.appShowSidebar !== undefined) {
+            this.appShowSidebar = event.appShowSidebar;
+        }
+        else {
+            this.appShowSidebar = false;
+        }
+    };
+    AppComponent.prototype.onActivate = function (event) {
+        this.setupPage(event);
     };
     AppComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -599,17 +611,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ngx_cookie_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ngx-cookie-service */ "./node_modules/ngx-cookie-service/index.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _constants_groups__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./constants/groups */ "./src/app/constants/groups.ts");
-/* harmony import */ var src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/services/sharepoint/sharepoint.service */ "./src/app/services/sharepoint/sharepoint.service.ts");
-/* harmony import */ var src_app_services_security_security_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/services/security/security.service */ "./src/app/services/security/security.service.ts");
-/* harmony import */ var _core_header_header_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./core/header/header.component */ "./src/app/core/header/header.component.ts");
-/* harmony import */ var _core_footer_footer_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./core/footer/footer.component */ "./src/app/core/footer/footer.component.ts");
-/* harmony import */ var _core_left_menu_left_menu_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./core/left-menu/left-menu.component */ "./src/app/core/left-menu/left-menu.component.ts");
-/* harmony import */ var _core_core_module__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./core/core.module */ "./src/app/core/core.module.ts");
-/* harmony import */ var _staff_services_msal_settings_msal_settings_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./staff/services/msal-settings/msal-settings.service */ "./src/app/staff/services/msal-settings/msal-settings.service.ts");
-/* harmony import */ var _staff_staff_module__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./staff/staff.module */ "./src/app/staff/staff.module.ts");
-/* harmony import */ var _staff_components_msal_frame_msal_frame_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./staff/components/msal-frame/msal-frame.component */ "./src/app/staff/components/msal-frame/msal-frame.component.ts");
+/* harmony import */ var _constants_groups__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./constants/groups */ "./src/app/constants/groups.ts");
+/* harmony import */ var src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/services/sharepoint/sharepoint.service */ "./src/app/services/sharepoint/sharepoint.service.ts");
+/* harmony import */ var src_app_services_security_security_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! src/app/services/security/security.service */ "./src/app/services/security/security.service.ts");
+/* harmony import */ var _core_header_header_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./core/header/header.component */ "./src/app/core/header/header.component.ts");
+/* harmony import */ var _core_footer_footer_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./core/footer/footer.component */ "./src/app/core/footer/footer.component.ts");
+/* harmony import */ var _core_left_menu_left_menu_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./core/left-menu/left-menu.component */ "./src/app/core/left-menu/left-menu.component.ts");
+/* harmony import */ var _core_core_module__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./core/core.module */ "./src/app/core/core.module.ts");
+/* harmony import */ var _staff_services_msal_settings_msal_settings_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./staff/services/msal-settings/msal-settings.service */ "./src/app/staff/services/msal-settings/msal-settings.service.ts");
+/* harmony import */ var _staff_staff_module__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./staff/staff.module */ "./src/app/staff/staff.module.ts");
+/* harmony import */ var _staff_components_msal_frame_msal_frame_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./staff/components/msal-frame/msal-frame.component */ "./src/app/staff/components/msal-frame/msal-frame.component.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var ngx_progressbar__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ngx-progressbar */ "./node_modules/ngx-progressbar/modules/ngx-progressbar.es5.js");
+/* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./shared/shared.module */ "./src/app/shared/shared.module.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -619,6 +633,8 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
+
 
 
 
@@ -650,13 +666,13 @@ var AppModule = /** @class */ (function () {
         var _this = this;
         if (window !== window.parent && !window.opener) {
             console.log('Bootstrap: MSAL');
-            app.bootstrap(_staff_components_msal_frame_msal_frame_component__WEBPACK_IMPORTED_MODULE_17__["MsalFrameComponent"]);
+            app.bootstrap(_staff_components_msal_frame_msal_frame_component__WEBPACK_IMPORTED_MODULE_16__["MsalFrameComponent"]);
         }
         else {
             console.log('Bootstrap: App');
             this.securityService.getCurrentUserGroups()
                 .subscribe(function (g) {
-                if (g && g.includes(_constants_groups__WEBPACK_IMPORTED_MODULE_8__["groups"].employee)) {
+                if (g && g.some(function (e) { return e === _constants_groups__WEBPACK_IMPORTED_MODULE_7__["groups"].employee; })) {
                     _this.sharepointService.hideRibbon();
                 }
                 else {
@@ -664,15 +680,11 @@ var AppModule = /** @class */ (function () {
                 }
             });
             if (this.platformLocation.pathname.toLowerCase().indexOf('portalpages') > 0) {
-                console.log('Bootstrap: AppComponent');
                 app.bootstrap(_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]);
             }
-            console.log('Bootstrap: HeaderComponent');
-            app.bootstrap(_core_header_header_component__WEBPACK_IMPORTED_MODULE_11__["HeaderComponent"]);
-            console.log('Bootstrap: LeftMenuComponent');
-            app.bootstrap(_core_left_menu_left_menu_component__WEBPACK_IMPORTED_MODULE_13__["LeftMenuComponent"]);
-            console.log('Bootstrap: FooterComponent');
-            app.bootstrap(_core_footer_footer_component__WEBPACK_IMPORTED_MODULE_12__["FooterComponent"]);
+            app.bootstrap(_core_header_header_component__WEBPACK_IMPORTED_MODULE_10__["HeaderComponent"]);
+            app.bootstrap(_core_left_menu_left_menu_component__WEBPACK_IMPORTED_MODULE_12__["LeftMenuComponent"]);
+            app.bootstrap(_core_footer_footer_component__WEBPACK_IMPORTED_MODULE_11__["FooterComponent"]);
         }
     };
     AppModule = __decorate([
@@ -683,31 +695,38 @@ var AppModule = /** @class */ (function () {
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
                 _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_3__["BrowserAnimationsModule"],
-                _core_core_module__WEBPACK_IMPORTED_MODULE_14__["CoreModule"],
+                _core_core_module__WEBPACK_IMPORTED_MODULE_13__["CoreModule"],
                 _angular_router__WEBPACK_IMPORTED_MODULE_5__["RouterModule"],
-                _staff_staff_module__WEBPACK_IMPORTED_MODULE_16__["StaffModule"],
-                _angular_common_http__WEBPACK_IMPORTED_MODULE_7__["HttpClientModule"]
+                _staff_staff_module__WEBPACK_IMPORTED_MODULE_15__["StaffModule"],
+                ngx_progressbar__WEBPACK_IMPORTED_MODULE_18__["NgProgressModule"],
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_17__["HttpClientModule"],
+                _shared_shared_module__WEBPACK_IMPORTED_MODULE_19__["SharedModule"]
             ],
             providers: [
                 {
                     provide: _angular_core__WEBPACK_IMPORTED_MODULE_1__["APP_INITIALIZER"],
                     useFactory: load,
-                    deps: [_staff_services_msal_settings_msal_settings_service__WEBPACK_IMPORTED_MODULE_15__["MsalSettingsService"]],
+                    deps: [_staff_services_msal_settings_msal_settings_service__WEBPACK_IMPORTED_MODULE_14__["MsalSettingsService"]],
+                    multi: true
+                },
+                {
+                    provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_17__["HTTP_INTERCEPTORS"],
+                    useClass: ngx_progressbar__WEBPACK_IMPORTED_MODULE_18__["NgProgressInterceptor"],
                     multi: true
                 },
                 ngx_cookie_service__WEBPACK_IMPORTED_MODULE_4__["CookieService"]
             ],
             entryComponents: [
                 _app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"],
-                _core_header_header_component__WEBPACK_IMPORTED_MODULE_11__["HeaderComponent"],
-                _core_footer_footer_component__WEBPACK_IMPORTED_MODULE_12__["FooterComponent"],
-                _core_left_menu_left_menu_component__WEBPACK_IMPORTED_MODULE_13__["LeftMenuComponent"],
-                _staff_components_msal_frame_msal_frame_component__WEBPACK_IMPORTED_MODULE_17__["MsalFrameComponent"]
+                _core_header_header_component__WEBPACK_IMPORTED_MODULE_10__["HeaderComponent"],
+                _core_footer_footer_component__WEBPACK_IMPORTED_MODULE_11__["FooterComponent"],
+                _core_left_menu_left_menu_component__WEBPACK_IMPORTED_MODULE_12__["LeftMenuComponent"],
+                _staff_components_msal_frame_msal_frame_component__WEBPACK_IMPORTED_MODULE_16__["MsalFrameComponent"]
             ]
         }),
         __metadata("design:paramtypes", [_angular_common__WEBPACK_IMPORTED_MODULE_2__["PlatformLocation"],
-            src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_9__["SharepointService"],
-            src_app_services_security_security_service__WEBPACK_IMPORTED_MODULE_10__["SecurityService"]])
+            src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_8__["SharepointService"],
+            src_app_services_security_security_service__WEBPACK_IMPORTED_MODULE_9__["SecurityService"]])
     ], AppModule);
     return AppModule;
 }());
@@ -1018,6 +1037,14 @@ var routes = [
         redirectTo: 'company',
         pathMatch: 'full'
     },
+    {
+        path: 'feedback',
+        loadChildren: '../feedback/feedback.module#FeedbackModule'
+    },
+    {
+        path: 'hall-of-fame',
+        loadChildren: '../hall-of-fame/hall-of-fame.module#HallOfFameModule'
+    },
     { path: '**', component: _not_found_not_found_component__WEBPACK_IMPORTED_MODULE_2__["NotFoundComponent"] }
 ];
 var CoreRoutingModule = /** @class */ (function () {
@@ -1237,7 +1264,7 @@ var CorporativeTvInformerComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"l-feedback\" *ngIf=\"feedbackService.modalIsOpen\">\n  <div class=\"l-feedback__block\">\n    <div class=\"l-feedback__header\">\n      <div class=\"title\">\n        Форма обратной связи\n      </div>\n      <div class=\"description\">\n        Воспользуйтесь формой, чтобы отправить запрос, мы обязательно ответим вам.\n      </div>\n      <div class=\"close\">\n        <input type=\"button\" class=\"btn-close-gray-bold\" (click)=\"feedbackService.toggleModalDialog()\">\n      </div>\n    </div>\n    <div class=\"l-feedback__body\">\n      <form #form=\"ngForm\" novalidate (ngSubmit)=\"onSubmit(form)\">\n        <div class=\"destination\">\n          <label>Выберите адресата:</label>\n          <ng-select id=\"to\"\n                     name=\"to\"\n                     required\n                     #to=\"ngModel\"\n                     [(ngModel)]=\"questionForm.to\"\n                     class=\"sl-select-feedback\"\n                     [clearable]=\"false\"\n                     placeholder=\"Не выбрано\"\n                     [searchable]=\"false\"\n                     [class.error]=\"to?.errors?.required && !formValid\">\n            <ng-option *ngFor=\"let item of distributionList\"\n                       [value]=\"item.email\">\n              {{ item.name }}\n            </ng-option>\n          </ng-select>\n        </div>\n        <div class=\"text\">\n          <label for=\"text\">Напишите сообщение:</label>\n          <textarea placeholder=\"Текст комментария\"\n                    [(ngModel)]=\"questionForm.text\"\n                    id=\"text\"\n                    name=\"text\"\n                    required\n                    #text=\"ngModel\"\n                    [class.error]=\"text?.errors?.required && !formValid\">\n          </textarea>\n        </div>\n        <div class=\"footer\">\n          <div class=\"mark\">\n            Если вы не нашли в списке нужного адресата, направьте свой вопрос в департамент управления персоналом, мы обязательно переадресуем вопрос ответственному департаменту.\n          </div>\n          <input class=\"send\"\n                 type=\"submit\"\n                 [class.disabled]=\"form?.invalid\"\n                 value=\"Отправить\">\n        </div>\n      </form>\n      <div class=\"close-dialog\" *ngIf=\"feedbackService.closeDialogIsOpen\">\n        <div class=\"inner\">\n          <div class=\"text\">\n            Вы собираетесь отменить отправку вопроса. Изменения не сохранятся.\n            Продолжить?\n          </div>\n          <div class=\"controls\">\n            <input type=\"button\"\n                   class=\"btn btn-default is-transparent red\"\n                   value=\"Ок\"\n                   (click)=\"toggleModal()\" />\n            <input type=\"button\"\n                   class=\"btn btn-default\"\n                   value=\"Отмена\"\n                   (click)=\"feedbackService.toggleModalDialog()\" />\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"l-feedback__overlay\"></div>\n</div>\n"
+module.exports = "<div class=\"l-feedback\" *ngIf=\"feedbackService.modalIsOpen\">\n  <div class=\"l-feedback__block\">\n    <div class=\"l-feedback__header\">\n      <div class=\"title\">\n        Твой голос\n      </div>\n      <div class=\"description\">\n        Воспользуйтесь формой, чтобы отправить запрос, мы обязательно ответим вам.\n      </div>\n      <div class=\"close\">\n        <input type=\"button\" class=\"btn-close-gray-bold\" (click)=\"feedbackService.toggleModalDialog()\">\n      </div>\n    </div>\n    <div class=\"l-feedback__body\">\n      <form #form=\"ngForm\" novalidate (ngSubmit)=\"onSubmit(form)\">\n        <div class=\"destination\">\n          <label>Выберите адресата:</label>\n          <ng-select id=\"to\"\n                     name=\"to\"\n                     required\n                     #to=\"ngModel\"\n                     [(ngModel)]=\"questionForm.to\"\n                     class=\"sl-select-feedback\"\n                     [clearable]=\"false\"\n                     placeholder=\"Не выбрано\"\n                     [searchable]=\"false\"\n                     [class.error]=\"to?.errors?.required && !formValid\">\n            <ng-option *ngFor=\"let item of distributionList\"\n                       [value]=\"item.email\">\n              {{ item.name }}\n            </ng-option>\n          </ng-select>\n        </div>\n        <div class=\"text\">\n          <label for=\"text\">Напишите сообщение:</label>\n          <textarea placeholder=\"Текст комментария\"\n                    [(ngModel)]=\"questionForm.text\"\n                    id=\"text\"\n                    name=\"text\"\n                    required\n                    #text=\"ngModel\"\n                    [class.error]=\"text?.errors?.required && !formValid\">\n          </textarea>\n        </div>\n        <div class=\"footer\">\n          <div class=\"mark\">\n            Если вы не нашли в списке нужного адресата, направьте свой вопрос в департамент управления персоналом, мы обязательно переадресуем вопрос ответственному департаменту.\n          </div>\n          <input class=\"send\"\n                 type=\"submit\"\n                 [class.disabled]=\"form?.invalid\"\n                 value=\"Отправить\">\n        </div>\n      </form>\n      <div class=\"close-dialog\" *ngIf=\"feedbackService.closeDialogIsOpen\">\n        <div class=\"inner\">\n          <div class=\"text\">\n            Вы собираетесь отменить отправку вопроса. Изменения не сохранятся.\n            Продолжить?\n          </div>\n          <div class=\"controls\">\n            <input type=\"button\"\n                   class=\"btn btn-default is-transparent red\"\n                   value=\"Ок\"\n                   (click)=\"toggleModal()\" />\n            <input type=\"button\"\n                   class=\"btn btn-default\"\n                   value=\"Отмена\"\n                   (click)=\"feedbackService.toggleModalDialog()\" />\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"l-feedback__overlay\"></div>\n</div>\n"
 
 /***/ }),
 
@@ -1342,7 +1369,7 @@ var FeedbackModalFormComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"l-footer\">\n  <div class=\"l-footer-inner\">\n    <div class=\"row widgets\">\n      <div class=\"l-footer__weather\">\n        <div class=\"l-footer__title\">\n          Москва\n        </div>\n        <div class=\"main\">\n          <div class=\"temperature\">\n            -2°C\n          </div>\n          <img src=\"assets/icons/icon-weather-rain.svg\" alt=\"\">\n        </div>\n        <div class=\"details\">\n          <table>\n            <tr>\n              <td>Пасмурно</td>\n            </tr>\n            <tr>\n              <td><3 м/с3</td>\n            </tr>\n            <tr>\n              <td>742 мм рт. ст.</td>\n            </tr>\n            <tr>\n              <td>71% влажн.</td>\n            </tr>\n          </table>\n        </div>\n      </div>\n      <div class=\"l-footer__stock\">\n        <div class=\"l-footer__title\">\n          Облигации\n        </div>\n        <table>\n          <tr>\n            <td>2015</td>\n            <td>RUB</td>\n            <td>8,29%</td>\n            <td class=\"down\">0</td>\n          </tr>\n          <tr>\n            <td>2018</td>\n            <td>RUB</td>\n            <td>8,71%</td>\n            <td class=\"down\">0</td>\n          </tr>\n          <tr>\n            <td>Евро2016</td>\n            <td>USD</td>\n            <td>5,00%</td>\n            <td class=\"down\">-9</td>\n          </tr>\n          <tr>\n            <td>Евро2020</td>\n            <td>USD</td>\n            <td>6,40%</td>\n            <td class=\"down\">-14</td>\n          </tr>\n        </table>\n      </div>\n      <div class=\"l-footer__index\">\n        <div class=\"l-footer__title\">\n          Индексы PTC, MMBБ, NYSE\n        </div>\n        <table>\n          <tr>\n            <td>MMBБ</td>\n            <td>18:50</td>\n            <td>1989,64</td>\n            <td>0,40</td>\n          </tr>\n          <tr>\n            <td>PTC</td>\n            <td>18:50</td>\n            <td>988,74</td>\n            <td class=\"down\">-0,35</td>\n          </tr>\n          <tr>\n            <td>DJIA</td>\n            <td>/</td>\n            <td></td>\n            <td></td>\n          </tr>\n          <tr>\n            <td>NASD</td>\n            <td>/</td>\n            <td></td>\n            <td></td>\n          </tr>\n        </table>\n      </div>\n      <div class=\"l-footer__cost\">\n        <div class=\"l-footer__title\">\n          Стоимость железной руды\n        </div>\n        <table width=\"70%\">\n          <tr>\n            <td>MBIO 62%</td>\n            <td>26/07</td>\n            <td>66,3</td>\n            <td>0,27</td>\n          </tr>\n        </table>\n      </div>\n    </div>\n    <div class=\"row info\">\n      <div class=\"l-footer__contacts column\">\n        <div class=\"l-footer__title\">\n          Контактная информация\n        </div>\n        <div class=\"body\">\n          <div>\n            ООО УК «МЕТАЛЛОИНВЕСТ»<br>\n            121609, Россия, г. Москва, Рублевское шоссе, д. 28\n          </div>\n          <br>\n          <div>\n            Тел.: + 7 (495) 981-55-55<br>\n            Факс: + 7 (495) 981-99-92\n          </div>\n          <br>\n          <div>E-mail: info@metalloinvest.com</div>\n          <a href=\"metalloinvest.com\">www.metalloinvest.com</a>\n        </div>\n      </div>\n      <div class=\"l-footer__information column\" app-important-information></div>\n      <div class=\"l-footer__links column\" app-usefull-links></div>\n      <div class=\"l-footer__feedback column\">\n        <div class=\"l-footer__title\">\n          Форма обратной связи\n        </div>\n        <div class=\"description\">\n          Напишите ваш вопрос, мы ответим Вам в самое ближайшее время\n        </div>\n        <input (click)=\"feedbackService.toggleModal()\" type=\"button\" value=\"Написать\">\n      </div>\n    </div>\n    <div class=\"row socials\">\n      Присоединиться\n      <input type=\"button\" class=\"social-facebook\">\n      <input type=\"button\" class=\"social-twitter\">\n      <input type=\"button\" class=\"social-vk\">\n      <input type=\"button\" class=\"social-ok\">\n      <input type=\"button\" class=\"social-lin\">\n      <input type=\"button\" class=\"social-youtube\">\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"l-footer\">\n  <div class=\"l-footer-inner\">\n    <div class=\"row widgets\">\n      <div class=\"l-footer__weather\">\n        <div class=\"l-footer__title\">\n          Москва\n        </div>\n        <div class=\"main\">\n          <div class=\"temperature\">\n            -2°C\n          </div>\n          <img src=\"assets/icons/icon-weather-rain.svg\" alt=\"\">\n        </div>\n        <div class=\"details\">\n          <table>\n            <tr>\n              <td>Пасмурно</td>\n            </tr>\n            <tr>\n              <td><3 м/с3</td>\n            </tr>\n            <tr>\n              <td>742 мм рт. ст.</td>\n            </tr>\n            <tr>\n              <td>71% влажн.</td>\n            </tr>\n          </table>\n        </div>\n      </div>\n      <div class=\"l-footer__stock\">\n        <div class=\"l-footer__title\">\n          Облигации\n        </div>\n        <table>\n          <tr>\n            <td>2015</td>\n            <td>RUB</td>\n            <td>8,29%</td>\n            <td class=\"down\">0</td>\n          </tr>\n          <tr>\n            <td>2018</td>\n            <td>RUB</td>\n            <td>8,71%</td>\n            <td class=\"down\">0</td>\n          </tr>\n          <tr>\n            <td>Евро2016</td>\n            <td>USD</td>\n            <td>5,00%</td>\n            <td class=\"down\">-9</td>\n          </tr>\n          <tr>\n            <td>Евро2020</td>\n            <td>USD</td>\n            <td>6,40%</td>\n            <td class=\"down\">-14</td>\n          </tr>\n        </table>\n      </div>\n      <div class=\"l-footer__index\">\n        <div class=\"l-footer__title\">\n          Индексы PTC, MMBБ, NYSE\n        </div>\n        <table>\n          <tr>\n            <td>MMBБ</td>\n            <td>18:50</td>\n            <td>1989,64</td>\n            <td>0,40</td>\n          </tr>\n          <tr>\n            <td>PTC</td>\n            <td>18:50</td>\n            <td>988,74</td>\n            <td class=\"down\">-0,35</td>\n          </tr>\n          <tr>\n            <td>DJIA</td>\n            <td>/</td>\n            <td></td>\n            <td></td>\n          </tr>\n          <tr>\n            <td>NASD</td>\n            <td>/</td>\n            <td></td>\n            <td></td>\n          </tr>\n        </table>\n      </div>\n      <div class=\"l-footer__cost\">\n        <div class=\"l-footer__title\">\n          Стоимость железной руды\n        </div>\n        <table width=\"70%\">\n          <tr>\n            <td>MBIO 62%</td>\n            <td>26/07</td>\n            <td>66,3</td>\n            <td>0,27</td>\n          </tr>\n        </table>\n      </div>\n    </div>\n    <div class=\"row info\">\n      <div class=\"l-footer__contacts column\">\n        <div class=\"l-footer__title\">\n          Контактная информация\n        </div>\n        <div class=\"body\">\n          <div>\n            ООО УК «МЕТАЛЛОИНВЕСТ»<br>\n            121609, Россия, г. Москва, <br>\n            Рублевское шоссе, д. 28\n          </div>\n          <br>\n          <div>\n            Тел.: + 7 (495) 981-55-55<br>\n            Факс: + 7 (495) 981-99-92\n          </div>\n          <br>\n          <div>E-mail: info@metalloinvest.com</div>\n          <a href=\"metalloinvest.com\">www.metalloinvest.com</a>\n        </div>\n      </div>\n      <div class=\"l-footer__information column\" app-important-information></div>\n      <div class=\"l-footer__links column\" app-usefull-links></div>\n      <div class=\"l-footer__feedback column\">\n        <div class=\"l-footer__title\">\n          Твой голос\n        </div>\n        <div class=\"description\">\n          Напишите ваш вопрос, мы ответим Вам в самое ближайшее время\n        </div>\n        <input (click)=\"feedbackService.toggleModal()\" type=\"button\" value=\"Написать\">\n      </div>\n    </div>\n    <div class=\"row socials\">\n      Присоединиться\n      <a href=\"https://www.facebook.com/metalloinvest\" target=\"_blank\" class=\"social-facebook\"></a>\n      <a href=\"http://twitter.com/metalloinvest\" target=\"_blank\" class=\"social-twitter\"></a>\n      <a href=\"http://vk.com/metalloinvest\" target=\"_blank\" class=\"social-vk\"></a>\n      <a href=\"http://ok.ru/group/52817251598427\" target=\"_blank\" class=\"social-ok\"></a>\n      <a href=\"http://www.linkedin.com/company/metalloinvest\" target=\"_blank\" class=\"social-lin\"></a>\n      <a href=\"http://www.youtube.com/metalloinvest/\" target=\"_blank\" class=\"social-youtube\"></a>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -1353,7 +1380,7 @@ module.exports = "<div class=\"l-footer\">\n  <div class=\"l-footer-inner\">\n  
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.l-footer {\n  position: relative;\n  background-color: #d3d5d7;\n  padding-top: 50px;\n  box-sizing: border-box; }\n\n.l-footer .l-footer-inner {\n    max-width: calc(2048px - 175px); }\n\n.l-footer .l-footer__title {\n    font-size: 18px;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    line-height: 23px;\n    max-height: 46px;\n    color: #050505;\n    margin-bottom: 45px; }\n\n@media (min-width: 1440px) {\n      .l-footer .l-footer__title {\n        font-size: calc( 0.01666667 * 100vw + -6px);\n        line-height: calc( 0.01666667 * 100vw + -1px);\n        max-height: calc( 0.02291667 * 100vw + 13px);\n        -webkit-line-clamp: 2; } }\n\n@media (min-width: 1920px) {\n      .l-footer .l-footer__title {\n        font-size: 26px;\n        line-height: 31px;\n        max-height: 62px; } }\n\n@media screen and (max-width: 1440px) {\n      .l-footer .l-footer__title {\n        margin-bottom: 25px; } }\n\n.row {\n  padding: 0 30px;\n  padding-bottom: 40px;\n  box-sizing: border-box;\n  border-bottom: 1px solid #fff; }\n\n.row:last-child {\n    border-bottom: 0; }\n\n.column {\n  padding: 0 15px;\n  box-sizing: border-box; }\n\n.widgets {\n  width: 100%;\n  font-size: 0;\n  box-sizing: border-box;\n  margin-bottom: 60px;\n  display: none; }\n\n@media screen and (max-width: 1440px) {\n    .widgets {\n      padding-bottom: 20px; } }\n\n.widgets .l-footer__weather,\n  .widgets .l-footer__stock,\n  .widgets .l-footer__index,\n  .widgets .l-footer__cost {\n    width: 25%;\n    display: inline-block;\n    font-size: 14px;\n    line-height: 19px;\n    color: #050505;\n    vertical-align: top; }\n\n@media (min-width: 1440px) {\n      .widgets .l-footer__weather,\n      .widgets .l-footer__stock,\n      .widgets .l-footer__index,\n      .widgets .l-footer__cost {\n        font-size: calc( 0.00416667 * 100vw + 8px);\n        line-height: calc( 0.00416667 * 100vw + 13px); } }\n\n@media (min-width: 1920px) {\n      .widgets .l-footer__weather,\n      .widgets .l-footer__stock,\n      .widgets .l-footer__index,\n      .widgets .l-footer__cost {\n        font-size: 16px;\n        line-height: 21px; } }\n\n.widgets .l-footer__weather .main {\n    display: inline-block;\n    vertical-align: top; }\n\n.widgets .l-footer__weather .main .temperature {\n      font-size: 18px;\n      line-height: 23px;\n      color: #050505;\n      margin-bottom: 20px; }\n\n@media (min-width: 1440px) {\n        .widgets .l-footer__weather .main .temperature {\n          font-size: calc( 0.01666667 * 100vw + -6px);\n          line-height: calc( 0.01666667 * 100vw + -1px); } }\n\n@media (min-width: 1920px) {\n        .widgets .l-footer__weather .main .temperature {\n          font-size: 26px;\n          line-height: 31px; } }\n\n.widgets .l-footer__weather .main img {\n      width: 73px;\n      height: 60px; }\n\n.widgets .l-footer__weather .details {\n    display: inline-block;\n    vertical-align: top;\n    margin-left: 45px; }\n\n.widgets .l-footer__weather .details table {\n      border-spacing: 0 15px;\n      margin-top: -15px; }\n\n.widgets .l-footer__stock table,\n  .widgets .l-footer__index table,\n  .widgets .l-footer__cost table {\n    width: 70%;\n    border-spacing: 0 15px;\n    margin-top: -15px; }\n\n.widgets .l-footer__stock table tr td:last-child,\n    .widgets .l-footer__index table tr td:last-child,\n    .widgets .l-footer__cost table tr td:last-child {\n      text-align: right; }\n\n.widgets .l-footer__stock table tr td.down,\n    .widgets .l-footer__index table tr td.down,\n    .widgets .l-footer__cost table tr td.down {\n      color: #dd1e25; }\n\n.info {\n  width: 100%;\n  font-size: 0;\n  box-sizing: border-box; }\n\n.info .l-footer__contacts,\n  .info .l-footer__information,\n  .info .l-footer__links,\n  .info .l-footer__feedback {\n    width: 25%;\n    display: inline-block;\n    font-size: 14px;\n    line-height: 19px;\n    color: #050505;\n    vertical-align: top; }\n\n@media (min-width: 1440px) {\n      .info .l-footer__contacts,\n      .info .l-footer__information,\n      .info .l-footer__links,\n      .info .l-footer__feedback {\n        font-size: calc( 0.00416667 * 100vw + 8px);\n        line-height: calc( 0.00416667 * 100vw + 13px); } }\n\n@media (min-width: 1920px) {\n      .info .l-footer__contacts,\n      .info .l-footer__information,\n      .info .l-footer__links,\n      .info .l-footer__feedback {\n        font-size: 16px;\n        line-height: 21px; } }\n\n.info .l-footer__contacts a,\n    .info .l-footer__information a,\n    .info .l-footer__links a,\n    .info .l-footer__feedback a {\n      color: #050505; }\n\n.info .l-footer__contacts .body {\n    line-height: 30px; }\n\n.info .l-footer__feedback .description {\n    font-size: 16px;\n    line-height: 30px;\n    color: #050505;\n    margin-bottom: 7%; }\n\n.info .l-footer__feedback input {\n    font-size: 18px;\n    color: #fff;\n    background-color: #dd1e25;\n    border: none;\n    border-radius: 3px;\n    padding: 14px 30px;\n    box-sizing: border-box;\n    min-width: 0px;\n    margin: 0px;\n    cursor: pointer; }\n\n.socials {\n  height: 80px;\n  padding: 30px;\n  box-sizing: border-box; }\n\n.socials .social-facebook,\n  .socials .social-twitter,\n  .socials .social-vk,\n  .socials .social-ok,\n  .socials .social-lin,\n  .socials .social-youtube {\n    margin: 0;\n    padding: 0;\n    border: none;\n    min-width: 0;\n    background-color: transparent;\n    width: 26px;\n    height: 26px;\n    vertical-align: middle;\n    background-repeat: no-repeat;\n    background-size: contain;\n    margin-right: 10px;\n    cursor: pointer; }\n\n.socials .social-facebook:first-of-type,\n    .socials .social-twitter:first-of-type,\n    .socials .social-vk:first-of-type,\n    .socials .social-ok:first-of-type,\n    .socials .social-lin:first-of-type,\n    .socials .social-youtube:first-of-type {\n      margin-left: 30px; }\n\n.socials .social-facebook {\n    background-image: url(/assets/icons/social/icon-facebook.svg); }\n\n.socials .social-twitter {\n    background-image: url(/assets/icons/social/icon-twitter.svg); }\n\n.socials .social-vk {\n    background-image: url(/assets/icons/social/icon-vk.svg); }\n\n.socials .social-ok {\n    background-image: url(/assets/icons/social/icon-ok.svg); }\n\n.socials .social-lin {\n    background-image: url(/assets/icons/social/icon-lin.svg); }\n\n.socials .social-youtube {\n    background-image: url(/assets/icons/social/icon-youtube.svg); }\n\n.l-footer__attachments {\n  margin-top: -15px; }\n\n.l-footer__attachments .l-footer-attachment {\n    margin-bottom: 40px; }\n\n.l-footer__attachments .l-footer-attachment img {\n      display: inline-block;\n      width: 40px;\n      height: 46px;\n      vertical-align: middle; }\n\n.l-footer__attachments .l-footer-attachment .title {\n      display: inline-block !important;\n      padding-left: 20px;\n      box-sizing: border-box;\n      font-size: 12px;\n      overflow: hidden;\n      text-overflow: ellipsis;\n      line-height: 18px;\n      max-height: 72px;\n      max-width: 70%;\n      color: #050505;\n      text-decoration: underline;\n      vertical-align: middle; }\n\n@media (min-width: 1440px) {\n        .l-footer__attachments .l-footer-attachment .title {\n          font-size: calc( 0.00416667 * 100vw + 6px);\n          line-height: calc( 0.00416667 * 100vw + 12px);\n          max-height: calc( -0.02083333 * 100vw + 102px);\n          -webkit-line-clamp: 4; } }\n\n@media (min-width: 1920px) {\n        .l-footer__attachments .l-footer-attachment .title {\n          font-size: 14px;\n          line-height: 20px;\n          max-height: 80px; } }\n\n.l-footer__links a {\n  display: block;\n  margin-bottom: 10%;\n  text-decoration: underline; }\n\n.l-footer__links a:last-child {\n    margin-bottom: 0; }\n"
+module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.l-footer {\n  position: relative;\n  background-color: #d3d5d7;\n  padding-top: 50px;\n  box-sizing: border-box;\n  font-size: 14px;\n  line-height: 28px; }\n\n.l-footer .l-footer-inner {\n    max-width: calc(2048px - 175px); }\n\n.l-footer .l-footer__title {\n    font-size: 18px;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    line-height: 24px;\n    max-height: 48px;\n    color: #050505;\n    margin-bottom: 45px; }\n\n@media (min-width: 1440px) {\n      .l-footer .l-footer__title {\n        font-size: calc( 0.01666667 * 100vw + -6px);\n        line-height: calc( 0.01666667 * 100vw + 0px);\n        max-height: calc( 0.02083333 * 100vw + 18px);\n        -webkit-line-clamp: 2; } }\n\n@media (min-width: 1920px) {\n      .l-footer .l-footer__title {\n        font-size: 26px;\n        line-height: 32px;\n        max-height: 64px; } }\n\n@media screen and (max-width: 1440px) {\n      .l-footer .l-footer__title {\n        margin-bottom: 25px; } }\n\n.row {\n  padding: 0 30px;\n  padding-bottom: 40px;\n  box-sizing: border-box;\n  border-bottom: 1px solid #fff; }\n\n.row:last-child {\n    border-bottom: 0; }\n\n.column {\n  padding: 0 15px;\n  box-sizing: border-box; }\n\n.widgets {\n  width: 100%;\n  font-size: 0;\n  box-sizing: border-box;\n  margin-bottom: 60px;\n  display: none; }\n\n@media screen and (max-width: 1440px) {\n    .widgets {\n      padding-bottom: 20px; } }\n\n.widgets .l-footer__weather,\n  .widgets .l-footer__stock,\n  .widgets .l-footer__index,\n  .widgets .l-footer__cost {\n    width: 25%;\n    display: inline-block;\n    color: #050505;\n    vertical-align: top; }\n\n.widgets .l-footer__weather .main {\n    display: inline-block;\n    vertical-align: top; }\n\n.widgets .l-footer__weather .main .temperature {\n      color: #050505;\n      margin-bottom: 20px; }\n\n.widgets .l-footer__weather .main img {\n      width: 73px;\n      height: 60px; }\n\n.widgets .l-footer__weather .details {\n    display: inline-block;\n    vertical-align: top;\n    margin-left: 45px; }\n\n.widgets .l-footer__weather .details table {\n      border-spacing: 0 15px;\n      margin-top: -15px; }\n\n.widgets .l-footer__stock table,\n  .widgets .l-footer__index table,\n  .widgets .l-footer__cost table {\n    width: 70%;\n    border-spacing: 0 15px;\n    margin-top: -15px; }\n\n.widgets .l-footer__stock table tr td:last-child,\n    .widgets .l-footer__index table tr td:last-child,\n    .widgets .l-footer__cost table tr td:last-child {\n      text-align: right; }\n\n.widgets .l-footer__stock table tr td.down,\n    .widgets .l-footer__index table tr td.down,\n    .widgets .l-footer__cost table tr td.down {\n      color: #dd1e25; }\n\n.info {\n  width: 100%;\n  font-size: 0;\n  box-sizing: border-box; }\n\n.info .l-footer__contacts,\n  .info .l-footer__information,\n  .info .l-footer__links,\n  .info .l-footer__feedback {\n    width: 25%;\n    display: inline-block;\n    font-size: 16px;\n    line-height: 22px;\n    color: #050505;\n    vertical-align: top; }\n\n@media screen and (max-width: 1440px) {\n      .info .l-footer__contacts,\n      .info .l-footer__information,\n      .info .l-footer__links,\n      .info .l-footer__feedback {\n        font-size: 12px;\n        line-height: 18px; } }\n\n.info .l-footer__contacts a,\n    .info .l-footer__information a,\n    .info .l-footer__links a,\n    .info .l-footer__feedback a {\n      color: #050505; }\n\n.info .l-footer__feedback .description {\n    color: #050505;\n    margin-bottom: 7%; }\n\n.info .l-footer__feedback input {\n    font-size: 18px;\n    color: #fff;\n    background-color: #dd1e25;\n    border: none;\n    border-radius: 3px;\n    padding: 14px 30px;\n    box-sizing: border-box;\n    min-width: 0px;\n    margin: 0px;\n    cursor: pointer; }\n\n.socials {\n  height: 80px;\n  padding: 30px;\n  box-sizing: border-box; }\n\n.socials .social-facebook,\n  .socials .social-twitter,\n  .socials .social-vk,\n  .socials .social-ok,\n  .socials .social-lin,\n  .socials .social-youtube {\n    display: inline-block;\n    width: 26px;\n    height: 26px;\n    vertical-align: middle;\n    background-repeat: no-repeat;\n    background-size: contain;\n    margin-right: 10px; }\n\n.socials .social-facebook:first-of-type,\n    .socials .social-twitter:first-of-type,\n    .socials .social-vk:first-of-type,\n    .socials .social-ok:first-of-type,\n    .socials .social-lin:first-of-type,\n    .socials .social-youtube:first-of-type {\n      margin-left: 30px; }\n\n.socials .social-facebook {\n    background-image: url(/assets/icons/social/icon-facebook.svg); }\n\n.socials .social-twitter {\n    background-image: url(/assets/icons/social/icon-twitter.svg); }\n\n.socials .social-vk {\n    background-image: url(/assets/icons/social/icon-vk.svg); }\n\n.socials .social-ok {\n    background-image: url(/assets/icons/social/icon-ok.svg); }\n\n.socials .social-lin {\n    background-image: url(/assets/icons/social/icon-lin.svg); }\n\n.socials .social-youtube {\n    background-image: url(/assets/icons/social/icon-youtube.svg); }\n\n.l-footer__links a {\n  display: block;\n  margin-bottom: 10%;\n  text-decoration: underline; }\n\n.l-footer__links a:last-child {\n    margin-bottom: 0; }\n"
 
 /***/ }),
 
@@ -1421,7 +1448,7 @@ module.exports = "<div class=\"l-services\" [hidden]=\"!isVisible\">\n  <input t
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.l-services {\n  box-sizing: border-box;\n  background-color: #fff;\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  z-index: 99999;\n  overflow: auto;\n  padding: 7% 5% 5% 5%; }\n\n.l-services input[type=\"button\"] {\n    position: absolute;\n    top: 20px;\n    right: 20px;\n    background-repeat: no-repeat;\n    background-position: center;\n    background-size: 90%;\n    background-image: url(\"/assets/icons/icon-close-black.svg\");\n    border: 0;\n    background-color: transparent;\n    min-width: 0;\n    padding: 0;\n    margin: 0;\n    width: 25px;\n    height: 25px;\n    cursor: pointer; }\n\n.l-services .inner {\n    position: relative;\n    padding-bottom: 60px; }\n\n.l-services .inner > .title {\n      font-size: 34px;\n      color: #050505;\n      font-weight: 600;\n      margin-bottom: 50px; }\n\n.l-services .inner .l-services__header {\n      position: relative;\n      height: 50px;\n      margin-bottom: 45px; }\n\n.l-services .inner .l-services__header .title {\n        position: absolute;\n        left: 0;\n        top: 0;\n        font-size: 34px;\n        color: #050505; }\n\n.l-services .inner .l-services__header .search {\n        position: absolute;\n        right: 75px;\n        top: 0; }\n\n@media screen and (max-width: 1440px) {\n          .l-services .inner .l-services__header .search {\n            right: 15px; } }\n\n.l-services .inner .l-services__header .search input {\n          height: 50px;\n          width: 590px;\n          background-position: right 12px center;\n          padding-right: 50px;\n          padding-left: 20px;\n          color: #4D4E4D;\n          border: 1px solid #bcbcbc;\n          font-size: 16px;\n          box-sizing: border-box;\n          background-image: url(\"/assets/icons/icon-search-red.svg\");\n          background-repeat: no-repeat;\n          background-size: 33px 33px;\n          background-position: right 12px center;\n          padding-right: 50px;\n          padding-left: 20px;\n          outline: none; }\n\n.l-services .inner .l-services__body .category {\n      font-size: 14px;\n      text-transform: uppercase;\n      color: #050505;\n      margin-bottom: 20px; }\n\n.l-services .inner .l-services__body .list {\n      margin: 0 -15px; }\n\n.l-services .inner .l-services__body .list .item {\n        display: inline-block;\n        margin: 0 15px 50px 15px;\n        vertical-align: top;\n        box-sizing: border-box;\n        width: 210px;\n        font-size: 0;\n        word-wrap: break-word;\n        position: relative;\n        background-repeat: no-repeat;\n        background-size: cover; }\n\n.l-services .inner .l-services__body .list .item:hover .control {\n          visibility: visible; }\n\n.l-services .inner .l-services__body .list .item .control {\n          visibility: hidden;\n          margin-top: 10px; }\n\n.l-services .inner .l-services__body .list .item .control .switch {\n            position: relative;\n            display: inline-block;\n            width: 55px;\n            height: 27px;\n            vertical-align: middle; }\n\n.l-services .inner .l-services__body .list .item .control .switch input {\n              opacity: 0;\n              width: 0;\n              height: 0; }\n\n.l-services .inner .l-services__body .list .item .control .switch .slider {\n              position: absolute;\n              cursor: pointer;\n              top: 0;\n              left: 0;\n              right: 0;\n              bottom: 0;\n              background-color: #EFF5F7;\n              transition: .4s transform; }\n\n.l-services .inner .l-services__body .list .item .control .switch .slider:before {\n                position: absolute;\n                content: \"\";\n                height: 18px;\n                width: 18px;\n                right: 4px;\n                bottom: 4px;\n                background-color: #88969E;\n                transition: .4s transform; }\n\n.l-services .inner .l-services__body .list .item .control .switch input:checked + .slider {\n              background-color: #EFF5F7; }\n\n.l-services .inner .l-services__body .list .item .control .switch input:checked + .slider:before {\n                background-color: #768692; }\n\n.l-services .inner .l-services__body .list .item .control .switch input:focus + .slider {\n              box-shadow: 0 0 1px #EFF5F7; }\n\n.l-services .inner .l-services__body .list .item .control .switch input:checked + .slider:before {\n              -webkit-transform: translateX(-26px);\n                  -ms-transform: translateX(-26px);\n                      transform: translateX(-26px); }\n\n.l-services .inner .l-services__body .list .item .control .switch .slider.round {\n              border-radius: 34px; }\n\n.l-services .inner .l-services__body .list .item .control .switch .slider.round:before {\n                border-radius: 50%; }\n\n.l-services .inner .l-services__body .list .item .control .switch-label {\n            font-size: 14px;\n            color: #768692;\n            vertical-align: middle;\n            margin-left: 15px; }\n\n.navigation {\n  position: relative;\n  display: table;\n  table-layout: auto;\n  border-collapse: collapse;\n  width: 100%;\n  word-wrap: break-word; }\n\n.navigation .column {\n    display: table-cell;\n    box-sizing: border-box;\n    vertical-align: top;\n    width: 20%;\n    padding: 0 10px; }\n\n.navigation .column .header {\n      position: relative;\n      padding-left: 75px;\n      min-height: 56px;\n      margin-bottom: 20px;\n      box-sizing: border-box; }\n\n.navigation .column .header .logotype {\n        position: absolute;\n        top: 0;\n        left: 0;\n        border-radius: 100%;\n        width: 56px;\n        height: 56px;\n        background-color: #dd1e25;\n        text-align: center;\n        box-sizing: border-box;\n        background-size: cover;\n        background-repeat: no-repeat;\n        background-position: center; }\n\n.navigation .column .header .logotype img {\n          max-width: 37px;\n          max-height: 37px; }\n\n.navigation .column .header .title {\n        position: absolute;\n        left: 75px;\n        top: 50%;\n        -webkit-transform: translateY(-50%);\n            -ms-transform: translateY(-50%);\n                transform: translateY(-50%);\n        font-size: 18px;\n        line-height: 22px;\n        display: inline-block;\n        vertical-align: middle;\n        color: #050505;\n        box-sizing: border-box;\n        border-bottom: 2px solid #dd1e25;\n        padding-bottom: 5px; }\n\n@media (min-width: 1366px) {\n          .navigation .column .header .title {\n            font-size: calc( 0.01444043 * 100vw + -1.72563177px);\n            line-height: calc( 0.01444043 * 100vw + 2.27436823px); } }\n\n@media (min-width: 1920px) {\n          .navigation .column .header .title {\n            font-size: 26px;\n            line-height: 30px; } }\n\n.navigation .column .body .list {\n      box-sizing: border-box;\n      padding-left: 20px;\n      margin: 0; }\n\n.navigation .column .body .list .item {\n        margin-bottom: 20px;\n        box-sizing: border-box;\n        padding-left: 20px; }\n\n.navigation .column .body .list .item a {\n          color: #050505;\n          text-decoration: none;\n          font-size: 16px;\n          line-height: 20px; }\n\n@media (min-width: 1366px) {\n            .navigation .column .body .list .item a {\n              font-size: calc( 0.01083032 * 100vw + 1.20577617px);\n              line-height: calc( 0.01083032 * 100vw + 5.20577617px); } }\n\n@media (min-width: 1920px) {\n            .navigation .column .body .list .item a {\n              font-size: 22px;\n              line-height: 26px; } }\n\n.navigation .column .body .list .item a:hover {\n            color: #dd1e25; }\n\n:host ::ng-deep .service-tile {\n  height: 125px !important; }\n\n:host ::ng-deep .list.other .service-tile {\n  background-color: #A2B2C8 !important; }\n"
+module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.l-services {\n  box-sizing: border-box;\n  background-color: #fff;\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  z-index: 99999;\n  overflow: auto;\n  padding: 7% 5% 5% 5%; }\n\n.l-services input[type=\"button\"] {\n    position: absolute;\n    top: 20px;\n    right: 20px;\n    background-repeat: no-repeat;\n    background-position: center;\n    background-size: 90%;\n    background-image: url(\"/assets/icons/icon-close-black.svg\");\n    border: 0;\n    background-color: transparent;\n    min-width: 0;\n    padding: 0;\n    margin: 0;\n    width: 25px;\n    height: 25px;\n    cursor: pointer; }\n\n.l-services .inner {\n    position: relative;\n    padding-bottom: 60px; }\n\n.l-services .inner > .title {\n      font-size: 34px;\n      color: #050505;\n      font-weight: 600;\n      margin-bottom: 50px; }\n\n.l-services .inner .l-services__header {\n      position: relative;\n      height: 50px;\n      margin-bottom: 45px; }\n\n.l-services .inner .l-services__header .title {\n        position: absolute;\n        left: 0;\n        top: 0;\n        font-size: 34px;\n        color: #050505; }\n\n.l-services .inner .l-services__header .search {\n        position: absolute;\n        right: 75px;\n        top: 0; }\n\n@media screen and (max-width: 1440px) {\n          .l-services .inner .l-services__header .search {\n            right: 15px; } }\n\n.l-services .inner .l-services__header .search input {\n          height: 50px;\n          width: 590px;\n          background-position: right 12px center;\n          padding-right: 50px;\n          padding-left: 20px;\n          color: #4D4E4D;\n          border: 1px solid #bcbcbc;\n          font-size: 16px;\n          box-sizing: border-box;\n          background-image: url(\"/assets/icons/icon-search-red.svg\");\n          background-repeat: no-repeat;\n          background-size: 33px 33px;\n          background-position: right 12px center;\n          padding-right: 50px;\n          padding-left: 20px;\n          outline: none; }\n\n.l-services .inner .l-services__body .category {\n      font-size: 14px;\n      text-transform: uppercase;\n      color: #050505;\n      margin-bottom: 20px; }\n\n.l-services .inner .l-services__body .list {\n      margin: 0 -15px; }\n\n.l-services .inner .l-services__body .list .item {\n        display: inline-block;\n        margin: 0 15px 50px 15px;\n        vertical-align: top;\n        box-sizing: border-box;\n        width: 210px;\n        font-size: 0;\n        word-wrap: break-word;\n        position: relative;\n        background-repeat: no-repeat;\n        background-size: cover; }\n\n.l-services .inner .l-services__body .list .item:hover .control {\n          visibility: visible; }\n\n.l-services .inner .l-services__body .list .item .control {\n          visibility: hidden;\n          margin-top: 10px; }\n\n.l-services .inner .l-services__body .list .item .control .switch {\n            position: relative;\n            display: inline-block;\n            width: 53px;\n            height: 27px;\n            vertical-align: middle; }\n\n.l-services .inner .l-services__body .list .item .control .switch input {\n              opacity: 0;\n              width: 0;\n              height: 0; }\n\n.l-services .inner .l-services__body .list .item .control .switch .slider {\n              position: absolute;\n              cursor: pointer;\n              top: 0;\n              left: 0;\n              right: 0;\n              bottom: 0;\n              background-color: #EFF5F7;\n              transition: .4s transform; }\n\n.l-services .inner .l-services__body .list .item .control .switch .slider:before {\n                position: absolute;\n                content: \"\";\n                height: 19px;\n                width: 19px;\n                right: 4px;\n                bottom: 4px;\n                background-color: #88969E;\n                transition: .4s transform; }\n\n.l-services .inner .l-services__body .list .item .control .switch input:checked + .slider {\n              background-color: #EFF5F7; }\n\n.l-services .inner .l-services__body .list .item .control .switch input:checked + .slider:before {\n                background-color: #768692; }\n\n.l-services .inner .l-services__body .list .item .control .switch input:focus + .slider {\n              box-shadow: 0 0 1px #EFF5F7; }\n\n.l-services .inner .l-services__body .list .item .control .switch input:checked + .slider:before {\n              -webkit-transform: translateX(-26px);\n                  -ms-transform: translateX(-26px);\n                      transform: translateX(-26px); }\n\n.l-services .inner .l-services__body .list .item .control .switch .slider.round {\n              border-radius: 34px; }\n\n.l-services .inner .l-services__body .list .item .control .switch .slider.round:before {\n                border-radius: 50%; }\n\n.l-services .inner .l-services__body .list .item .control .switch-label {\n            font-size: 14px;\n            color: #768692;\n            vertical-align: middle;\n            margin-left: 15px; }\n\n.navigation {\n  position: relative;\n  display: table;\n  table-layout: auto;\n  border-collapse: collapse;\n  width: 100%;\n  word-wrap: break-word; }\n\n.navigation .column {\n    display: table-cell;\n    box-sizing: border-box;\n    vertical-align: top;\n    width: 20%;\n    padding: 0 10px; }\n\n.navigation .column .header {\n      position: relative;\n      padding-left: 75px;\n      min-height: 56px;\n      margin-bottom: 20px;\n      box-sizing: border-box; }\n\n.navigation .column .header .logotype {\n        position: absolute;\n        top: 0;\n        left: 0;\n        border-radius: 100%;\n        width: 56px;\n        height: 56px;\n        background-color: #dd1e25;\n        text-align: center;\n        box-sizing: border-box;\n        background-size: cover;\n        background-repeat: no-repeat;\n        background-position: center; }\n\n.navigation .column .header .logotype img {\n          max-width: 37px;\n          max-height: 37px; }\n\n.navigation .column .header .title {\n        position: absolute;\n        left: 75px;\n        top: 50%;\n        -webkit-transform: translateY(-50%);\n            -ms-transform: translateY(-50%);\n                transform: translateY(-50%);\n        font-size: 18px;\n        line-height: 22px;\n        display: inline-block;\n        vertical-align: middle;\n        color: #050505;\n        box-sizing: border-box;\n        border-bottom: 2px solid #dd1e25;\n        padding-bottom: 5px; }\n\n@media (min-width: 1366px) {\n          .navigation .column .header .title {\n            font-size: calc( 0.01444043 * 100vw + -1.72563177px);\n            line-height: calc( 0.01444043 * 100vw + 2.27436823px); } }\n\n@media (min-width: 1920px) {\n          .navigation .column .header .title {\n            font-size: 26px;\n            line-height: 30px; } }\n\n.navigation .column .body .list {\n      box-sizing: border-box;\n      padding-left: 20px;\n      margin: 0; }\n\n.navigation .column .body .list .item {\n        margin-bottom: 20px;\n        box-sizing: border-box;\n        padding-left: 20px; }\n\n.navigation .column .body .list .item a {\n          color: #050505;\n          text-decoration: none;\n          font-size: 16px;\n          line-height: 20px; }\n\n@media (min-width: 1366px) {\n            .navigation .column .body .list .item a {\n              font-size: calc( 0.01083032 * 100vw + 1.20577617px);\n              line-height: calc( 0.01083032 * 100vw + 5.20577617px); } }\n\n@media (min-width: 1920px) {\n            .navigation .column .body .list .item a {\n              font-size: 22px;\n              line-height: 26px; } }\n\n.navigation .column .body .list .item a:hover {\n            color: #dd1e25; }\n\n:host ::ng-deep .service-tile {\n  height: 125px !important; }\n\n:host ::ng-deep .list.other .service-tile {\n  background-color: #A2B2C8 !important; }\n"
 
 /***/ }),
 
@@ -1441,6 +1468,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/sidebar/sidebar.service */ "./src/app/services/sidebar/sidebar.service.ts");
 /* harmony import */ var src_app_services_service_templates_service_templates_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/service-templates/service-templates.service */ "./src/app/services/service-templates/service-templates.service.ts");
 /* harmony import */ var src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/sharepoint/sharepoint.service */ "./src/app/services/sharepoint/sharepoint.service.ts");
+/* harmony import */ var src_app_services_companies_companies_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/companies/companies.service */ "./src/app/services/companies/companies.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1456,27 +1484,36 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var FullServicesPageComponent = /** @class */ (function () {
-    function FullServicesPageComponent(sidebarService, serviceTemplatesService, sharepointService) {
+    function FullServicesPageComponent(sidebarService, serviceTemplatesService, sharepointService, companiesService) {
         this.sidebarService = sidebarService;
         this.serviceTemplatesService = serviceTemplatesService;
         this.sharepointService = sharepointService;
+        this.companiesService = companiesService;
         this.isVisible = false;
         this.visible = null;
         this.invisible = null;
         this.filter = '';
         this.subscription = null;
-        this.sidebarService.handleSetSettings({ showSidebar: false, bgColor: '#fff' });
     }
     FullServicesPageComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.sidebarService.toggleFullServices
             .subscribe(function (isVisible) { return _this.isVisible = isVisible; });
-        this.load();
+        this.companiesService.getCompanyForCurrentUser()
+            .subscribe(function (c) {
+            _this.company = c;
+            _this.load();
+        });
     };
     FullServicesPageComponent.prototype.load = function () {
         var _this = this;
-        this.serviceTemplatesService.getItems({ filter: 'slActive eq 1' })
+        var filter = 'slActive eq 1';
+        if (this.company != null) {
+            filter += " and (slCompanyLookupId eq " + this.company.id + " or slCompanyLookupId eq null)";
+        }
+        this.serviceTemplatesService.getItems({ filter: filter })
             .subscribe(function (items) {
             var userId = _this.sharepointService.getCurrentUserContext().userId;
             _this.visible = items.filter(function (item) {
@@ -1553,7 +1590,8 @@ var FullServicesPageComponent = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_3__["SidebarService"],
             src_app_services_service_templates_service_templates_service__WEBPACK_IMPORTED_MODULE_4__["ServiceTemplatesService"],
-            src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_5__["SharepointService"]])
+            src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_5__["SharepointService"],
+            src_app_services_companies_companies_service__WEBPACK_IMPORTED_MODULE_6__["CompaniesService"]])
     ], FullServicesPageComponent);
     return FullServicesPageComponent;
 }());
@@ -1569,7 +1607,7 @@ var FullServicesPageComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"header\" id=\"js-app-header\">\n  <div class=\"header-inner\">\n    <div class=\"user-thumb\">\n      <app-user-thumb\n        [photo]=\"photo\"\n        [route]=\"route\"\n        [active]=\"reason == null || reason === ''\"\n      ></app-user-thumb>\n    </div>\n    <div\n      class=\"logotype\"\n      [ngStyle]=\"{\n        'background-image': logotype != null ? 'url(' + logotype + ')' : null\n      }\"\n    >\n      <a href=\"#\" (click)=\"goToRoot()\">Главная</a>\n    </div>\n    <div class=\"controls\">\n      <div class=\"control\">\n        <input\n          type=\"button\"\n          title=\"Поиск по порталу\"\n          (click)=\"handleToggleSearch()\"\n          class=\"btn-search small\"\n        />\n      </div>\n      <div\n        class=\"control notification new\"\n        [class.is-opened]=\"activityFeedIsVisible\"\n        style=\"display:none\"\n      >\n        <!--Класс .new добавляет счетчик-->\n        <div (click)=\"handleToggleActivityFeed()\">\n          <input type=\"button\" class=\"btn-notification small\" />\n          <div class=\"counter\">5</div>\n        </div>\n        <div class=\"activity-feed-block\" *ngIf=\"activityFeedIsVisible\">\n          <app-activity-feed></app-activity-feed>\n        </div>\n      </div>\n      <div class=\"control location\" [class.is-opened]=\"isLocationVisible\">\n        <input\n          type=\"button\"\n          title=\"Выбор локации\"\n          (click)=\"toggleLocation()\"\n          class=\"btn-location small\"\n        />\n        <div class=\"location-picker\" *ngIf=\"isLocationVisible\">\n          <app-location-picker></app-location-picker>\n        </div>\n      </div>\n      <div class=\"control\">\n        <input\n          type=\"button\"\n          title=\"Карта портала\"\n          (click)=\"handleToggleSiteMap()\"\n          class=\"btn-hamburger small\"\n        />\n      </div>\n      <div class=\"control\">\n        <input\n          type=\"button\"\n          title=\"Каталог сервисов\"\n          (click)=\"handleToggleFullServices()\"\n          class=\"btn-services small\"\n        />\n      </div>\n      <div class=\"control\" style=\"display:none\">\n        <input\n          type=\"button\"\n          (click)=\"handleToggleSidebar()\"\n          class=\"btn-services small\"\n        />\n      </div>\n    </div>\n  </div>\n  <div class=\"search\" *ngIf=\"searchIsVisible\">\n    <app-search (toggleSearch)=\"handleToggleSearch()\"></app-search>\n  </div>\n</div>\n"
+module.exports = "<div class=\"header\" id=\"js-app-header\">\n  <div class=\"header-inner\">\n    <div class=\"user-thumb\">\n      <app-user-thumb\n        [photo]=\"photo\"\n        [route]=\"route\"\n        [active]=\"reason == null || reason === ''\"\n      ></app-user-thumb>\n    </div>\n    <div\n      class=\"logotype\"\n      [ngStyle]=\"{\n        'background-image': (logotype != null && globalNavigationType!=0) ? 'url(' + logotype + ')' : null\n      }\"\n    >\n      <a href=\"#\" (click)=\"goToRoot()\">Главная</a>\n    </div>\n    <div class=\"controls\">\n      <div class=\"control\">\n        <input\n          type=\"button\"\n          title=\"Поиск по порталу\"\n          (click)=\"handleToggleSearch()\"\n          class=\"btn-search small\"\n        />\n      </div>\n      <div\n        class=\"control notification new\"\n        [class.is-opened]=\"activityFeedIsVisible\"\n        style=\"display:none\"\n      >\n        <!--Класс .new добавляет счетчик-->\n        <div (click)=\"handleToggleActivityFeed()\">\n          <input type=\"button\" class=\"btn-notification small\" />\n          <div class=\"counter\">5</div>\n        </div>\n        <div class=\"activity-feed-block\" *ngIf=\"activityFeedIsVisible\">\n          <app-activity-feed></app-activity-feed>\n        </div>\n      </div>\n      <div class=\"control location\" [class.is-opened]=\"isLocationVisible\">\n        <input\n          type=\"button\"\n          title=\"Выбор локации\"\n          (click)=\"toggleLocation()\"\n          class=\"btn-location small\"\n        />\n        <div class=\"location-picker\" *ngIf=\"isLocationVisible\">\n          <app-location-picker></app-location-picker>\n        </div>\n      </div>\n      <div class=\"control\">\n        <input\n          type=\"button\"\n          title=\"Карта портала\"\n          (click)=\"handleToggleSiteMap()\"\n          class=\"btn-hamburger small\"\n        />\n      </div>\n      <div class=\"control\">\n        <input\n          type=\"button\"\n          title=\"Каталог сервисов\"\n          (click)=\"handleToggleFullServices()\"\n          class=\"btn-services small\"\n        />\n      </div>\n      <div class=\"control\" style=\"display:none\">\n        <input\n          type=\"button\"\n          (click)=\"handleToggleSidebar()\"\n          class=\"btn-services small\"\n        />\n      </div>\n    </div>\n  </div>\n  <div class=\"search\" *ngIf=\"searchIsVisible\">\n    <app-search (toggleSearch)=\"handleToggleSearch()\"></app-search>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -1580,7 +1618,7 @@ module.exports = "<div class=\"header\" id=\"js-app-header\">\n  <div class=\"he
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.header {\n  height: 100px;\n  background-color: #fff;\n  position: relative;\n  border-bottom: 1px solid rgba(149, 152, 154, 0.15);\n  box-sizing: border-box; }\n\n.header .header-inner {\n    display: table;\n    table-layout: fixed;\n    width: 100%;\n    border-collapse: collapse;\n    height: 100%;\n    box-sizing: border-box;\n    max-width: 2048px; }\n\n.user-thumb {\n  height: 100px;\n  background-color: #FFFFFF;\n  width: 100px;\n  display: table-cell;\n  vertical-align: middle;\n  box-sizing: border-box;\n  overflow: hidden;\n  text-align: center; }\n\n.logotype,\n.controls {\n  display: table-cell;\n  vertical-align: middle;\n  box-sizing: border-box; }\n\n.logotype {\n  width: 400px;\n  height: 100%;\n  font-size: 0;\n  background-repeat: no-repeat;\n  background-position: left 25px center;\n  background-size: auto 45px;\n  background-image: url(\"/assets/logotype.svg\"); }\n\n.logotype a {\n    display: inline-block;\n    width: 100%;\n    height: 100%; }\n\n.controls {\n  text-align: right;\n  padding-right: 30px;\n  font-size: 0; }\n\n.controls .control {\n    display: inline-block;\n    vertical-align: middle;\n    box-sizing: border-box;\n    width: 60px;\n    position: relative;\n    text-align: center; }\n\n.controls .control.location {\n      position: relative; }\n\n.controls .control.location.is-opened .btn-location {\n        z-index: 10;\n        position: relative;\n        background-image: url(\"/assets/icons/icon-header-location-white.svg\"); }\n\n.controls .control.notification {\n      position: relative; }\n\n.controls .control.notification.new .counter {\n        display: block;\n        z-index: 10; }\n\n.controls .control.notification.is-opened .btn-notification {\n        z-index: 10;\n        position: relative;\n        background-image: url(\"/assets/icons/icon-header-notification-white.svg\"); }\n\n.controls .control.notification .counter {\n        display: none;\n        position: absolute;\n        top: -5px;\n        right: 7px;\n        width: 20px;\n        height: 20px;\n        background-color: #EB113B;\n        border-radius: 100%;\n        text-align: center;\n        color: #FFF;\n        font-size: 14px;\n        line-height: 20px;\n        cursor: pointer; }\n\n.controls .control input[type=\"button\"] {\n      padding: 0;\n      margin: 0;\n      border: 0;\n      min-width: 0;\n      background-color: transparent;\n      cursor: pointer; }\n\n.controls .control input[type=\"button\"]:focus {\n        outline: none; }\n\n.controls .control input[type=\"button\"].btn-search {\n        background-image: url(\"/assets/icons/icon-header-search.svg\"); }\n\n.controls .control input[type=\"button\"].btn-notification {\n        background-image: url(\"/assets/icons/icon-header-notification.svg\"); }\n\n.controls .control input[type=\"button\"].btn-location {\n        background-image: url(\"/assets/icons/icon-header-location.svg\"); }\n\n.controls .control input[type=\"button\"].btn-hamburger {\n        background-image: url(\"/assets/icons/icon-header-hamburger.svg\"); }\n\n.controls .control input[type=\"button\"].btn-services {\n        background-image: url(\"/assets/icons/icon-header-services.svg\"); }\n\n.search {\n  position: absolute;\n  left: 0;\n  top: 0;\n  right: 0;\n  bottom: 0; }\n"
+module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.header {\n  height: 100px;\n  background-color: #fff;\n  position: relative;\n  border-bottom: 1px solid rgba(149, 152, 154, 0.15);\n  box-sizing: border-box; }\n\n.header .header-inner {\n    display: table;\n    table-layout: fixed;\n    width: 100%;\n    border-collapse: collapse;\n    height: 100%;\n    box-sizing: border-box;\n    max-width: 2048px; }\n\n.user-thumb {\n  height: 99px;\n  background-color: #FFFFFF;\n  width: 100px;\n  display: table-cell;\n  vertical-align: middle;\n  box-sizing: border-box;\n  overflow: hidden;\n  text-align: center; }\n\n.logotype,\n.controls {\n  display: table-cell;\n  vertical-align: middle;\n  box-sizing: border-box; }\n\n.logotype {\n  width: 400px;\n  height: 100%;\n  font-size: 0;\n  background-repeat: no-repeat;\n  background-position: left 25px center;\n  background-size: auto 45px;\n  background-image: url(\"/assets/logotype.svg\"); }\n\n.logotype a {\n    display: inline-block;\n    width: 100%;\n    height: 100%; }\n\n.controls {\n  text-align: right;\n  padding-right: 30px;\n  font-size: 0; }\n\n.controls .control {\n    display: inline-block;\n    vertical-align: middle;\n    box-sizing: border-box;\n    width: 60px;\n    position: relative;\n    text-align: center; }\n\n.controls .control.location {\n      position: relative; }\n\n.controls .control.location.is-opened .btn-location {\n        z-index: 10;\n        position: relative;\n        background-image: url(\"/assets/icons/icon-header-location-white.svg\"); }\n\n.controls .control.notification {\n      position: relative; }\n\n.controls .control.notification.new .counter {\n        display: block;\n        z-index: 10; }\n\n.controls .control.notification.is-opened .btn-notification {\n        z-index: 10;\n        position: relative;\n        background-image: url(\"/assets/icons/icon-header-notification-white.svg\"); }\n\n.controls .control.notification .counter {\n        display: none;\n        position: absolute;\n        top: -5px;\n        right: 7px;\n        width: 20px;\n        height: 20px;\n        background-color: #EB113B;\n        border-radius: 100%;\n        text-align: center;\n        color: #FFF;\n        font-size: 14px;\n        line-height: 20px;\n        cursor: pointer; }\n\n.controls .control input[type=\"button\"] {\n      padding: 0;\n      margin: 0;\n      border: 0;\n      min-width: 0;\n      background-color: transparent;\n      cursor: pointer; }\n\n.controls .control input[type=\"button\"]:focus {\n        outline: none; }\n\n.controls .control input[type=\"button\"].btn-search {\n        background-image: url(\"/assets/icons/icon-header-search.svg\"); }\n\n.controls .control input[type=\"button\"].btn-notification {\n        background-image: url(\"/assets/icons/icon-header-notification.svg\"); }\n\n.controls .control input[type=\"button\"].btn-location {\n        background-image: url(\"/assets/icons/icon-header-location.svg\"); }\n\n.controls .control input[type=\"button\"].btn-hamburger {\n        background-image: url(\"/assets/icons/icon-header-hamburger.svg\"); }\n\n.controls .control input[type=\"button\"].btn-services {\n        background-image: url(\"/assets/icons/icon-header-services.svg\"); }\n\n.search {\n  position: absolute;\n  left: 0;\n  top: 0;\n  right: 0;\n  bottom: 0; }\n"
 
 /***/ }),
 
@@ -1633,6 +1671,7 @@ var HeaderComponent = /** @class */ (function () {
         this.isLocationVisible = false;
         this.searchIsVisible = false;
         this.activityFeedIsVisible = false;
+        this.globalNavigationType = src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_2__["GlobalNavigationType"].Company;
         this.companyChangeSubscribe = null;
     }
     HeaderComponent.prototype.handleToggleActivityFeed = function () {
@@ -1699,6 +1738,9 @@ var HeaderComponent = /** @class */ (function () {
                 _this.isLocationVisible = isVisible;
             });
         });
+        this.sidebarService.toggleGlobalNavigation.subscribe(function (type) { return _this.zone.run(function () {
+            _this.globalNavigationType = type;
+        }); });
     };
     HeaderComponent.prototype.goToRoot = function () {
         var _this = this;
@@ -1749,7 +1791,7 @@ module.exports = "<div>\n  <div class=\"l-footer__title\">\n    Важная и�
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.l-footer__title {\n  font-size: 18px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  line-height: 23px;\n  max-height: 46px;\n  color: #050505;\n  margin-bottom: 45px; }\n\n@media (min-width: 1440px) {\n    .l-footer__title {\n      font-size: calc( 0.01666667 * 100vw + -6px);\n      line-height: calc( 0.01666667 * 100vw + -1px);\n      max-height: calc( 0.02291667 * 100vw + 13px);\n      -webkit-line-clamp: 2; } }\n\n@media (min-width: 1920px) {\n    .l-footer__title {\n      font-size: 26px;\n      line-height: 31px;\n      max-height: 62px; } }\n\n@media screen and (max-width: 1440px) {\n    .l-footer__title {\n      margin-bottom: 25px; } }\n\n.l-footer__info {\n  width: 100%;\n  font-size: 0;\n  border-bottom: 1px solid #FFFFFF;\n  padding: 60px 0;\n  box-sizing: border-box;\n  margin-bottom: 30px; }\n\n@media screen and (max-width: 1440px) {\n    .l-footer__info {\n      padding: 40px 0; } }\n\n.l-footer__attachments {\n  margin-top: -15px; }\n\n.l-footer__attachments .l-footer-attachment {\n    margin-bottom: 40px; }\n\n.l-footer__attachments .l-footer-attachment img {\n      display: inline-block;\n      width: 40px;\n      height: 46px;\n      vertical-align: middle; }\n\n.l-footer__attachments .l-footer-attachment .title {\n      display: inline-block !important;\n      padding-left: 20px;\n      box-sizing: border-box;\n      font-size: 12px;\n      overflow: hidden;\n      text-overflow: ellipsis;\n      line-height: 18px;\n      max-height: 72px;\n      max-width: 70%;\n      color: #050505;\n      text-decoration: underline;\n      vertical-align: middle; }\n\n@media (min-width: 1440px) {\n        .l-footer__attachments .l-footer-attachment .title {\n          font-size: calc( 0.00416667 * 100vw + 6px);\n          line-height: calc( 0.00416667 * 100vw + 12px);\n          max-height: calc( -0.02083333 * 100vw + 102px);\n          -webkit-line-clamp: 4; } }\n\n@media (min-width: 1920px) {\n        .l-footer__attachments .l-footer-attachment .title {\n          font-size: 14px;\n          line-height: 20px;\n          max-height: 80px; } }\n"
+module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.l-footer__title {\n  font-size: 18px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  line-height: 23px;\n  max-height: 46px;\n  color: #050505;\n  margin-bottom: 45px; }\n\n@media (min-width: 1440px) {\n    .l-footer__title {\n      font-size: calc( 0.01666667 * 100vw + -6px);\n      line-height: calc( 0.01666667 * 100vw + -1px);\n      max-height: calc( 0.02291667 * 100vw + 13px);\n      -webkit-line-clamp: 2; } }\n\n@media (min-width: 1920px) {\n    .l-footer__title {\n      font-size: 26px;\n      line-height: 31px;\n      max-height: 62px; } }\n\n@media screen and (max-width: 1440px) {\n    .l-footer__title {\n      margin-bottom: 25px; } }\n\n.l-footer__info {\n  width: 100%;\n  font-size: 0;\n  border-bottom: 1px solid #FFFFFF;\n  padding: 60px 0;\n  box-sizing: border-box;\n  margin-bottom: 30px; }\n\n@media screen and (max-width: 1440px) {\n    .l-footer__info {\n      padding: 40px 0; } }\n\n.l-footer__attachments .l-footer-attachment {\n  margin-bottom: 10%; }\n\n.l-footer__attachments .l-footer-attachment img {\n    display: inline-block;\n    width: 40px;\n    height: 46px;\n    vertical-align: middle; }\n\n.l-footer__attachments .l-footer-attachment .title {\n    display: inline-block !important;\n    padding-left: 20px;\n    box-sizing: border-box;\n    font-size: 14px;\n    line-height: 20px;\n    max-width: 70%;\n    color: #050505;\n    text-decoration: underline;\n    vertical-align: middle; }\n\n@media screen and (max-width: 1440px) {\n      .l-footer__attachments .l-footer-attachment .title {\n        font-size: 12px;\n        line-height: 16px; } }\n"
 
 /***/ }),
 
@@ -1787,7 +1829,6 @@ var ImportantInformationComponent = /** @class */ (function () {
     ImportantInformationComponent.prototype.load = function () {
         var _this = this;
         this.importantInformationsService.getItems({ top: 3 }).subscribe(function (items) {
-            console.log("------ImportantInformationComponent------", items);
             _this.items = items;
         });
     };
@@ -1944,7 +1985,7 @@ var LeftMenuControlComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ul id=\"nav\" class=\"m-vertical-menu\" [class.is-sticky]=\"sticky\" #menuRef>\n  <li class=\"m-vertical-menu__item\"\n    *ngFor=\"let item of links\" [class.active]=\"item.active\" [routerLink]=\"item.path\">\n    <a class=\"m-vertical-menu__item-link\" [style.backgroundImage]=\"'url('+ getRelativePath() + '/PortalPages/' + item.icon +')'\">\n      {{item.title}}\n      <div class=\"notification\" *ngIf=\"item.notifications\">\n        {{item.notifications}}\n      </div>\n    </a>\n  </li>\n</ul>\n"
+module.exports = "<ul id=\"nav\" class=\"m-vertical-menu\" [class.is-sticky]=\"sticky\" #menuRef>\n  <li class=\"m-vertical-menu__item\"\n    *ngFor=\"let item of links\" [class.active]=\"item.active\" [routerLink]=\"item.path\">\n    <a title=\"{{item.title}}\" class=\"m-vertical-menu__item-link\" [style.backgroundImage]=\"'url('+ getRelativePath() + '/PortalPages/' + item.icon +')'\">\n      {{item.title}}\n      <div class=\"notification\" *ngIf=\"item.notifications\">\n        {{item.notifications}}\n      </div>\n    </a>\n  </li>\n</ul>\n"
 
 /***/ }),
 
@@ -1955,7 +1996,7 @@ module.exports = "<ul id=\"nav\" class=\"m-vertical-menu\" [class.is-sticky]=\"s
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.m-vertical-menu {\n  margin: 0;\n  padding: 0;\n  list-style: none;\n  position: relative;\n  transition: none;\n  will-change: top;\n  z-index: 0; }\n\n.m-vertical-menu.is-sticky {\n    position: fixed;\n    top: 85px;\n    width: 100px; }\n\n.m-vertical-menu .m-vertical-menu__item:nth-child(1).active\n~ .m-vertical-menu__item:last-child:after {\n    top: 0px; }\n\n.m-vertical-menu .m-vertical-menu__item:nth-child(2).active\n~ .m-vertical-menu__item:last-child:after {\n    top: 100px; }\n\n.m-vertical-menu .m-vertical-menu__item {\n    display: table;\n    table-layout: fixed;\n    width: 100%;\n    height: 100px;\n    border-collapse: collapse;\n    box-sizing: border-box;\n    cursor: pointer;\n    overflow: hidden; }\n\n.m-vertical-menu .m-vertical-menu__item:focus {\n      outline: none; }\n\n.m-vertical-menu .m-vertical-menu__item:hover:not(.active) a {\n      -webkit-transform: scale(1.2);\n          -ms-transform: scale(1.2);\n              transform: scale(1.2);\n      background-color: #6d7c88; }\n\n.m-vertical-menu .m-vertical-menu__item.active:hover a {\n      -webkit-transform: scale(1.2);\n          -ms-transform: scale(1.2);\n              transform: scale(1.2); }\n\n.m-vertical-menu .m-vertical-menu__item.active:hover ~ .m-vertical-menu__item:last-child:after {\n      background-color: #9bafca; }\n\n.m-vertical-menu .m-vertical-menu__item.active a {\n      -webkit-transform: scale(1.2);\n          -ms-transform: scale(1.2);\n              transform: scale(1.2); }\n\n.m-vertical-menu .m-vertical-menu__item:last-child:after {\n      content: '';\n      display: block;\n      position: absolute;\n      height: 100px;\n      background-color: #a2b2c8;\n      border-left: 4px solid #dd1e25;\n      top: 0;\n      left: 0;\n      right: 0;\n      z-index: -1;\n      transition: top 0.5s cubic-bezier(0.48, 0.02, 0, 1.25); }\n\n.m-vertical-menu .m-vertical-menu__item:last-child.active:after {\n      top: 200px; }\n\n.m-vertical-menu .m-vertical-menu__item:last-child:first-child:after {\n      content: '';\n      display: block;\n      position: absolute;\n      height: 100px;\n      background-color: #a2b2c8;\n      border-left: 4px solid #dd1e25;\n      top: 0;\n      left: 0;\n      right: 0;\n      z-index: -1;\n      transition: top 0.5s cubic-bezier(0.48, 0.02, 0, 1.25); }\n\n.m-vertical-menu .m-vertical-menu__item:last-child:first-child.active:after {\n      top: 0; }\n\n.theme-yellow .m-vertical-menu .m-vertical-menu__item {\n      border: none; }\n\n.m-vertical-menu .m-vertical-menu__item a {\n      display: table-cell;\n      vertical-align: middle;\n      box-sizing: border-box;\n      width: 100%;\n      padding-left: 100px;\n      padding-right: 5px;\n      text-decoration: none !important;\n      color: #fff;\n      background-size: contain;\n      background-repeat: no-repeat;\n      background-position: center;\n      transition: -webkit-transform 0.2s linear;\n      transition: transform 0.2s linear;\n      transition: transform 0.2s linear, -webkit-transform 0.2s linear; }\n\n.m-vertical-menu .m-vertical-menu__item a:focus {\n        outline: none; }\n\n.m-vertical-menu .m-vertical-menu__item a.company {\n        background-image: url(\"/assets/icons/icon-menu-company.svg\"); }\n\n.theme-yellow .m-vertical-menu .m-vertical-menu__item a.company {\n          background-image: url(\"/assets/icons/theme-yellow/icon-menu-company.svg\"); }\n\n.theme-black .m-vertical-menu .m-vertical-menu__item a.company {\n          background-image: url(\"/assets/icons/theme-black/icon-menu-company.svg\"); }\n\n.m-vertical-menu .m-vertical-menu__item a.people {\n        background-image: url(\"/assets/icons/icon-menu-people.svg\"); }\n\n.m-vertical-menu .m-vertical-menu__item a.personal {\n        background-image: url(\"/assets/icons/icon-menu-personal.svg\"); }\n"
+module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.m-vertical-menu {\n  margin: 0;\n  padding: 0;\n  list-style: none;\n  position: relative;\n  transition: none;\n  will-change: top;\n  z-index: 0; }\n\n@media screen and (max-width: 1340px) {\n    .m-vertical-menu {\n      position: relative !important;\n      top: auto !important; } }\n\n.m-vertical-menu.is-sticky {\n    position: fixed;\n    top: 85px;\n    width: 100px; }\n\n.m-vertical-menu .m-vertical-menu__item:nth-child(1).active\n~ .m-vertical-menu__item:last-child:after {\n    top: 0px; }\n\n.m-vertical-menu .m-vertical-menu__item:nth-child(2).active\n~ .m-vertical-menu__item:last-child:after {\n    top: 100px; }\n\n.m-vertical-menu .m-vertical-menu__item {\n    display: table;\n    table-layout: fixed;\n    width: 100%;\n    height: 100px;\n    border-collapse: collapse;\n    box-sizing: border-box;\n    cursor: pointer;\n    overflow: hidden; }\n\n.m-vertical-menu .m-vertical-menu__item:focus {\n      outline: none; }\n\n.m-vertical-menu .m-vertical-menu__item:hover:not(.active) a {\n      -webkit-transform: scale(1.2);\n          -ms-transform: scale(1.2);\n              transform: scale(1.2);\n      background-color: #6d7c88; }\n\n.m-vertical-menu .m-vertical-menu__item.active:hover a {\n      -webkit-transform: scale(1.2);\n          -ms-transform: scale(1.2);\n              transform: scale(1.2); }\n\n.m-vertical-menu .m-vertical-menu__item.active:hover ~ .m-vertical-menu__item:last-child:after {\n      background-color: #9bafca; }\n\n.m-vertical-menu .m-vertical-menu__item.active a {\n      -webkit-transform: scale(1.2);\n          -ms-transform: scale(1.2);\n              transform: scale(1.2); }\n\n.m-vertical-menu .m-vertical-menu__item:last-child:after {\n      content: '';\n      display: block;\n      position: absolute;\n      height: 100px;\n      background-color: #a2b2c8;\n      border-left: 4px solid #dd1e25;\n      top: 0;\n      left: 0;\n      right: 0;\n      z-index: -1;\n      transition: top 0.5s cubic-bezier(0.48, 0.02, 0, 1.25); }\n\n.m-vertical-menu .m-vertical-menu__item:last-child.active:after {\n      top: 200px; }\n\n.m-vertical-menu .m-vertical-menu__item:last-child:first-child:after {\n      content: '';\n      display: block;\n      position: absolute;\n      height: 100px;\n      background-color: #a2b2c8;\n      border-left: 4px solid #dd1e25;\n      top: 0;\n      left: 0;\n      right: 0;\n      z-index: -1;\n      transition: top 0.5s cubic-bezier(0.48, 0.02, 0, 1.25); }\n\n.m-vertical-menu .m-vertical-menu__item:last-child:first-child.active:after {\n      top: 0; }\n\n.theme-yellow .m-vertical-menu .m-vertical-menu__item {\n      border: none; }\n\n.m-vertical-menu .m-vertical-menu__item a {\n      display: table-cell;\n      vertical-align: middle;\n      box-sizing: border-box;\n      width: 100%;\n      padding-left: 100px;\n      padding-right: 5px;\n      text-decoration: none !important;\n      color: #fff;\n      background-size: contain;\n      background-repeat: no-repeat;\n      background-position: center;\n      transition: -webkit-transform 0.2s linear;\n      transition: transform 0.2s linear;\n      transition: transform 0.2s linear, -webkit-transform 0.2s linear; }\n\n.m-vertical-menu .m-vertical-menu__item a:focus {\n        outline: none; }\n\n.m-vertical-menu .m-vertical-menu__item a.company {\n        background-image: url(\"/assets/icons/icon-menu-company.svg\"); }\n\n.theme-yellow .m-vertical-menu .m-vertical-menu__item a.company {\n          background-image: url(\"/assets/icons/theme-yellow/icon-menu-company.svg\"); }\n\n.theme-black .m-vertical-menu .m-vertical-menu__item a.company {\n          background-image: url(\"/assets/icons/theme-black/icon-menu-company.svg\"); }\n\n.m-vertical-menu .m-vertical-menu__item a.people {\n        background-image: url(\"/assets/icons/icon-menu-people.svg\"); }\n\n.m-vertical-menu .m-vertical-menu__item a.personal {\n        background-image: url(\"/assets/icons/icon-menu-personal.svg\"); }\n"
 
 /***/ }),
 
@@ -1976,6 +2017,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/services/sharepoint/sharepoint.service */ "./src/app/services/sharepoint/sharepoint.service.ts");
 /* harmony import */ var src_app_services_companies_companies_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/companies/companies.service */ "./src/app/services/companies/companies.service.ts");
+/* harmony import */ var src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/sidebar/sidebar.service */ "./src/app/services/sidebar/sidebar.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1995,32 +2037,37 @@ var __param = (undefined && undefined.__param) || function (paramIndex, decorato
 
 
 
+
 var LeftMenuComponent = /** @class */ (function () {
-    function LeftMenuComponent(document, sharepointService, zone, router, companiesService) {
+    function LeftMenuComponent(document, sharepointService, zone, router, companiesService, sidebarService) {
         this.document = document;
         this.sharepointService = sharepointService;
         this.zone = zone;
         this.router = router;
         this.companiesService = companiesService;
+        this.sidebarService = sidebarService;
         this.enterprise = 'Предприятие';
         this.links = [
             {
-                title: 'Главная',
+                title: 'Холдинг',
                 path: ['/company'],
                 icon: 'assets/icons/icon-menu-company.svg',
-                active: false
+                active: false,
+                globalNavigationType: src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_7__["GlobalNavigationType"].Company
             },
             {
                 title: this.enterprise,
                 path: ['/enterprise'],
                 icon: 'assets/icons/icon-menu-enterprise.svg',
-                active: false
+                active: false,
+                globalNavigationType: src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_7__["GlobalNavigationType"].Enterprise
             },
             {
                 title: 'Личный профиль',
                 path: ['/personal'],
                 icon: 'assets/icons/icon-menu-personal.svg',
                 active: false,
+                globalNavigationType: src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_7__["GlobalNavigationType"].Personal,
                 notifications: 2
             }
         ];
@@ -2073,9 +2120,11 @@ var LeftMenuComponent = /** @class */ (function () {
         });
     };
     LeftMenuComponent.prototype.setActiveLink = function (url) {
+        var _this = this;
         this.links.forEach(function (l) {
             if (l.path && l.path.length > 0 && url.indexOf(l.path[0]) >= 0) {
                 l.active = true;
+                _this.sidebarService.handleToggleGlobalNavigation(l.globalNavigationType);
             }
             else {
                 l.active = false;
@@ -2110,7 +2159,8 @@ var LeftMenuComponent = /** @class */ (function () {
             src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_5__["SharepointService"],
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"],
             _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"],
-            src_app_services_companies_companies_service__WEBPACK_IMPORTED_MODULE_6__["CompaniesService"]])
+            src_app_services_companies_companies_service__WEBPACK_IMPORTED_MODULE_6__["CompaniesService"],
+            src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_7__["SidebarService"]])
     ], LeftMenuComponent);
     return LeftMenuComponent;
 }());
@@ -2290,7 +2340,7 @@ var NotFoundComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"l-tiles\">\n  <a class=\"l-tile\" *ngFor=\"let service of services\">\n    <ng-container [ngSwitch]=\"service.title\">\n      <ng-container *ngSwitchCase=\"'Опросы'\">\n        <app-tile-polls [service]=\"service\"></app-tile-polls>\n      </ng-container>\n      <ng-container *ngSwitchDefault>\n        <app-tile [service]=\"service\"></app-tile>\n      </ng-container>\n    </ng-container>\n  </a>\n</div>\n"
+module.exports = "<div class=\"l-tiles\" *ngIf=\"services && services.length\">\n  <a class=\"l-tile\" *ngFor=\"let service of services\">\n    <ng-container [ngSwitch]=\"service.title\">\n      <ng-container *ngSwitchCase=\"'Опросы'\">\n        <app-tile-polls [service]=\"service\"></app-tile-polls>\n      </ng-container>\n      <ng-container *ngSwitchDefault>\n        <app-tile [service]=\"service\"></app-tile>\n      </ng-container>\n    </ng-container>\n  </a>\n</div>\n"
 
 /***/ }),
 
@@ -2301,7 +2351,7 @@ module.exports = "<div class=\"l-tiles\">\n  <a class=\"l-tile\" *ngFor=\"let se
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".l-tiles {\n  font-size: 0; }\n\n.l-tile {\n  display: inline-block;\n  width: 50%;\n  height: 125px;\n  border-top: 1px solid #fff;\n  border-right: 1px solid transparent;\n  background-color: #768692;\n  box-sizing: border-box;\n  vertical-align: top; }\n\n.l-tile:nth-child(2n) {\n    border-left: 1px solid #fff;\n    border-right: none; }\n\n.l-tile:nth-child(-n+2) {\n    border-top: none; }\n\n.l-tile:last-child {\n    margin-bottom: 15%; }\n"
+module.exports = ".l-tiles {\n  font-size: 0; }\n\n.l-tile {\n  display: inline-block;\n  width: 50%;\n  height: 125px;\n  border-top: 1px solid #fff;\n  border-right: 1px solid transparent;\n  background-color: #768692;\n  box-sizing: border-box;\n  vertical-align: top; }\n\n.l-tile:nth-child(2n) {\n    border-left: 1px solid #fff;\n    border-right: none; }\n\n.l-tile:nth-child(-n+2) {\n    border-top: none; }\n\n.l-tile:last-child {\n    margin-bottom: 15%; }\n\n.l-tiles-loading {\n  height: 100vh; }\n"
 
 /***/ }),
 
@@ -2843,6 +2893,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _list_items_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../list-items-service */ "./src/app/services/list-items-service.ts");
 /* harmony import */ var _sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../sharepoint/sharepoint.service */ "./src/app/services/sharepoint/sharepoint.service.ts");
+/* harmony import */ var src_app_shared_services_notifications_notifications_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/shared/services/notifications/notifications.service */ "./src/app/shared/services/notifications/notifications.service.ts");
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -2874,12 +2925,14 @@ var __param = (undefined && undefined.__param) || function (paramIndex, decorato
 
 
 
+
 var CompaniesService = /** @class */ (function (_super) {
     __extends(CompaniesService, _super);
-    function CompaniesService(employeesFactory, sharepointService) {
+    function CompaniesService(employeesFactory, sharepointService, notificationsService) {
         var _this = _super.call(this) || this;
         _this.employeesFactory = employeesFactory;
         _this.sharepointService = sharepointService;
+        _this.notificationsService = notificationsService;
         _this.companyChangeEvent = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
         _this.company = null;
         return _this;
@@ -2898,13 +2951,13 @@ var CompaniesService = /** @class */ (function (_super) {
         return 'Lists/slCompanies';
     };
     CompaniesService.prototype.getSelect = function () {
-        return 'Id,Title,slCode,slUrl,slImage';
+        return 'Id,Title,slCode,slUrl,slImage,slIndex';
     };
     CompaniesService.prototype.getExpand = function () {
         return null;
     };
     CompaniesService.prototype.getOrderBy = function () {
-        return [['Id', true]];
+        return [['slIndex', true]];
     };
     CompaniesService.prototype.getTop = function () {
         return 5000;
@@ -2930,7 +2983,35 @@ var CompaniesService = /** @class */ (function (_super) {
     };
     CompaniesService.prototype.getCompanyForCurrentUser = function () {
         var _this = this;
-        return this.employeesFactory.getCurrentEmployee().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["flatMap"])(function (e) { return _this.getItems({ filter: "slCode eq '" + e.company + "'" }); }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(function (c) { return c.length > 0 ? c[0] : null; }));
+        return this.employeesFactory.getCurrentEmployee().pipe(
+        // Используется условное формирование запроса получения предприятия. Если привязки к предприятию нет, то берётся первое попавшееся.
+        Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["flatMap"])(function (e) { return _this.getItems({ filter: e.company == null ? "" : "slCode eq '" + e.company + "'", top: 1, orderBy: [['slIndex', true]] }); }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(function (c) {
+            var code = null;
+            if (c.length > 0) {
+                code = c[0];
+            }
+            else {
+                _this.notificationsService.warning("\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0438\u0442\u044C \u043F\u0440\u0435\u0434\u043F\u0440\u0438\u044F\u0442\u0438\u0435 \u0434\u043B\u044F \u0442\u0435\u043A\u0443\u0449\u0435\u0433\u043E \u0441\u043E\u0442\u0440\u0443\u0434\u043D\u0438\u043A\u0430", "\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0438\u0442\u044C \u043F\u0440\u0435\u0434\u043F\u0440\u0438\u044F\u0442\u0438\u0435");
+            }
+            ;
+            return code;
+        }));
+    };
+    CompaniesService.prototype.getWebIdForCurrentUser = function () {
+        var _this = this;
+        return this.employeesFactory.getCurrentEmployee().pipe(
+        // Используется условное формирование запроса получения предприятия. Если привязки к предприятию нет, то берётся первое попавшееся.
+        Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["flatMap"])(function (e) { return _this.getItems({ filter: e.company == null ? "" : "slCode eq '" + e.company + "'", top: 1, orderBy: [['slIndex', true]] }); }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(function (c) {
+            var code = null;
+            if (c.length > 0) {
+                code = c[0];
+            }
+            else {
+                _this.notificationsService.warning("\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0438\u0442\u044C \u043F\u0440\u0435\u0434\u043F\u0440\u0438\u044F\u0442\u0438\u0435 \u0434\u043B\u044F \u0442\u0435\u043A\u0443\u0449\u0435\u0433\u043E \u0441\u043E\u0442\u0440\u0443\u0434\u043D\u0438\u043A\u0430", "\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u043E\u043F\u0440\u0435\u0434\u0435\u043B\u0438\u0442\u044C \u043F\u0440\u0435\u0434\u043F\u0440\u0438\u044F\u0442\u0438\u0435");
+            }
+            ;
+            return code;
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["flatMap"])(function (c) { return _this.sharepointService.getWebIdByRelativeUrl(c && c.url); }));
     };
     CompaniesService.prototype.getCurrentCompany = function () {
         var _this = this;
@@ -2959,7 +3040,8 @@ var CompaniesService = /** @class */ (function (_super) {
             providedIn: 'root'
         }),
         __param(0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])('EmployeesFactory')),
-        __metadata("design:paramtypes", [Object, _sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_5__["SharepointService"]])
+        __metadata("design:paramtypes", [Object, _sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_5__["SharepointService"],
+            src_app_shared_services_notifications_notifications_service__WEBPACK_IMPORTED_MODULE_6__["NotificationsService"]])
     ], CompaniesService);
     return CompaniesService;
 }(_list_items_service__WEBPACK_IMPORTED_MODULE_4__["ListItemsService"]));
@@ -3278,7 +3360,9 @@ var ListItemsService = /** @class */ (function () {
     }
     ListItemsService_1 = ListItemsService;
     // Нужно будет реализовать многосайтовость битрикса (s1...), 
-    // наверно аналог разных web
+    // возможно аналог разных web
+    // а хотя чтобы получить инфоблок подсайта хватит же просто в фильтре SITE_ID
+    // ^ think about it
     ListItemsService.prototype.sendToBitrix = function (params) {
         console.log("------sendToBitrix CALLED!!!------", params);
         // Нужно найти какой-нибудь http/request класс
@@ -3333,41 +3417,30 @@ var ListItemsService = /** @class */ (function () {
             }),
             params: httpParams
         };
-        //let data: Observable<T[]>;
         if (params.method === 'GET') {
-            /*data = this.http.get(path, httpOptions)
-                .subscribe(response => this.order = response)
-                .pipe(
-                    flatMap((res) => {return res;})
-                );*/
             console.log('------GET case------');
             console.log('path = ', path);
             console.log('httpOptions = ', httpOptions);
-            var data = this.httpClient.get(path, httpOptions);
-            console.log("------GET DATA RESULT------", data);
-            /*data.pipe(
-                map((response: Response) => <T>response.json())
-            );*/
-            return data;
-            /*.pipe(
-                map((res: Response) => res.json())
-            );*/
+            /*return Observable.create((observer: Observer<T[]>) => {
+                this.httpClient.get<T[]>(path, httpOptions)
+                    .subscribe(
+                        res => {
+                            observer.next(res);
+                            observer.complete();
+                        }, err => observer.error(err)
+                    );
+            });*/
+            return this.httpClient.get(path, httpOptions);
+            // console.log("------GET DATA RESULT------", data);
+            // return data;
         }
         else {
-            // data = this.http.post(path, null, httpOptions);
             console.log('------POST case------');
             console.log('path = ', path);
             console.log('httpOptions = ', httpOptions);
-            var data = this.httpClient.post(path, null, httpOptions);
-            /*.forEach(function(v,k) {
-
-            });*/
-            //data = from(data.pipe(map(i => this.convertListItemToEntity(i))));
-            console.log("------POST DATA RESULT------", data);
-            return data;
-            /*.pipe(
-                map((res: Response) => res.json())
-            );*/
+            return this.httpClient.post(path, null, httpOptions);
+            // console.log("------POST DATA RESULT------", data);
+            // return data;
         }
     };
     ListItemsService.prototype.hashCode = function (s) {
@@ -3424,50 +3497,119 @@ var ListItemsService = /** @class */ (function () {
         }
         return web;
     };
-    ListItemsService.prototype.getItemsPaged = function (params) {
+    ListItemsService.prototype.getItemsPaged = function (params, page) {
         var _this = this;
-        return this.getWebById(params && params.webId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["flatMap"])(function (web) { return _this.getItemsPagedOfWeb(web, params); }));
-    };
-    ListItemsService.prototype.getItemsPagedOfWeb = function (web, params) {
-        var _this = this;
-        var items = web.lists.getByTitle(this.getListTitle()).items;
-        this.setQueryForCollection(items, params);
-        this.useCachedItems(items);
-        return Object(rxjs__WEBPACK_IMPORTED_MODULE_0__["from"])(items.getPaged().then(function (p) {
-            return {
-                items: p.results.map(function (i) { return _this.convertListItemToEntity(i); }),
-                hasNext: p.hasNext,
-                getNext: function () { return _this.getNextPageItems(p); }
-            };
-        }));
-    };
-    ListItemsService.prototype.getNextPageItems = function (page) {
-        var _this = this;
-        var data;
-        data = Object(rxjs__WEBPACK_IMPORTED_MODULE_0__["from"])(page.getNext()
-            .then(function (p) {
-            return {
-                items: p.results.map(function (i) { return _this.convertListItemToEntity(i); }),
-                hasNext: p.hasNext,
-                getNext: function () { return _this.getNextPageItems(p); }
-            };
-        }));
-        return data;
-    };
-    ListItemsService.prototype.getItems = function (params) {
-        var _this = this;
-        console.log("------getItems------", params);
+        if (page === void 0) { page = 1; }
         if (!params) {
             params = {};
         }
         params.method = 'GET';
-        //console.log('params changed:', params);
+        params.paged = true;
+        params.page = page;
+        //let resultItems: T[];
+        console.log("GET ITEMS PAGED params", params);
+        /*const result = this.sendToBitrix(params).pipe(
+            map(items => {
+                resultItems = items.map(item => {
+                    let convertedItem = this.convertListItemToEntity(item);
+                    console.log("GET ITEMS PAGED item", item);
+                    console.log("GET ITEMS PAGED convertedItem", convertedItem);
+                    return convertedItem;
+                });
+                return resultItems;
+            })
+        );*/
+        //console.log("GET ITEMS PAGED result", result);
+        //console.log("GET ITEMS PAGED resultItems", resultItems);
+        /*const foo: Observable<IListItemsPage<T>> = of(
+            {
+                items: resultItems,
+                hasNext: false,
+                getNext: () => this.getNextPageItems(params, page + 1)
+            }
+        );*/
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_0__["from"])(this.sendToBitrix(params).toPromise().then(function (p) {
+            return {
+                items: p.map(function (i) { return _this.convertListItemToEntity(i); }),
+                hasNext: false,
+                getNext: function () { return _this.getNextPageItems(params, page + 1); }
+            };
+        }));
+        //return foo;
+        //return foo;
+        /*return this.getWebById(
+            params && params.webId
+        ).pipe(
+            flatMap(
+                (web: Web) => this.getItemsPagedOfWeb(web, params)
+            )
+        );*/
+    };
+    /*private getItemsPagedOfWeb(web: Web, params?: IListItemsServiceParams): Observable<IListItemsPage<T>> {
+        console.log("------getItemsPagedOfWeb------");
+        console.log(params);
+        const items: Items = web.lists.getByTitle(this.getListTitle()).items;
+        this.setQueryForCollection(items, params);
+
+        this.useCachedItems(items);
+
+        return from(items.getPaged().then((p: PagedItemCollection<any[]>) => {
+            return {
+                items: p.results.map(i => this.convertListItemToEntity(i)),
+                hasNext: p.hasNext,
+                getNext: () => this.getNextPageItems(p)
+            };
+        }));
+    }*/
+    /*public getNextPageItems(page: PagedItemCollection<any[]>): Observable<IListItemsPage<T>> {
+        let data: Observable<IListItemsPage<T>>;
+
+        data = from(page.getNext()
+            .then((p: PagedItemCollection<any[]>) => {
+                return {
+                    items: p.results.map(i => this.convertListItemToEntity(i)),
+                    hasNext: p.hasNext,
+                    getNext: () => this.getNextPageItems(p)
+                };
+            })
+        );
+
+        return data;
+    }*/
+    ListItemsService.prototype.getNextPageItems = function (params, page) {
+        var _this = this;
+        if (!params) {
+            params = {};
+        }
+        params.method = 'GET';
+        params.paged = true;
+        params.page = page;
+        var resultItems;
+        console.log("GET NEXT PAGE ITEMS params", params);
+        var result = this.sendToBitrix(params).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(function (items) {
+            resultItems = items.map(function (item) {
+                return _this.convertListItemToEntity(item);
+            });
+            return resultItems;
+        }));
+        console.log("GET NEXT PAGE ITEMS resultItems", resultItems);
+        var foo = Object(rxjs__WEBPACK_IMPORTED_MODULE_0__["of"])({
+            items: resultItems,
+            hasNext: false,
+            getNext: function () { return _this.getNextPageItems(params, page + 1); }
+        });
+        return foo;
+    };
+    ListItemsService.prototype.getItems = function (params) {
+        var _this = this;
+        if (!params) {
+            params = {};
+        }
+        params.method = 'GET';
         var data;
         var result = this.sendToBitrix(params);
         return result.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(function (items) {
-            console.log("------getItems mapping ITEMS------", items);
             return items.map(function (item) {
-                console.log("------getItems mapping ITEM------", item);
                 return _this.convertListItemToEntity(item);
             });
         }));
@@ -3475,11 +3617,7 @@ var ListItemsService = /** @class */ (function () {
         return this.getWebById(params && params.webId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["flatMap"])(function (web) { return _this.getItemsOfWeb(web, params); }));
     };
     ListItemsService.prototype.getItemsOfWeb = function (web, params) {
-        //console.log("------getItemsOfWeb------", params);
         var _this = this;
-        /*let result = this.sendToBitrix(params);
-
-        return result;*/
         var data;
         if (this.isMock() === false) {
             var items = web.lists.getByTitle(this.getListTitle()).items;
@@ -3496,12 +3634,10 @@ var ListItemsService = /** @class */ (function () {
     };
     ListItemsService.prototype.getItem = function (params) {
         var _this = this;
-        console.log("------getItem------", params);
         if (!params) {
             params = {};
         }
         params.method = 'GET';
-        //console.log('params changed:', params);
         var data;
         var result = this.sendToBitrix(params);
         return result.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(function (item) {
@@ -3674,8 +3810,30 @@ var ListItemsService = /** @class */ (function () {
         return Object(rxjs__WEBPACK_IMPORTED_MODULE_0__["from"])(list.getItemsByCAMLQuery(query)).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["flatMap"])(function (items) { return Object(rxjs__WEBPACK_IMPORTED_MODULE_0__["of"])(items.map(function (i) { return _this.convertListItemToEntity(i); })); }));
     };
     ListItemsService.prototype.getRandomItems = function (params) {
+        /*if (!params) {
+            params = {};
+        }
+
+        params.method = 'GET';
+        let data: Observable<T[]>;
+        let result = this.sendToBitrix(params);
+
+        if (params.top == null || params.top > total) {
+
+        } else {
+
+        }
+
+        return result.pipe(
+            map(items => {
+                return items.map(item => {
+                    return this.convertListItemToEntity(item);
+                });
+            })
+        );*/
         var _this = this;
-        return this.getWebById(params.webId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["flatMap"])(function (web) { return _this.getRandomItemsOfWeb(web, params); }));
+        return this.getWebById(params.webId)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["flatMap"])(function (web) { return _this.getRandomItemsOfWeb(web, params); }));
     };
     ListItemsService.prototype.getRandomItemsOfWeb = function (web, params) {
         var _this = this;
@@ -4110,9 +4268,7 @@ var SettingsService = /** @class */ (function (_super) {
     };
     SettingsService.prototype.getItemByCode = function (code) {
         return this.getItems().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(function (items) {
-            console.log("------SETTINGS getItemByCode before------", items);
             items = items.filter(function (item) { return item.code === code; });
-            console.log("------SETTINGS getItemByCode after------", items);
             var value = null;
             if (items.length > 0) {
                 value = items[0].value;
@@ -4241,11 +4397,12 @@ var SharepointService = /** @class */ (function () {
 /*!*****************************************************!*\
   !*** ./src/app/services/sidebar/sidebar.service.ts ***!
   \*****************************************************/
-/*! exports provided: SidebarService */
+/*! exports provided: GlobalNavigationType, SidebarService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GlobalNavigationType", function() { return GlobalNavigationType; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SidebarService", function() { return SidebarService; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
@@ -4263,23 +4420,27 @@ var __param = (undefined && undefined.__param) || function (paramIndex, decorato
 };
 
 
+var GlobalNavigationType;
+(function (GlobalNavigationType) {
+    GlobalNavigationType[GlobalNavigationType["Company"] = 0] = "Company";
+    GlobalNavigationType[GlobalNavigationType["Enterprise"] = 1] = "Enterprise";
+    GlobalNavigationType[GlobalNavigationType["Personal"] = 2] = "Personal";
+})(GlobalNavigationType || (GlobalNavigationType = {}));
 var SidebarService = /** @class */ (function () {
     function SidebarService(document) {
         this.document = document;
-        this.setSettings = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
         this.toggleSidebar = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
         this.toggleSiteMap = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
         this.toggleFullServices = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
         this.toggleActivity = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
         this.toggleLocation = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.toggleGlobalNavigation = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
         this.isSiteMapVisible = false;
         this.isFullServicesVisible = false;
         this.isActivityVisible = false;
         this.isLocationVisible = false;
+        this.globalNavigation = GlobalNavigationType.Company;
     }
-    SidebarService.prototype.handleSetSettings = function (obj) {
-        this.setSettings.emit(obj);
-    };
     SidebarService.prototype.handleToggleSidebar = function () {
         var body = this.document.querySelector('.js-global-wrapper');
         body.classList.toggle('right-sidebar-opened');
@@ -4306,6 +4467,10 @@ var SidebarService = /** @class */ (function () {
     SidebarService.prototype.handleToggleLocation = function () {
         this.isLocationVisible = !this.isLocationVisible;
         this.toggleLocation.emit(this.isLocationVisible);
+    };
+    SidebarService.prototype.handleToggleGlobalNavigation = function (current) {
+        this.globalNavigation = current;
+        this.toggleGlobalNavigation.emit(this.globalNavigation);
     };
     SidebarService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
@@ -4739,7 +4904,7 @@ var UsefullLinksService = /** @class */ (function (_super) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"security-controls\" [class.cover]=\"isActivated\" (mouseleave)=\"mouseLeave()\">\n  <div class=\"show-controls\" title=\"Настроить\" (click)=\"openControls($event)\" *ngIf=\"isShow\"></div>\n  <div class=\"private-controls\" *ngIf=\"isActivated\">\n    <input type=\"button\" *ngIf=\"canBeCreated\" value=\"Создать\" (click)=\"handleCreate($event)\" />\n    <input type=\"button\" *ngIf=\"canBeEdited\" value=\"Редактировать\" (click)=\"handleEdit($event)\" />\n    <input type=\"button\" *ngIf=\"canBeDeleted\" value=\"Удалить\" (click)=\"toggleAlert($event)\" />\n  </div>\n  <div class=\"warning-alert\" *ngIf=\"isActivated && showAlret\">\n    <div class=\"text\"><span>Вы действительно хотите удалить элемент?</span></div>\n    <div class=\"buttons\">\n      <div class=\"inner\">\n        <input type=\"button\" value=\"Отмена\" (click)=\"closeControls($event)\" />\n        <input type=\"button\" value=\"Ок\" (click)=\"handleRemove($event)\" />\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"security-controls\" [class.cover]=\"isActivated\" (mouseleave)=\"mouseLeave()\">\n  <div class=\"show-controls\" title=\"Настроить\" (click)=\"openControls($event)\" *ngIf=\"isShow\"></div>\n  <div class=\"private-controls\" *ngIf=\"isActivated\">\n    <input type=\"button\" *ngIf=\"canBeCreated\" value=\"Создать\" (click)=\"handleCreate($event)\" />\n    <input type=\"button\" *ngIf=\"canBeEdited\" value=\"Редактировать\" (click)=\"handleEdit($event)\" />\n    <input type=\"button\" *ngIf=\"canBeDeleted\" value=\"Удалить\" (click)=\"toggleAlert($event)\" />\n    <input type=\"button\" *ngIf=\"canCreateAlbum\" value=\"Создать альбом\" (click)=\"handleCreateAlbum($event)\" />\n    <input type=\"button\" *ngIf=\"canUploadVideo\" value=\"Загрузить видео\" (click)=\"handleUploadVideo($event)\" />\n  </div>\n  <div class=\"warning-alert\" *ngIf=\"isActivated && showAlret\">\n    <div class=\"text\"><span>Вы действительно хотите удалить элемент?</span></div>\n    <div class=\"buttons\">\n      <div class=\"inner\">\n        <input type=\"button\" value=\"Отмена\" (click)=\"closeControls($event)\" />\n        <input type=\"button\" value=\"Ок\" (click)=\"handleRemove($event)\" />\n      </div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -4793,8 +4958,12 @@ var AdminControlsComponent = /** @class */ (function () {
         this.canBeDeleted = true;
         this.canBeEdited = true;
         this.canBeCreated = true;
+        this.canCreateAlbum = false;
+        this.canUploadVideo = false;
         this.item = null;
         this.create = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.createAlbum = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.uploadVideo = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
         this.edit = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
         this.remove = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
         this.activatedControls = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
@@ -4803,14 +4972,14 @@ var AdminControlsComponent = /** @class */ (function () {
         var _this = this;
         if (this.route.snapshot.data.groups) {
             var g = this.route.snapshot.data.groups;
-            if (g && g.includes(src_app_constants_groups__WEBPACK_IMPORTED_MODULE_2__["groups"].administrator)) {
+            if (g && g.some(function (e) { return e === src_app_constants_groups__WEBPACK_IMPORTED_MODULE_2__["groups"].administrator; })) {
                 this.isShow = true;
             }
         }
         else {
             this.securityService.getCurrentUserGroups()
                 .subscribe(function (g) {
-                if (g && g.includes(src_app_constants_groups__WEBPACK_IMPORTED_MODULE_2__["groups"].administrator)) {
+                if (g && g.some(function (e) { return e === src_app_constants_groups__WEBPACK_IMPORTED_MODULE_2__["groups"].administrator; })) {
                     _this.isShow = true;
                 }
             });
@@ -4818,6 +4987,7 @@ var AdminControlsComponent = /** @class */ (function () {
     };
     AdminControlsComponent.prototype.mouseLeave = function () {
         this.isActivated = false;
+        this.activatedControls.emit(this.isActivated);
     };
     AdminControlsComponent.prototype.onClick = function (event) {
         if (this.isActivated &&
@@ -4829,6 +4999,16 @@ var AdminControlsComponent = /** @class */ (function () {
         event.stopPropagation();
         this.closeControls(event);
         this.create.emit();
+    };
+    AdminControlsComponent.prototype.handleCreateAlbum = function (event) {
+        event.stopPropagation();
+        this.closeControls(event);
+        this.createAlbum.emit();
+    };
+    AdminControlsComponent.prototype.handleUploadVideo = function (event) {
+        event.stopPropagation();
+        this.closeControls(event);
+        this.uploadVideo.emit();
     };
     AdminControlsComponent.prototype.handleEdit = function (event) {
         event.stopPropagation();
@@ -4881,12 +5061,28 @@ var AdminControlsComponent = /** @class */ (function () {
     ], AdminControlsComponent.prototype, "canBeCreated", void 0);
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Boolean)
+    ], AdminControlsComponent.prototype, "canCreateAlbum", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Boolean)
+    ], AdminControlsComponent.prototype, "canUploadVideo", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
         __metadata("design:type", Object)
     ], AdminControlsComponent.prototype, "item", void 0);
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])(),
         __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"])
     ], AdminControlsComponent.prototype, "create", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])(),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"])
+    ], AdminControlsComponent.prototype, "createAlbum", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])(),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"])
+    ], AdminControlsComponent.prototype, "uploadVideo", void 0);
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])(),
         __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"])
@@ -4934,7 +5130,7 @@ module.exports = "<input type=\"button\" [class.is-visible]=\"isVisible\" (click
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\ninput[type=\"button\"] {\n  -webkit-transform: scale(0);\n      -ms-transform: scale(0);\n          transform: scale(0);\n  padding: 0;\n  margin: 0;\n  border: 0;\n  background-color: #768692;\n  width: 80px;\n  height: 80px;\n  background-repeat: no-repeat;\n  background-position: center;\n  background-size: 90%;\n  background-image: url(\"/assets/icons/icon-big-arrow-left-white.svg\");\n  position: fixed;\n  right: 25px;\n  bottom: 25%;\n  z-index: 100; }\n\ninput[type=\"button\"]:hover {\n    background-color: #6b7984; }\n\ninput[type=\"button\"].is-visible {\n    -webkit-transform: scale(1) rotate(90deg);\n        -ms-transform: scale(1) rotate(90deg);\n            transform: scale(1) rotate(90deg); }\n"
+module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\ninput[type=\"button\"] {\n  -webkit-transform: scale(0);\n      -ms-transform: scale(0);\n          transform: scale(0);\n  padding: 0;\n  margin: 0;\n  border: 0;\n  background-color: #768692;\n  width: 50px;\n  height: 50px;\n  border-radius: 3px;\n  background-repeat: no-repeat;\n  background-position: center;\n  background-size: 60% auto;\n  background-image: url(\"/assets/icons/icon-big-arrow-left-white.svg\");\n  position: fixed;\n  right: 25px;\n  bottom: 25%;\n  z-index: 100; }\n\ninput[type=\"button\"]:hover {\n    background-color: #6b7984; }\n\ninput[type=\"button\"].is-visible {\n    -webkit-transform: scale(1) rotate(90deg);\n        -ms-transform: scale(1) rotate(90deg);\n            transform: scale(1) rotate(90deg); }\n"
 
 /***/ }),
 
@@ -5729,7 +5925,7 @@ var NgslCarouselItemDirective = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"ngsl-carousel\">\n  <div *ngIf=\"dots\" class=\"dots\" #dotsTrack>\n    <div\n      *ngFor=\"let item of dotsList; let i = index\"\n      class=\"ngsl-carousel-dot-directive dot\"\n      (click)=\"goToSlide(i)\"\n      [class.is-hidden]=\"!item.isVisible\"\n      [class.is-current-item]=\"currentSlide === i\"\n    >\n      <ng-container\n        *ngIf=\"item.isVisible\"\n        [ngTemplateOutlet]=\"item.tpl\"\n      ></ng-container>\n    </div>\n  </div>\n  <div class=\"slide\">\n    <div\n      class=\"content\"\n      [style.margin]=\"'0 -' + margin / 2 + 'px'\"\n      [class.no-elements]=\"currentSlide >= items.length\"\n    >\n      <div class=\"security-controls\" *ngIf=\"isControl\">\n        <ng-container [ngTemplateOutlet]=\"control.tpl\"></ng-container>\n      </div>\n      <div\n        *ngIf=\"arrows && items.length && items.length > perView\"\n        class=\"slide-arrows\"\n        [class.hide-arrows]=\"\n          currentSlide === items.length - 1 && !showArrowsLastElement\n        \"\n      >\n        <input\n          type=\"button\"\n          (click)=\"prev()\"\n          class=\"prev\"\n          [class.is-disabled]=\"!infinity && currentSlide === 0\"\n        />\n        <input\n          type=\"button\"\n          (click)=\"next()\"\n          class=\"next\"\n          [class.is-disabled]=\"!infinity && currentSlide === items.length - 1\"\n        />\n      </div>\n      <div\n        class=\"slide-track\"\n        #track\n        [ngStyle]=\"trackWidth\"\n        [class.is-up]=\"trackIsUp\"\n        [style.transform]=\"transformStyle\"\n        [style.transition]=\"animationStyle\"\n      >\n        <div *ngFor=\"let item of items\" class=\"ngsl-carousel-item-directive\">\n          <ng-container [ngTemplateOutlet]=\"item.tpl\"></ng-container>\n        </div>\n      </div>\n    </div>\n  </div>\n  <ng-content></ng-content>\n</div>\n"
+module.exports = "<div class=\"ngsl-carousel\">\n  <div *ngIf=\"dots && dotsList.length > 1\" class=\"dots\" #dotsTrack>\n    <div\n      *ngFor=\"let item of dotsList; let i = index\"\n      class=\"ngsl-carousel-dot-directive dot\"\n      (click)=\"goToSlide(i)\"\n      [class.is-hidden]=\"!item.isVisible\"\n      [class.is-current-item]=\"currentSlide === i\"\n    >\n      <ng-container\n        *ngIf=\"item.isVisible\"\n        [ngTemplateOutlet]=\"item.tpl\"\n      ></ng-container>\n    </div>\n  </div>\n  <div class=\"slide\">\n    <div\n      class=\"content\"\n      [style.margin]=\"'0 -' + margin / 2 + 'px'\"\n      [class.no-elements]=\"currentSlide >= items.length\"\n    >\n      <div class=\"security-controls\" *ngIf=\"isControl\">\n        <ng-container [ngTemplateOutlet]=\"control.tpl\"></ng-container>\n      </div>\n      <div\n        *ngIf=\"arrows && items.length && items.length > perView\"\n        class=\"slide-arrows\"\n        [class.hide-arrows]=\"\n          currentSlide === items.length - 1 && !showArrowsLastElement\n        \"\n      >\n        <input\n          type=\"button\"\n          (click)=\"prev()\"\n          class=\"prev\"\n          [class.is-disabled]=\"!infinity && currentSlide === 0\"\n        />\n        <input\n          type=\"button\"\n          (click)=\"next()\"\n          class=\"next\"\n          [class.is-disabled]=\"!infinity && currentSlide === items.length - 1\"\n        />\n      </div>\n      <div\n        class=\"slide-track\"\n        #track\n        [ngStyle]=\"trackWidth\"\n        [class.is-up]=\"trackIsUp\"\n        [style.transform]=\"transformStyle\"\n        [style.transition]=\"animationStyle\"\n      >\n        <div *ngFor=\"let item of items\" class=\"ngsl-carousel-item-directive\">\n          <ng-container [ngTemplateOutlet]=\"item.tpl\"></ng-container>\n        </div>\n      </div>\n    </div>\n  </div>\n  <ng-content></ng-content>\n</div>\n"
 
 /***/ }),
 
@@ -5740,7 +5936,7 @@ module.exports = "<div class=\"ngsl-carousel\">\n  <div *ngIf=\"dots\" class=\"d
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.ngsl-carousel {\n  overflow: hidden;\n  position: relative;\n  height: 100%; }\n\n.ngsl-carousel .dots {\n    position: absolute;\n    top: 30px;\n    right: 40px;\n    font-size: 0;\n    z-index: 8; }\n\n.ngsl-carousel .dots .dot {\n      display: inline-block;\n      vertical-align: middle;\n      width: 10px;\n      height: 10px;\n      border-radius: 100%;\n      background-color: #FFF;\n      box-sizing: border-box;\n      cursor: pointer; }\n\n.ngsl-carousel .dots .dot.is-hidden {\n        display: none; }\n\n.ngsl-carousel .dots .dot + .dot {\n        margin-left: 10px; }\n\n.ngsl-carousel .dots .dot.is-current-item {\n        width: 22px;\n        height: 22px;\n        position: relative;\n        border: 2px solid #fff;\n        background-color: transparent; }\n\n.ngsl-carousel:hover .security-controls {\n    display: block; }\n\n.security-controls {\n  display: none;\n  transition: 1s display; }\n\n.slide {\n  height: 100%; }\n\n.slide:hover .slide-arrows {\n    display: block; }\n\n.slide .content {\n    height: 100%; }\n\n.slide .content.no-elements {\n      background-position: center;\n      background-size: cover;\n      background-image: url(\"/assets/banners/no-banners.svg\"); }\n\n.slide-track {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-direction: row;\n      flex-direction: row;\n  -ms-flex-wrap: nowrap;\n      flex-wrap: nowrap;\n  height: 1px;\n  -webkit-animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);\n          animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);\n  will-change: transform;\n  min-height: 100%; }\n\n.slide-track.is-up {\n    position: relative; }\n\n.ngsl-carousel-item-directive {\n  width: 100%;\n  height: 100%;\n  position: relative; }\n\n.slide-arrows {\n  display: none; }\n\n.slide-arrows.hide-arrows {\n    display: none; }\n\n.slide-arrows input[type=\"button\"] {\n    padding: 0;\n    margin: 0;\n    border: 0;\n    min-width: 0;\n    background-color: transparent;\n    cursor: pointer;\n    z-index: 8;\n    position: absolute;\n    left: 0;\n    top: 50%;\n    -webkit-transform: translateY(-50%);\n        -ms-transform: translateY(-50%);\n            transform: translateY(-50%);\n    width: 40px;\n    height: 40px;\n    background-color: #050505;\n    opacity: .6;\n    border: 0;\n    cursor: pointer;\n    background-repeat: no-repeat;\n    background-position: center;\n    background-image: url(\"/assets/icons/icon-carousel-arrow-right-white.svg\"); }\n\n.slide-arrows input[type=\"button\"]:focus {\n      outline: none; }\n\n.slide-arrows input[type=\"button\"]:hover {\n      opacity: .9; }\n\n.slide-arrows input[type=\"button\"].is-disabled {\n      background-color: #C4BCB7; }\n\n.slide-arrows input[type=\"button\"].is-disabled:hover {\n        opacity: .7; }\n\n.slide-arrows input[type=\"button\"]:focus {\n      outline: none; }\n\n.slide-arrows input[type=\"button\"].prev {\n      -webkit-transform: translateY(-50%) rotate(-180deg);\n          -ms-transform: translateY(-50%) rotate(-180deg);\n              transform: translateY(-50%) rotate(-180deg); }\n\n.slide-arrows input[type=\"button\"].next {\n      left: auto;\n      right: 0; }\n"
+module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.ngsl-carousel {\n  overflow: hidden;\n  position: relative;\n  height: 100%; }\n\n.ngsl-carousel .dots {\n    position: absolute;\n    top: 30px;\n    right: 40px;\n    font-size: 0;\n    z-index: 8; }\n\n.ngsl-carousel .dots .dot {\n      display: inline-block;\n      vertical-align: middle;\n      width: 10px;\n      height: 10px;\n      border-radius: 100%;\n      background-color: #FFF;\n      box-sizing: border-box;\n      cursor: pointer; }\n\n.ngsl-carousel .dots .dot.is-hidden {\n        display: none; }\n\n.ngsl-carousel .dots .dot + .dot {\n        margin-left: 10px; }\n\n.ngsl-carousel .dots .dot.is-current-item {\n        width: 22px;\n        height: 22px;\n        position: relative;\n        border: 2px solid #fff;\n        background-color: transparent; }\n\n.ngsl-carousel:hover .security-controls {\n    display: block; }\n\n.security-controls {\n  display: none;\n  transition: 1s display; }\n\n.slide {\n  height: 100%; }\n\n.slide:hover .slide-arrows {\n    display: block; }\n\n.slide .content {\n    height: 100%; }\n\n.slide .content.no-elements {\n      background-position: center;\n      background-repeat: no-repeat;\n      background-size: cover;\n      background-image: url(\"/assets/banners/no-banners.svg\");\n      -o-object-fit: cover;\n         object-fit: cover;\n      background-color: #dedfe0; }\n\n.slide-track {\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-direction: row;\n      flex-direction: row;\n  -ms-flex-wrap: nowrap;\n      flex-wrap: nowrap;\n  height: 1px;\n  -webkit-animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);\n          animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);\n  will-change: transform;\n  min-height: 100%; }\n\n.slide-track.is-up {\n    position: relative; }\n\n.ngsl-carousel-item-directive {\n  width: 100%;\n  height: 100%;\n  position: relative; }\n\n.slide-arrows {\n  display: none; }\n\n.slide-arrows.hide-arrows {\n    display: none; }\n\n.slide-arrows input[type=\"button\"] {\n    padding: 0;\n    margin: 0;\n    border: 0;\n    min-width: 0;\n    background-color: transparent;\n    cursor: pointer;\n    z-index: 8;\n    position: absolute;\n    left: 0;\n    top: 50%;\n    -webkit-transform: translateY(-50%);\n        -ms-transform: translateY(-50%);\n            transform: translateY(-50%);\n    width: 40px;\n    height: 40px;\n    background-color: #050505;\n    opacity: .6;\n    border: 0;\n    cursor: pointer;\n    background-repeat: no-repeat;\n    background-position: center;\n    background-image: url(\"/assets/icons/icon-carousel-arrow-right-white.svg\"); }\n\n.slide-arrows input[type=\"button\"]:focus {\n      outline: none; }\n\n.slide-arrows input[type=\"button\"]:hover {\n      opacity: .9; }\n\n.slide-arrows input[type=\"button\"].is-disabled {\n      background-color: #C4BCB7; }\n\n.slide-arrows input[type=\"button\"].is-disabled:hover {\n        opacity: .7; }\n\n.slide-arrows input[type=\"button\"]:focus {\n      outline: none; }\n\n.slide-arrows input[type=\"button\"].prev {\n      -webkit-transform: translateY(-50%) rotate(-180deg);\n          -ms-transform: translateY(-50%) rotate(-180deg);\n              transform: translateY(-50%) rotate(-180deg); }\n\n.slide-arrows input[type=\"button\"].next {\n      left: auto;\n      right: 0; }\n"
 
 /***/ }),
 
@@ -6552,6 +6748,7 @@ var RadioGroupComponent = /** @class */ (function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NotificationsService", function() { return NotificationsService; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -6562,29 +6759,35 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
 var NotificationsService = /** @class */ (function () {
-    function NotificationsService() {
+    function NotificationsService(toastr) {
+        this.toastr = toastr;
     }
     NotificationsService.prototype.info = function (message, title) {
-        notify(message, title || 'Информация', 'info');
+        // notify(message, title || 'Информация', 'info');
+        this.toastr.info(message, title || 'Информация');
     };
     NotificationsService.prototype.warning = function (message, title) {
-        notify(message, title || 'Предупреждение', 'warning');
+        // notify(message, title || 'Предупреждение', 'warning');
+        this.toastr.warning(message, title || 'Предупреждение');
     };
     NotificationsService.prototype.error = function (message, error, title) {
-        notify(message, title || 'Ошибка', 'error');
+        // notify(message, title || 'Ошибка', 'error');
+        this.toastr.error(message, title || 'Ошибка');
         if (error) {
             console.log(error);
         }
     };
     NotificationsService.prototype.success = function (message, title) {
-        notify(message, title || 'Успешно', 'success');
+        // notify(message, title || 'Успешно', 'success');
+        this.toastr.success(message, title || 'Успешно');
     };
     NotificationsService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
             providedIn: 'root'
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [ngx_toastr__WEBPACK_IMPORTED_MODULE_1__["ToastrService"]])
     ], NotificationsService);
     return NotificationsService;
 }());
@@ -6788,12 +6991,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _iframe_video_iframe_video_pipe_transform__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./iframe-video/iframe-video.pipe-transform */ "./src/app/shared/iframe-video/iframe-video.pipe-transform.ts");
 /* harmony import */ var _sp_user_sp_user_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./sp-user/sp-user.component */ "./src/app/shared/sp-user/sp-user.component.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var _skeleton_loading_skeleton_loading_component__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./skeleton-loading/skeleton-loading.component */ "./src/app/shared/skeleton-loading/skeleton-loading.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
 
 
 
@@ -6863,12 +7070,14 @@ var SharedModule = /** @class */ (function () {
                 _tree_menu_tree_menu_node_tree_menu_node_component__WEBPACK_IMPORTED_MODULE_25__["TreeMenuNodeComponent"],
                 _user_thumb_user_thumb_component__WEBPACK_IMPORTED_MODULE_26__["UserThumbComponent"],
                 _iframe_video_iframe_video_pipe_transform__WEBPACK_IMPORTED_MODULE_30__["IFrameVideoPipe"],
-                _sp_user_sp_user_component__WEBPACK_IMPORTED_MODULE_31__["SpUserComponent"]
+                _sp_user_sp_user_component__WEBPACK_IMPORTED_MODULE_31__["SpUserComponent"],
+                _skeleton_loading_skeleton_loading_component__WEBPACK_IMPORTED_MODULE_33__["SkeletonLoadingComponent"]
             ],
             imports: [
                 _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_28__["FormsModule"],
-                _angular_router__WEBPACK_IMPORTED_MODULE_29__["RouterModule"]
+                _angular_router__WEBPACK_IMPORTED_MODULE_29__["RouterModule"],
+                ngx_toastr__WEBPACK_IMPORTED_MODULE_32__["ToastrModule"].forRoot({ positionClass: 'toast-top-right-with-padding' }) // ToastrModule added
             ],
             exports: [
                 _admin_controls_admin_controls_component__WEBPACK_IMPORTED_MODULE_2__["AdminControlsComponent"],
@@ -6902,11 +7111,83 @@ var SharedModule = /** @class */ (function () {
                 _tree_menu_tree_menu_node_tree_menu_node_component__WEBPACK_IMPORTED_MODULE_25__["TreeMenuNodeComponent"],
                 _user_thumb_user_thumb_component__WEBPACK_IMPORTED_MODULE_26__["UserThumbComponent"],
                 _iframe_video_iframe_video_pipe_transform__WEBPACK_IMPORTED_MODULE_30__["IFrameVideoPipe"],
-                _sp_user_sp_user_component__WEBPACK_IMPORTED_MODULE_31__["SpUserComponent"]
+                _sp_user_sp_user_component__WEBPACK_IMPORTED_MODULE_31__["SpUserComponent"],
+                _skeleton_loading_skeleton_loading_component__WEBPACK_IMPORTED_MODULE_33__["SkeletonLoadingComponent"]
             ]
         })
     ], SharedModule);
     return SharedModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shared/skeleton-loading/skeleton-loading.component.html":
+/*!*************************************************************************!*\
+  !*** ./src/app/shared/skeleton-loading/skeleton-loading.component.html ***!
+  \*************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"loading\">\n  <div class=\"container\" [ngSwitch]=\"module\">\n    <ng-container *ngSwitchCase=\"'services'\">\n      <div class=\"block\" *ngFor=\"let item of getArray(10)\">\n        <div class=\"content pulse\"></div>\n      </div>\n    </ng-container>\n    <ng-container *ngSwitchCase=\"'banners'\">\n      <div class=\"banner\">\n        <div class=\"lines\">\n          <div class=\"line pulse\"></div>\n          <div class=\"line pulse\"></div>\n        </div>\n        <div class=\"lines\">\n          <div class=\"line pulse\"></div>\n          <div class=\"line pulse\"></div>\n          <div class=\"line pulse\"></div>\n        </div>\n        <div class=\"button pulse\"></div>\n      </div>\n    </ng-container>\n    <ng-container *ngSwitchDefault>\n      <div class=\"block\">\n        <div class=\"content\"></div>\n      </div>\n    </ng-container>\n  </div>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/shared/skeleton-loading/skeleton-loading.component.scss":
+/*!*************************************************************************!*\
+  !*** ./src/app/shared/skeleton-loading/skeleton-loading.component.scss ***!
+  \*************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.pulse {\n  background: linear-gradient(-90deg, #efefef 0%, #fcfcfc 50%, #efefef 100%);\n  background-size: 400% 400%;\n  -webkit-animation: pulse 2s ease-in-out infinite;\n          animation: pulse 2s ease-in-out infinite; }\n\n@-webkit-keyframes pulse {\n  0% {\n    background-position: 0% 0%; }\n  100% {\n    background-position: -135% 0%; } }\n\n@keyframes pulse {\n  0% {\n    background-position: 0% 0%; }\n  100% {\n    background-position: -135% 0%; } }\n\n.loading {\n  border: 3px solid #efefef;\n  border-radius: 3px;\n  background-color: #fff;\n  padding: 15px;\n  height: 100%;\n  box-sizing: border-box; }\n\n.loading .container {\n    margin: 0 -5px;\n    font-size: 0; }\n\n.loading .container .block {\n      width: 50%;\n      display: inline-block;\n      vertical-align: top;\n      padding: 0 5px;\n      box-sizing: border-box;\n      position: relative;\n      margin-bottom: 10px; }\n\n.loading .container .block:before {\n        display: block;\n        content: \" \";\n        width: 100%;\n        padding-bottom: 100%; }\n\n.loading .container .block > .content {\n        position: absolute;\n        top: 0;\n        left: 0;\n        right: 0;\n        bottom: 0; }\n\n.loading .container .block .content {\n        left: 5px;\n        right: 5px;\n        background-color: #e7edf1; }\n\n.banner {\n  height: 100%;\n  padding: 25px;\n  box-sizing: border-box; }\n\n.lines + .lines {\n  margin-top: 15px; }\n\n.lines + .button {\n  margin-top: 25px; }\n\n.line {\n  height: 16px;\n  width: 45%;\n  border-radius: 1px; }\n\n.line + .line {\n    width: 55%;\n    margin-top: 5px; }\n\n.line + .line + .line {\n      width: 65%; }\n\n.button {\n  width: 120px;\n  height: 50px;\n  border-radius: 1px; }\n"
+
+/***/ }),
+
+/***/ "./src/app/shared/skeleton-loading/skeleton-loading.component.ts":
+/*!***********************************************************************!*\
+  !*** ./src/app/shared/skeleton-loading/skeleton-loading.component.ts ***!
+  \***********************************************************************/
+/*! exports provided: SkeletonLoadingComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SkeletonLoadingComponent", function() { return SkeletonLoadingComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var SkeletonLoadingComponent = /** @class */ (function () {
+    function SkeletonLoadingComponent() {
+        this.module = 'default';
+    }
+    SkeletonLoadingComponent.prototype.getArray = function (i) {
+        return new Array(i);
+    };
+    SkeletonLoadingComponent.prototype.ngOnInit = function () {
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", String)
+    ], SkeletonLoadingComponent.prototype, "module", void 0);
+    SkeletonLoadingComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-skeleton-loading',
+            template: __webpack_require__(/*! ./skeleton-loading.component.html */ "./src/app/shared/skeleton-loading/skeleton-loading.component.html"),
+            styles: [__webpack_require__(/*! ./skeleton-loading.component.scss */ "./src/app/shared/skeleton-loading/skeleton-loading.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], SkeletonLoadingComponent);
+    return SkeletonLoadingComponent;
 }());
 
 
@@ -6931,7 +7212,7 @@ module.exports = "<!-- <input type=\"search\" appAutoFocus placeholder=\"Вве�
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ":host ::ng-deep div[theme=master],\n:host ::ng-deep div[theme=new-master] {\n  margin-bottom: 40px; }\n  :host ::ng-deep div[theme=master] .sp-peoplepicker-topLevel,\n  :host ::ng-deep div[theme=new-master] .sp-peoplepicker-topLevel {\n    min-height: 45px;\n    font-size: 18px;\n    padding: 10px 20px;\n    box-sizing: border-box;\n    color: #898888;\n    border: none; }\n  :host ::ng-deep div[theme=master] .sp-peoplepicker-topLevel span,\n    :host ::ng-deep div[theme=new-master] .sp-peoplepicker-topLevel span {\n      top: 12px;\n      left: 20px; }\n  :host ::ng-deep div[theme=master] .sp-peoplepicker-topLevel .sp-peoplepicker-editorInput,\n    :host ::ng-deep div[theme=new-master] .sp-peoplepicker-topLevel .sp-peoplepicker-editorInput {\n      height: 25px;\n      margin-left: 0px; }\n  :host ::ng-deep div[theme=new-master] {\n  border: 1px solid #CCCCCC; }\n  :host ::ng-deep div[theme=booking-modal] .sp-peoplepicker-topLevel {\n  min-height: 30px;\n  padding-top: 7px;\n  padding-bottom: 6px;\n  border-radius: 3px;\n  border-color: #d1d1d1; }\n  :host ::ng-deep div[theme=booking-modal] .sp-peoplepicker-initialHelpText {\n  top: 7px; }\n"
+module.exports = ":host ::ng-deep div[theme=master],\n:host ::ng-deep div[theme=new-master] {\n  margin-bottom: 40px; }\n  :host ::ng-deep div[theme=master] .sp-peoplepicker-topLevel,\n  :host ::ng-deep div[theme=new-master] .sp-peoplepicker-topLevel {\n    min-height: 45px;\n    font-size: 18px;\n    padding: 10px 20px;\n    box-sizing: border-box;\n    color: #898888;\n    border: none; }\n  :host ::ng-deep div[theme=master] .sp-peoplepicker-topLevel span,\n    :host ::ng-deep div[theme=new-master] .sp-peoplepicker-topLevel span {\n      top: 12px;\n      left: 20px; }\n  :host ::ng-deep div[theme=master] .sp-peoplepicker-topLevel .sp-peoplepicker-editorInput,\n    :host ::ng-deep div[theme=new-master] .sp-peoplepicker-topLevel .sp-peoplepicker-editorInput {\n      height: 25px;\n      margin-left: 0px; }\n  :host ::ng-deep div[theme=new-master] {\n  border: 1px solid #CCCCCC; }\n  :host ::ng-deep div[theme=booking-modal] .sp-peoplepicker-topLevel {\n  min-height: 30px;\n  padding-top: 7px;\n  padding-bottom: 6px;\n  border-radius: 3px;\n  border-color: #d1d1d1; }\n  :host ::ng-deep div[theme=booking-modal] .sp-peoplepicker-initialHelpText {\n  top: 7px; }\n  :host ::ng-deep div[theme=disabled]:after {\n  content: \"\";\n  display: block;\n  position: absolute;\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100%;\n  background-color: #fdfdfd;\n  opacity: 0.5; }\n"
 
 /***/ }),
 
@@ -7456,7 +7737,7 @@ var TileComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"parent\" #parentElement *ngFor=\"let item of trees\">\n  <div class=\"title\" #titleElement (click)=\"selectItem(titleElement, item.value)\">\n    <a>{{item.value.title}}</a>\n  </div>\n  <div class=\"child-group\" *ngIf='item.childrens'>\n    <app-tree-menu-node #recurciveElement [trees]=\"item.childrens\"></app-tree-menu-node>\n  </div>\n  <div class=\"button\" (click)=\"toggleChildren(parentElement)\"></div>\n</div>\n"
+module.exports = "<div\n  class=\"parent\"\n  #parentElement\n  *ngFor=\"let item of trees\"\n  [class.is-expanded]=\"item.isExpanded\"\n>\n  <div\n    class=\"title\"\n    #titleElement\n    [class.is-current-item]=\"departmentId === item.value.id\"\n    (click)=\"selectItem(titleElement, item.value)\"\n  >\n    <a>{{ item.value.title }}</a>\n  </div>\n  <div class=\"child-group\" *ngIf=\"item.childrens\">\n    <app-tree-menu-node\n      #recurciveElement\n      [departmentId]=\"departmentId\"\n      [trees]=\"item.childrens\"\n    ></app-tree-menu-node>\n  </div>\n  <div\n    class=\"button\"\n    [class.disabled]=\"item.childrens.length === 0\"\n    (click)=\"toggleChildren(parentElement, item)\"\n  ></div>\n</div>\n"
 
 /***/ }),
 
@@ -7467,7 +7748,7 @@ module.exports = "<div class=\"parent\" #parentElement *ngFor=\"let item of tree
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "@charset \"UTF-8\";\n> .child-group {\n  display: block !important; }\n.parent {\n  position: relative;\n  padding-left: 25px;\n  padding-bottom: 0;\n  margin-left: 15px;\n  float: left;\n  clear: both; }\n.parent:before, .parent:after {\n    content: '';\n    position: absolute;\n    left: -1px;\n    width: 1px;\n    background: #88969E; }\n.parent:before {\n    top: 0;\n    height: 17px; }\n.parent:after {\n    top: 17px;\n    bottom: 0; }\n.parent:last-of-type:after, .parent:first-of-type:before {\n    background: none; }\n> .parent:before {\n  display: none; }\n.title {\n  position: relative;\n  display: inline-block;\n  vertical-align: middle;\n  margin: 7px 0;\n  line-height: 20px;\n  padding-right: 20px;\n  font-size: 16px;\n  color: #050505;\n  /*Стиль для выбранного элемента в дереве иерархии*/ }\n.title.is-current-item {\n    color: #dd1e25; }\n.title.is-current-item a {\n      color: #dd1e25; }\n.title > .counter {\n    display: inline-block;\n    margin-left: 5px;\n    border-radius: 20px;\n    border: 1px solid #ee2a24;\n    padding: 0 5px;\n    font-size: 10px;\n    color: #444;\n    line-height: 14px;\n    box-sizing: border-box;\n    min-width: 16px;\n    text-align: center; }\n.title a {\n    color: #000;\n    border: 1px solid transparent;\n    border-left: 0;\n    border-right: 0;\n    text-decoration: none !important;\n    cursor: pointer; }\n.is-active-item > .title a, .title a:hover {\n      color: #dd1e25; }\n.title .controls {\n    display: none;\n    position: absolute;\n    top: 50%;\n    margin-top: -41px;\n    left: 100%;\n    box-sizing: border-box;\n    background-color: #fff;\n    border: 1px solid #e60028;\n    border-radius: 0;\n    z-index: 1000; }\n.title .controls:before, .title .controls:after {\n      content: '';\n      position: absolute;\n      top: 50%;\n      margin-top: -10px;\n      left: -11px;\n      width: 0;\n      height: 0;\n      border-style: solid;\n      border-width: 10px 10px 10px 0;\n      border-color: transparent #e60028 transparent transparent; }\n.title .controls:after {\n      left: -10px;\n      border-color: transparent #fff transparent transparent; }\n.title .controls b {\n      cursor: pointer;\n      display: inline-block;\n      width: 100%;\n      white-space: nowrap;\n      font-weight: normal;\n      display: inline-block;\n      padding: 3px 10px;\n      box-sizing: border-box; }\n.title .controls b:hover {\n        color: #fff;\n        background-color: #999; }\n.title:hover > .controls {\n    display: block; }\n.title.tree-selected a {\n    font-weight: bold;\n    border-bottom-color: #000; }\n.child-group {\n  display: none; }\n.child-group:after {\n    content: '';\n    display: block;\n    clear: both; }\n.is-expanded > .child-group {\n  display: block; }\n.button {\n  position: absolute;\n  top: 17px;\n  left: -5px;\n  bottom: 0;\n  margin-top: -5px;\n  height: 9px;\n  width: 9px;\n  z-index: 1;\n  border-radius: 100%;\n  background-color: #fff;\n  border: 1px solid #95989a;\n  box-sizing: border-box; }\n.button[onclick] {\n    cursor: pointer; }\n.button input[type='button'] {\n    position: relative;\n    z-index: 100;\n    cursor: pointer;\n    width: 100%;\n    height: 100%;\n    padding: 0;\n    margin: 0;\n    border: 0;\n    background: none;\n    min-width: 0;\n    vertical-align: top; }\n.child-group + .button {\n  left: -10px;\n  margin-top: -10px;\n  height: 19px;\n  width: 19px;\n  border-radius: 0;\n  border: 1px solid #BABABA; }\n.child-group + .button:before, .child-group + .button:after {\n    content: '';\n    display: inline-block;\n    position: absolute;\n    background-color: #050505; }\n.child-group + .button:before {\n    top: 9px;\n    left: 3px;\n    right: 3px;\n    height: 1px;\n    margin-top: -1px; }\n.child-group + .button:after {\n    top: 3px;\n    bottom: 3px;\n    width: 1px;\n    left: 9px;\n    margin-left: -1px; }\n.is-expanded > .button:after {\n  display: none; }\n"
+module.exports = "@charset \"UTF-8\";\n> .child-group {\n  display: block !important; }\n.parent {\n  position: relative;\n  padding-left: 25px;\n  padding-bottom: 0;\n  margin-left: 15px;\n  float: left;\n  clear: both; }\n.parent:before, .parent:after {\n    content: '';\n    position: absolute;\n    left: -1px;\n    width: 1px;\n    background: #88969E; }\n.parent:before {\n    top: 0;\n    height: 17px; }\n.parent:after {\n    top: 17px;\n    bottom: 0; }\n.parent:last-of-type:after, .parent:first-of-type:before {\n    background: none; }\n> .parent:before {\n  display: none; }\n.title {\n  position: relative;\n  display: inline-block;\n  vertical-align: middle;\n  margin: 7px 0;\n  line-height: 20px;\n  padding-right: 20px;\n  font-size: 16px;\n  color: #050505;\n  /*Стиль для выбранного элемента в дереве иерархии*/ }\n.title.is-current-item {\n    color: #dd1e25; }\n.title.is-current-item a {\n      color: #dd1e25; }\n.title > .counter {\n    display: inline-block;\n    margin-left: 5px;\n    border-radius: 20px;\n    border: 1px solid #ee2a24;\n    padding: 0 5px;\n    font-size: 10px;\n    color: #444;\n    line-height: 14px;\n    box-sizing: border-box;\n    min-width: 16px;\n    text-align: center; }\n.title a {\n    color: #000;\n    border: 1px solid transparent;\n    border-left: 0;\n    border-right: 0;\n    text-decoration: none !important;\n    cursor: pointer; }\n.is-active-item > .title a, .title a:hover {\n      color: #dd1e25; }\n.title .controls {\n    display: none;\n    position: absolute;\n    top: 50%;\n    margin-top: -41px;\n    left: 100%;\n    box-sizing: border-box;\n    background-color: #fff;\n    border: 1px solid #e60028;\n    border-radius: 0;\n    z-index: 1000; }\n.title .controls:before, .title .controls:after {\n      content: '';\n      position: absolute;\n      top: 50%;\n      margin-top: -10px;\n      left: -11px;\n      width: 0;\n      height: 0;\n      border-style: solid;\n      border-width: 10px 10px 10px 0;\n      border-color: transparent #e60028 transparent transparent; }\n.title .controls:after {\n      left: -10px;\n      border-color: transparent #fff transparent transparent; }\n.title .controls b {\n      cursor: pointer;\n      display: inline-block;\n      width: 100%;\n      white-space: nowrap;\n      font-weight: normal;\n      display: inline-block;\n      padding: 3px 10px;\n      box-sizing: border-box; }\n.title .controls b:hover {\n        color: #fff;\n        background-color: #999; }\n.title:hover > .controls {\n    display: block; }\n.title.tree-selected a {\n    font-weight: bold;\n    border-bottom-color: #000; }\n.child-group {\n  display: none; }\n.child-group:after {\n    content: '';\n    display: block;\n    clear: both; }\n.is-expanded > .child-group {\n  display: block; }\n.button {\n  position: absolute;\n  top: 17px;\n  left: -5px;\n  bottom: 0;\n  margin-top: -5px;\n  height: 9px;\n  width: 9px;\n  z-index: 1;\n  border-radius: 100%;\n  background-color: #fff;\n  border: 1px solid #95989a;\n  box-sizing: border-box; }\n.button.disabled:before, .button.disabled:after {\n    background-color: #BABABA !important; }\n.button[onclick] {\n    cursor: pointer; }\n.button input[type='button'] {\n    position: relative;\n    z-index: 100;\n    cursor: pointer;\n    width: 100%;\n    height: 100%;\n    padding: 0;\n    margin: 0;\n    border: 0;\n    background: none;\n    min-width: 0;\n    vertical-align: top; }\n.child-group + .button {\n  left: -10px;\n  margin-top: -10px;\n  height: 19px;\n  width: 19px;\n  border-radius: 0;\n  border: 1px solid #BABABA; }\n.child-group + .button:before, .child-group + .button:after {\n    content: '';\n    display: inline-block;\n    position: absolute;\n    background-color: #050505; }\n.child-group + .button:before {\n    top: 9px;\n    left: 3px;\n    right: 3px;\n    height: 1px;\n    margin-top: -1px; }\n.child-group + .button:after {\n    top: 3px;\n    bottom: 3px;\n    width: 1px;\n    left: 9px;\n    margin-left: -1px; }\n.is-expanded > .button:after {\n  display: none; }\n"
 
 /***/ }),
 
@@ -7493,15 +7774,16 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 var TreeMenuNodeComponent = /** @class */ (function () {
-    function TreeMenuNodeComponent() {
+    function TreeMenuNodeComponent(element) {
+        this.element = element;
         this.parentElement = null;
         this.change = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
         // Дефолтное значение, елси на вход нет елементов, в качестве примера
         this.trees = [];
+        this.departmentId = null;
     }
     TreeMenuNodeComponent_1 = TreeMenuNodeComponent;
-    TreeMenuNodeComponent.prototype.ngOnInit = function () {
-    };
+    TreeMenuNodeComponent.prototype.ngOnInit = function () { };
     TreeMenuNodeComponent.prototype.ngAfterViewInit = function () {
         var _this = this;
         this.treeElements.forEach(function (element) {
@@ -7534,7 +7816,10 @@ var TreeMenuNodeComponent = /** @class */ (function () {
             root.change.emit(item);
         }
     };
-    TreeMenuNodeComponent.prototype.toggleChildren = function (parent) {
+    TreeMenuNodeComponent.prototype.toggleChildren = function (parent, item) {
+        if (item.childrens.length === 0) {
+            return false;
+        }
         if (!parent.classList.contains('is-expanded')) {
             this.collapseExpandedChildren(this);
             parent.className += ' is-expanded';
@@ -7571,13 +7856,17 @@ var TreeMenuNodeComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
         __metadata("design:type", Array)
     ], TreeMenuNodeComponent.prototype, "trees", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Number)
+    ], TreeMenuNodeComponent.prototype, "departmentId", void 0);
     TreeMenuNodeComponent = TreeMenuNodeComponent_1 = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-tree-menu-node',
             template: __webpack_require__(/*! ./tree-menu-node.component.html */ "./src/app/shared/tree-menu/tree-menu-node/tree-menu-node.component.html"),
             styles: [__webpack_require__(/*! ./tree-menu-node.component.scss */ "./src/app/shared/tree-menu/tree-menu-node/tree-menu-node.component.scss")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"]])
     ], TreeMenuNodeComponent);
     return TreeMenuNodeComponent;
 }());
@@ -7593,7 +7882,7 @@ var TreeMenuNodeComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<app-tree-menu-node #treeRootElement (change)=\"select($event)\" [trees]=\"trees\"></app-tree-menu-node>\n"
+module.exports = "<app-tree-menu-node\n  #treeRootElement\n  (change)=\"select($event)\"\n  [departmentId]=\"departmentId\"\n  [trees]=\"trees\"\n></app-tree-menu-node>\n"
 
 /***/ }),
 
@@ -7636,7 +7925,10 @@ var TreeMenuComponent = /** @class */ (function () {
         this.change = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
         // Дефолтное значение, елси на вход нет елементов, в качестве примера
         this.items = [];
+        this.departmentId = null;
         this.trees = [];
+        this.roots = [];
+        this.lastParentId = null;
     }
     TreeMenuComponent.prototype.ngOnInit = function () {
         this.trees = this.getTreeOfArray(this.items);
@@ -7647,10 +7939,13 @@ var TreeMenuComponent = /** @class */ (function () {
     TreeMenuComponent.prototype.getTreeOfArray = function (items) {
         var nodes = [];
         var map = {};
-        var roots = [];
         for (var i = 0; i < items.length; i += 1) {
-            var node = { value: items[i], childrens: [] };
+            var node = { isExpanded: false, value: items[i], childrens: [] };
             map[node.value.id] = i;
+            if (node.value.id === this.departmentId) {
+                node.isExpanded = true;
+                this.expandNodes(nodes, node.value.parentId);
+            }
             nodes.push(node);
         }
         for (var i = 0; i < nodes.length; i += 1) {
@@ -7659,10 +7954,27 @@ var TreeMenuComponent = /** @class */ (function () {
                 nodes[map[node.value.parentId]].childrens.push(node);
             }
             else {
-                roots.push(node);
+                this.roots.push(node);
             }
         }
-        return roots;
+        this.expandRoot();
+        return this.roots;
+    };
+    TreeMenuComponent.prototype.expandNodes = function (nodes, id) {
+        var node = nodes.filter(function (n) { return n.value.id === id; })[0];
+        this.lastParentId = id;
+        if (node) {
+            node.isExpanded = true;
+            this.lastParentId = node.value.parentId;
+            this.expandNodes(nodes, node.value.parentId);
+        }
+    };
+    TreeMenuComponent.prototype.expandRoot = function () {
+        var _this = this;
+        var root = this.roots.filter(function (n) { return n.value.id === _this.lastParentId; })[0];
+        if (root) {
+            root.isExpanded = true;
+        }
     };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])(),
@@ -7676,6 +7988,10 @@ var TreeMenuComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
         __metadata("design:type", Array)
     ], TreeMenuComponent.prototype, "items", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Number)
+    ], TreeMenuComponent.prototype, "departmentId", void 0);
     TreeMenuComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-tree-menu',
@@ -7749,7 +8065,7 @@ var UserThumbComponent = /** @class */ (function () {
         this.photo = null;
         this.width = '56px';
         this.height = '56px';
-        this.showStatus = true;
+        this.showStatus = false;
         this.active = true;
         this.hasZoom = false;
         this.hasModalPhoto = false;
@@ -8334,6 +8650,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_services_list_items_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/list-items-service */ "./src/app/services/list-items-service.ts");
 /* harmony import */ var src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/sharepoint/sharepoint.service */ "./src/app/services/sharepoint/sharepoint.service.ts");
 /* harmony import */ var _employees_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./employees.service */ "./src/app/staff/services/employees/employees.service.ts");
+/* harmony import */ var src_app_shared_services_notifications_notifications_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/shared/services/notifications/notifications.service */ "./src/app/shared/services/notifications/notifications.service.ts");
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -8362,17 +8679,25 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var SpEmployeesService = /** @class */ (function (_super) {
     __extends(SpEmployeesService, _super);
-    function SpEmployeesService(sharepointService, employeesService) {
+    function SpEmployeesService(sharepointService, employeesService, notificationsService) {
         var _this = _super.call(this) || this;
         _this.sharepointService = sharepointService;
         _this.employeesService = employeesService;
+        _this.notificationsService = notificationsService;
         return _this;
     }
     SpEmployeesService.prototype.getPagedByMonthBirthday = function (month) {
         return this.getItemsPaged({
             filter: "slBirthdayMonth eq " + month,
+            orderBy: [['slBirthdayDay', true], ['slFullName', true]]
+        });
+    };
+    SpEmployeesService.prototype.getPagedByRange = function (startMonthNumber, endMonthNumber, startDayNumber, endDayNumber) {
+        return this.getItemsPaged({
+            filter: "(slBirthdayDay ge " + startDayNumber + " and slBirthdayDay le " + endDayNumber + ")\n        and (slBirthdayMonth ge " + startMonthNumber + " and slBirthdayMonth le " + endMonthNumber + ")",
             orderBy: [['slBirthdayDay', true], ['slFullName', true]]
         });
     };
@@ -8479,15 +8804,25 @@ var SpEmployeesService = /** @class */ (function (_super) {
         throw new Error('Method not implemented.');
     };
     SpEmployeesService.prototype.getCurrentEmployee = function () {
+        var _this = this;
         return this.getItems({
             filter: "slLogin eq '" + this.sharepointService.getCurrentUserContext().userLoginName + "'",
             top: 1
-        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (employees) { return employees.length > 0 ? employees[0] : null; }));
+        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (employees) {
+            var employee = null;
+            if (employees.length > 0) {
+                employee = employees[0];
+            }
+            else {
+                _this.notificationsService.warning("\u041F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044C \u0441 \u043B\u043E\u0433\u0438\u043D\u043E\u043C \"" + _this.sharepointService.getCurrentUserContext().userLoginName + "\" \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D \u0432 \u0441\u0438\u0441\u0442\u0435\u043C\u0435", 'Не найден текущий пользователь');
+            }
+            return employee;
+        }));
     };
     SpEmployeesService.prototype.search = function (searchText, departmentId, isFavorite, size, page) {
         var filter = null;
         if (departmentId != null) {
-            filter = "substringof(' " + departmentId + " ',slStructureIds)";
+            filter = "substringof('" + departmentId + "', slStructureIds)";
         }
         var employees = '';
         if (searchText != null && searchText !== '') {
@@ -8534,7 +8869,8 @@ var SpEmployeesService = /** @class */ (function (_super) {
     SpEmployeesService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
         __metadata("design:paramtypes", [src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_4__["SharepointService"],
-            _employees_service__WEBPACK_IMPORTED_MODULE_5__["EmployeesService"]])
+            _employees_service__WEBPACK_IMPORTED_MODULE_5__["EmployeesService"],
+            src_app_shared_services_notifications_notifications_service__WEBPACK_IMPORTED_MODULE_6__["NotificationsService"]])
     ], SpEmployeesService);
     return SpEmployeesService;
 }(src_app_services_list_items_service__WEBPACK_IMPORTED_MODULE_3__["ListItemsService"]));
@@ -8670,6 +9006,32 @@ var WsEmployeesService = /** @class */ (function () {
             var items = [];
             response.forEach(function (e) { return items.push(_this.convertListItemToEntity(e)); });
             return { items: items, hasNext: false, getNext: function () { return _this.getPagedByMonthBirthday(month, index + 1, size); } };
+        }));
+    };
+    WsEmployeesService.prototype.getPagedByRange = function (startMonthNumber, endMonthNumber, startDayNumber, endDayNumber, index, size) {
+        var _this = this;
+        if (index == null) {
+            index = 1;
+        }
+        return this.http.get(this.msalSettingsService.getEmployeesByMonthBirthdayUrl(), {
+            params: {
+                'StartMonthNumber': startMonthNumber.toString(),
+                'EndMonthNumber': endMonthNumber.toString(),
+                'StartDayNumber': startDayNumber.toString(),
+                'EndDayNumber': endDayNumber.toString(),
+                'DepartmentId': null,
+                'PageIndex': index.toString(),
+                'PageSize': (size && size.toString()) || this.size.toString()
+            },
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + this.adalSettingsService.getToken(),
+                'SharePointUrl': this.msalSettingsService.getPortalUrl(),
+            },
+        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) {
+            var items = [];
+            response.forEach(function (e) { return items.push(_this.convertListItemToEntity(e)); });
+            return { items: items, hasNext: false, getNext: function () { return _this.getPagedByRange(startMonthNumber, endMonthNumber, startDayNumber, endDayNumber, index + 1, size); } };
         }));
     };
     WsEmployeesService.prototype.addFavorite = function (id) {
@@ -8858,6 +9220,9 @@ var MsalSettingsService = /** @class */ (function () {
     MsalSettingsService.prototype.getEmployeesByMonthBirthdayUrl = function () {
         return this.staffUrl + "/V1/BirthDays/GetByMonth";
     };
+    MsalSettingsService.prototype.getEmployeesByRange = function () {
+        return this.staffUrl + "/V1/BirthDays/GetByRange";
+    };
     MsalSettingsService.prototype.getEmployeesBySearch = function () {
         return this.staffUrl + "/V1/Employees/Search";
     };
@@ -8914,6 +9279,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_departments_ws_departments_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./services/departments/ws-departments.service */ "./src/app/staff/services/departments/ws-departments.service.ts");
 /* harmony import */ var _services_departments_sp_departments_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./services/departments/sp-departments.service */ "./src/app/staff/services/departments/sp-departments.service.ts");
 /* harmony import */ var _services_adal_settings_adal_settings_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./services/adal-settings/adal-settings.service */ "./src/app/staff/services/adal-settings/adal-settings.service.ts");
+/* harmony import */ var _shared_services_notifications_notifications_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../shared/services/notifications/notifications.service */ "./src/app/shared/services/notifications/notifications.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8925,6 +9291,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 // import { MSAL_CONFIG, MsalService } from '@azure/msal-angular/dist/msal.service';
 // import { MsalInterceptor, MsalModule } from '@azure/msal-angular';
+
 
 
 
@@ -8973,12 +9340,12 @@ var StaffModule = /** @class */ (function () {
                 // },
                 {
                     provide: 'EmployeesFactory',
-                    useFactory: function (msalSettingsService, http, employeesService, sharepointService, adalSettingsService) {
+                    useFactory: function (msalSettingsService, http, employeesService, sharepointService, adalSettingsService, notificationsService) {
                         return (msalSettingsService.isWebService()
                             ? new _services_employees_ws_employees_service__WEBPACK_IMPORTED_MODULE_5__["WsEmployeesService"](http, employeesService, msalSettingsService, adalSettingsService)
-                            : new _services_employees_sp_employees_service__WEBPACK_IMPORTED_MODULE_3__["SpEmployeesService"](sharepointService, employeesService));
+                            : new _services_employees_sp_employees_service__WEBPACK_IMPORTED_MODULE_3__["SpEmployeesService"](sharepointService, employeesService, notificationsService));
                     },
-                    deps: [_services_msal_settings_msal_settings_service__WEBPACK_IMPORTED_MODULE_7__["MsalSettingsService"], _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"], _services_employees_employees_service__WEBPACK_IMPORTED_MODULE_6__["EmployeesService"], src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_8__["SharepointService"], _services_adal_settings_adal_settings_service__WEBPACK_IMPORTED_MODULE_13__["AdalSettingsService"]],
+                    deps: [_services_msal_settings_msal_settings_service__WEBPACK_IMPORTED_MODULE_7__["MsalSettingsService"], _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"], _services_employees_employees_service__WEBPACK_IMPORTED_MODULE_6__["EmployeesService"], src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_8__["SharepointService"], _services_adal_settings_adal_settings_service__WEBPACK_IMPORTED_MODULE_13__["AdalSettingsService"], _shared_services_notifications_notifications_service__WEBPACK_IMPORTED_MODULE_14__["NotificationsService"]],
                 },
                 {
                     provide: 'DepartmentsFactory',

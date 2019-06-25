@@ -18,6 +18,7 @@ class List{{ xmlId }} extends AbstractIblockEntity
             ->setIblockId({{ id }})
             ->setIblockCode('{{ code }}')
             ->setExternalCode('{{ xmlId }}')
+            ->setName('{{ name }}')
         ;       
 {{ construct }}
         parent::__construct($requestParameters);
