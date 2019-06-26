@@ -172,7 +172,7 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         $this->expand();
         $arFilter = $this->getRequestParameters()->getFilter();
         $arSelect = $this->getRequestParameters()->getSelect();
-
+        
         $this->adaptSelect($arSelect);
         /*var_dump($arOrder);
         var_dump($arFilter);
@@ -181,21 +181,27 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         var_dump($arSelect);
         die();*/
         $resource = \CIBlockElement::GetList($arOrder, $arFilter, $arGroup, $arNav, $arSelect);
-        $arElements = [];
-
-        while($element = $resource->GetNext())
-        {
-            $this->placeExpandedValues($element);
-            $this->adaptResult($element);
-            $arElements[] = $element;
-        }
-
-        if (!isset($arFilter['ID']) || is_array($arFilter['ID'])) {
-            $result = $arElements;
+        
+        
+        if (in_array('count', $arSelect)) {
+            $result = [$resource->SelectedRowsCount()];
         } else {
-            $result = $arElements[0];
-        }
+            $arElements = [];
+        
+            while($element = $resource->GetNext())
+            {
+                $this->placeExpandedValues($element);
+                $this->adaptResult($element);
+                $arElements[] = $element;
+            }
 
+            if (!isset($arFilter['ID']) || is_array($arFilter['ID'])) {
+                $result = $arElements;
+            } else {
+                $result = $arElements[0];
+            }
+        }
+        
         return $result;
     }
     
@@ -368,7 +374,7 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
 
             }
         }
-
+        
         $arFilter = $this->replaceExpandedFieldsRecursive(
             $this->getRequestParameters()->getFilter(), 
             $fieldCode

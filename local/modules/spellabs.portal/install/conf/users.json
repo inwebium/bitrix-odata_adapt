@@ -55,7 +55,45 @@
 
     },
     "slTabNumber": {
-
+        "UF": {
+            "FIELD_NAME": "UF_SL_TAB_NUMBER",
+            "USER_TYPE_ID": "string",
+            "SORT": 1,
+            "MULTIPLE": "N",
+            "MANDATORY": "N",
+            "SHOW_FILTER": "I",
+            "SHOW_IN_LIST": "Y",
+            "EDIT_IN_LIST": "Y",
+            "IS_SEARCHABLE": "Y",
+            "SETTINGS": {
+                "DEFAULT_VALUE": "",
+                "SIZE": 20,
+                "ROWS": 1,
+                "MIN_LENGTH": 0,
+                "MAX_LENGTH": 0,
+                "REGEXP": ""
+            },
+            "EDIT_FORM_LABEL": {
+                "ru": "Табельный номер",
+                "en": "Табельный номер"
+            },
+            "LIST_COLUMN_LABEL": {
+                "ru": "Табельный номер",
+                "en": "Табельный номер"      
+            },
+            "LIST_FILTER_LABEL": {
+                "ru": "Табельный номер",
+                "en": "Табельный номер"
+            },
+            "ERROR_MESSAGE": {
+                "ru": "",
+                "en": ""
+            },
+            "HELP_MESSAGE": {
+                "ru": "",
+                "en": ""
+            }
+        }
     },
     "slLogin": {
         "FIELD": {

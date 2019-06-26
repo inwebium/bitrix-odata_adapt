@@ -50,7 +50,7 @@ class RequestParser
         $arParentheses = $parenthesesParser->parse('(' . $this->requestParams['filter'] . ')');
         $arNodes = $filterParser->parseNodes($arParentheses);
         $arFilter = $filterParser->buildFilter($arNodes);
-
+        
         return $arFilter;
     }
     
@@ -60,12 +60,19 @@ class RequestParser
         
         if ($this->isParamSet('order'))
         {
-            $result = [];
-            
             $arOrders = explode(',', $this->requestParams['order']);
             
             foreach ($arOrders as $num => $orderDefinition) {
                 $arOrderDefinition = explode('=', $orderDefinition);
+                
+                if (!in_array($arOrderDefinition[1], ['asc', 'desc'])) {
+                    if ($arOrderDefinition[1] == true) {
+                        $arOrderDefinition[1] = 'asc';
+                    } else {
+                        $arOrderDefinition[1] = 'desc';
+                    }
+                }
+                
                 $result[$arOrderDefinition[0]] = $arOrderDefinition[1];
             }
         }
@@ -93,6 +100,10 @@ class RequestParser
         return $result;
     }
     
+    /**
+     * @todo Возможно в каких-то классах битрикса используется другой вид и 
+     * придется подправить момент с ограничением числа результатов
+     */
     public function parseTop()
     {
         $result = false;
@@ -103,7 +114,14 @@ class RequestParser
         
         return $result;
     }
-
+    
+    /**
+     * Проверяет представлен ли в параметрах запроса параметр $paramName
+     * 
+     * @param string $paramName Название параметра из запроса, наличие которого 
+     * нужно проверить
+     * @return boolean
+     */
     private function isParamSet($paramName)
     {
         $result = false;

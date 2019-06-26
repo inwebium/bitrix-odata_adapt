@@ -193,8 +193,7 @@ class RequestParameters
     {
         $adapted = [];
         
-        foreach ($array as $key => $value)
-        {
+        foreach ($array as $key => $value) {
             $key = AssociativeReplacer::replace($key, $fields);
             
             if (is_array($value)) {

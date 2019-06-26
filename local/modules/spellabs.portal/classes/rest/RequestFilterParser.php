@@ -38,7 +38,7 @@ class RequestFilterParser
                 preg_match_all($pattern, $child, $matches, PREG_SET_ORDER);
                 
                 foreach ($matches as $matchKey => $arMatch) {
-                    if (strpos($arMatch, 'LikedBy') !== false) {
+                    if (strpos($arMatch[1], 'LikedBy') !== false) {
                         continue;
                     }
                     $arNode = [];
@@ -105,21 +105,18 @@ class RequestFilterParser
                 $nextFieldName = $this->parseComparison($nextNode['comparison']) . $nextNode['field'];
 
                 // если И
-                if ($node['LOGIC'] == ';')
-                {
+                if ($node['LOGIC'] == ';') {
                     // До этого уже встретили И?
                     $isLogicContinues = $isLogicStarted && $previousLogic == 'AND';
                     // До этого уже встретили ИЛИ?
                     $isOtherLogic = $isLogicStarted && $previousLogic == 'OR';
 
                     // если перед этим уже разбирали И
-                    if ($isLogicContinues)
-                    {
+                    if ($isLogicContinues) {
                         $goDeeper = false;
                     }
                     // иначе если перед этим разбирали ИЛИ
-                    elseif ($isOtherLogic)
-                    {
+                    elseif ($isOtherLogic) {
                         //отберем последний элемент - он относится к текущему И
                         $prevElement = array_pop($filterPart);
                         // а на его место встает массив для И
@@ -131,9 +128,7 @@ class RequestFilterParser
                         // Для следующего элемента придется углубиться
                         $goDeeper = true;
                         $keyForNewField++;
-                    }
-                    else
-                    {
+                    } else {
                         $filterPart['LOGIC'] = 'AND';
                         $goDeeper = false;
                     }
@@ -142,8 +137,7 @@ class RequestFilterParser
                     $isLogicStarted = true;
                 }
                 // иначе если ИЛИ
-                elseif ($node['LOGIC'] == ',')
-                {
+                elseif ($node['LOGIC'] == ',') {
                     $goDeeper = false;
                     // До этого уже встретили ИЛИ
                     $isLogicContinues = $isLogicStarted && $previousLogic == 'OR';
@@ -151,13 +145,11 @@ class RequestFilterParser
                     $isOtherLogic = $isLogicStarted && $previousLogic == 'AND';
 
                     // если перед этим уже разбирали ИЛИ
-                    if ($isLogicContinues)
-                    {
+                    if ($isLogicContinues) {
                         ;
                     }
                     // иначе если перед этим разбирали И
-                    elseif ($isOtherLogic)
-                    {
+                    elseif ($isOtherLogic) {
                         // предшествующая "И-последовательность" должна стать элементом
                         // в массиве ИЛИ
                         $precedingSequence = $filterPart;
@@ -166,31 +158,22 @@ class RequestFilterParser
                             'LOGIC' => 'OR',
                             $precedingSequence
                         ];
-                    }
-                    else
-                    {
+                    } else {
                         $filterPart['LOGIC'] = 'OR';
                     }
 
                     $previousLogic = 'OR';
                     $isLogicStarted = true;
                 }
-            }
-            elseif($isFieldNode)
-            {
-                if ($goDeeper)
-                {
+            } elseif($isFieldNode) {
+                if ($goDeeper) {
                     end($filterPart);
                     $lastKey = key($filterPart);
                     $filterPart[$lastKey][] = [$this->parseComparison($node['comparison']) . $node['field'] => $node['value']];
-                }
-                else
-                {
+                } else {
                     $filterPart[] = [$this->parseComparison($node['comparison']) . $node['field'] => $node['value']];
                 }
-            }
-            else
-            {
+            } else {
                 $filterPart[] = $this->buildFilter($node);
             }
         }
@@ -215,12 +198,9 @@ class RequestFilterParser
             'eq' => '',
         ];
 
-        if (key_exists($string, $comparisonAssoc))
-        {
+        if (key_exists($string, $comparisonAssoc)) {
             return $comparisonAssoc[$string];
-        }
-        else
-        {
+        } else {
             return '';
         }
     }
