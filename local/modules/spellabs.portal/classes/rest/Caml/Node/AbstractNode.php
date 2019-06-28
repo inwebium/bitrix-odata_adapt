@@ -32,6 +32,10 @@ abstract class AbstractNode
      */
     protected $content;
     
+    /**
+     *
+     * @var array
+     */
     public $branches;
     
     public function __construct(\SimpleXMLIterator &$itself = null)
@@ -75,46 +79,30 @@ abstract class AbstractNode
         
     public function refine()
     {
-        //$result = [];
-        // v_dump($this->content->hasChildren());
-        // v_dump($this->content->hasChildren());
         // если у итератора имеются потомки
         if (!empty($this->content)) {
             
             // перебираем итераторы-потомки
             for ($this->content->rewind(); $this->content->valid(); $this->content->next()) {
                 $currentNode = $this->content->current();
-//                v_dump('Current node content is: ');
-//                v_dump($currentNode);
                 // Определяем тип (namespace по-сути)
                 $nodeType = $this->determineNodeType($currentNode->getName());
-//                v_dump('Node type is: ');
-//                v_dump($nodeType);
-//                v_dump('Node name is: ');
-//                v_dump($currentNode->getName());
                 // составляем полное название класса
                 $nodeClass = 
                     'Spellabs\Portal\Rest\Caml\Node\\' . 
                     $nodeType . 
                     $currentNode->getName() . 'Node'
                 ;
-//                v_dump('Class name will be: ');
-//                v_dump($nodeClass);
                 
                 // если есть такой класс
                 if (class_exists($nodeClass)) {
-//                    v_dump($this->content);
                     // создать его объект
                     $node = new $nodeClass($this->content->getChildren());
 
                     // если есть потомки
                     if ($this->content->hasChildren()) {
-//                        v_dump('It has children');
-//                        v_dump($this->content->getChildren());
                         // призвоить их ноду
                         $node->setContent($this->content->getChildren());
-                    } else {
-//                        v_dump('It doesn\'t have children');
                     }
                     
                     // пускай нод обработает что у него есть
@@ -162,10 +150,4 @@ abstract class AbstractNode
     {
         return $this->getStringRepresentation();
     }
-}
-
-function v_dump($var) {
-    echo "<pre>";
-    var_dump($var);
-    echo "</pre>";
 }

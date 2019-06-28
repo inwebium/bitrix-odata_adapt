@@ -133,7 +133,7 @@ abstract class AbstractEmployeesEntity extends AbstractRestApiEntity
         $userAddResult = $newUser->Add($arFields);
         
         if ($userAddResult) {
-            
+            // вернуть пользователя по добавленному id
         } else {
             return false;
         }
@@ -214,7 +214,7 @@ abstract class AbstractEmployeesEntity extends AbstractRestApiEntity
         return ['SELECT' => $select, 'FIELDS' => $fields];
     }
     
-        protected function getExpandedValues()
+    protected function getExpandedValues()
     {
         return $this->expandedValues;
     }

@@ -26,8 +26,7 @@ class CamlParser
             $where = new WhereNode($this->xml->Query->Where);
             $where->setContent($this->xml->Query->Where->children());
             $where->refine();
-            //v_dump($where->branches);
-            return strval($where);
+            return substr(strval($where), 1, -1);
         } else {
             return false;
         }

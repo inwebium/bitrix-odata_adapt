@@ -21,6 +21,12 @@ class RequestParser
                 $this->requestParams[$key] = $value;
             }
         }
+        
+        if ($this->isParamSet('caml')) {
+            $camlParser = new Caml\CamlParser($this->requestParams['caml']);
+            $this->requestParams['filter'] = $camlParser->getFilter();
+            //var_dump($this->requestParams['filter']);
+        }
     }
     
     public function parseSelect()

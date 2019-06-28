@@ -174,6 +174,7 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         $arSelect = $this->getRequestParameters()->getSelect();
         
         $this->adaptSelect($arSelect);
+        $arFilter = $this->adaptFilter($arFilter);
         /*var_dump($arOrder);
         var_dump($arFilter);
         var_dump($arGroup);
@@ -312,6 +313,7 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         
         $newElementId = $newIblockElement->Add($elementFields, false, true, true);
         
+        
         if ($newElementId)
         {
             // Получить созданный элемент
@@ -336,7 +338,9 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
      */
     protected function expand()
     {
-        $propertiesToExpand = array_unique($this->getRequestParameters()->getExpand());
+        $propertiesToExpand = array_unique(
+            $this->getRequestParameters()->getExpand()
+        );
 
         foreach ($propertiesToExpand as $num => $fieldCode)
         {
@@ -354,12 +358,17 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
     protected function replaceExpandedFields($fieldCode)
     {
         
-        foreach (array_unique($this->getRequestParameters()->getSelect()) as $selectNum => $fieldToSelect)
-        {
+        foreach (
+            array_unique(
+                $this->getRequestParameters()->getSelect()
+            ) as $selectNum => $fieldToSelect
+        ) {
 
             if (strpos($fieldToSelect, $fieldCode . '/') !== false) {
                 // Если есть класс
-                $classForExpand = "Spellabs\\Portal\\Rest\\Repository\\Fields\\" . $fieldCode;
+                $classForExpand = 
+                    "Spellabs\\Portal\\Rest\\Repository\\Fields\\" . 
+                    $fieldCode;
                 
                 if (class_exists($classForExpand)) {
                     $objectToExpand = new $classForExpand();
@@ -388,7 +397,9 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         
         foreach ($array as $key => $value) {
             if (strpos($key, $fieldCode . '/') !== false) {
-                $classForExpand = "Spellabs\\Portal\\Rest\\Repository\\Fields\\" . $fieldCode;
+                $classForExpand = 
+                    "Spellabs\\Portal\\Rest\\Repository\\Fields\\" . 
+                    $fieldCode;
 
                 if (class_exists($classForExpand)) {
                     $objectToExpand = new $classForExpand();
@@ -536,6 +547,40 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
                 $arSelect[$key] = 'PROPERTY_' . $selectField;
             }
         }
+    }
+    
+    protected function adaptFilter($arFilter)
+    {
+        $comparisons = ['!', '<=', '>=', '>', '<'];
+        $newFilter = [];
+        $fieldsAssociations = $this->getFieldsAssociations('FIELD');
+        
+        if (count($fieldsAssociations) > 0) {
+            foreach ($arFilter as $key => $value) {
+                $comparison = '';
+
+                foreach ($comparisons as $k => $v) {
+                    if (strpos($key, $v) !== false) {
+                        $key = str_replace($v, '', $key);
+                        $comparison = $v;
+                        break;
+                    }
+                }
+
+                if (is_array($value)) {
+                    $value = $this->adaptFilter($value);
+                }
+
+                $assocSearch = array_search($key, $fieldsAssociations);
+
+                if (in_array($key, array_keys($fieldsAssociations), true)) {
+                    $newFilter[$comparison . $fieldsAssociations[$key]] = $value;
+                } else {
+                    $newFilter[$comparison . $key] = $value;
+                }
+            }
+        }
+        return $newFilter;
     }
     
     protected function adaptResult(&$arResult)

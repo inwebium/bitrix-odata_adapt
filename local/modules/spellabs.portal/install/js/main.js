@@ -3364,7 +3364,7 @@ var ListItemsService = /** @class */ (function () {
     // а хотя чтобы получить инфоблок подсайта хватит же просто в фильтре SITE_ID
     // ^ think about it
     ListItemsService.prototype.sendToBitrix = function (params) {
-        console.log("------sendToBitrix CALLED!!!------", params);
+        // console.log("------sendToBitrix CALLED!!!------", params);
         // Нужно найти какой-нибудь http/request класс
         // Создаем объект запроса
         // в нем наверно указываем url = path
@@ -3407,8 +3407,17 @@ var ListItemsService = /** @class */ (function () {
         else {
             httpParams = httpParams.append('top', this.getTop().toString());
         }
+        if (params.orderBy) {
+            httpParams = httpParams.append('order', this.prepareOrderString(params.orderBy));
+        }
+        else {
+            httpParams = httpParams.append('order', this.prepareOrderString(this.getOrderBy()));
+        }
         if (params.skip) {
             httpParams = httpParams.append('skip', params.skip.toString());
+        }
+        if (params.caml) {
+            httpParams = httpParams.append('caml', params.caml.ViewXml);
         }
         // Объект с заголовками и параметрами запроса для http.get/post
         var httpOptions = {
@@ -3417,30 +3426,29 @@ var ListItemsService = /** @class */ (function () {
             }),
             params: httpParams
         };
+        console.log(path);
         if (params.method === 'GET') {
-            console.log('------GET case------');
-            console.log('path = ', path);
-            console.log('httpOptions = ', httpOptions);
-            /*return Observable.create((observer: Observer<T[]>) => {
-                this.httpClient.get<T[]>(path, httpOptions)
-                    .subscribe(
-                        res => {
-                            observer.next(res);
-                            observer.complete();
-                        }, err => observer.error(err)
-                    );
-            });*/
             return this.httpClient.get(path, httpOptions);
-            // console.log("------GET DATA RESULT------", data);
-            // return data;
         }
         else {
-            console.log('------POST case------');
-            console.log('path = ', path);
-            console.log('httpOptions = ', httpOptions);
             return this.httpClient.post(path, null, httpOptions);
-            // console.log("------POST DATA RESULT------", data);
-            // return data;
+        }
+    };
+    /**
+     * Массив для сортировки запрашиваемых элементов в строку
+     *
+     * @param orderBy
+     */
+    ListItemsService.prototype.prepareOrderString = function (orderBy) {
+        var pairs = [];
+        if (orderBy) {
+            orderBy.forEach(function (element) {
+                pairs.push(element[0] + '=' + element[1]);
+            });
+            return pairs.join(',');
+        }
+        else {
+            return '';
         }
     };
     ListItemsService.prototype.hashCode = function (s) {
@@ -3506,8 +3514,6 @@ var ListItemsService = /** @class */ (function () {
         params.method = 'GET';
         params.paged = true;
         params.page = page;
-        //let resultItems: T[];
-        console.log("GET ITEMS PAGED params", params);
         /*const result = this.sendToBitrix(params).pipe(
             map(items => {
                 resultItems = items.map(item => {
@@ -3535,8 +3541,7 @@ var ListItemsService = /** @class */ (function () {
                 getNext: function () { return _this.getNextPageItems(params, page + 1); }
             };
         }));
-        //return foo;
-        //return foo;
+        // return foo;
         /*return this.getWebById(
             params && params.webId
         ).pipe(
@@ -3578,27 +3583,53 @@ var ListItemsService = /** @class */ (function () {
     }*/
     ListItemsService.prototype.getNextPageItems = function (params, page) {
         var _this = this;
+        if (page === void 0) { page = 1; }
         if (!params) {
             params = {};
         }
         params.method = 'GET';
         params.paged = true;
         params.page = page;
-        var resultItems;
-        console.log("GET NEXT PAGE ITEMS params", params);
-        var result = this.sendToBitrix(params).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(function (items) {
-            resultItems = items.map(function (item) {
-                return _this.convertListItemToEntity(item);
-            });
-            return resultItems;
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_0__["from"])(this.sendToBitrix(params).toPromise().then(function (p) {
+            return {
+                items: p.map(function (i) { return _this.convertListItemToEntity(i); }),
+                hasNext: false,
+                getNext: function () { return _this.getNextPageItems(params, page + 1); }
+            };
         }));
+        /*
+        let resultItems: T[];
+        console.log("GET NEXT PAGE ITEMS params", params);
+        const result = this.sendToBitrix(params).pipe(
+            map(items => {
+                resultItems = items.map(item => {
+                    return this.convertListItemToEntity(item);
+                });
+                return resultItems;
+            })
+        );
         console.log("GET NEXT PAGE ITEMS resultItems", resultItems);
-        var foo = Object(rxjs__WEBPACK_IMPORTED_MODULE_0__["of"])({
-            items: resultItems,
-            hasNext: false,
-            getNext: function () { return _this.getNextPageItems(params, page + 1); }
-        });
-        return foo;
+        const foo: Observable<IListItemsPage<T>> = of(
+            {
+                items: resultItems,
+                hasNext: false,
+                getNext: () => this.getNextPageItems(params, page + 1)
+            }
+        );
+
+        from(
+            this.sendToBitrix(params).toPromise().then(
+                (p: any[]) => {
+                    return {
+                        items: p,
+                        hasNext: false,
+                        getNext: () => this.getNextPageItems(params, page + 1)
+                    };
+                }
+            )
+        );
+
+        return foo;*/
     };
     ListItemsService.prototype.getItems = function (params) {
         var _this = this;
@@ -3606,15 +3637,13 @@ var ListItemsService = /** @class */ (function () {
             params = {};
         }
         params.method = 'GET';
-        var data;
-        var result = this.sendToBitrix(params);
-        return result.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(function (items) {
+        return this.sendToBitrix(params).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(function (items) {
             return items.map(function (item) {
                 return _this.convertListItemToEntity(item);
             });
         }));
-        return data;
-        return this.getWebById(params && params.webId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["flatMap"])(function (web) { return _this.getItemsOfWeb(web, params); }));
+        //return data;
+        //return this.getWebById(params && params.webId).pipe(flatMap((web: Web) => this.getItemsOfWeb(web, params)));
     };
     ListItemsService.prototype.getItemsOfWeb = function (web, params) {
         var _this = this;
@@ -3638,13 +3667,10 @@ var ListItemsService = /** @class */ (function () {
             params = {};
         }
         params.method = 'GET';
-        var data;
-        var result = this.sendToBitrix(params);
-        return result.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(function (item) {
-            console.log("------getItems mapping ITEM------", item);
+        return this.sendToBitrix(params).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(function (item) {
             return _this.convertListItemToEntity(item);
         }));
-        return this.getWebById(params.webId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["flatMap"])(function (web) { return _this.getItemOfWeb(web, params); }));
+        //return this.getWebById(params.webId).pipe(flatMap((web: Web) => this.getItemOfWeb(web, params)));
     };
     ListItemsService.prototype.getItemOfWeb = function (web, params) {
         var _this = this;
@@ -3656,6 +3682,7 @@ var ListItemsService = /** @class */ (function () {
     };
     ListItemsService.prototype.getItemAttachments = function (params) {
         var _this = this;
+        console.log("------getItemAttachments------", params);
         return this.getWebById(params.webId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["flatMap"])(function (web) { return _this.getItemAttachmentsOfWeb(web, params); }));
     };
     ListItemsService.prototype.getItemAttachmentsOfWeb = function (web, params) {
@@ -3668,6 +3695,7 @@ var ListItemsService = /** @class */ (function () {
     };
     ListItemsService.prototype.createItem = function (entity, webId) {
         var _this = this;
+        console.log("------createItem------", entity);
         var result = this.getWebById(webId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["flatMap"])(function (web) { return _this.createItemOfWeb(web, entity); }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(function (e) { _this.cacheVersion++; return e; }));
         return result;
     };
@@ -3682,6 +3710,7 @@ var ListItemsService = /** @class */ (function () {
     };
     ListItemsService.prototype.updateItem = function (entity, webId) {
         var _this = this;
+        console.log("------updateItem------", entity);
         var result = this.getWebById(webId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["flatMap"])(function (web) { return _this.updateItemOfWeb(web, entity); }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(function (e) { _this.cacheVersion++; return e; }));
         return result;
     };
@@ -3696,6 +3725,7 @@ var ListItemsService = /** @class */ (function () {
     };
     ListItemsService.prototype.deleteItem = function (entity, webId) {
         var _this = this;
+        console.log("------deleteItem------", entity);
         var result = this.getWebById(webId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["flatMap"])(function (web) { return _this.deleteItemOfWeb(web, entity); }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(function () { _this.cacheVersion++; }));
         return result;
     };
@@ -3706,8 +3736,12 @@ var ListItemsService = /** @class */ (function () {
             .then(function () { }));
         return data;
     };
+    /**
+     * @todo Это наверно можно сделать как деактивация элемента в битриксе
+     */
     ListItemsService.prototype.recycleItem = function (entity, webId) {
         var _this = this;
+        console.log("------recycleItem------", entity);
         var result = this.getWebById(webId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["flatMap"])(function (web) { return _this.recycleItemOfWeb(web, entity); }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(function () { _this.cacheVersion++; }));
         return result;
     };
@@ -3720,6 +3754,7 @@ var ListItemsService = /** @class */ (function () {
     };
     ListItemsService.prototype.getComments = function (params) {
         var _this = this;
+        console.log("------getComments------", params);
         return this.getWebById(params.webId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["flatMap"])(function (web) { return _this.getCommentsOfWeb(web, params); }));
     };
     ListItemsService.prototype.getCommentsOfWeb = function (web, params) {
@@ -3731,6 +3766,7 @@ var ListItemsService = /** @class */ (function () {
     };
     ListItemsService.prototype.addComment = function (params, text) {
         var _this = this;
+        console.log("------addComment------", params);
         return this.getWebById(params.webId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["flatMap"])(function (web) { return _this.addCommentOfWeb(web, params, text); }));
     };
     ListItemsService.prototype.addCommentOfWeb = function (web, params, text) {
@@ -3742,6 +3778,7 @@ var ListItemsService = /** @class */ (function () {
     };
     ListItemsService.prototype.replyComment = function (params, comment, text) {
         var _this = this;
+        console.log("------replyComment------", params);
         return this.getWebById(params.webId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["flatMap"])(function (web) { return _this.replyCommentOfWeb(web, params, comment, text); }));
     };
     ListItemsService.prototype.replyCommentOfWeb = function (web, params, comment, text) {
@@ -3753,6 +3790,7 @@ var ListItemsService = /** @class */ (function () {
     };
     ListItemsService.prototype.addLike = function (params) {
         var _this = this;
+        console.log("------addLike------", params);
         return this.getWebById(params.webId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["flatMap"])(function (web) { return _this.addLikeOfWeb(web, params); }));
     };
     ListItemsService.prototype.addLikeOfWeb = function (web, params) {
@@ -3761,6 +3799,7 @@ var ListItemsService = /** @class */ (function () {
     };
     ListItemsService.prototype.removeLike = function (params) {
         var _this = this;
+        console.log("------removeLike------", params);
         return this.getWebById(params.webId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["flatMap"])(function (web) { return _this.removeLikeOfWeb(web, params); }));
     };
     ListItemsService.prototype.removeLikeOfWeb = function (web, params) {
@@ -3769,6 +3808,7 @@ var ListItemsService = /** @class */ (function () {
     };
     ListItemsService.prototype.addRating = function (params, rating) {
         var _this = this;
+        console.log("------addRating------", params);
         return this.getWebById(params.webId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["flatMap"])(function (web) { return _this.addRatingOfWeb(web, params, rating); }));
     };
     ListItemsService.prototype.addRatingOfWeb = function (web, params, rating) {
@@ -3777,6 +3817,7 @@ var ListItemsService = /** @class */ (function () {
     };
     ListItemsService.prototype.getLikes = function (params) {
         var _this = this;
+        console.log("------getLikes------", params);
         return this.getWebById(params.webId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["flatMap"])(function (web) { return _this.getLikesOfWeb(web, params); }));
     };
     ListItemsService.prototype.getLikesOfWeb = function (web, params) {
@@ -3788,6 +3829,7 @@ var ListItemsService = /** @class */ (function () {
     };
     ListItemsService.prototype.getLikedItemsByUserId = function (id, webId) {
         var _this = this;
+        console.log("------getLikedItemsByUserId------", id);
         return this.getWebById(webId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["flatMap"])(function (web) { return _this.getLikedItemsByUserIdOfWeb(web, id); }));
     };
     ListItemsService.prototype.getLikedItemsByUserIdOfWeb = function (web, id) {
@@ -3795,6 +3837,7 @@ var ListItemsService = /** @class */ (function () {
     };
     ListItemsService.prototype.getLikedItemsByUserIdPaged = function (id, webId) {
         var _this = this;
+        console.log("------getLikedItemsByUserIdPaged------", id);
         return this.getWebById(webId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["flatMap"])(function (web) { return _this.getLikedItemsByUserIdPagedOfWeb(web, id); }));
     };
     ListItemsService.prototype.getLikedItemsByUserIdPagedOfWeb = function (web, id) {
@@ -3802,7 +3845,17 @@ var ListItemsService = /** @class */ (function () {
     };
     ListItemsService.prototype.getItemsByCAMLQuery = function (query, webId) {
         var _this = this;
-        return this.getWebById(webId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["flatMap"])(function (web) { return _this.getItemsByCAMLQueryOfWeb(web, query); }));
+        console.log("------getItemsByCAMLQuery------", query);
+        var params = {
+            method: 'GET',
+            caml: query
+        };
+        return this.sendToBitrix(params).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(function (items) {
+            return items.map(function (item) {
+                return _this.convertListItemToEntity(item);
+            });
+        }));
+        //return this.getWebById(webId).pipe(flatMap((web: Web) => this.getItemsByCAMLQueryOfWeb(web, query)));
     };
     ListItemsService.prototype.getItemsByCAMLQueryOfWeb = function (web, query) {
         var _this = this;
@@ -3810,6 +3863,22 @@ var ListItemsService = /** @class */ (function () {
         return Object(rxjs__WEBPACK_IMPORTED_MODULE_0__["from"])(list.getItemsByCAMLQuery(query)).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["flatMap"])(function (items) { return Object(rxjs__WEBPACK_IMPORTED_MODULE_0__["of"])(items.map(function (i) { return _this.convertListItemToEntity(i); })); }));
     };
     ListItemsService.prototype.getRandomItems = function (params) {
+        var _this = this;
+        console.log("------getRandomItems------", params);
+        var itemsCount = this.getItemsCount(params);
+        if (params.top == null || params.top > itemsCount) {
+            return this.getItems({
+                webId: params.webId
+            });
+        }
+        else {
+            return this.getItems({
+                filter: params.filter,
+                orderBy: [['rand', true]],
+                top: params.top,
+                webId: params.webId
+            });
+        }
         /*if (!params) {
             params = {};
         }
@@ -3831,7 +3900,6 @@ var ListItemsService = /** @class */ (function () {
                 });
             })
         );*/
-        var _this = this;
         return this.getWebById(params.webId)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["flatMap"])(function (web) { return _this.getRandomItemsOfWeb(web, params); }));
     };
@@ -3851,6 +3919,21 @@ var ListItemsService = /** @class */ (function () {
             return Object(rxjs__WEBPACK_IMPORTED_MODULE_0__["of"])(items.sort(function () { return 0.5 - Math.random(); }));
         }));
         return data;
+    };
+    /**
+     * Запрос на получение количества элементов
+     */
+    ListItemsService.prototype.getItemsCount = function (params) {
+        if (!params) {
+            params = {};
+        }
+        params.method = 'GET';
+        params.select = 'count';
+        var result;
+        this.sendToBitrix(params).subscribe(function (items) {
+            result = items[0];
+        });
+        return result;
     };
     ListItemsService.prototype.useCachedItem = function (item) {
         var cache = this.getCachingOptions();

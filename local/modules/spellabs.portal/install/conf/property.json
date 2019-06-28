@@ -239,7 +239,7 @@
 		}
 	},
 	"sl_news": {
-		"ACTIVE_FROM": {
+		"DATE_ACTIVE_FROM": {
 			"XML_ID": "slNewsPublicationDate",
 			"RETURNS": "Datetime",
             "FIELD_ENTITY": "FIELD"
@@ -285,12 +285,12 @@
 		}
 	},
 	"sl_survey": {
-        "ACTIVE_FROM": {
+        "DATE_ACTIVE_FROM": {
 			"XML_ID": "slNewDate",
 			"RETURNS": "Datetime",
             "FIELD_ENTITY": "FIELD"
 		},
-        "ACTIVE_TO": {
+        "DATE_ACTIVE_TO": {
 			"XML_ID": "slEndDate",
 			"RETURNS": "Datetime",
             "FIELD_ENTITY": "FIELD"
