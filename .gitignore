@@ -1,3 +1,9 @@
 *
 !.gitignore
 !/local*
+!.htaccess
+/local/research*
+/local/js*
+/local/components*
+/local/javascript/
+/local/templates/
