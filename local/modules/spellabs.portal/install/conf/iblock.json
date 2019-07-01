@@ -750,7 +750,8 @@
         "PERMISSIONS": {
             "1": "X",
             "2": "R"
-        }
+        },
+        "BEHAVIOUR": "Library"
     },
     "sl_service_templates": {
         "LID": "s1",

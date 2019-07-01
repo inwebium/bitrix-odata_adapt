@@ -157,6 +157,7 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
     public function get()
     {
         $result = false;
+        
         $this->getRequestParameters()->appendFilter(['IBLOCK_ID' => $this->getIblockId()]);
         
         // В arSelect минимум нужны IBLOCK_ID и ID
@@ -185,27 +186,10 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         var_dump($arNav);
         var_dump($arSelect);
         die();*/
-        $resource = \CIBlockElement::GetList($arOrder, $arFilter, $arGroup, $arNav, $arSelect);
+        //$resource = \CIBlockElement::GetList($arOrder, $arFilter, $arGroup, $arNav, $arSelect);
         
-        
-        if (in_array('count', $arSelect)) {
-            $result = [$resource->SelectedRowsCount()];
-        } else {
-            $arElements = [];
-        
-            while($element = $resource->GetNext())
-            {
-                $this->placeExpandedValues($element);
-                $this->adaptResult($element);
-                $arElements[] = $element;
-            }
-
-            if (!isset($arFilter['ID']) || is_array($arFilter['ID'])) {
-                $result = $arElements;
-            } else {
-                $result = $arElements[0];
-            }
-        }
+        //$this->getRequestParameters()->
+        $result = $this->select($arOrder, $arFilter, $arGroup, $arNav, $arSelect);
         
         return $result;
     }
@@ -638,4 +622,6 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
             $arResult[$key] = $this->getFieldsCollection()->getField($key)->handleValue($value);
         }
     }
+    
+    protected abstract function select($arOrder, $arFilter, $arGroup, $arNav, $arSelect);
 }

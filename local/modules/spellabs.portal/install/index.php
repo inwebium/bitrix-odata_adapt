@@ -303,6 +303,11 @@ class spellabs_portal extends \CModule
         {
             $newIblock = new CIBlock;
             
+            // удалим придуманные ключи от греха подальше
+            if (!empty($iblockParams['BEHAVIOUR'])) {
+                unset($iblockParams['BEHAVIOUR']);
+            }
+            
             $iblockParams['CODE'] = $iblockCode;
             
             if (empty($iblockParams['IBLOCK_TYPE_ID'])) {
@@ -534,9 +539,6 @@ class spellabs_portal extends \CModule
      */
     private function generateRestRepository()
     {
-        //include($this->GetPath() . '/../classes/rest/RepositoryGenerator.php');
-        // echo "\n\n" . $this->GetPath() . "\n\n";
-        // echo file_get_contents($this->GetPath() . '/../classes/rest/RepositoryGenerator.php');
         Bitrix\Main\Loader::registerAutoLoadClasses(
             null, [
                 'Spellabs\Portal\Rest\IblockUtils' => '/local/modules/spellabs.portal/classes/rest/IblockUtils.php',
@@ -587,20 +589,20 @@ class spellabs_portal extends \CModule
                     "\t\t\t\t)\n" . 
                     "\t\t\t)\n";
                 
-                
-                /*if (!isset($arProperty['PROPERTY_TYPE']) && !isset($arProperty['NAME'])) {
-                    $constructorAdditionals .= 
-                        "\t\t" . 'static::$fieldsAssoc[\'' . $arProperty['XML_ID'] . '\'] = \'' . $propertyCode . "';\n";
-                    
-                    continue;
-                }*/
-                
                 $this->generateRepositoryFields($arProperty, $propertyCode);
                 $arIblockProps[$arProperty['XML_ID']] = $propertyCode;
             }
             
             $fieldInitString .= "\t\t;\n";
             
+            // Определим в качестве чего выступает ИБ (список или библиотека)
+            $entityBehaviour = 'ListBehaviour';
+            
+            if (!empty($iblockParams['BEHAVIOUR'])) {
+                $entityBehaviour = $iblockParams['BEHAVIOUR'] . 'Behaviour';
+            }
+            
+            // Заполняем шаблон
             $repository
                 ->setFilename('List' . $iblockParams['XML_ID'] . '.php')
                 ->setToken('xmlId', $iblockParams['XML_ID'])
@@ -609,17 +611,17 @@ class spellabs_portal extends \CModule
                 ->setToken('fields', $fieldInitString)
                 ->setToken('construct', $constructorAdditionals)
                 ->setToken('name', $iblockParams['NAME'])
+                ->setToken('behaviour', $entityBehaviour)
+                ->executeTemplate()
             ;
-            $propertiesString = $repository->arrayToString($arIblockProps);
+            /*$propertiesString = $repository->arrayToString($arIblockProps);
             $repository
                 ->setToken('properties', $propertiesString)
                 ->executeTemplate()
             ;
 
-            $repository->executeTemplate();
+            $repository->executeTemplate();*/
         }
-        
-        
     }
     
     private function determinePropertyType($arProperty)

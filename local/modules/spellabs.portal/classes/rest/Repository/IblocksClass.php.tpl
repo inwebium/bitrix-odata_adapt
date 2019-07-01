@@ -8,9 +8,7 @@ use Spellabs\Portal\Rest\RequestParameters;
 
 class List{{ xmlId }} extends AbstractIblockEntity
 {
-    /*public static $propertiesAssoc = [
-{{ properties }}
-    ];*/
+    use \Spellabs\Portal\Rest\Entity\Leverage\{{ behaviour }};
     
     public function __construct(RequestParameters $requestParameters)
     {
@@ -18,7 +16,6 @@ class List{{ xmlId }} extends AbstractIblockEntity
             ->setIblockId({{ id }})
             ->setIblockCode('{{ code }}')
             ->setExternalCode('{{ xmlId }}')
-            ->setName('{{ name }}')
         ;       
 {{ construct }}
         parent::__construct($requestParameters);
