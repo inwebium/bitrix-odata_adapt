@@ -1,5 +1,8 @@
 <?php
-namespace Spellabs\Portal\Rest;
+namespace Spellabs\Portal\Rest\Entity;
+
+use Spellabs\Portal\Rest\FieldsCollection;
+use Spellabs\Portal\Rest\RequestParameters;
 
 /**
  * Абстракция сущности доступной в rest

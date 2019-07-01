@@ -1,8 +1,12 @@
 <?php
-namespace Spellabs\Portal\Rest;
+namespace Spellabs\Portal\Rest\Entity;
 
 use Bitrix\Main\Loader;
+use Spellabs\Portal\Rest\AssociativeReplacer;
+use Spellabs\Portal\Rest\Field;
+use Spellabs\Portal\Rest\IblockUtils;
 use Spellabs\Portal\Rest\Processor\Type;
+use Spellabs\Portal\Rest\RequestParameters;
 
 Loader::includeModule('iblock');
 

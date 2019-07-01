@@ -1,5 +1,5 @@
 <?php
-namespace Spellabs\Portal\Rest;
+namespace Spellabs\Portal\Rest\Entity;
 
 /**
  * Интерфей сущности в rest-api. Обязывает поддерживать методы одноименные 

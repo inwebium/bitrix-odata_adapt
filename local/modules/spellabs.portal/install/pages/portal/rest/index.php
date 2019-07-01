@@ -69,7 +69,7 @@ var_dump($dateTimeObj->format(DateTime::ISO8601));
 
 die();*/
 
-use Spellabs\Portal\Rest\AbstractIblockEntity;
+use Spellabs\Portal\Rest\Entity\AbstractIblockEntity;
 use Spellabs\Portal\Rest\RequestHandler;
 use Spellabs\Portal\Rest\ResponseHandler;
 /*use Spellabs\Portal\Rest\ParenthesesParser;

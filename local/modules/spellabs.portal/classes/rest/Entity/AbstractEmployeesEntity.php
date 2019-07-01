@@ -1,28 +1,29 @@
 <?php
-namespace Spellabs\Portal\Rest\Repository;
+namespace Spellabs\Portal\Rest\Entity;
 
-use Spellabs\Portal\Rest\AbstractRestApiEntity;
+use Spellabs\Portal\Rest\Entity\AbstractRestApiEntity;
 use Spellabs\Portal\Rest\Field;
 use Spellabs\Portal\Rest\Processor\Type;
 use Spellabs\Portal\Rest\RequestParameters;
 
-class ListslEmployees extends AbstractRestApiEntity
+abstract class AbstractEmployeesEntity extends AbstractRestApiEntity
 {
-    /*protected $externalCode = 'slEmployees';
-    public static $fieldsAssoc = [
-        'Id' => 'ID',
-        'Title' => 'NAME',
-    ];
-    public static $propertiesAssoc = [
-		'slAttachments' => 'SL_ATTACHMENTS',
-    ];*/
     public function __construct(RequestParameters $requestParameters)
     {
-        $this
-            ->setExternalCode('slEmployees')
-        ;       
-
         parent::__construct($requestParameters);
+        
+        $this->fieldsCollection
+            ->addField(
+				new Field(
+					'ID',
+					'Id',
+					Type\IntegerType::class,
+					'FIELD',
+				)
+			)
+        ;
+        
+        $this->getRequestParameters()->adaptFields($this->getFieldsCollection());
     }
 
     public function delete()
@@ -69,6 +70,11 @@ class ListslEmployees extends AbstractRestApiEntity
         ];
         
         $arParams += $this->separateSelect($arSelect);
+        
+        /*var_dump($arOrder);
+        var_dump($arFilter);
+        var_dump($arParams);
+        die();*/
         
         $resource = \CUser::GetList($arOrder, ($by = []), $arFilter, $arParams);
         
@@ -127,22 +133,68 @@ class ListslEmployees extends AbstractRestApiEntity
         $userAddResult = $newUser->Add($arFields);
         
         if ($userAddResult) {
-            
+            // вернуть пользователя по добавленному id
         } else {
             return false;
         }
     }
     
+    /**
+     * Получает expand из объекта параметров запроса. Подменяет значения из 
+     * select на нужные битриксовые аналоги.
+     * 
+     * @return $this
+     */
     protected function expand()
     {
         $propertiesToExpand = $this->getRequestParameters()->getExpand();
-
+        
         foreach ($propertiesToExpand as $num => $fieldCode)
         {
             $this->replaceExpandedFields($fieldCode);
         }
         
         return $this;
+    }
+    
+        /**
+     * Заменяет expanded поля в select на битриксовые аналоги
+     * 
+     * @param type $fieldCode
+     */
+    protected function replaceExpandedFields($fieldCode)
+    {
+        
+        foreach ($this->getRequestParameters()->getSelect() as $selectNum => $fieldToSelect)
+        {
+
+            if (strpos($fieldToSelect, $fieldCode . '/') !== false) {
+                // Если есть класс
+                $classForExpand = "Spellabs\\Portal\\Rest\\Repository\\Fields\\" . $fieldCode;
+                
+                if (class_exists($classForExpand)) {
+                    $objectToExpand = new $classForExpand();
+                    
+                    $this->setExpandedValues(
+                        $objectToExpand->getValue(
+                            $this->getIblockId(),
+                            $this->getRequestParameters()->getFilter()
+                        )
+                    );
+                }
+
+            } /*else {
+                $this->getRequestParameters()->replaceSelect(
+                    $fieldToSelect, 
+                    AssociativeReplacer::replace($fieldToSelect, $this->getFieldsAssociations())
+                );
+                
+            }*/
+        }
+        /*var_dump($fieldCode);
+        var_dump($this->getRequestParameters()->getSelect());*/
+
+        //die();
     }
     
     public function separateSelect($arSelect)
@@ -152,7 +204,7 @@ class ListslEmployees extends AbstractRestApiEntity
         
         foreach ($arSelect as $key => $value)
         {
-            if (strpos($value, 'UF_')) {
+            if (strpos($value, 'UF_') !== false) {
                 $select[] = $value;
             } else {
                 $fields[] = $value;
@@ -160,6 +212,29 @@ class ListslEmployees extends AbstractRestApiEntity
         }
         
         return ['SELECT' => $select, 'FIELDS' => $fields];
+    }
+    
+    protected function getExpandedValues()
+    {
+        return $this->expandedValues;
+    }
+    
+    protected function setExpandedValues($array)
+    {
+        $this->expandedValues = $array;
+        return $this;
+    }
+    
+    protected function placeExpandedValues(&$element)
+    {
+        if (isset($this->getExpandedValues()[$element['ID']])) {
+            //var_dump($this->getExpandedValues()[$element['ID']]);
+            
+            foreach ($this->getExpandedValues()[$element['ID']] as $propertyCode => $arValue)
+            {
+                $element[$propertyCode] = $arValue;
+            }
+        }
     }
     
     /**
@@ -202,35 +277,11 @@ class ListslEmployees extends AbstractRestApiEntity
 
         return $result;
     }
-
-    protected function initializeFields()
+    
+    protected function getFullName()
     {
-        $this->fieldsCollection
-            ->addField(
-				new Field(
-					'ID',
-					'Id',
-					Type\IntegerType::class,
-					'FIELD',
-				)
-			)
-            ->addField(
-				new Field(
-					'NAME',
-					'Title',
-					Type\StringType::class,
-					'FIELD',
-				)
-			)
-            ->addField(
-				new Field(
-					'SL_ATTACHMENTS',
-					'AttachmentFiles',
-					Type\FileType::class,
-					'PROPERTY',
-				)
-			)
-        ;
+        global $USER;
+        
+        
     }
-
 }

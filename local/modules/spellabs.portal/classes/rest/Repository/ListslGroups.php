@@ -1,7 +1,7 @@
 <?php
 namespace Spellabs\Portal\Rest\Repository;
 
-use Spellabs\Portal\Rest\AbstractRestApiEntity;
+use Spellabs\Portal\Rest\Entity\AbstractRestApiEntity;
 use Spellabs\Portal\Rest\Field;
 use Spellabs\Portal\Rest\Processor\Type;
 use Spellabs\Portal\Rest\RequestParameters;

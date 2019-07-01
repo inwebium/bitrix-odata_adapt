@@ -1,6 +1,8 @@
 <?php
 namespace Spellabs\Portal\Rest;
 
+use Spellabs\Portal\Rest\Entity\AbstractRestApiEntity;
+
 /**
  * Обработчик запроса. В конструкторе создаст маршрутизатор, парсер, 
  * параметры запроса. Так же порождает вызванные по rest объект и вызывает его 
@@ -45,7 +47,7 @@ class RequestHandler
     
     /**
      * 
-     * @return \Spellabs\Portal\Rest\RequestParser
+     * @return RequestParser
      */
     public function getRequestParser()
     {
@@ -54,7 +56,7 @@ class RequestHandler
     
     /**
      * 
-     * @return \Spellabs\Portal\Rest\RequestRouter
+     * @return RequestRouter
      */
     public function getRequestRouter()
     {
@@ -72,7 +74,7 @@ class RequestHandler
     
     /**
      * 
-     * @return \Spellabs\Portal\Rest\RequestParameters
+     * @return RequestParameters
      */
     public function getRequestParameters()
     {
@@ -81,7 +83,7 @@ class RequestHandler
     
     /**
      * 
-     * @param \Spellabs\Portal\Rest\RequestParser $requestParser
+     * @param RequestParser $requestParser
      * @return $this Fluent
      */
     private function setRequestParser(RequestParser $requestParser)
@@ -92,7 +94,7 @@ class RequestHandler
     
     /**
      * 
-     * @param \Spellabs\Portal\Rest\RequestRouter $requestRouter
+     * @param RequestRouter $requestRouter
      * @return $this Fluent
      */
     private function setRequestRouter(RequestRouter $requestRouter)
@@ -114,7 +116,7 @@ class RequestHandler
     
     /**
      * 
-     * @param \Spellabs\Portal\Rest\RequestParameters $requestParameters
+     * @param RequestParameters $requestParameters
      * @return $this Fluent
      */
     private function setRequestParameters(RequestParameters $requestParameters)
