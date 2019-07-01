@@ -539,6 +539,11 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         return $payload;
     }
     
+    /**
+     * Заменяет название СВОЙСТВ в массиве выбираемых полей на битриксовые
+     * 
+     * @param string $arSelect
+     */
     protected function adaptSelect(&$arSelect)
     {
         foreach ($arSelect as $key => $selectField)
@@ -549,6 +554,12 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         }
     }
     
+    /**
+     * Заменяет названия ПОЛЕЙ в фильтре на битриксовые
+     * 
+     * @param array $arFilter
+     * @return array
+     */
     protected function adaptFilter($arFilter)
     {
         $comparisons = ['!', '<=', '>=', '>', '<'];

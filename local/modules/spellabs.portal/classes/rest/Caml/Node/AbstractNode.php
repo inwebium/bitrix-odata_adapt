@@ -1,6 +1,12 @@
 <?php
 namespace Spellabs\Portal\Rest\Caml\Node;
 
+/**
+ * Абстрактный класс любого нода. Рекурсивно обрабатывает полученный через 
+ * setContent итератор, создает дерево из нодов и формирует строковое 
+ * представление. getStringRepresentation переопределяется потомками для 
+ * получения нужных строковых значений под параметры запроса.
+ */
 abstract class AbstractNode
 {
     const CLAUSE_NODES = [
@@ -24,6 +30,8 @@ abstract class AbstractNode
         self::LOGIC_NODE => self::LOGIC_NODE,
         self::COMPARISON_NODE => self::COMPARISON_NODE
     ];
+    
+    const NODE_NAMESPACE = 'Spellabs\Portal\Rest\Caml\Node\\';
     
     protected $itself;
     /**
@@ -69,14 +77,24 @@ abstract class AbstractNode
     {
         return $this->branches;
     }
-
+    
+    /**
+     * Создает элемент в дереве
+     * 
+     * @param string $name
+     * @param mixed $value
+     * @return $this
+     */
     public function setBranches(&$name, &$value)
     {
         $this->branches[$name] = $value;
         return $this;
     }
 
-        
+    /**
+     * Метод обрабатывает потомков этого нода. Рекурсивно вызывает этот же 
+     * метод у потомков итератора и заполняет массив с деревом 
+     */
     public function refine()
     {
         // если у итератора имеются потомки
@@ -89,7 +107,7 @@ abstract class AbstractNode
                 $nodeType = $this->determineNodeType($currentNode->getName());
                 // составляем полное название класса
                 $nodeClass = 
-                    'Spellabs\Portal\Rest\Caml\Node\\' . 
+                    self::NODE_NAMESPACE . 
                     $nodeType . 
                     $currentNode->getName() . 'Node'
                 ;
@@ -136,11 +154,23 @@ abstract class AbstractNode
         return '';
     }
     
+    /**
+     * Вернет полное имя класса представляющего нод
+     * 
+     * @return string
+     */
     public function getNodeClass()
     {
         return get_called_class();
     }
     
+    /**
+     * Возвращает строковое представление нода для дальнейшей подстановки в 
+     * параметры запроса. Его нужно переопределять у потомков для необходимого
+     * вывода
+     * 
+     * @return string
+     */
     protected function getStringRepresentation()
     {
         return $this->getNodeClass();
