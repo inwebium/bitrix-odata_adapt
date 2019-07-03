@@ -735,33 +735,58 @@ class spellabs_portal extends \CModule
                 );
                 $elementFields['IBLOCK_ID'] = $createdIblock['ID'];
 
-                // если задана "картинка анонса" и есть такой файл
-                if (
-                    !empty($elementFields['PREVIEW_PICTURE']) && 
-                    file_exists(
+                // если задана "картинка анонса"
+                if (!empty($elementFields['PREVIEW_PICTURE'])) {
+                    // если начинается с http
+                    if (strpos($elementFields['PREVIEW_PICTURE'], 'http') === 0) {
+                        $remotePathinfo = pathinfo($elementFields['PREVIEW_PICTURE']);
+                        $elementFields['PREVIEW_PICTURE'] = CFile::MakeFileArray(
+                            $elementFields['PREVIEW_PICTURE']
+                        );
+                        
+                        if (empty($remotePathinfo['extension'])) {
+                            rename(
+                                $elementFields['PREVIEW_PICTURE']['tmp_name'],
+                                $elementFields['PREVIEW_PICTURE']['tmp_name'] . '.jpg'
+                            );
+                            
+                            $elementFields['PREVIEW_PICTURE']['tmp_name'] = 
+                                $elementFields['PREVIEW_PICTURE']['tmp_name'] . '.jpg';
+                            
+                            $elementFields['PREVIEW_PICTURE']['name'] = 
+                                $elementFields['PREVIEW_PICTURE']['name'] . '.jpg';
+                            
+                        }
+                        
+                        
+                    } elseif (file_exists( // есть такой файл в "поставке"
                         $this->GetPath() . '/../classes/rest/Fixtures/attachments/' . $elementFields['PREVIEW_PICTURE']
-                    )
-                ) {
-                    //echo "\n " . $elementFields['NAME'] . " - Has preview picture!\n";
-                    $elementFields['PREVIEW_PICTURE'] = CFile::MakeFileArray(
-                        $this->GetPath() . '/../classes/rest/Fixtures/attachments/' . $elementFields['PREVIEW_PICTURE']
-                    );
+                    )) {
+                        $elementFields['PREVIEW_PICTURE'] = CFile::MakeFileArray(
+                            $this->GetPath() . '/../classes/rest/Fixtures/attachments/' . $elementFields['PREVIEW_PICTURE']
+                        );
+                    }
                 }
 
                 // если задана "детальная картинка" и есть такой файл
-                if (
-                    !empty($elementFields['DETAIL_PICTURE']) && 
-                    file_exists(
+                if (!empty($elementFields['DETAIL_PICTURE'])) {
+                    if (strpos($elementFields['DETAIL_PICTURE'], 'http') === 0) {
+                        $elementFields['DETAIL_PICTURE'] = CFile::MakeFileArray(
+                            $elementFields['DETAIL_PICTURE']
+                        );
+                    } elseif (file_exists(
                         $this->GetPath() . '/../classes/rest/Fixtures/attachments/' . $elementFields['DETAIL_PICTURE']
-                    )
-                ) {
-                    $elementFields['DETAIL_PICTURE'] = CFile::MakeFileArray(
-                        $this->GetPath() . '/../classes/rest/Fixtures/attachments/' . $elementFields['DETAIL_PICTURE']
-                    );
+                    )) {
+                        $elementFields['PREVIEW_PICTURE'] = CFile::MakeFileArray(
+                            $this->GetPath() . '/../classes/rest/Fixtures/attachments/' . $elementFields['DETAIL_PICTURE']
+                        );
+                    }
                 }
 
                 $newIblockElement = new CIBlockElement;
-                $newIblockElement->Add($elementFields, false, true, true);
+                if (!$createdId = $newIblockElement->Add($elementFields, false, true, true)) {
+                    echo "\nError creating fixture: " . $newIblockElement->LAST_ERROR . "\n";
+                }
             }
         }
         
@@ -835,20 +860,34 @@ class spellabs_portal extends \CModule
                     $nCounter = 0;
                     
                     foreach ($propertyValue as $filenameKey => $filename) {
-                        $filePath = $this->GetPath() . '/../classes/rest/Fixtures/attachments/' . $filename;
+                        
+                        if (strpos($filename, 'http') === 0) {
+                            $attachmentFile = CFile::MakeFileArray($filename);
+                            $attachmentsProperty['n' + $nCounter] = ['VALUE' => $attachmentFile];
+                            $nCounter++;
+                        } else {
+                            $filePath = $this->GetPath() . '/../classes/rest/Fixtures/attachments/' . $filename;
+                        
+                            if (file_exists($filePath)) {
+                                $attachmentFile = CFile::MakeFileArray($filePath);
+                                $attachmentsProperty['n' + $nCounter] = ['VALUE' => $attachmentFile];
+                                $nCounter++;
+                            }
+                        }
+                        
+                    }
+                } else {
+                    
+                    if (strpos($filename, 'http') === 0) {
+                        $attachmentFile = CFile::MakeFileArray($filename);
+                        $attachmentsProperty['n0'] = ['VALUE' => $attachmentFile];
+                    } else {
+                        $filePath = $this->GetPath() . '/../classes/rest/Fixtures/attachments/' . $propertyValue[0];
                         
                         if (file_exists($filePath)) {
                             $attachmentFile = CFile::MakeFileArray($filePath);
-                            $attachmentsProperty['n' + $nCounter] = ['VALUE' => $attachmentFile];
-                            $nCounter++;
+                            $attachmentsProperty['n0'] = ['VALUE' => $attachmentFile];
                         }
-                    }
-                } else {
-                    $filePath = $this->GetPath() . '/../classes/rest/Fixtures/attachments/' . $propertyValue[0];
-                        
-                    if (file_exists($filePath)) {
-                        $attachmentFile = CFile::MakeFileArray($filePath);
-                        $attachmentsProperty['n0'] = ['VALUE' => $attachmentFile];
                     }
                 }
                 
