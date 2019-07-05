@@ -13,7 +13,6 @@ class ModelBuilder
         $this->setInstallerPath($installerPath);
     }
 
-    
     public function getInstallerPath()
     {
         return $this->installerPath;
