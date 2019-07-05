@@ -93,6 +93,17 @@ class RepositoryBuilder
                 $entityBehaviour = $iblockParams['BEHAVIOUR'] . 'Behaviour';
             }
             
+            if ($entityBehaviour == 'LibraryBehaviour') {
+                $contentTypes = $this->getContentTypes($iblockCode);
+                $constructorAdditionals .= "\n\t\t\$this->contentTypes = [\n";
+                
+                foreach ($contentTypes as $for => $arContentTypes) {
+                    $constructorAdditionals .= $this->stringifyContentTypes($arContentTypes, $for);    
+                }
+                
+                $constructorAdditionals .= "\n\t\t];";
+            }
+            
             // Заполняем шаблон
             $repository
                 ->setFilename('List' . $iblockParams['XML_ID'] . '.php')
@@ -179,5 +190,49 @@ class RepositoryBuilder
         }
 
         return true;
+    }
+    
+    /**
+     * Получить настройки контентных типов по коду инфоблока
+     * 
+     * @param string $iblockCode
+     * @param string $for
+     * @return array
+     */
+    private function getContentTypes($iblockCode)
+    {
+        return json_decode(
+            file_get_contents($this->getInstallerPath() . "/conf/content_types.json"), true
+        )[$iblockCode];
+    }
+    
+    private function stringifyContentTypes($arContentTypes, $for)
+    {
+        $result = "";
+        
+        foreach ($arContentTypes as $key => $arContentType) {
+            $result .= "\t\t\tnew \Spellabs\Portal\Rest\Entity\ContentType(" .
+                $arContentType['id'] . ", '" .
+                $arContentType['name'] . "', '" .
+                $for . "'),\n";
+            
+        }
+        
+        return $result;
+    }
+    
+    private function constructSectionFields($sectionFieldsArray)
+    {
+        $result = "";
+        
+        $result .= "$\this->sectionFieldsCollection = new \Spellabs\Portal\Rest\FieldsCollection();";
+        
+        $result .= "\$this->sectionFieldsCollection";
+        
+        foreach ($sectionFieldsArray as $key => $sectionField) {
+            //$sectionField = ;
+        }
+        
+        return $result;
     }
 }

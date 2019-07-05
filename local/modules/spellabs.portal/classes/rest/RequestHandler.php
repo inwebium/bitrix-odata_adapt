@@ -150,6 +150,4 @@ class RequestHandler
         
         return $this->requestObject->$methodName();
     }
-
-
 }

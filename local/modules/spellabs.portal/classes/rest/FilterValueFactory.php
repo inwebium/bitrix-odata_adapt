@@ -19,7 +19,7 @@ class FilterValueFactory
             'groupAsParameter' => 1
         ],
         'ScalarFilterValue'   => [ //должен быть последним (~default)
-            'pattern' => "/'?(.*)'?/",
+            'pattern' => "/(.*)/",
             'groupAsParameter' => 1
         ],
     ];

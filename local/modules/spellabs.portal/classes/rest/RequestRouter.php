@@ -26,9 +26,15 @@ class RequestRouter
         2 => [
             //'getCurrentUserGroups' => [], // группы текущего пользователя
             //'getCurrentUser'       => [], // текущий пользователь
-            'getItemById'          => ["/items\(([\d]+)\)/"], // элемент по id
-            'getItems'             => ["/items/"], // must be last
+            'getItemById' => ["/items\(([\d]+)\)/"], // элемент по id
+            'getItems'    => ["/items/"], // must be last
         ],
+        3 => [
+            'folder' => ["/folder/"],
+        ],
+        4 => [
+            'files' => ["/files/"],
+        ]
     ];
     
     public function __construct($apiRoot)
@@ -132,7 +138,7 @@ class RequestRouter
     public function getClassMethodName()
     {
         $result = false;
-        
+
         if (!$result = $this->getExceptionalMethod()) {
             $result = strtolower($this->getRequestMethod());
         }
@@ -151,13 +157,37 @@ class RequestRouter
     {
         $result = false;
         
-        if (method_exists("Spellabs\\Portal\\Rest\\Repository\\" . $this->getClassName(), $this->getUriArray()[2])) {
-            $result = $this->getUriArray()[2];
+        $methodName = $this->getUriArray()[2];
+        
+        if (count($this->getUriArray()) > 3) {
+            $methodName = $this->getUriArray()[3];
+            
+            for ($i = 4; isset($this->getUriArray()[$i]); $i++) {
+                $methodName .= ucfirst($this->getUriArray()[$i]);
+            }
         }
+        
+        if (
+            method_exists(
+                "Spellabs\\Portal\\Rest\\Repository\\" . $this->getClassName(), 
+                $methodName
+            )
+        ) {
+            $result = $methodName;
+        }
+        
+        /*var_dump($result);
+        die();*/
         
         return $result;
     }
     
+    /**
+     * Проверяет представлен ли id элеента в запросе 
+     * (запросы вида .../items(123)...)
+     * 
+     * @return boolean
+     */
     private function isIdPresented()
     {
         $result = false;
@@ -172,6 +202,11 @@ class RequestRouter
         return $result;
     }
     
+    /**
+     * Получает id из предоставленного .../items(N)/...
+     * 
+     * @return boolean|int
+     */
     public function getPresentedId()
     {
         $result = false;

@@ -14,8 +14,45 @@ Loader::includeModule('iblock');
  */
 trait LibraryBehaviour
 {
+    /**
+     * @var array У класса с этим трейтом будет свойство массив для хранения
+     * возможных контентных типов
+     */
+    protected $contentTypes;
+    protected $sectionFieldsCollection;
+
     protected function select($arOrder, $arFilter, $arGroup, $arNav, $arSelect)
     {
+        $contentTypeFilter = '';
+        array_walk_recursive(
+            $arFilter, 
+            function($value, $key) use (&$contentTypeFilter) {
+                if ($key == 'ContentType') {
+                    $contentTypeFilter = $value;
+                }
+            }
+        );
+
+        $entityToSelect = '';
+        
+        foreach ($this->contentTypes as $key => $contentType) {
+            if ($contentType->getName() == $contentTypeFilter) {
+                $entityToSelect = $contentType->getAppliesFor();
+            }
+        }
+
+        if ($entityToSelect == 'ELEMENT') {
+            return $this->selectElements($arOrder, $arFilter, $arGroup, $arNav, $arSelect);
+        } elseif ($entityToSelect == 'SECTION') {
+            return $this->selectSections($arOrder, $arFilter, $arNav, $arSelect);
+        } else {
+            return false;
+        }
+    }
+    
+    protected function selectElements($arOrder, $arFilter, $arGroup, $arNav, $arSelect)
+    {
+        $result = false;
         $resource = \CIBlockElement::GetList($arOrder, $arFilter, $arGroup, $arNav, $arSelect);
         
         if (in_array('count', $arSelect)) {
@@ -36,15 +73,48 @@ trait LibraryBehaviour
                 $result = $arElements[0];
             }
         }
+        
+        return $result;
     }
     
-    protected function selectElements()
+    protected function selectSections($arOrder, $arFilter, $arNav, $arSelect)
     {
+        $result = false;
+        /*$arFilter = ['IBLOCK_ID' => 1459];
+        $arSelect = ['ID', 'NAME'];*/
         
+        $resource = \CIBlockSection::GetList($arOrder, $arFilter, false, $arSelect, $arNav);
+        
+        if (in_array('count', $arSelect)) {
+            $result = [$resource->SelectedRowsCount()];
+        } else {
+            $arElements = [];
+        
+            while($element = $resource->GetNext())
+            {
+                $this->placeExpandedValues($element);
+                $this->adaptResult($element);
+                $arElements[] = $element;
+            }
+
+            if (!isset($arFilter['ID']) || is_array($arFilter['ID'])) {
+                $result = $arElements;
+            } else {
+                $result = $arElements[0];
+            }
+        }
+
+        return $result;
     }
-    
-    protected function selectSections()
+
+    public function folderFiles()
     {
+        $this
+            ->getRequestParameters()
+            ->replaceFilter('ID', 'SECTION_ID')
+            ->appendFilter(['SECTION_GLOBAL_ACTIVE' => 'Y'])
+        ;
         
+        $this->get();
     }
 }

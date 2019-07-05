@@ -7,6 +7,14 @@ class ScalarFilterValue implements FilterValueInterface
     
     public function __construct($value)
     {
+        if (preg_match("/(?<=').*?(?=')/", $value)) {
+            $value = ltrim($value, '\'');
+            $value = rtrim($value, '\'');
+        }
+        
+        $value = stripslashes($value);
+        $value = urldecode($value);
+        
         $this->setValue($value);
     }
 

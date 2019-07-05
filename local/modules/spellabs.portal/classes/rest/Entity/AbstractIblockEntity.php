@@ -12,16 +12,11 @@ Loader::includeModule('iblock');
 
 /**
  * Абстрактный класс rest-сущностей являющихся инфоблоками
+ * 
+ * @todo Разбух как забытый дошик - надо раскидать по каким-нибудь абстракциям
  */
 abstract class AbstractIblockEntity extends AbstractRestApiEntity
 {
-    /*public static $fieldsAssoc = [
-        'Id' => 'ID',
-        'Title' => 'NAME',
-        'Created' => 'DATE_CREATE',
-        'slCode' => 'CODE',
-        'slIndex' => 'SORT',
-    ];*/
     
     protected $fieldsToExpand = [
         'IBLOCK_ID',
@@ -150,6 +145,9 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
     
     /**
      * Реализация метода запроса GET. По сути вызывает CIBlockElement::GetList
+     * или, возможно, CIBlockSection::GetList (в случаем с представлением 
+     * инфоблока в качестве библиотек). Вызывает метод select из трейта, в 
+     * котором и определяется xnj ds,bhfnm
      * с отпарсенными select, filter, top, expand, order
      * 
      * @return array
@@ -180,15 +178,6 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         
         $this->adaptSelect($arSelect);
         $arFilter = $this->adaptFilter($arFilter);
-        /*var_dump($arOrder);
-        var_dump($arFilter);
-        var_dump($arGroup);
-        var_dump($arNav);
-        var_dump($arSelect);
-        die();*/
-        //$resource = \CIBlockElement::GetList($arOrder, $arFilter, $arGroup, $arNav, $arSelect);
-        
-        //$this->getRequestParameters()->
         $result = $this->select($arOrder, $arFilter, $arGroup, $arNav, $arSelect);
         
         return $result;

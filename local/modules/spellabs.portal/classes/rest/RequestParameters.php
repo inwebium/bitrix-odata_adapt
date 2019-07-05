@@ -100,14 +100,14 @@ class RequestParameters
     {
         if (is_array($additionalFilter) && count($additionalFilter) > 0)
         {
-            $compoundArray = $this->getFilter();
+            //$compoundArray = $this->getFilter();
             
             foreach ($additionalFilter as $key => $value)
             {
-                $compoundArray[$key] = $value;
+                $this->filter[$key] = $value;
             }
             
-            $this->setFilter($compoundArray);
+            //$this->setFilter($compoundArray);
         }
         
         return $this;
@@ -139,6 +139,12 @@ class RequestParameters
         return $this;
     }
     
+    /**
+     * Заменяет поле $field в select на $replaceFor
+     * 
+     * @param string $field
+     * @param string $replaceFor
+     */
     public function replaceSelect($field, $replaceFor)
     {
         $select = $this->getSelect();
@@ -148,6 +154,18 @@ class RequestParameters
         }
         
         $this->setSelect($select);
+        
+        return $this;
+    }
+    
+    public function replaceFilter($field, $replaceFor)
+    {
+        if(array_key_exists($field, $this->filter)) {
+            $this->filter[$replaceFor] = $this->filter[$field];
+            unset($this->filter[$field]);
+        }
+        
+        return $this;
     }
     
     public function getPayload()
