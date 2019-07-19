@@ -98,9 +98,10 @@ class RequestParser
         if ($this->isParamSet('expand')) {
             $result = explode(',', $this->requestParams['expand']);
             
-            foreach ($result as $key => $fieldName) {
+            // Чегоооо?
+            /*foreach ($result as $key => $fieldName) {
                 $result[$key] = $fieldName;
-            }
+            }*/
         }
         
         return $result;

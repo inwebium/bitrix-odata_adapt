@@ -699,5 +699,22 @@
 			"SEARCHABLE": "N",
 			"FILTRABLE": "Y"
 		}
+    },
+    "sl_photo_library": {
+        "SORT": {
+            "XML_ID": "slAlbumIndex",
+            "RETURNS": "Integer",
+            "FIELD_ENTITY": "SECTION_FIELD"
+        },
+        "DESCRIPTION": {
+            "XML_ID": "slAlbumDescription",
+            "RETURNS": "String",
+            "FIELD_ENTITY": "SECTION_FIELD"
+        },
+        "PICTURE": {
+            "XML_ID": "slAlbumCover",
+            "RETURNS": "String",
+            "FIELD_ENTITY": "SECTION_FIELD"
+        }
     }
 }

@@ -158,21 +158,26 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         
         $this->getRequestParameters()->appendFilter(['IBLOCK_ID' => $this->getIblockId()]);
         
-        // В arSelect минимум нужны IBLOCK_ID и ID
-        if (!in_array('IBLOCK_ID', $this->getRequestParameters()->getSelect()))
-        {
-            $this->getRequestParameters()->appendSelect(['IBLOCK_ID']);
+        // Если select пустой, то селектим все имеющиеся по репозиторию поля
+        // т.е. поля из fieldsCollection
+        if (empty($this->getRequestParameters()->getSelect())) {
+            foreach ($this->getFieldsCollection() as $field) {
+                $this->getRequestParameters()->appendSelect([$field->getCode()]);
+            }
         }
         
-        if (!in_array('ID', $this->getRequestParameters()->getSelect()))
-        {
-            $this->getRequestParameters()->appendSelect(['ID']);
-        }
+        // В arSelect минимум нужны IBLOCK_ID и ID
+        $this->getRequestParameters()->appendSelect(['IBLOCK_ID', 'ID']);
         
         $arOrder = $this->getRequestParameters()->getOrder();
         $arGroup = false;
         $arNav = $this->getRequestParameters()->getTop();
         $this->expand();
+        
+        if (in_array('File/ServerRelativeUrl', $this->getRequestParameters()->getSelect())) {
+            $this->getRequestParameters()->appendSelect(['PROPERTY_SL_SERVER_RELATIVE_URL']);
+        }
+        
         $arFilter = $this->getRequestParameters()->getFilter();
         $arSelect = $this->getRequestParameters()->getSelect();
         
@@ -319,8 +324,7 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
             $this->getRequestParameters()->getExpand()
         );
 
-        foreach ($propertiesToExpand as $num => $fieldCode)
-        {
+        foreach ($propertiesToExpand as $num => $fieldCode) {
             $this->replaceExpandedFields($fieldCode);
         }
         
@@ -571,6 +575,14 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         return $newFilter;
     }
     
+    /**
+     * Привести "в порядок" результат (?!) Получит пути картинок анонса и 
+     * детальной, из тильда-полей перенесет нормальные значения, заменит
+     * ключи свойств, которые PROPERTY_xxx_VALUE, на xxx 
+     * (это уже потом они меняются на внешние коды)
+     * 
+     * @param type $arResult
+     */
     protected function adaptResult(&$arResult)
     {
         if (!empty($arResult['PREVIEW_PICTURE'])) {
@@ -595,8 +607,7 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
         
         $arPropsCodes = [];
         
-        foreach ($this->getFieldsAssociations('PROPERTY') as $key => $value)
-        {
+        foreach ($this->getFieldsAssociations('PROPERTY') as $key => $value) {
             $arPropsCodes['PROPERTY_' . $value . '_VALUE'] = $value;
         }
         
@@ -609,6 +620,15 @@ abstract class AbstractIblockEntity extends AbstractRestApiEntity
             }
 
             $arResult[$key] = $this->getFieldsCollection()->getField($key)->handleValue($value);
+        }
+        
+        /**
+         * Если в expand есть ListItemAllFields, то просто продублировать 
+         * поля во вложенный одноименный элемент, ибо пока не понял 
+         * тайный смысл сей конструкции
+         */
+        if (in_array('ListItemAllFields', $this->getRequestParameters()->getExpand())) {
+            $arResult['ListItemAllFields'] = $arResult;
         }
     }
     

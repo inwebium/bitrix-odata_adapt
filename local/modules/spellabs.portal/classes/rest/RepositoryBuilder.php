@@ -65,7 +65,10 @@ class RepositoryBuilder
                 
                 if (
                     isset($arProperty['FIELD_ENTITY']) && 
-                    in_array($arProperty['FIELD_ENTITY'], ['PROPERTY', 'FIELD', 'USERFIELD'])
+                    in_array(
+                        $arProperty['FIELD_ENTITY'], 
+                        ['PROPERTY', 'FIELD', 'USERFIELD', 'SECTION_FIELD']
+                    )
                 ) {
                     $fieldEntity = $arProperty['FIELD_ENTITY'];
                 }
@@ -221,11 +224,17 @@ class RepositoryBuilder
         return $result;
     }
     
-    private function constructSectionFields($sectionFieldsArray)
+    private function stringifySectionFields($sectionFieldsArray)
     {
         $result = "";
         
-        $result .= "$\this->sectionFieldsCollection = new \Spellabs\Portal\Rest\FieldsCollection();";
+        $result .= "\t\t\$this->sectionFieldsCollection = [";
+        
+        foreach ($sectionFieldsArray as $key => $arSectionField) {
+            $result .= "\t\t\tnew Field('', '',);";
+        }
+        
+        $result .= "\t\t];";
         
         $result .= "\$this->sectionFieldsCollection";
         

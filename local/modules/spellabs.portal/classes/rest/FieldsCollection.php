@@ -81,7 +81,7 @@ class FieldsCollection implements \Iterator
     
     /**
      * Возвращает объект FieldsCollection содержащий объекты полей у которых 
-     * представление в битриксе (UF, FIELD, PROPERTY) = $entityName
+     * представление в битриксе (UF, FIELD, PROPERTY, SECTION_FIELD) = $entityName
      * 
      * @param string $entityName
      * @return \Spellabs\Portal\Rest\FieldsCollection

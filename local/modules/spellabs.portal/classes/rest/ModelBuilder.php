@@ -38,12 +38,9 @@ class ModelBuilder
         $CACHE_MANAGER->cleanDir("b_iblock_type");
         $resIblockType = \CIBlockType::GetByID('spellabs');
         
-        if ($resIblockType->GetNext())
-        {
+        if ($resIblockType->GetNext()) {
             echo "\nNOTICE (CreateIblockType): IBlockType spellabs already exists\n\n";
-        }
-        else
-        {
+        } else {
             $slIblockType = new \CIBlockType;
             $arIblockTypeFields = [
                 'ID' => 'spellabs',
@@ -68,14 +65,11 @@ class ModelBuilder
 
             $result = $slIblockType->Add($arIblockTypeFields);
 
-            if (!$result)
-            {
+            if (!$result) {
                 $DB->Rollback();
                 echo "\nERROR (CreateIblockType): " . $slIblockType->LAST_ERROR . "\n\n";
                 die();
-            }
-            else
-            {
+            } else {
                 $DB->Commit();
                 $CACHE_MANAGER->cleanDir("b_iblock_type");
             }
@@ -94,8 +88,7 @@ class ModelBuilder
         global $DB;
         $arIblocksParams = json_decode(file_get_contents($this->getInstallerPath() . "/conf/iblock.json"), true);
 
-        foreach ($arIblocksParams as $iblockCode => $iblockParams)
-        {
+        foreach ($arIblocksParams as $iblockCode => $iblockParams) {
             $newIblock = new \CIBlock;
             
             // удалим придуманные ключи от греха подальше
@@ -116,13 +109,10 @@ class ModelBuilder
 
             $result = $newIblock->Add($iblockParams);
 
-            if (!$result)
-            {
+            if (!$result) {
                 $DB->Rollback();
                 echo "\nERROR (CreateIblocks): " . $newIblock->LAST_ERROR . "\n\n";
-            }
-            else
-            {
+            } else {
                 $DB->Commit();
                 \CIBlock::SetPermission($result, $arPermissions);
             }
@@ -141,11 +131,11 @@ class ModelBuilder
         global $DB;
         $arIblocksProperties = json_decode(file_get_contents($this->getInstallerPath() . "/conf/property.json"), true);
 
-        foreach ($arIblocksProperties as $iblockCode => $arProperties)
-        {
+        foreach ($arIblocksProperties as $iblockCode => $arProperties) {
             $iblockId = $this->getIblockId($iblockCode);
-            foreach ($arProperties as $propertyCode => $arProperty)
-            {
+            
+            foreach ($arProperties as $propertyCode => $arProperty) {
+                
                 if (!isset($arProperty['PROPERTY_TYPE']) && !isset($arProperty['NAME'])) {
                     continue;
                 }
@@ -167,13 +157,10 @@ class ModelBuilder
 
                 $result = $newProperty->Add($arProperty);
 
-                if (!$result)
-                {
+                if (!$result) {
                     $DB->Rollback();
                     echo "\nERROR (CreateProperties): " . $newProperty->LAST_ERROR . "\n\n";
-                }
-                else
-                {
+                } else {
                     $DB->Commit();
                 }
             }
@@ -190,32 +177,26 @@ class ModelBuilder
     {
         $editFormsSettings = json_decode(file_get_contents($this->getInstallerPath() . "/conf/editform.json"), true);
         
-        foreach ($editFormsSettings as $iblockCode => $arFormSettings)
-        {
+        foreach ($editFormsSettings as $iblockCode => $arFormSettings) {
             $iblockId = $this->getIblockId($iblockCode);
-            
             $arCreatedProperties = [];
             $resProperties = \CIBlockProperty::GetList(['SORT' => 'ASC', 'NAME' => 'ASC'], ['IBLOCK_ID' => $iblockId]);
-            while ($arProperty = $resProperties->GetNext())
-            {
+            
+            while ($arProperty = $resProperties->GetNext()){
                 $arCreatedProperties[] = 'PROPERTY_' . $arProperty['ID'] . '--#--' . $arProperty['NAME'];
             }
             
             $strFields = [];
             
-            foreach ($arFormSettings as $tabKey => $arTabSettings)
-            {
+            foreach ($arFormSettings as $tabKey => $arTabSettings) {
                 $arFields = [];
                 
-                foreach ($arTabSettings as $code => $name)
-                {
+                foreach ($arTabSettings as $code => $name) {
                     $arFields[] = $code . '--#--' . $name;
                 }
                 
                 $arStrFields = array_merge($arFields, $arCreatedProperties);
-                
                 $strFields[] = implode('--,--', $arStrFields);
-                
             }
             
             $arSettings = ['tabs' => implode('--;--', $strFields) . '--;--'];
@@ -237,15 +218,13 @@ class ModelBuilder
         global $DB;
         $arUserFields = json_decode(file_get_contents($this->getInstallerPath() . "/conf/userfield.json"), true);
         
-        foreach ($arUserFields as $fieldName => $arSettings)
-        {
+        foreach ($arUserFields as $fieldName => $arSettings) {
             $newUserField = new \CUserTypeEntity();
             $arSettings['FIELD_NAME'] = $fieldName;
             
             $regExpMatches = [];
             
-            if (preg_match('/#([a-zA-Z0-9_]*)#/', $arSettings['ENTITY_ID'], $regExpMatches))
-            {
+            if (preg_match('/#([a-zA-Z0-9_]*)#/', $arSettings['ENTITY_ID'], $regExpMatches)) {
                 $arSettings['ENTITY_ID'] = str_replace(
                     $regExpMatches[0], 
                     $this->getIblockId($regExpMatches[1]), 
@@ -255,8 +234,10 @@ class ModelBuilder
             
             $regExpMatches = [];
             
-            if (isset($arSettings['SETTINGS']['IBLOCK_ID']) && preg_match('/^#([a-zA-Z0-9_]*)#$/', $arSettings['SETTINGS']['IBLOCK_ID'], $regExpMatches))
-            {
+            if (
+                isset($arSettings['SETTINGS']['IBLOCK_ID']) && 
+                preg_match('/^#([a-zA-Z0-9_]*)#$/', $arSettings['SETTINGS']['IBLOCK_ID'], $regExpMatches)
+            ) {
                 $arSettings['SETTINGS']['IBLOCK_ID'] = str_replace(
                     $regExpMatches[0], 
                     $this->getIblockId($regExpMatches[1]), 
@@ -268,13 +249,10 @@ class ModelBuilder
 
             $result = $newUserFieldId = $newUserField->Add($arSettings);
 
-            if (!$result)
-            {
+            if (!$result) {
                 $DB->Rollback();
                 echo "\nERROR (SetupUserFields " . $fieldName . "): " . $newUserField->LAST_ERROR . "\n\n";
-            }
-            else
-            {
+            } else {
                 $DB->Commit();
             }
         }
@@ -293,27 +271,24 @@ class ModelBuilder
         $arUserFields = json_decode(file_get_contents($this->getInstallerPath() . "/conf/userfield.json"), true);
         $userTypeEntity = new \CUserTypeEntity();
         
-        foreach ($arUserFields as $fieldName => $arSettings)
-        {
+        foreach ($arUserFields as $fieldName => $arSettings) {
             $userFieldEntity = \CUSerTypeEntity::GetList(['ID' => 'ASC'], ['FIELD_NAME' => $fieldName]);
             
-            if ($arUserField = $userFieldEntity->GetNext())
-            {
+            if ($arUserField = $userFieldEntity->GetNext()) {
                 $DB->StartTransaction();
 
                 $result = $userTypeEntity->Delete($arUserField['ID']);
 
-                if (!$result)
-                {
+                if (!$result) {
                     $DB->Rollback();
                     echo "\nERROR (DeleteUserFields " . $fieldName . "): " . $userTypeEntity->LAST_ERROR . "\n\n";
-                }
-                else
-                {
+                } else {
                     $DB->Commit();
                 }
             }
-        }      
+        }
+        
+        // Добавить удаление пользовательских полей сзданных через users.json
     }
     
     private function addUserField($ufArray)
@@ -326,14 +301,11 @@ class ModelBuilder
 
         $result = $newUserField->Add($ufArray);
 
-        if (!$result)
-        {
+        if (!$result) {
             $DB->Rollback();
             echo "\nERROR (addUserField) " . $newUserField->LAST_ERROR;
             return false;
-        }
-        else
-        {
+        } else {
             $DB->Commit();
             return true;
         }
