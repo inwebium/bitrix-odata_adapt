@@ -66,7 +66,7 @@ var BannersService = /** @class */ (function (_super) {
         return 'Баннеры';
     };
     BannersService.prototype.getSelect = function () {
-        return 'Id,Title,slText,slUrl,slShow,slIndex,AttachmentFiles/ServerRelativeUrl';
+        return 'Id,Title,slText,slUrl,slShow,slIndex,AttachmentFiles/ServerRelativeUrl,slNewDate,slEndDate';
     };
     BannersService.prototype.getExpand = function () {
         return 'AttachmentFiles';
@@ -91,7 +91,9 @@ var BannersService = /** @class */ (function (_super) {
             imageUrl: item.AttachmentFiles && item.AttachmentFiles.length > 0 ? item.AttachmentFiles[0].ServerRelativeUrl : null,
             isShow: item.slShow,
             url: item.slUrl,
-            text: item.slText
+            text: item.slText,
+            newDate: item.slNewDate && new Date(item.slNewDate),
+            endDate: item.slEndDate && new Date(item.slEndDate)
         };
         return banner;
     };
@@ -217,6 +219,37 @@ var PhotoLibraryService = /** @class */ (function (_super) {
     };
     PhotoLibraryService.prototype.getFiles = function (id, webId) {
         var _this = this;
+        console.log('------photoLibraryService getFiles------');
+        var params = {
+            id: id,
+            expand: 'ListItemAllFields',
+            urlPostfix: 'folder/files/'
+        };
+        return this.getItems(params); /*.pipe(
+            map(items => {
+                console.log('------photoLibraryService getFiles items------', items);
+                return items.map((i: any) => {
+                    console.log('------photoLibraryService getFiles i------', i);
+                    //const entity = this.convertListItemToEntity(i.ListItemAllFields);
+                    i.url = i.ServerRelativeUrl;
+                    console.log('------photoLibraryService getFiles i------', i);
+                    //console.log('------photoLibraryService getFiles entity------', entity);
+                    return i;
+                });
+            })
+        );*/
+        /*.pipe(
+            map(items => {
+                console.log('------photoLibraryService getFiles items------', items);
+                return items.map((i: any) => {
+                    console.log('------photoLibraryService getFiles i------', i);
+                    const entity = this.convertListItemToEntity(i.ListItemAllFields);
+                    entity.url = i.ServerRelativeUrl;
+                    console.log('------photoLibraryService getFiles entity------', entity);
+                    return entity;
+                });
+            })
+        )*/
         return this.getWebById(webId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (web) { return web.lists.getByTitle(_this.getListTitle()).items.getById(id).folder.files.toUrlAndQuery(); }), 
         // flatMap((url: string) => this.http.get(`${this.sharepointService.getRelativeUrl()}/${url}?$expand=ListItemAllFields`)),
         Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["flatMap"])(function (url) { return url.indexOf('://') > 0 ? _this.http.get(url + "?$expand=ListItemAllFields")

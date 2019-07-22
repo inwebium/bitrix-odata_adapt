@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"l-page-header\">\n  <div class=\"l-breadcrumbs\">\n    <div class=\"l-breadcrumb\"><a [routerLink]=\"['/company']\">Главная</a></div>\n    <div class=\"l-breadcrumb\">Телефонный справочник</div>\n  </div>\n  <div class=\"title\">Телефонный справочник</div>\n</div>\n<div class=\"l-page is-fill\">\n  <div class=\"l-page-inner\">\n    <div class=\"l-page__content\">\n      <div class=\"l-phonebook\">\n        <div class=\"l-phonebook__navigation\">\n          <div class=\"m-hierarchy-menu\">\n            <app-tree-menu [departmentId]=\"departmentId\" [items]=\"departments\" (change)=\"getEmployeesByDepartment($event)\"></app-tree-menu>\n          </div>\n        </div>\n        <div class=\"l-phonebook__content\">\n          <div class=\"l-phonebook__content-header\">\n            <div class=\"search\">\n              <input #searchRef type=\"text\" placeholder=\"Поиск по справочнику\"  (keypress)=\"onKeypress($event)\"/>\n            </div>\n            <div class=\"tabs-phonebook\">\n              <app-filters>\n                <app-filters-item (change)=\"getAllEmployees($event)\">\n                  Все\n                </app-filters-item>\n                <app-filters-item (change)=\"getEmergencyEmployees($event)\" style=\"display: none\">\n                  Экстренные\n                </app-filters-item>\n                <app-filters-item (change)=\"getMyEmployees($event)\">\n                  Мое подразделение\n                </app-filters-item>\n                <app-filters-item (change)=\"getLikedEmployees($event)\">\n                  Избранные\n                </app-filters-item>\n              </app-filters>\n            </div>\n          </div>\n          <div class=\"l-phonebook__content-body\">\n            <div class=\"empty-employee-list\" *ngIf=\"employees.length === 0\">\n              Результаты не найдены\n            </div>\n            <div class=\"employee-list\" *ngIf=\"employees.length > 0\">\n              <div class=\"employee\" #employeeCardElement *ngFor=\"let employee of employees\">\n                <div class=\"header\" (click)=\"toggleCard(employeeCardElement)\">\n                  <div class=\"photo\">\n                    <app-user-thumb [width]=\"'90px'\" [height]=\"'90px'\"\n                    [photo]=\"employee.photo\" [route]=\"employee.profileRoute\"\n                    [active]=\"employee.reason == null || employee.reason === ''\"></app-user-thumb>\n                  </div>\n                  <div class=\"info\">\n                    <div class=\"title\">{{ employee.fullName }}</div>\n                    <div class=\"position\">{{ employee.positionName }}</div>\n                  </div>\n                  <div class=\"controls\">\n                    <div class=\"control\">\n                      <a [routerLink]=\"employee.profileRoute\" class=\"profile\"></a>\n                    </div>\n                    <div class=\"control\" style=\"display: none\">\n                      <input type=\"button\" class=\"cell\" />\n                    </div>\n                    <div class=\"control\" style=\"display: none\">\n                      <input type=\"button\" class=\"message\" />\n                    </div>\n                    <div class=\"control\" *ngIf=\"employee.email\">\n                      <a href=\"mailto:{{ employee.email }}\" class=\"email\"></a>\n                    </div>\n                    <div class=\"control\" style=\"display: none\">\n                      <input type=\"button\" class=\"connection\" />\n                    </div>\n                  </div>\n                </div>\n                <div class=\"body\">\n                  <div class=\"controls\">\n                    <div class=\"control\">\n                      <input type=\"button\" [ngClass]=\"{ 'favorite' : true, 'favorite-black': isLikedEmployee(employee) }\"\n                        (click)=\"toggleLike(employee)\" />\n                    </div>\n                    <div class=\"control\" style=\"display: none\">\n                      <input type=\"button\" class=\"like\" />\n                    </div>\n                    <div class=\"control\">\n                      <app-share-contact [link]=\"getEmployeeLink(employee)\"></app-share-contact>\n                    </div>\n                  </div>\n                  <div class=\"left-side\">\n                    <div class=\"row\">\n                      День рождения {{ employee.birthdayTitle }}\n                    </div>\n                    <div class=\"row\">\n                      Работает с\n                      {{ employee.startWorkDate | date: 'dd.MM.yyyy' }}\n                    </div>\n                    <div class=\"row\">\n                      Внутренний телефон: {{ employee.phoneInternal }}\n                    </div>\n                    <div class=\"row\">Моб. телефон: {{ employee.mobile }}</div>\n                    <div class=\"row\">\n                      E-mail:\n                      <a href=\"mailto:{{ employee.email }}\">{{\n                        employee.email\n                        }}</a>\n                    </div>\n                    <div class=\"row\">\n                      Расположение офиса: {{ employee.city }}\n                    </div>\n                    <div class=\"row\">\n                      Номер кабинета: {{ employee.officeNumber }}\n                    </div>\n                  </div>\n                  <div class=\"right-side\">\n                    <div class=\"row\">\n                      <div class=\"title\">Прямая структура подчинения:</div>\n                      <div class=\"text\">{{ employee.structureTitles }}</div>\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n          <div class=\"load-more\" *ngIf=\"hasNext\">\n            <input (click)=\"getNextEmployees()\" _ngcontent-c12=\"\" class=\"btn btn-default\" type=\"button\" value=\"Eще\" />\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"l-page-header\">\n  <div class=\"l-breadcrumbs\">\n    <div class=\"l-breadcrumb\"><a [routerLink]=\"['/company']\">Главная</a></div>\n    <div class=\"l-breadcrumb\">Телефонный справочник</div>\n  </div>\n  <div class=\"title\">Телефонный справочник</div>\n</div>\n<div class=\"l-page is-fill\">\n  <div class=\"l-page-inner\">\n    <div class=\"l-page__content\">\n      <div class=\"l-phonebook\">\n        <div class=\"l-phonebook__navigation\">\n          <div class=\"m-hierarchy-menu\">\n            <app-tree-menu [departmentId]=\"departmentId\" [items]=\"departments\" (change)=\"getEmployeesByDepartment($event)\"></app-tree-menu>\n          </div>\n        </div>\n        <div class=\"l-phonebook__content\">\n          <div class=\"l-phonebook__content-header\">\n            <div class=\"search\">\n              <input #searchRef type=\"text\" placeholder=\"Поиск по справочнику\"  (keypress)=\"onKeypress($event)\"/>\n            </div>\n            <div class=\"tabs-phonebook\">\n              <app-filters>\n                <app-filters-item (change)=\"getAllEmployees($event)\">\n                  Все\n                </app-filters-item>\n                <app-filters-item (change)=\"getEmergencyEmployees($event)\" style=\"display: none\">\n                  Экстренные\n                </app-filters-item>\n                <app-filters-item (change)=\"getMyEmployees($event)\">\n                  Мое подразделение\n                </app-filters-item>\n                <app-filters-item (change)=\"getLikedEmployees($event)\">\n                  Избранные\n                </app-filters-item>\n              </app-filters>\n            </div>\n          </div>\n          <div class=\"l-phonebook__content-body\">\n            <div class=\"empty-employee-list\" *ngIf=\"employees.length === 0\">\n              Результаты не найдены\n            </div>\n            <div class=\"employee-list\" *ngIf=\"employees.length > 0\">\n              <div class=\"employee\" #employeeCardElement *ngFor=\"let employee of employees\">\n                <div class=\"header\" (click)=\"toggleCard(employeeCardElement)\">\n                  <div class=\"photo\">\n                    <app-user-thumb [width]=\"'90px'\" [height]=\"'90px'\"\n                    [photo]=\"employee.photo\" [route]=\"employee.profileRoute\"\n                    [active]=\"employee.reason == null || employee.reason === ''\"></app-user-thumb>\n                  </div>\n                  <div class=\"info\">\n                    <div class=\"title\">{{ employee.fullName }}</div>\n                    <div class=\"position\">{{ employee.positionName }}</div>\n                  </div>\n                  <div class=\"controls\">\n                    <div class=\"control\">\n                      <a [routerLink]=\"employee.profileRoute\" class=\"profile\"></a>\n                    </div>\n                    <div class=\"control\" style=\"display: none\">\n                      <input type=\"button\" class=\"cell\" />\n                    </div>\n                    <div class=\"control\" style=\"display: none\">\n                      <input type=\"button\" class=\"message\" />\n                    </div>\n                    <div class=\"control\" *ngIf=\"employee.email\">\n                      <a href=\"mailto:{{ employee.email }}\" class=\"email\"></a>\n                    </div>\n                    <div class=\"control\" style=\"display: none\">\n                      <input type=\"button\" class=\"connection\" />\n                    </div>\n                  </div>\n                </div>\n                <div class=\"body\">\n                  <div class=\"controls\">\n                    <div class=\"control\">\n                      <input type=\"button\" [ngClass]=\"{ 'favorite' : true, 'favorite-black': isLikedEmployee(employee) }\"\n                        (click)=\"toggleLike(employee)\" />\n                    </div>\n                    <div class=\"control\">\n                      <input type=\"button\" class=\"like\" (click)=\"thanksTo(employee)\" />\n                    </div>\n                    <div class=\"control\">\n                      <app-share-contact [link]=\"getEmployeeLink(employee)\"></app-share-contact>\n                    </div>\n                  </div>\n                  <div class=\"left-side\">\n                    <div class=\"row\">\n                      День рождения {{ employee.birthdayTitle }}\n                    </div>\n                    <div class=\"row\">\n                      Работает с\n                      {{ employee.startWorkDate | date: 'dd.MM.yyyy' }}\n                    </div>\n                    <div class=\"row\">\n                      Внутренний телефон: {{ employee.phoneInternal }}\n                    </div>\n                    <div class=\"row\">Моб. телефон: {{ employee.mobile }}</div>\n                    <div class=\"row\">\n                      E-mail:\n                      <a href=\"mailto:{{ employee.email }}\">{{\n                        employee.email\n                        }}</a>\n                    </div>\n                    <div class=\"row\">\n                      Расположение офиса: {{ employee.city }}\n                    </div>\n                    <div class=\"row\">\n                      Номер кабинета: {{ employee.officeNumber }}\n                    </div>\n                  </div>\n                  <div class=\"right-side\">\n                    <div class=\"row\">\n                      <div class=\"title\">Прямая структура подчинения:</div>\n                      <div class=\"text\">{{ employee.structureTitles }}</div>\n                    </div>\n                  </div>\n                </div>\n              </div>\n            </div>\n          </div>\n          <div class=\"load-more\" *ngIf=\"hasNext\">\n            <input (click)=\"getNextEmployees()\" _ngcontent-c12=\"\" class=\"btn btn-default\" type=\"button\" value=\"Eще\" />\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"l-thanks-modal\">\n    <app-thanks-modal-form\n      [userLogin]=\"employee && employee.login\"\n      [photo]=\"employee && employee.photo\"\n      [fullName]=\"employee && employee.fullName\"\n      [userId]=\"userId\"\n      [modalIsOpen]=\"modalIsOpen\"\n      (hasAviableThanks)=\"aviableThanksEmpty = $event\"\n      (close)=\"closeThanksModal()\"\n    ></app-thanks-modal-form>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -37,6 +37,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/sharepoint/sharepoint.service */ "./src/app/services/sharepoint/sharepoint.service.ts");
+/* harmony import */ var src_app_shared_services_notifications_notifications_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/shared/services/notifications/notifications.service */ "./src/app/shared/services/notifications/notifications.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -54,11 +55,13 @@ var __param = (undefined && undefined.__param) || function (paramIndex, decorato
 
 
 
+
 var PhonebookPageComponent = /** @class */ (function () {
-    function PhonebookPageComponent(employeesFactory, route, sharepointService) {
+    function PhonebookPageComponent(employeesFactory, route, sharepointService, notificationsService) {
         this.employeesFactory = employeesFactory;
         this.route = route;
         this.sharepointService = sharepointService;
+        this.notificationsService = notificationsService;
         this.department = null;
         this.myDepartmentId = null;
         this.hasNext = false;
@@ -69,6 +72,9 @@ var PhonebookPageComponent = /** @class */ (function () {
         this.filter = null;
         this.isFavorite = false;
         this.departmentId = null;
+        this.employee = null;
+        this.modalIsOpen = false;
+        this.aviableThanksEmpty = false;
         this.userId = this.sharepointService.getCurrentUserContext().userId;
     }
     PhonebookPageComponent.prototype.ngAfterViewInit = function () {
@@ -186,6 +192,18 @@ var PhonebookPageComponent = /** @class */ (function () {
             ("" + this.sharepointService.getCurrentUserContext().webServerRelativeUrl) +
             ("/PortalPages/home.aspx#/phonebook/" + employee.id));
     };
+    PhonebookPageComponent.prototype.thanksTo = function (employee) {
+        if (!this.aviableThanksEmpty) {
+            this.employee = employee;
+            this.modalIsOpen = true;
+        }
+        else {
+            this.notificationsService.warning("\u041D\u0430 \u0434\u0430\u043D\u043D\u044B\u0439 \u043C\u043E\u043C\u0435\u043D\u0442 \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u044B\u0445 \u0431\u043B\u0430\u0433\u043E\u0434\u0430\u0440\u043D\u043E\u0441\u0442\u0435\u0439 \u043D\u0435\u0442.\n      \u0412\u043E\u0437\u043C\u043E\u0436\u043D\u043E\u0441\u0442\u044C \u043E\u0441\u0442\u0430\u0432\u0438\u0442\u044C \u0431\u043B\u0430\u0433\u043E\u0434\u0430\u0440\u043D\u043E\u0441\u0442\u044C \u0431\u0443\u0434\u0435\u0442 \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u0430 \u0432 \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0435\u043C \u043C\u0435\u0441\u044F\u0446\u0435");
+        }
+    };
+    PhonebookPageComponent.prototype.closeThanksModal = function () {
+        this.modalIsOpen = false;
+    };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChildren"])('employeeCardElement', { read: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"] }),
         __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["QueryList"])
@@ -208,7 +226,8 @@ var PhonebookPageComponent = /** @class */ (function () {
         }),
         __param(0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])('EmployeesFactory')),
         __metadata("design:paramtypes", [Object, _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"],
-            src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_4__["SharepointService"]])
+            src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_4__["SharepointService"],
+            src_app_shared_services_notifications_notifications_service__WEBPACK_IMPORTED_MODULE_5__["NotificationsService"]])
     ], PhonebookPageComponent);
     return PhonebookPageComponent;
 }());
@@ -224,7 +243,7 @@ var PhonebookPageComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"l-page-header\">\n  <div class=\"l-breadcrumbs\">\n    <div class=\"l-breadcrumb\"><a [routerLink]=\"['/company']\">Главная</a></div>\n    <div class=\"l-breadcrumb\">\n      <a [routerLink]=\"['/phonebook']\">Телефонный справочник</a>\n    </div>\n    <div class=\"l-breadcrumb\">Профиль сотрудника</div>\n  </div>\n  <div class=\"title\">Профиль сотрудника</div>\n</div>\n<div class=\"l-page\" *ngIf=\"employee\">\n  <div class=\"l-page-inner\">\n    <div class=\"l-page__content\">\n      <div class=\"employee-card\">\n        <div class=\"header\">\n          <div class=\"photo\">\n            <app-user-thumb [width]=\"'110px'\" [height]=\"'110px'\"\n              [hasModalPhoto]=\"true\"\n              [hasZoom]=\"true\"\n              [photo]=\"employee.photo\" [route]=\"employee.profileRoute\"\n              [active]=\"employee.reason == null || employee.reason === ''\"></app-user-thumb>\n          </div>\n          <div class=\"info\">\n            <div class=\"title\">{{ employee.fullName }}</div>\n            <div class=\"position\">{{ employee.positionName }}</div>\n          </div>\n          <div class=\"controls\">\n            <div class=\"control\" style=\"display: none\">\n              <input type=\"button\" class=\"cell\" />\n            </div>\n            <div class=\"control\" style=\"display: none\">\n              <input type=\"button\" class=\"message\" />\n            </div>\n            <div class=\"control\" *ngIf=\"employee.email\">\n              <a href=\"{{'mailto:' + employee.email}}\" class=\"email\"></a>\n            </div>\n            <div class=\"control\" style=\"display: none\">\n              <input type=\"button\" class=\"connection\" />\n            </div>\n          </div>\n        </div>\n        <div class=\"body\">\n          <div class=\"controls\">\n            <div class=\"control\">\n                <input type=\"button\"\n                [ngClass]=\"{ 'favorite' : true, 'favorite-black': this.employee.likedByIds.indexOf(this.userId) >= 0 }\"\n                (click)=\"toggleLike()\"/>\n            </div>\n            <div class=\"control\" style=\"display: none\"><input type=\"button\" class=\"like\" /></div>\n            <div class=\"control\">\n              <app-share-contact [link]=\"getEmployeeLink(employee)\"></app-share-contact>\n            </div>\n          </div>\n          <div class=\"left-side\">\n            <div class=\"row\">День рождения {{ employee.birthdayTitle }}</div>\n            <div class=\"row\">\n              Работает с {{ employee.startWorkDate | date: 'dd.MM.yyyy' }}\n            </div>\n            <div class=\"row\">\n              Внутренний телефон: {{ employee.phoneInternal }}\n            </div>\n            <div class=\"row\">Моб. телефон: {{ employee.mobile }}</div>\n            <div class=\"row\">\n              E-mail:\n              <a href=\"mailto:{{ employee.email }}\">{{employee.email}}</a>\n            </div>\n            <div class=\"row\">Расположение офиса: {{ employee.city }}</div>\n            <div class=\"row\">Номер кабинета: {{ employee.officeNumber }}</div>\n          </div>\n          <div class=\"right-side\">\n            <div class=\"row\">\n              <div class=\"title\">Прямая структура подчинения:</div>\n              <div class=\"text\">{{ employee.structureTitles }}</div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <div class=\"additional-info\">\n        <div class=\"left-side\">\n          <h3>Ближайшее окружение</h3>\n          <app-department-heads\n            [inline]=\"true\"\n            [employee]=\"employee\"\n          ></app-department-heads>\n        </div>\n        <div class=\"right-side\" style=\"display: none\">\n          <h3>Благодарности</h3>\n          <div class=\"thanks-list\">\n            <div class=\"thanks\" *ngFor=\"let item of thanksList\">\n              <div class=\"info\">\n                <div class=\"reward\">\n                  <div class=\"icon\">\n                    <i [style.backgroundImage]=\"'url(' + item.reward.icon + ')'\"></i>\n                  </div>\n                  <div class=\"text\">\n                    <span> {{ item.reward.title }} </span>\n                  </div>\n                </div>\n              </div>\n              <div class=\"employees\">\n                <div class=\"employee\" *ngFor=\"let employee of item.employees\">\n                  <app-user-thumb [photo]=\"employee.photo\" [showStatus]=\"false\"></app-user-thumb>\n                </div>\n              </div>\n              <!--В счетчике ниже необходимо вычитать 3 - пользователи, отображаемые левее-->\n              <div class=\"count\">+{{ item.count }}</div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"l-page-header\">\n  <div class=\"l-breadcrumbs\">\n    <div class=\"l-breadcrumb\"><a [routerLink]=\"['/company']\">Главная</a></div>\n    <div class=\"l-breadcrumb\">\n      <a [routerLink]=\"['/phonebook']\">Телефонный справочник</a>\n    </div>\n    <div class=\"l-breadcrumb\">Профиль сотрудника</div>\n  </div>\n  <div class=\"title\">Профиль сотрудника</div>\n</div>\n<div class=\"l-page\" *ngIf=\"employee\">\n  <div class=\"l-page-inner\">\n    <div class=\"l-page__content\">\n      <div class=\"employee-card\">\n        <div class=\"header\">\n          <div class=\"photo\">\n            <app-user-thumb [width]=\"'110px'\" [height]=\"'110px'\"\n              [hasModalPhoto]=\"true\"\n              [hasZoom]=\"true\"\n              [photo]=\"employee.photo\" [route]=\"employee.profileRoute\"\n              [active]=\"employee.reason == null || employee.reason === ''\"></app-user-thumb>\n          </div>\n          <div class=\"info\">\n            <div class=\"title\">{{ employee.fullName }}</div>\n            <div class=\"position\">{{ employee.positionName }}</div>\n          </div>\n          <div class=\"controls\">\n            <div class=\"control\" style=\"display: none\">\n              <input type=\"button\" class=\"cell\" />\n            </div>\n            <div class=\"control\" style=\"display: none\">\n              <input type=\"button\" class=\"message\" />\n            </div>\n            <div class=\"control\" *ngIf=\"employee.email\">\n              <a href=\"{{'mailto:' + employee.email}}\" class=\"email\"></a>\n            </div>\n            <div class=\"control\" style=\"display: none\">\n              <input type=\"button\" class=\"connection\" />\n            </div>\n          </div>\n        </div>\n        <div class=\"body\">\n          <div class=\"controls\">\n            <div class=\"control\">\n                <input type=\"button\"\n                [ngClass]=\"{ 'favorite' : true, 'favorite-black': this.employee.likedByIds.indexOf(this.userId) >= 0 }\"\n                (click)=\"toggleLike()\"/>\n            </div>\n            <div class=\"control\">\n              <input type=\"button\" class=\"like\" (click)=\"openThanksModal()\" />\n            </div>\n            <div class=\"control\">\n              <app-share-contact [link]=\"getEmployeeLink(employee)\"></app-share-contact>\n            </div>\n          </div>\n          <div class=\"left-side\">\n            <div class=\"row\">День рождения {{ employee.birthdayTitle }}</div>\n            <div class=\"row\">\n              Работает с {{ employee.startWorkDate | date: 'dd.MM.yyyy' }}\n            </div>\n            <div class=\"row\">\n              Внутренний телефон: {{ employee.phoneInternal }}\n            </div>\n            <div class=\"row\">Моб. телефон: {{ employee.mobile }}</div>\n            <div class=\"row\">\n              E-mail:\n              <a href=\"mailto:{{ employee.email }}\">{{employee.email}}</a>\n            </div>\n            <div class=\"row\">Расположение офиса: {{ employee.city }}</div>\n            <div class=\"row\">Номер кабинета: {{ employee.officeNumber }}</div>\n          </div>\n          <div class=\"right-side\">\n            <div class=\"row\">\n              <div class=\"title\">Прямая структура подчинения:</div>\n              <div class=\"text\">{{ employee.structureTitles }}</div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <div class=\"additional-info\">\n        <div class=\"left-side\">\n          <h3>Ближайшее окружение</h3>\n          <app-department-heads\n            [inline]=\"true\"\n            [employee]=\"employee\"\n          ></app-department-heads>\n        </div>\n        <div class=\"right-side\">\n          <h3>\n            Благодарности\n            <!-- <a [routerLink]=\"['/', 'thanks']\" class=\"all-thanks\">Все благодарности</a> -->\n          </h3>\n          <app-thanks-profile-informer [refresh]=\"refreshThanks\"></app-thanks-profile-informer>\n        </div>\n      </div>\n      <div class=\"l-thanks-modal\">\n        <app-thanks-modal-form\n          [userLogin]=\"employee && employee.login\"\n          [photo]=\"employee.photo\"\n          [fullName]=\"employee.fullName\"\n          [userId]=\"userId\"\n          [modalIsOpen]=\"modalIsOpen\"\n          (hasAviableThanks)=\"aviableThanksEmpty = $event\"\n          (close)=\"closeThanksModal()\"\n          [refreshThanks]=\"refreshThanks\"\n        ></app-thanks-modal-form>\n      </div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -235,7 +254,7 @@ module.exports = "<div class=\"l-page-header\">\n  <div class=\"l-breadcrumbs\">
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.employee-card {\n  margin-left: 25px;\n  margin-bottom: 35px;\n  margin-right: -2%; }\n\n.employee-card:last-child {\n    margin-bottom: 0; }\n\n.employee-card .header,\n  .employee-card .body {\n    background-color: #F1F1F4;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-direction: row;\n        flex-direction: row; }\n\n.employee-card .header {\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n    -ms-flex-align: center;\n        align-items: center;\n    padding: 30px 35px;\n    box-sizing: border-box;\n    cursor: pointer; }\n\n.employee-card .header .photo {\n      margin-right: 25px; }\n\n.employee-card .header .info {\n      max-width: 55%; }\n\n.employee-card .header .info .title {\n        font-weight: 600; }\n\n.employee-card .header .info .title,\n      .employee-card .header .info .position {\n        font-size: 22px;\n        color: #050505; }\n\n.employee-card .header .info .title + .position,\n        .employee-card .header .info .position + .position {\n          margin-top: 10px; }\n\n.employee-card .header .info .position {\n        font-size: 16px; }\n\n.employee-card .header .controls {\n      position: absolute;\n      right: 75px;\n      display: -ms-flexbox;\n      display: flex;\n      -ms-flex-direction: row;\n          flex-direction: row; }\n\n.employee-card .header .controls .control {\n        padding: 0 12.5px;\n        box-sizing: border-box; }\n\n.employee-card .header .controls .control input[type=\"button\"],\n        .employee-card .header .controls .control a {\n          text-decoration: none;\n          display: block;\n          width: 50px;\n          height: 50px;\n          border-radius: 100%;\n          background-color: #fff;\n          background-repeat: no-repeat;\n          background-position: center;\n          background-size: 90%;\n          padding: 0;\n          margin: 0;\n          border: none;\n          box-sizing: border-box; }\n\n.employee-card .header .controls .control input[type=\"button\"].cell,\n          .employee-card .header .controls .control a.cell {\n            background-image: url(\"/assets/icons/icon-cell-black.svg\"); }\n\n.employee-card .header .controls .control input[type=\"button\"].message,\n          .employee-card .header .controls .control a.message {\n            background-image: url(\"/assets/icons/icon-message-black.svg\"); }\n\n.employee-card .header .controls .control input[type=\"button\"].profile,\n          .employee-card .header .controls .control a.profile {\n            background-image: url(\"/assets/icons/icon-profile-black.svg\"); }\n\n.employee-card .header .controls .control input[type=\"button\"].email,\n          .employee-card .header .controls .control a.email {\n            background-image: url(\"/assets/icons/icon-email-black.svg\"); }\n\n.employee-card .header .controls .control input[type=\"button\"].connection,\n          .employee-card .header .controls .control a.connection {\n            background-image: url(\"/assets/icons/icon-connection-black.svg\"); }\n\n.employee-card .body {\n    padding-left: 145px;\n    padding-top: 25px;\n    padding-bottom: 25px;\n    padding-right: 25px;\n    box-sizing: border-box;\n    position: relative;\n    min-height: 220px;\n    font-size: 16px;\n    color: #050505; }\n\n.employee-card .body .controls {\n      position: absolute;\n      width: 145px;\n      top: 25px;\n      left: 0;\n      bottom: 0;\n      display: -ms-flexbox;\n      display: flex;\n      -ms-flex-align: center;\n          align-items: center;\n      -ms-flex-direction: column;\n          flex-direction: column; }\n\n.employee-card .body .controls .control {\n        height: 30px;\n        width: 30px; }\n\n.employee-card .body .controls .control input[type=\"button\"] {\n          padding: 0;\n          margin: 0;\n          border: 0;\n          min-width: 0;\n          background-color: transparent;\n          cursor: pointer;\n          width: 100%;\n          height: 100%;\n          background-repeat: no-repeat;\n          background-position: center;\n          background-size: 90%;\n          cursor: pointer; }\n\n.employee-card .body .controls .control input[type=\"button\"]:focus {\n            outline: none; }\n\n.employee-card .body .controls .control input[type=\"button\"].like {\n            background-image: url(\"/assets/icons/icon-like.svg\"); }\n\n.employee-card .body .controls .control input[type=\"button\"].favorite {\n            background-image: url(\"/assets/icons/icon-favorite.svg\"); }\n\n.employee-card .body .controls .control input[type=\"button\"].favorite-black {\n            background-image: url(\"/assets/icons/icon-favorite-black.svg\"); }\n\n.employee-card .body .controls .control input[type=\"button\"].connections {\n            background-image: url(\"/assets/icons/icon-connections.svg\"); }\n\n.employee-card .body .controls .control + .control {\n          margin-top: 25px; }\n\n.employee-card .body .left-side {\n      min-width: 250px; }\n\n.employee-card .body .right-side {\n      padding-left: 8%; }\n\n.employee-card .body .row + .row {\n      margin-top: 12px; }\n\n.employee-card .body .row .title {\n      margin-bottom: 12px; }\n\n.employee-card .body .row a {\n      color: #dd1e25;\n      text-decoration: none; }\n\n.additional-info {\n  margin-left: 25px;\n  font-size: 0;\n  padding: 0 35px;\n  box-sizing: border-box; }\n\n.additional-info .left-side,\n  .additional-info .right-side {\n    display: inline-block;\n    vertical-align: top;\n    width: 50%;\n    box-sizing: border-box; }\n\n.additional-info .left-side {\n    padding-right: 35px; }\n\n.additional-info h3 {\n    font-size: 16px;\n    font-weight: 600;\n    color: #050505;\n    margin-bottom: 35px; }\n\n.additional-info .thanks-list .thanks {\n    position: relative;\n    display: table;\n    table-layout: auto;\n    height: 55px;\n    width: 100%;\n    border-collapse: collapse;\n    box-sizing: border-box; }\n\n.additional-info .thanks-list .thanks .count,\n    .additional-info .thanks-list .thanks .info,\n    .additional-info .thanks-list .thanks .employees {\n      display: table-cell;\n      vertical-align: middle;\n      box-sizing: border-box;\n      width: auto; }\n\n.additional-info .thanks-list .thanks + .thanks {\n      margin-top: 25px; }\n\n.additional-info .thanks-list .thanks .count {\n      width: 65px;\n      font-size: 34px;\n      color: #898888;\n      text-align: center;\n      padding: 0 5px;\n      box-sizing: border-box; }\n\n.additional-info .thanks-list .thanks .reward {\n      display: table;\n      table-layout: fixed;\n      height: 100%;\n      width: 100%;\n      border-collapse: collapse; }\n\n.additional-info .thanks-list .thanks .reward .icon,\n      .additional-info .thanks-list .thanks .reward .text {\n        display: table-cell;\n        vertical-align: middle;\n        box-sizing: border-box;\n        font-size: 14px;\n        color: #4D4E4D;\n        width: auto; }\n\n.additional-info .thanks-list .thanks .reward .icon {\n        width: 55px; }\n\n.additional-info .thanks-list .thanks .reward .icon i {\n          display: block;\n          height: 100%;\n          border-radius: 100%;\n          background-color: #DEDFE0; }\n\n.additional-info .thanks-list .thanks .reward .text {\n        padding-left: 15px; }\n\n.additional-info .thanks-list .thanks .reward .text span {\n          display: block;\n          max-width: 150px; }\n\n.additional-info .thanks-list .thanks .employees {\n      width: 145px;\n      font-size: 0; }\n\n.additional-info .thanks-list .thanks .employees .employee {\n        display: inline-block;\n        vertical-align: middle; }\n\n.additional-info .thanks-list .thanks .employees .employee + .employee {\n          margin-left: -10px; }\n"
+module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.employee-card {\n  margin-left: 25px;\n  margin-bottom: 35px;\n  margin-right: -2%; }\n\n.employee-card:last-child {\n    margin-bottom: 0; }\n\n.employee-card .header,\n  .employee-card .body {\n    background-color: #F1F1F4;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-direction: row;\n        flex-direction: row; }\n\n.employee-card .header {\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n    -ms-flex-align: center;\n        align-items: center;\n    padding: 30px 35px;\n    box-sizing: border-box;\n    cursor: pointer; }\n\n.employee-card .header .photo {\n      margin-right: 25px; }\n\n.employee-card .header .info {\n      max-width: 55%; }\n\n.employee-card .header .info .title {\n        font-weight: 600; }\n\n.employee-card .header .info .title,\n      .employee-card .header .info .position {\n        font-size: 22px;\n        color: #050505; }\n\n.employee-card .header .info .title + .position,\n        .employee-card .header .info .position + .position {\n          margin-top: 10px; }\n\n.employee-card .header .info .position {\n        font-size: 16px; }\n\n.employee-card .header .controls {\n      position: absolute;\n      right: 75px;\n      display: -ms-flexbox;\n      display: flex;\n      -ms-flex-direction: row;\n          flex-direction: row; }\n\n.employee-card .header .controls .control {\n        padding: 0 12.5px;\n        box-sizing: border-box; }\n\n.employee-card .header .controls .control input[type=\"button\"],\n        .employee-card .header .controls .control a {\n          text-decoration: none;\n          display: block;\n          width: 50px;\n          height: 50px;\n          border-radius: 100%;\n          background-color: #fff;\n          background-repeat: no-repeat;\n          background-position: center;\n          background-size: 90%;\n          padding: 0;\n          margin: 0;\n          border: none;\n          box-sizing: border-box; }\n\n.employee-card .header .controls .control input[type=\"button\"].cell,\n          .employee-card .header .controls .control a.cell {\n            background-image: url(\"/assets/icons/icon-cell-black.svg\"); }\n\n.employee-card .header .controls .control input[type=\"button\"].message,\n          .employee-card .header .controls .control a.message {\n            background-image: url(\"/assets/icons/icon-message-black.svg\"); }\n\n.employee-card .header .controls .control input[type=\"button\"].profile,\n          .employee-card .header .controls .control a.profile {\n            background-image: url(\"/assets/icons/icon-profile-black.svg\"); }\n\n.employee-card .header .controls .control input[type=\"button\"].email,\n          .employee-card .header .controls .control a.email {\n            background-image: url(\"/assets/icons/icon-email-black.svg\"); }\n\n.employee-card .header .controls .control input[type=\"button\"].connection,\n          .employee-card .header .controls .control a.connection {\n            background-image: url(\"/assets/icons/icon-connection-black.svg\"); }\n\n.employee-card .body {\n    padding-left: 145px;\n    padding-top: 25px;\n    padding-bottom: 25px;\n    padding-right: 25px;\n    box-sizing: border-box;\n    position: relative;\n    min-height: 220px;\n    font-size: 16px;\n    color: #050505; }\n\n.employee-card .body .controls {\n      position: absolute;\n      width: 145px;\n      top: 25px;\n      left: 0;\n      bottom: 0;\n      display: -ms-flexbox;\n      display: flex;\n      -ms-flex-align: center;\n          align-items: center;\n      -ms-flex-direction: column;\n          flex-direction: column; }\n\n.employee-card .body .controls .control {\n        height: 30px;\n        width: 30px; }\n\n.employee-card .body .controls .control input[type=\"button\"] {\n          padding: 0;\n          margin: 0;\n          border: 0;\n          min-width: 0;\n          background-color: transparent;\n          cursor: pointer;\n          width: 100%;\n          height: 100%;\n          background-repeat: no-repeat;\n          background-position: center;\n          background-size: 90%;\n          cursor: pointer; }\n\n.employee-card .body .controls .control input[type=\"button\"]:focus {\n            outline: none; }\n\n.employee-card .body .controls .control input[type=\"button\"].like {\n            background-image: url(\"/assets/icons/icon-like.svg\"); }\n\n.employee-card .body .controls .control input[type=\"button\"].favorite {\n            background-image: url(\"/assets/icons/icon-favorite.svg\"); }\n\n.employee-card .body .controls .control input[type=\"button\"].favorite-black {\n            background-image: url(\"/assets/icons/icon-favorite-black.svg\"); }\n\n.employee-card .body .controls .control input[type=\"button\"].connections {\n            background-image: url(\"/assets/icons/icon-connections.svg\"); }\n\n.employee-card .body .controls .control + .control {\n          margin-top: 25px; }\n\n.employee-card .body .left-side {\n      min-width: 250px; }\n\n.employee-card .body .right-side {\n      padding-left: 8%; }\n\n.employee-card .body .row + .row {\n      margin-top: 12px; }\n\n.employee-card .body .row .title {\n      margin-bottom: 12px; }\n\n.employee-card .body .row a {\n      color: #dd1e25;\n      text-decoration: none; }\n\n.additional-info {\n  margin-left: 25px;\n  font-size: 0;\n  padding: 0 35px;\n  box-sizing: border-box; }\n\n.additional-info .left-side,\n  .additional-info .right-side {\n    display: inline-block;\n    vertical-align: top;\n    width: 50%;\n    box-sizing: border-box; }\n\n.additional-info .left-side {\n    padding-right: 35px; }\n\n.additional-info h3 {\n    font-size: 16px;\n    font-weight: 600;\n    color: #050505;\n    margin-bottom: 35px; }\n"
 
 /***/ }),
 
@@ -253,6 +272,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 /* harmony import */ var src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/sharepoint/sharepoint.service */ "./src/app/services/sharepoint/sharepoint.service.ts");
+/* harmony import */ var src_app_shared_services_notifications_notifications_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/shared/services/notifications/notifications.service */ "./src/app/shared/services/notifications/notifications.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -269,99 +289,17 @@ var __param = (undefined && undefined.__param) || function (paramIndex, decorato
 
 
 
+
 var ProfilePageComponent = /** @class */ (function () {
-    function ProfilePageComponent(route, employeesFactory, sharepointService) {
+    function ProfilePageComponent(route, employeesFactory, sharepointService, notificationsService) {
         this.route = route;
         this.employeesFactory = employeesFactory;
         this.sharepointService = sharepointService;
+        this.notificationsService = notificationsService;
+        this.modalIsOpen = false;
+        this.aviableThanksEmpty = false;
+        this.refreshThanks = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
         this.employeeSubscription = null;
-        this.thanksList = [
-            {
-                reward: {
-                    title: 'За оперативное решение вопроса',
-                    icon: 'assets/icons/thanks/icon-1.svg'
-                },
-                count: 2,
-                employees: [
-                    {
-                        id: 1,
-                        photo: 'assets/photos/photo-female.png'
-                    },
-                    {
-                        id: 1,
-                        photo: 'assets/photos/photo-male.png'
-                    }
-                ]
-            },
-            {
-                reward: {
-                    title: 'За вежливость',
-                    icon: 'assets/icons/thanks/icon-2.svg'
-                },
-                count: 15,
-                employees: [
-                    {
-                        id: 1,
-                        photo: 'assets/photos/photo-female.png'
-                    },
-                    {
-                        id: 1,
-                        photo: 'assets/photos/photo-male.png'
-                    }
-                ]
-            },
-            {
-                reward: {
-                    title: 'За решение нетривиальной задачи',
-                    icon: 'assets/icons/thanks/icon-3.svg'
-                },
-                count: 22,
-                employees: [
-                    {
-                        id: 1,
-                        photo: 'assets/photos/photo-female.png'
-                    },
-                    {
-                        id: 1,
-                        photo: 'assets/photos/photo-male.png'
-                    }
-                ]
-            },
-            {
-                reward: {
-                    title: 'За оперативное решение вопроса',
-                    icon: 'assets/icons/thanks/icon-4.svg'
-                },
-                count: 5,
-                employees: [
-                    {
-                        id: 1,
-                        photo: 'assets/photos/photo-female.png'
-                    },
-                    {
-                        id: 1,
-                        photo: 'assets/photos/photo-male.png'
-                    }
-                ]
-            },
-            {
-                reward: {
-                    title: 'За вежливость',
-                    icon: 'assets/icons/thanks/icon-5.svg'
-                },
-                count: 8,
-                employees: [
-                    {
-                        id: 1,
-                        photo: 'assets/photos/photo-female.png'
-                    },
-                    {
-                        id: 1,
-                        photo: 'assets/photos/photo-male.png'
-                    }
-                ]
-            }
-        ];
         this.userId = this.sharepointService.getCurrentUserContext().userId;
     }
     ProfilePageComponent.prototype.getEmployeeLink = function (employee) {
@@ -386,15 +324,22 @@ var ProfilePageComponent = /** @class */ (function () {
             this.employee.likedByIds.push(this.userId);
         }
     };
+    ProfilePageComponent.prototype.openThanksModal = function () {
+        if (!this.aviableThanksEmpty) {
+            this.modalIsOpen = true;
+        }
+        else {
+            this.notificationsService.warning("\u041D\u0430 \u0434\u0430\u043D\u043D\u044B\u0439 \u043C\u043E\u043C\u0435\u043D\u0442 \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u044B\u0445 \u0431\u043B\u0430\u0433\u043E\u0434\u0430\u0440\u043D\u043E\u0441\u0442\u0435\u0439 \u043D\u0435\u0442.\n      \u0412\u043E\u0437\u043C\u043E\u0436\u043D\u043E\u0441\u0442\u044C \u043E\u0441\u0442\u0430\u0432\u0438\u0442\u044C \u0431\u043B\u0430\u0433\u043E\u0434\u0430\u0440\u043D\u043E\u0441\u0442\u044C \u0431\u0443\u0434\u0435\u0442 \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u0430 \u0432 \u0441\u043B\u0435\u0434\u0443\u044E\u0449\u0435\u043C \u043C\u0435\u0441\u044F\u0446\u0435");
+        }
+    };
     ProfilePageComponent.prototype.ngOnDestroy = function () {
         if (this.employeeSubscription != null) {
             this.employeeSubscription.unsubscribe();
         }
     };
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", Object)
-    ], ProfilePageComponent.prototype, "thanksList", void 0);
+    ProfilePageComponent.prototype.closeThanksModal = function () {
+        this.modalIsOpen = false;
+    };
     ProfilePageComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-profile-page',
@@ -402,7 +347,8 @@ var ProfilePageComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./profile-page.component.scss */ "./src/app/phonebook/components/profile-page/profile-page.component.scss")]
         }),
         __param(1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])('EmployeesFactory')),
-        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"], Object, src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_3__["SharepointService"]])
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"], Object, src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_3__["SharepointService"],
+            src_app_shared_services_notifications_notifications_service__WEBPACK_IMPORTED_MODULE_4__["NotificationsService"]])
     ], ProfilePageComponent);
     return ProfilePageComponent;
 }());
@@ -522,12 +468,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_phonebook_page_phonebook_page_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/phonebook-page/phonebook-page.component */ "./src/app/phonebook/components/phonebook-page/phonebook-page.component.ts");
 /* harmony import */ var _components_profile_page_profile_page_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/profile-page/profile-page.component */ "./src/app/phonebook/components/profile-page/profile-page.component.ts");
 /* harmony import */ var _staff_staff_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../staff/staff.module */ "./src/app/staff/staff.module.ts");
+/* harmony import */ var _thanks_thanks_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../thanks/thanks.module */ "./src/app/thanks/thanks.module.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -548,7 +496,8 @@ var PhonebookModule = /** @class */ (function () {
                 _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
                 _phonebook_routing_module__WEBPACK_IMPORTED_MODULE_3__["PhonebookRoutingModule"],
                 _shared_shared_module__WEBPACK_IMPORTED_MODULE_2__["SharedModule"],
-                _staff_staff_module__WEBPACK_IMPORTED_MODULE_6__["StaffModule"]
+                _staff_staff_module__WEBPACK_IMPORTED_MODULE_6__["StaffModule"],
+                _thanks_thanks_module__WEBPACK_IMPORTED_MODULE_7__["ThanksModule"]
             ]
         })
     ], PhonebookModule);
@@ -727,49 +676,6 @@ var EmployeesResolver = /** @class */ (function () {
         __metadata("design:paramtypes", [Object])
     ], EmployeesResolver);
     return EmployeesResolver;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/services/security/current-user-id.resolver.ts":
-/*!***************************************************************!*\
-  !*** ./src/app/services/security/current-user-id.resolver.ts ***!
-  \***************************************************************/
-/*! exports provided: CurrentUserIdResolver */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CurrentUserIdResolver", function() { return CurrentUserIdResolver; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var _sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../sharepoint/sharepoint.service */ "./src/app/services/sharepoint/sharepoint.service.ts");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-var CurrentUserIdResolver = /** @class */ (function () {
-    function CurrentUserIdResolver(sharepointService) {
-        this.sharepointService = sharepointService;
-    }
-    CurrentUserIdResolver.prototype.resolve = function (route, state) {
-        return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(this.sharepointService.getCurrentUserContext().userId);
-    };
-    CurrentUserIdResolver = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
-        __metadata("design:paramtypes", [_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_2__["SharepointService"]])
-    ], CurrentUserIdResolver);
-    return CurrentUserIdResolver;
 }());
 
 

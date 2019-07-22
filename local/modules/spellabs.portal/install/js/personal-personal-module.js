@@ -226,7 +226,7 @@ var ContentComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"m-my-info\">\n  <div class=\"row\">\n    <div class=\"content\">\n      <div class=\"column column-3\">\n        <ul class=\"m-information-list\">\n          <li>День рождения {{ employee?.birthdayTitle }}</li>\n          <li>Работает с {{ employee?.startWorkDate | date: 'dd.MM.yyyy'}}</li>\n          <li>Внутренний телефон: {{employee?.phoneInternal}}</li>\n          <li>Моб. телефон: {{employee?.mobile}}</li>\n          <!-- <li>E-mail: <span>{{employee?.email}}</span></li> -->\n          <li>E-mail: <a href=\"{{'mailto:' + employee?.email}}\" class=\"e-mail\">{{employee?.email}}</a></li>\n          <li>Расположение офиса: {{employee?.officeNumber}}</li>\n        </ul>\n      </div>\n      <div class=\"column column-7\">\n        <div class=\"submission\">\n          Прямая структура подчинения: <br />\n          {{employee?.structureTitles}}\n        </div>\n      </div>\n      <div\n        class=\"edit\"\n        style=\"background-image: url(assets/icons/personal/icon-personal-edit.svg)\"\n      ></div>\n    </div>\n  </div>\n\n  <div class=\"row\">\n    <div class=\"content\">\n      <div class=\"column column-5\">\n        <div class=\"title\">\n          Ближайшее окружение\n        </div>\n        <div class=\"m-entourage\" *ngIf=\"managerEmployee\">\n          <div class=\"user-thumb\">\n            <app-user-thumb\n              [photo]=\"managerEmployee.photo\"\n              [route]=\"managerEmployee.profileRoute\"\n              width=\"90px\"\n              height=\"90px\"\n            ></app-user-thumb>\n          </div>\n          <div class=\"m-entourage__content\">\n            <div class=\"position\">\n              Руководитель\n            </div>\n            <div class=\"full-name\">\n              {{ managerEmployee.fullName }}\n            </div>\n            <div class=\"full-position\">\n              {{ managerEmployee.positionName }}\n            </div>\n          </div>\n        </div>\n        <div class=\"m-entourage\" *ngIf=\"deputyEmployee\">\n          <div class=\"user-thumb\">\n            <app-user-thumb\n              [photo]=\"deputyEmployee.photo\"\n              [route]=\"deputyEmployee.profileRoute\"\n              width=\"90px\"\n              height=\"90px\"\n            ></app-user-thumb>\n          </div>\n          <div class=\"m-entourage__content\">\n            <div class=\"position\">\n              Заместитель\n            </div>\n            <div class=\"full-name\">\n              {{ deputyEmployee.fullName }}\n            </div>\n            <div class=\"full-position\">\n              {{ deputyEmployee.positionName }}\n            </div>\n          </div>\n        </div>\n      </div>\n      <div class=\"column column-5\">\n        <div class=\"title\">\n          Благодарности\n        </div>\n        <div class=\"l-my-info__thanks\">\n          <div class=\"m-thanks\" *ngFor=\"let item of thanks\">\n            <div class=\"inner\">\n              <div class=\"m-thanks__icon\">\n                <div class=\"icon\" [style.background-image]=\"item.icon\"></div>\n              </div>\n              <div class=\"m-thanks__content\">\n                <div class=\"text\">\n                  {{ item.text }}\n                </div>\n              </div>\n              <div class=\"m-thanks__user\">\n                <div class=\"user-thumb\">\n                  <app-user-thumb [showStatus]=\"false\"></app-user-thumb>\n                </div>\n                <div class=\"user-thumb\">\n                  <app-user-thumb [showStatus]=\"false\"></app-user-thumb>\n                </div>\n                <div class=\"user-thumb\">\n                  <app-user-thumb [showStatus]=\"false\"></app-user-thumb>\n                </div>\n                <div class=\"count\">\n                  +10\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"m-my-info\">\n  <div class=\"row\">\n    <div class=\"content\">\n      <div class=\"column column-3\">\n        <ul class=\"m-information-list\">\n          <li>День рождения {{ employee?.birthdayTitle }}</li>\n          <li>Работает с {{ employee?.startWorkDate | date: 'dd.MM.yyyy' }}</li>\n          <li>Внутренний телефон: {{ employee?.phoneInternal }}</li>\n          <li>Моб. телефон: {{ employee?.mobile }}</li>\n          <!-- <li>E-mail: <span>{{employee?.email}}</span></li> -->\n          <li>\n            E-mail:\n            <a href=\"{{ 'mailto:' + employee?.email }}\" class=\"e-mail\">{{\n              employee?.email\n            }}</a>\n          </li>\n          <li>Расположение офиса: {{ employee?.officeNumber }}</li>\n        </ul>\n      </div>\n      <div class=\"column column-7\">\n        <div class=\"submission\">\n          Прямая структура подчинения: <br />\n          {{ employee?.structureTitles }}\n        </div>\n      </div>\n      <div\n        class=\"report\"\n        (click)=\"reportOpen = true\"\n        style=\"background-image: url(assets/icons/personal/icon-personal-report.svg)\"\n      ></div>\n    </div>\n  </div>\n\n  <div class=\"row\">\n    <div class=\"content\">\n      <div class=\"column column-5\">\n        <div class=\"title\">\n          Ближайшее окружение\n        </div>\n        <div class=\"m-entourage\" *ngIf=\"managerEmployee\">\n          <div class=\"user-thumb\">\n            <app-user-thumb\n              [photo]=\"managerEmployee.photo\"\n              [route]=\"managerEmployee.profileRoute\"\n              width=\"90px\"\n              height=\"90px\"\n            ></app-user-thumb>\n          </div>\n          <div class=\"m-entourage__content\">\n            <div class=\"position\">\n              Руководитель\n            </div>\n            <div class=\"full-name\">\n              {{ managerEmployee.fullName }}\n            </div>\n            <div class=\"full-position\">\n              {{ managerEmployee.positionName }}\n            </div>\n          </div>\n        </div>\n        <div class=\"m-entourage\" *ngIf=\"deputyEmployee\">\n          <div class=\"user-thumb\">\n            <app-user-thumb\n              [photo]=\"deputyEmployee.photo\"\n              [route]=\"deputyEmployee.profileRoute\"\n              width=\"90px\"\n              height=\"90px\"\n            ></app-user-thumb>\n          </div>\n          <div class=\"m-entourage__content\">\n            <div class=\"position\">\n              Заместитель\n            </div>\n            <div class=\"full-name\">\n              {{ deputyEmployee.fullName }}\n            </div>\n            <div class=\"full-position\">\n              {{ deputyEmployee.positionName }}\n            </div>\n          </div>\n        </div>\n      </div>\n      <div class=\"column column-5\">\n        <div class=\"title\">\n          Благодарности\n          <a [routerLink]=\"['/thanks']\">Все благодарности</a>\n        </div>\n        <app-thanks-profile-informer></app-thanks-profile-informer>\n      </div>\n    </div>\n  </div>\n</div>\n<app-report-error\n  (close)=\"reportOpen = false\"\n  [isOpen]=\"reportOpen\"\n></app-report-error>\n"
 
 /***/ }),
 
@@ -237,7 +237,7 @@ module.exports = "<div class=\"m-my-info\">\n  <div class=\"row\">\n    <div cla
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.row {\n  margin-bottom: 2.25%;\n  padding-bottom: 2.25%;\n  border-bottom: 1px solid rgba(112, 112, 112, 0.5); }\n\n.row:last-child {\n    margin-bottom: 0;\n    padding-bottom: 0;\n    border-bottom: none; }\n\n.row .content {\n    max-width: 1175px; }\n\n.row .column {\n    display: inline-block;\n    vertical-align: top;\n    box-sizing: border-box;\n    height: 100%; }\n\n.row .column + .column {\n      padding-left: 2.5%; }\n\n.row .column-7 {\n    width: 67%; }\n\n.row .column-5 {\n    width: 50%; }\n\n.row .column-3 {\n    width: 33%; }\n\n.m-my-info {\n  position: relative; }\n\n.m-my-info .title {\n    font-size: 16px;\n    font-weight: bold;\n    line-height: 30px;\n    color: #050505; }\n\n@media screen and (max-width: 1440px) {\n      .m-my-info .title {\n        font-size: 14px;\n        line-height: 28px; } }\n\n.m-my-info .edit {\n    position: absolute;\n    top: 0;\n    right: 0;\n    width: 50px;\n    height: 50px;\n    background-color: #F7F7F7;\n    background-position: center;\n    background-repeat: no-repeat;\n    border-radius: 50%;\n    -webkit-transform: translateY(-35%);\n        -ms-transform: translateY(-35%);\n            transform: translateY(-35%);\n    cursor: pointer; }\n\n.m-information-list {\n  font-size: 16px;\n  line-height: 34px;\n  color: #050505;\n  list-style: none;\n  margin: 0;\n  padding: 0; }\n\n.m-information-list .e-mail {\n    color: #EE2737; }\n\n@media screen and (max-width: 1440px) {\n    .m-information-list {\n      font-size: 14px;\n      line-height: 30px; } }\n\n.submission {\n  max-width: 550px;\n  padding-right: 50px;\n  font-size: 16px;\n  line-height: 34px;\n  color: #050505; }\n\n@media screen and (max-width: 1440px) {\n    .submission {\n      font-size: 14px;\n      line-height: 30px; } }\n\n.m-entourage {\n  position: relative;\n  padding: 30px 0; }\n\n.m-entourage:before {\n    content: \"\";\n    position: absolute;\n    bottom: 0;\n    left: 0;\n    display: block;\n    width: 70%;\n    height: 100%;\n    border-bottom: 2px dotted #95989A; }\n\n.m-entourage:last-child::before {\n    border-bottom: none; }\n\n.m-entourage .user-thumb,\n  .m-entourage .m-entourage__content {\n    display: inline-block;\n    vertical-align: top;\n    box-sizing: border-box; }\n\n.m-entourage .user-thumb {\n    width: 110px; }\n\n.m-entourage .m-entourage__content {\n    width: calc(100% - 110px); }\n\n.m-entourage .m-entourage__content .position {\n      margin-bottom: 4px;\n      font-size: 16px;\n      color: #768692;\n      text-transform: uppercase; }\n\n@media screen and (max-width: 1440px) {\n        .m-entourage .m-entourage__content .position {\n          font-size: 14px; } }\n\n.m-entourage .m-entourage__content .full-name {\n      margin-bottom: 5px;\n      font-size: 22px;\n      line-height: 34px;\n      font-weight: bold;\n      color: #050505; }\n\n@media screen and (max-width: 1440px) {\n        .m-entourage .m-entourage__content .full-name {\n          font-size: 16px;\n          line-height: 28px; } }\n\n.m-entourage .m-entourage__content .full-position {\n      font-size: 16px;\n      line-height: 20px;\n      color: #050505; }\n\n@media screen and (max-width: 1440px) {\n        .m-entourage .m-entourage__content .full-position {\n          font-size: 14px;\n          line-height: 18px; } }\n\n.l-my-info__thanks {\n  padding-top: 30px; }\n\n.l-my-info__thanks .m-thanks {\n    padding-bottom: 20px; }\n\n.l-my-info__thanks .m-thanks:last-child {\n      padding-bottom: 0; }\n\n.l-my-info__thanks .m-thanks .inner {\n      display: table;\n      width: 100%;\n      border-collapse: collapse;\n      table-layout: fixed; }\n\n.l-my-info__thanks .m-thanks .m-thanks__icon,\n    .l-my-info__thanks .m-thanks .m-thanks__content,\n    .l-my-info__thanks .m-thanks .m-thanks__user {\n      display: table-cell;\n      vertical-align: middle;\n      box-sizing: border-box; }\n\n.l-my-info__thanks .m-thanks .m-thanks__icon {\n      width: 75px; }\n\n.l-my-info__thanks .m-thanks .m-thanks__icon .icon {\n        width: 56px;\n        height: 56px;\n        background-color: #F1F1F4;\n        background-size: auto;\n        background-repeat: no-repeat;\n        background-position: center;\n        border-radius: 50%; }\n\n.l-my-info__thanks .m-thanks .m-thanks__content {\n      padding-right: 25px;\n      width: 170px; }\n\n.l-my-info__thanks .m-thanks .m-thanks__user {\n      position: relative; }\n\n.l-my-info__thanks .m-thanks .m-thanks__user .user-thumb {\n        display: inline-block;\n        vertical-align: middle;\n        box-sizing: border-box; }\n\n.l-my-info__thanks .m-thanks .m-thanks__user .user-thumb + .user-thumb {\n          margin-left: -25px; }\n\n.l-my-info__thanks .m-thanks .m-thanks__user .count {\n        position: absolute;\n        display: inline-block;\n        vertical-align: middle;\n        box-sizing: border-box;\n        width: 56px;\n        height: 56px;\n        margin-left: -25px;\n        font-size: 14px;\n        line-height: 56px;\n        text-align: center;\n        color: #4D4E4D;\n        background-color: #F1F1F4;\n        border-radius: 50%; }\n"
+module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.row {\n  margin-bottom: 2.25%;\n  padding-bottom: 2.25%;\n  border-bottom: 1px solid rgba(112, 112, 112, 0.5); }\n\n.row:last-child {\n    margin-bottom: 0;\n    padding-bottom: 0;\n    border-bottom: none; }\n\n.row .content {\n    max-width: 1175px; }\n\n.row .column {\n    display: inline-block;\n    vertical-align: top;\n    box-sizing: border-box;\n    height: 100%; }\n\n.row .column + .column {\n      padding-left: 2.5%; }\n\n.row .column-7 {\n    width: 67%; }\n\n.row .column-5 {\n    width: 50%; }\n\n@media screen and (max-width: 1440px) {\n      .row .column-5:first-child {\n        width: 40%; }\n      .row .column-5:last-child {\n        width: 60%; } }\n\n.row .column-5 .title a {\n      text-decoration: none;\n      display: block;\n      text-decoration: none;\n      color: #dd1e25;\n      float: right; }\n\n.row .column-3 {\n    width: 33%; }\n\n.m-my-info {\n  position: relative; }\n\n.m-my-info .title {\n    font-size: 16px;\n    font-weight: bold;\n    line-height: 30px;\n    color: #050505; }\n\n@media screen and (max-width: 1440px) {\n      .m-my-info .title {\n        font-size: 14px;\n        line-height: 28px; } }\n\n.m-my-info .report {\n    position: absolute;\n    top: 0;\n    right: 0;\n    width: 26px;\n    height: 26px;\n    background-position: center;\n    background-repeat: no-repeat;\n    background-size: contain;\n    cursor: pointer; }\n\n.m-information-list {\n  font-size: 16px;\n  line-height: 34px;\n  color: #050505;\n  list-style: none;\n  margin: 0;\n  padding: 0; }\n\n.m-information-list .e-mail {\n    color: #ee2737; }\n\n@media screen and (max-width: 1440px) {\n    .m-information-list {\n      font-size: 14px;\n      line-height: 30px; } }\n\n.submission {\n  max-width: 550px;\n  padding-right: 50px;\n  font-size: 16px;\n  line-height: 34px;\n  color: #050505; }\n\n@media screen and (max-width: 1440px) {\n    .submission {\n      font-size: 14px;\n      line-height: 30px; } }\n\n.m-entourage {\n  position: relative;\n  padding: 30px 0; }\n\n.m-entourage:before {\n    content: '';\n    position: absolute;\n    bottom: 0;\n    left: 0;\n    display: block;\n    width: 70%;\n    height: 100%;\n    border-bottom: 2px dotted #95989a; }\n\n.m-entourage:last-child::before {\n    border-bottom: none; }\n\n.m-entourage .user-thumb,\n  .m-entourage .m-entourage__content {\n    display: inline-block;\n    vertical-align: top;\n    box-sizing: border-box; }\n\n.m-entourage .user-thumb {\n    width: 110px; }\n\n.m-entourage .m-entourage__content {\n    width: calc(100% - 110px); }\n\n.m-entourage .m-entourage__content .position {\n      margin-bottom: 4px;\n      font-size: 16px;\n      color: #768692;\n      text-transform: uppercase; }\n\n@media screen and (max-width: 1440px) {\n        .m-entourage .m-entourage__content .position {\n          font-size: 14px; } }\n\n.m-entourage .m-entourage__content .full-name {\n      margin-bottom: 5px;\n      font-size: 22px;\n      line-height: 34px;\n      font-weight: bold;\n      color: #050505; }\n\n@media screen and (max-width: 1440px) {\n        .m-entourage .m-entourage__content .full-name {\n          font-size: 16px;\n          line-height: 28px; } }\n\n.m-entourage .m-entourage__content .full-position {\n      font-size: 16px;\n      line-height: 20px;\n      color: #050505; }\n\n@media screen and (max-width: 1440px) {\n        .m-entourage .m-entourage__content .full-position {\n          font-size: 14px;\n          line-height: 18px; } }\n\n.l-my-info__thanks {\n  padding-top: 30px; }\n\n.l-my-info__thanks .m-thanks {\n    padding-bottom: 20px; }\n\n.l-my-info__thanks .m-thanks:last-child {\n      padding-bottom: 0; }\n\n.l-my-info__thanks .m-thanks .inner {\n      display: table;\n      width: 100%;\n      border-collapse: collapse;\n      table-layout: fixed; }\n\n.l-my-info__thanks .m-thanks .m-thanks__icon,\n    .l-my-info__thanks .m-thanks .m-thanks__content,\n    .l-my-info__thanks .m-thanks .m-thanks__user {\n      display: table-cell;\n      vertical-align: middle;\n      box-sizing: border-box; }\n\n.l-my-info__thanks .m-thanks .m-thanks__icon {\n      width: 75px; }\n\n.l-my-info__thanks .m-thanks .m-thanks__icon .icon {\n        width: 56px;\n        height: 56px;\n        background-color: #dedfe0;\n        background-size: auto;\n        background-repeat: no-repeat;\n        background-position: center;\n        border-radius: 50%; }\n\n.l-my-info__thanks .m-thanks .m-thanks__content {\n      padding-right: 25px;\n      width: 160px; }\n\n.l-my-info__thanks .m-thanks .m-thanks__user {\n      position: relative; }\n\n.l-my-info__thanks .m-thanks .m-thanks__user .user-thumb {\n        display: inline-block;\n        vertical-align: middle;\n        box-sizing: border-box; }\n\n.l-my-info__thanks .m-thanks .m-thanks__user .user-thumb + .user-thumb {\n          margin-left: -25px; }\n\n.l-my-info__thanks .m-thanks .m-thanks__user .count {\n        position: absolute;\n        display: inline-block;\n        vertical-align: middle;\n        box-sizing: border-box;\n        width: 56px;\n        height: 56px;\n        margin-left: 15px;\n        font-size: 34px;\n        line-height: 56px;\n        text-align: center;\n        color: #898888;\n        border-radius: 50%; }\n\n@media screen and (max-width: 1440px) {\n          .l-my-info__thanks .m-thanks .m-thanks__user .count {\n            margin-left: 0;\n            font-size: 26px; } }\n"
 
 /***/ }),
 
@@ -266,8 +266,9 @@ var __param = (undefined && undefined.__param) || function (paramIndex, decorato
 };
 
 var MyInfoComponent = /** @class */ (function () {
-    function MyInfoComponent(employeesFactory) {
+    function MyInfoComponent(employeesFactory, ngZone) {
         this.employeesFactory = employeesFactory;
+        this.ngZone = ngZone;
         this.entourage = [
             {
                 position: 'Руководитель',
@@ -280,28 +281,7 @@ var MyInfoComponent = /** @class */ (function () {
                 full_position: 'Технический дизайнер'
             }
         ];
-        this.thanks = [
-            {
-                icon: 'url(assets/icons/personal/icon-personal-thanks-1.svg)',
-                text: 'За оперативное решение вопроса'
-            },
-            {
-                icon: 'url(assets/icons/personal/icon-personal-thanks-2.svg)',
-                text: 'За вежливость'
-            },
-            {
-                icon: 'url(assets/icons/personal/icon-personal-thanks-3.svg)',
-                text: 'За решение нетривиальной задачи'
-            },
-            {
-                icon: 'url(assets/icons/personal/icon-personal-thanks-4.svg)',
-                text: 'За оперативное решение вопроса'
-            },
-            {
-                icon: 'url(assets/icons/personal/icon-personal-thanks-5.svg)',
-                text: 'За вежливость'
-            }
-        ];
+        this.reportOpen = false;
     }
     MyInfoComponent.prototype.getEmployeeById = function (id) {
         return this.employeesFactory.getEmployeeById(id);
@@ -319,6 +299,10 @@ var MyInfoComponent = /** @class */ (function () {
             }
         });
     };
+    MyInfoComponent.prototype.openReport = function () {
+        var _this = this;
+        this.ngZone.run(function () { return _this.reportOpen = true; });
+    };
     MyInfoComponent.prototype.ngOnInit = function () {
         this.getEntourage();
     };
@@ -329,7 +313,7 @@ var MyInfoComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./my-info.component.scss */ "./src/app/personal/components/my-info/my-info.component.scss")]
         }),
         __param(0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])('EmployeesFactory')),
-        __metadata("design:paramtypes", [Object])
+        __metadata("design:paramtypes", [Object, _angular_core__WEBPACK_IMPORTED_MODULE_0__["NgZone"]])
     ], MyInfoComponent);
     return MyInfoComponent;
 }());
@@ -643,12 +627,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_companies_current_user_web_resolver__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../services/companies/current-user-web.resolver */ "./src/app/services/companies/current-user-web.resolver.ts");
 /* harmony import */ var _services_companies_current_user_company_resolver__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../services/companies/current-user-company.resolver */ "./src/app/services/companies/current-user-company.resolver.ts");
 /* harmony import */ var _requests_services_requests_statuses_requests_statuses_resolver__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../requests/services/requests-statuses/requests-statuses.resolver */ "./src/app/requests/services/requests-statuses/requests-statuses.resolver.ts");
+/* harmony import */ var _services_employees_current_employee_resolver__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./services/employees/current-employee.resolver */ "./src/app/personal/services/employees/current-employee.resolver.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -668,7 +654,8 @@ var routes = [
             templates: _requests_services_requests_templates_requests_templates_resolver__WEBPACK_IMPORTED_MODULE_4__["RequestsTemplatesResolver"],
             webId: _services_companies_current_user_web_resolver__WEBPACK_IMPORTED_MODULE_5__["CurrentUserWebResolver"],
             company: _services_companies_current_user_company_resolver__WEBPACK_IMPORTED_MODULE_6__["CurrentUserCompanyResolver"],
-            statuses: _requests_services_requests_statuses_requests_statuses_resolver__WEBPACK_IMPORTED_MODULE_7__["RequestsStatusesResolver"]
+            statuses: _requests_services_requests_statuses_requests_statuses_resolver__WEBPACK_IMPORTED_MODULE_7__["RequestsStatusesResolver"],
+            employee: _services_employees_current_employee_resolver__WEBPACK_IMPORTED_MODULE_8__["CurrentEmployeeResolver"]
         },
         data: { animation: 'fadeAnimation', title: 'Страница сотрудника' }
     }
@@ -679,7 +666,8 @@ var PersonalRoutingModule = /** @class */ (function () {
     PersonalRoutingModule = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
             imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forChild(routes)],
-            providers: [_requests_services_requests_groups_requests_groups_resolver__WEBPACK_IMPORTED_MODULE_3__["RequestsGroupsResolver"], _requests_services_requests_templates_requests_templates_resolver__WEBPACK_IMPORTED_MODULE_4__["RequestsTemplatesResolver"], _services_companies_current_user_web_resolver__WEBPACK_IMPORTED_MODULE_5__["CurrentUserWebResolver"], _services_companies_current_user_company_resolver__WEBPACK_IMPORTED_MODULE_6__["CurrentUserCompanyResolver"]],
+            providers: [_requests_services_requests_groups_requests_groups_resolver__WEBPACK_IMPORTED_MODULE_3__["RequestsGroupsResolver"], _services_employees_current_employee_resolver__WEBPACK_IMPORTED_MODULE_8__["CurrentEmployeeResolver"],
+                _requests_services_requests_templates_requests_templates_resolver__WEBPACK_IMPORTED_MODULE_4__["RequestsTemplatesResolver"], _services_companies_current_user_web_resolver__WEBPACK_IMPORTED_MODULE_5__["CurrentUserWebResolver"], _services_companies_current_user_company_resolver__WEBPACK_IMPORTED_MODULE_6__["CurrentUserCompanyResolver"]],
             exports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]]
         })
     ], PersonalRoutingModule);
@@ -712,12 +700,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _requests_requests_module__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../requests/requests.module */ "./src/app/requests/requests.module.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _staff_staff_module__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../staff/staff.module */ "./src/app/staff/staff.module.ts");
+/* harmony import */ var _thanks_thanks_module__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../thanks/thanks.module */ "./src/app/thanks/thanks.module.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -748,7 +738,8 @@ var PersonalModule = /** @class */ (function () {
                 _shared_shared_module__WEBPACK_IMPORTED_MODULE_8__["SharedModule"],
                 _angular_router__WEBPACK_IMPORTED_MODULE_10__["RouterModule"],
                 _requests_requests_module__WEBPACK_IMPORTED_MODULE_9__["RequestsModule"],
-                _staff_staff_module__WEBPACK_IMPORTED_MODULE_11__["StaffModule"]
+                _staff_staff_module__WEBPACK_IMPORTED_MODULE_11__["StaffModule"],
+                _thanks_thanks_module__WEBPACK_IMPORTED_MODULE_12__["ThanksModule"]
             ]
         })
     ], PersonalModule);
@@ -853,6 +844,49 @@ var ContentLinksService = /** @class */ (function (_super) {
     ], ContentLinksService);
     return ContentLinksService;
 }(src_app_services_list_items_service__WEBPACK_IMPORTED_MODULE_1__["ListItemsService"]));
+
+
+
+/***/ }),
+
+/***/ "./src/app/personal/services/employees/current-employee.resolver.ts":
+/*!**************************************************************************!*\
+  !*** ./src/app/personal/services/employees/current-employee.resolver.ts ***!
+  \**************************************************************************/
+/*! exports provided: CurrentEmployeeResolver */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CurrentEmployeeResolver", function() { return CurrentEmployeeResolver; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (undefined && undefined.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+
+var CurrentEmployeeResolver = /** @class */ (function () {
+    function CurrentEmployeeResolver(employeesFactory) {
+        this.employeesFactory = employeesFactory;
+    }
+    CurrentEmployeeResolver.prototype.resolve = function (route, state) {
+        return this.employeesFactory.getCurrentEmployee();
+    };
+    CurrentEmployeeResolver = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __param(0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])('EmployeesFactory')),
+        __metadata("design:paramtypes", [Object])
+    ], CurrentEmployeeResolver);
+    return CurrentEmployeeResolver;
+}());
 
 
 

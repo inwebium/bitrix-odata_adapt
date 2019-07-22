@@ -112,7 +112,17 @@ trait LibraryBehaviour
             while($element = $resource->GetNext())
             {
                 $this->placeExpandedValues($element);
+                
+                
+                
+                $element['Name'] = $element['~NAME'];
+                
                 $this->adaptResult($element);
+                
+                if (isset($element['SL_SERVER_RELATIVE_URL'])) {
+                    $element['File']['ServerRelativeUrl'] = $element['SL_SERVER_RELATIVE_URL'];
+                }
+                
                 $arElements[] = $element;
             }
 
@@ -135,8 +145,7 @@ trait LibraryBehaviour
         $collectionForWalk = $this->sectionFieldsCollection->getFieldsByEntity('SECTION_FIELD');
         $sectionFieldsAssociations = [];
         
-        foreach ($collectionForWalk as $fieldCode => $field)
-        {
+        foreach ($collectionForWalk as $fieldCode => $field) {
             $sectionFieldsAssociations[$field->getXmlId()] = $fieldCode;
         }
         

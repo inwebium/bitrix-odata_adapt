@@ -362,6 +362,37 @@ var PhotoLibraryService = /** @class */ (function (_super) {
     };
     PhotoLibraryService.prototype.getFiles = function (id, webId) {
         var _this = this;
+        console.log('------photoLibraryService getFiles------');
+        var params = {
+            id: id,
+            expand: 'ListItemAllFields',
+            urlPostfix: 'folder/files/'
+        };
+        return this.getItems(params); /*.pipe(
+            map(items => {
+                console.log('------photoLibraryService getFiles items------', items);
+                return items.map((i: any) => {
+                    console.log('------photoLibraryService getFiles i------', i);
+                    //const entity = this.convertListItemToEntity(i.ListItemAllFields);
+                    i.url = i.ServerRelativeUrl;
+                    console.log('------photoLibraryService getFiles i------', i);
+                    //console.log('------photoLibraryService getFiles entity------', entity);
+                    return i;
+                });
+            })
+        );*/
+        /*.pipe(
+            map(items => {
+                console.log('------photoLibraryService getFiles items------', items);
+                return items.map((i: any) => {
+                    console.log('------photoLibraryService getFiles i------', i);
+                    const entity = this.convertListItemToEntity(i.ListItemAllFields);
+                    entity.url = i.ServerRelativeUrl;
+                    console.log('------photoLibraryService getFiles entity------', entity);
+                    return entity;
+                });
+            })
+        )*/
         return this.getWebById(webId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (web) { return web.lists.getByTitle(_this.getListTitle()).items.getById(id).folder.files.toUrlAndQuery(); }), 
         // flatMap((url: string) => this.http.get(`${this.sharepointService.getRelativeUrl()}/${url}?$expand=ListItemAllFields`)),
         Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["flatMap"])(function (url) { return url.indexOf('://') > 0 ? _this.http.get(url + "?$expand=ListItemAllFields")

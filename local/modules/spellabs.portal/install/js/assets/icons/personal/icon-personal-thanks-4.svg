@@ -1,5 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="22.308" height="22.308" viewBox="0 0 22.308 22.308">
-  <g id="icon-personal-thanks-4" transform="translate(-1215 -1283)">
-    <path id="Path_9389" data-name="Path 9389" d="M11.154,0A11.154,11.154,0,1,1,0,11.154,11.154,11.154,0,0,1,11.154,0Z" transform="translate(1215 1283)" fill="#48e088"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="55.91" height="55.91" viewBox="0 0 55.91 55.91">
+  <g id="icon-personal-thanks-4" transform="translate(-1000 -128)">
+    <circle id="Ellipse_1610" data-name="Ellipse 1610" cx="27.955" cy="27.955" r="27.955" transform="translate(1000 128)" fill="rgba(222,223,224,0)"/>
+    <g id="Group_18496" data-name="Group 18496" transform="translate(1011 139.12)">
+      <g id="Group_4" data-name="Group 4">
+        <g id="Ellipse_5" data-name="Ellipse 5" transform="translate(0)" fill="none" stroke="#06070c" stroke-width="1">
+          <circle cx="16.775" cy="16.775" r="16.775" stroke="none"/>
+          <circle cx="16.775" cy="16.775" r="16.275" fill="none"/>
+        </g>
+        <g id="Group_118" data-name="Group 118" transform="translate(8.052 12.249)">
+          <path id="Path_134" data-name="Path 134" d="M872.48,243.9s7.721,8.405,16.514,0" transform="translate(-871.809 -235.415)" fill="none" stroke="#06070c" stroke-width="1"/>
+          <path id="Path_135" data-name="Path 135" d="M0,0A4.437,4.437,0,0,0,6.562,0" transform="translate(6.562 1.484) rotate(180)" fill="none" stroke="#06070c" stroke-width="1"/>
+          <path id="Path_136" data-name="Path 136" d="M0,0A4.437,4.437,0,0,0,6.562,0" transform="translate(17.969 1.484) rotate(180)" fill="none" stroke="#06070c" stroke-width="1"/>
+        </g>
+      </g>
+    </g>
   </g>
 </svg>

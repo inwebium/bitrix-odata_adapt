@@ -297,13 +297,13 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
 var map = {
 	"../birthdays/birthdays.module": [
 		"./src/app/birthdays/birthdays.module.ts",
-		"default~birthdays-birthdays-module~booking-booking-module~new-employees-new-employees-module",
+		"default~birthdays-birthdays-module~booking-booking-module~company-company-module~new-employees-new-e~01eb5f05",
 		"common",
 		"birthdays-birthdays-module"
 	],
 	"../booking/booking.module": [
 		"./src/app/booking/booking.module.ts",
-		"default~birthdays-birthdays-module~booking-booking-module~new-employees-new-employees-module",
+		"default~birthdays-birthdays-module~booking-booking-module~company-company-module~new-employees-new-e~01eb5f05",
 		"common",
 		"booking-booking-module"
 	],
@@ -314,6 +314,8 @@ var map = {
 	],
 	"../company/company.module": [
 		"./src/app/company/company.module.ts",
+		"default~birthdays-birthdays-module~booking-booking-module~company-company-module~new-employees-new-e~01eb5f05",
+		"default~company-company-module~personal-personal-module~phonebook-phonebook-module~thanks-thanks-mod~cd23ac83",
 		"default~company-company-module~enterprise-enterprise-module~incidents-incidents-module~news-news-mod~f69a21f4",
 		"default~company-company-module~enterprise-enterprise-module",
 		"common",
@@ -350,7 +352,7 @@ var map = {
 	],
 	"../new-employees/new-employees.module": [
 		"./src/app/new-employees/new-employees.module.ts",
-		"default~birthdays-birthdays-module~booking-booking-module~new-employees-new-employees-module",
+		"default~birthdays-birthdays-module~booking-booking-module~company-company-module~new-employees-new-e~01eb5f05",
 		"common",
 		"new-employees-new-employees-module"
 	],
@@ -367,12 +369,16 @@ var map = {
 	],
 	"../personal/personal.module": [
 		"./src/app/personal/personal.module.ts",
+		"default~birthdays-birthdays-module~booking-booking-module~company-company-module~new-employees-new-e~01eb5f05",
+		"default~company-company-module~personal-personal-module~phonebook-phonebook-module~thanks-thanks-mod~cd23ac83",
 		"default~personal-personal-module~requests-requests-module",
 		"common",
 		"personal-personal-module"
 	],
 	"../phonebook/phonebook.module": [
 		"./src/app/phonebook/phonebook.module.ts",
+		"default~birthdays-birthdays-module~booking-booking-module~company-company-module~new-employees-new-e~01eb5f05",
+		"default~company-company-module~personal-personal-module~phonebook-phonebook-module~thanks-thanks-mod~cd23ac83",
 		"common",
 		"phonebook-phonebook-module"
 	],
@@ -398,6 +404,12 @@ var map = {
 	"../search/search.module": [
 		"./src/app/search/search.module.ts",
 		"search-search-module"
+	],
+	"../thanks/thanks.module": [
+		"./src/app/thanks/thanks.module.ts",
+		"default~birthdays-birthdays-module~booking-booking-module~company-company-module~new-employees-new-e~01eb5f05",
+		"default~company-company-module~personal-personal-module~phonebook-phonebook-module~thanks-thanks-mod~cd23ac83",
+		"common"
 	],
 	"../videogallery/videogallery.module": [
 		"./src/app/videogallery/videogallery.module.ts",
@@ -679,7 +691,7 @@ var AppModule = /** @class */ (function () {
                     _this.sharepointService.showRibbon();
                 }
             });
-            if (this.platformLocation.pathname.toLowerCase().indexOf('portalpages') > 0) {
+            if (this.platformLocation.pathname.toLowerCase().indexOf('portalpages/home.aspx') > 0) {
                 app.bootstrap(_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]);
             }
             app.bootstrap(_core_header_header_component__WEBPACK_IMPORTED_MODULE_10__["HeaderComponent"]);
@@ -1045,6 +1057,10 @@ var routes = [
         path: 'hall-of-fame',
         loadChildren: '../hall-of-fame/hall-of-fame.module#HallOfFameModule'
     },
+    {
+        path: 'thanks',
+        loadChildren: '../thanks/thanks.module#ThanksModule'
+    },
     { path: '**', component: _not_found_not_found_component__WEBPACK_IMPORTED_MODULE_2__["NotFoundComponent"] }
 ];
 var CoreRoutingModule = /** @class */ (function () {
@@ -1380,7 +1396,7 @@ module.exports = "<div class=\"l-footer\">\n  <div class=\"l-footer-inner\">\n  
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.l-footer {\n  position: relative;\n  background-color: #d3d5d7;\n  padding-top: 50px;\n  box-sizing: border-box;\n  font-size: 14px;\n  line-height: 28px; }\n\n.l-footer .l-footer-inner {\n    max-width: calc(2048px - 175px); }\n\n.l-footer .l-footer__title {\n    font-size: 18px;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    line-height: 24px;\n    max-height: 48px;\n    color: #050505;\n    margin-bottom: 45px; }\n\n@media (min-width: 1440px) {\n      .l-footer .l-footer__title {\n        font-size: calc( 0.01666667 * 100vw + -6px);\n        line-height: calc( 0.01666667 * 100vw + 0px);\n        max-height: calc( 0.02083333 * 100vw + 18px);\n        -webkit-line-clamp: 2; } }\n\n@media (min-width: 1920px) {\n      .l-footer .l-footer__title {\n        font-size: 26px;\n        line-height: 32px;\n        max-height: 64px; } }\n\n@media screen and (max-width: 1440px) {\n      .l-footer .l-footer__title {\n        margin-bottom: 25px; } }\n\n.row {\n  padding: 0 30px;\n  padding-bottom: 40px;\n  box-sizing: border-box;\n  border-bottom: 1px solid #fff; }\n\n.row:last-child {\n    border-bottom: 0; }\n\n.column {\n  padding: 0 15px;\n  box-sizing: border-box; }\n\n.widgets {\n  width: 100%;\n  font-size: 0;\n  box-sizing: border-box;\n  margin-bottom: 60px;\n  display: none; }\n\n@media screen and (max-width: 1440px) {\n    .widgets {\n      padding-bottom: 20px; } }\n\n.widgets .l-footer__weather,\n  .widgets .l-footer__stock,\n  .widgets .l-footer__index,\n  .widgets .l-footer__cost {\n    width: 25%;\n    display: inline-block;\n    color: #050505;\n    vertical-align: top; }\n\n.widgets .l-footer__weather .main {\n    display: inline-block;\n    vertical-align: top; }\n\n.widgets .l-footer__weather .main .temperature {\n      color: #050505;\n      margin-bottom: 20px; }\n\n.widgets .l-footer__weather .main img {\n      width: 73px;\n      height: 60px; }\n\n.widgets .l-footer__weather .details {\n    display: inline-block;\n    vertical-align: top;\n    margin-left: 45px; }\n\n.widgets .l-footer__weather .details table {\n      border-spacing: 0 15px;\n      margin-top: -15px; }\n\n.widgets .l-footer__stock table,\n  .widgets .l-footer__index table,\n  .widgets .l-footer__cost table {\n    width: 70%;\n    border-spacing: 0 15px;\n    margin-top: -15px; }\n\n.widgets .l-footer__stock table tr td:last-child,\n    .widgets .l-footer__index table tr td:last-child,\n    .widgets .l-footer__cost table tr td:last-child {\n      text-align: right; }\n\n.widgets .l-footer__stock table tr td.down,\n    .widgets .l-footer__index table tr td.down,\n    .widgets .l-footer__cost table tr td.down {\n      color: #dd1e25; }\n\n.info {\n  width: 100%;\n  font-size: 0;\n  box-sizing: border-box; }\n\n.info .l-footer__contacts,\n  .info .l-footer__information,\n  .info .l-footer__links,\n  .info .l-footer__feedback {\n    width: 25%;\n    display: inline-block;\n    font-size: 16px;\n    line-height: 22px;\n    color: #050505;\n    vertical-align: top; }\n\n@media screen and (max-width: 1440px) {\n      .info .l-footer__contacts,\n      .info .l-footer__information,\n      .info .l-footer__links,\n      .info .l-footer__feedback {\n        font-size: 12px;\n        line-height: 18px; } }\n\n.info .l-footer__contacts a,\n    .info .l-footer__information a,\n    .info .l-footer__links a,\n    .info .l-footer__feedback a {\n      color: #050505; }\n\n.info .l-footer__feedback .description {\n    color: #050505;\n    margin-bottom: 7%; }\n\n.info .l-footer__feedback input {\n    font-size: 18px;\n    color: #fff;\n    background-color: #dd1e25;\n    border: none;\n    border-radius: 3px;\n    padding: 14px 30px;\n    box-sizing: border-box;\n    min-width: 0px;\n    margin: 0px;\n    cursor: pointer; }\n\n.socials {\n  height: 80px;\n  padding: 30px;\n  box-sizing: border-box; }\n\n.socials .social-facebook,\n  .socials .social-twitter,\n  .socials .social-vk,\n  .socials .social-ok,\n  .socials .social-lin,\n  .socials .social-youtube {\n    display: inline-block;\n    width: 26px;\n    height: 26px;\n    vertical-align: middle;\n    background-repeat: no-repeat;\n    background-size: contain;\n    margin-right: 10px; }\n\n.socials .social-facebook:first-of-type,\n    .socials .social-twitter:first-of-type,\n    .socials .social-vk:first-of-type,\n    .socials .social-ok:first-of-type,\n    .socials .social-lin:first-of-type,\n    .socials .social-youtube:first-of-type {\n      margin-left: 30px; }\n\n.socials .social-facebook {\n    background-image: url(/assets/icons/social/icon-facebook.svg); }\n\n.socials .social-twitter {\n    background-image: url(/assets/icons/social/icon-twitter.svg); }\n\n.socials .social-vk {\n    background-image: url(/assets/icons/social/icon-vk.svg); }\n\n.socials .social-ok {\n    background-image: url(/assets/icons/social/icon-ok.svg); }\n\n.socials .social-lin {\n    background-image: url(/assets/icons/social/icon-lin.svg); }\n\n.socials .social-youtube {\n    background-image: url(/assets/icons/social/icon-youtube.svg); }\n\n.l-footer__links a {\n  display: block;\n  margin-bottom: 10%;\n  text-decoration: underline; }\n\n.l-footer__links a:last-child {\n    margin-bottom: 0; }\n"
+module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.l-footer {\n  position: relative;\n  background-color: #d3d5d7;\n  padding-top: 50px;\n  box-sizing: border-box;\n  font-size: 14px;\n  line-height: 28px; }\n\n.l-footer .l-footer-inner {\n    max-width: calc(2048px - 175px); }\n\n.l-footer .l-footer__title {\n    font-size: 18px;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    line-height: 24px;\n    max-height: 48px;\n    color: #050505;\n    margin-bottom: 45px; }\n\n@media (min-width: 1440px) {\n      .l-footer .l-footer__title {\n        font-size: calc( 0.01666667 * 100vw + -6px);\n        line-height: calc( 0.01666667 * 100vw + 0px);\n        max-height: calc( 0.02083333 * 100vw + 18px);\n        -webkit-line-clamp: 2; } }\n\n@media (min-width: 1920px) {\n      .l-footer .l-footer__title {\n        font-size: 26px;\n        line-height: 32px;\n        max-height: 64px; } }\n\n@media screen and (max-width: 1440px) {\n      .l-footer .l-footer__title {\n        margin-bottom: 25px; } }\n\n.row {\n  padding: 0 30px;\n  padding-bottom: 40px;\n  box-sizing: border-box;\n  border-bottom: 1px solid #fff; }\n\n.row:last-child {\n    border-bottom: 0; }\n\n.column {\n  padding: 0 15px;\n  box-sizing: border-box; }\n\n.widgets {\n  width: 100%;\n  font-size: 0;\n  box-sizing: border-box;\n  margin-bottom: 60px;\n  display: none; }\n\n@media screen and (max-width: 1440px) {\n    .widgets {\n      padding-bottom: 20px; } }\n\n.widgets .l-footer__weather,\n  .widgets .l-footer__stock,\n  .widgets .l-footer__index,\n  .widgets .l-footer__cost {\n    width: 25%;\n    display: inline-block;\n    color: #050505;\n    vertical-align: top; }\n\n.widgets .l-footer__weather .main {\n    display: inline-block;\n    vertical-align: top; }\n\n.widgets .l-footer__weather .main .temperature {\n      color: #050505;\n      margin-bottom: 20px; }\n\n.widgets .l-footer__weather .main img {\n      width: 73px;\n      height: 60px; }\n\n.widgets .l-footer__weather .details {\n    display: inline-block;\n    vertical-align: top;\n    margin-left: 45px; }\n\n.widgets .l-footer__weather .details table {\n      border-spacing: 0 15px;\n      margin-top: -15px; }\n\n.widgets .l-footer__stock table,\n  .widgets .l-footer__index table,\n  .widgets .l-footer__cost table {\n    width: 70%;\n    border-spacing: 0 15px;\n    margin-top: -15px; }\n\n.widgets .l-footer__stock table tr td:last-child,\n    .widgets .l-footer__index table tr td:last-child,\n    .widgets .l-footer__cost table tr td:last-child {\n      text-align: right; }\n\n.widgets .l-footer__stock table tr td.down,\n    .widgets .l-footer__index table tr td.down,\n    .widgets .l-footer__cost table tr td.down {\n      color: #dd1e25; }\n\n.info {\n  width: 100%;\n  font-size: 0;\n  box-sizing: border-box; }\n\n.info .l-footer__contacts,\n  .info .l-footer__information,\n  .info .l-footer__links,\n  .info .l-footer__feedback {\n    width: 25%;\n    display: inline-block;\n    font-size: 16px;\n    line-height: 22px;\n    color: #050505;\n    vertical-align: top; }\n\n@media screen and (max-width: 1440px) {\n      .info .l-footer__contacts,\n      .info .l-footer__information,\n      .info .l-footer__links,\n      .info .l-footer__feedback {\n        font-size: 12px;\n        line-height: 18px; } }\n\n.info .l-footer__contacts a,\n    .info .l-footer__information a,\n    .info .l-footer__links a,\n    .info .l-footer__feedback a {\n      color: #050505; }\n\n.info .l-footer__feedback .description {\n    color: #050505;\n    margin-bottom: 7%; }\n\n.info .l-footer__feedback input {\n    font-size: 18px;\n    color: #fff;\n    background-color: #dd1e25;\n    border: none;\n    border-radius: 3px;\n    padding: 14px 30px;\n    box-sizing: border-box;\n    min-width: 0px;\n    margin: 0px;\n    cursor: pointer; }\n\n.socials {\n  height: 80px;\n  padding: 30px;\n  box-sizing: border-box;\n  font-size: 16px;\n  color: #050505; }\n\n.socials .social-facebook,\n  .socials .social-twitter,\n  .socials .social-vk,\n  .socials .social-ok,\n  .socials .social-lin,\n  .socials .social-youtube {\n    display: inline-block;\n    width: 26px;\n    height: 26px;\n    vertical-align: middle;\n    background-repeat: no-repeat;\n    background-size: contain;\n    margin-right: 10px; }\n\n.socials .social-facebook:first-of-type,\n    .socials .social-twitter:first-of-type,\n    .socials .social-vk:first-of-type,\n    .socials .social-ok:first-of-type,\n    .socials .social-lin:first-of-type,\n    .socials .social-youtube:first-of-type {\n      margin-left: 30px; }\n\n.socials .social-facebook {\n    background-image: url(/assets/icons/social/icon-facebook.svg); }\n\n.socials .social-twitter {\n    background-image: url(/assets/icons/social/icon-twitter.svg); }\n\n.socials .social-vk {\n    background-image: url(/assets/icons/social/icon-vk.svg); }\n\n.socials .social-ok {\n    background-image: url(/assets/icons/social/icon-ok.svg); }\n\n.socials .social-lin {\n    background-image: url(/assets/icons/social/icon-lin.svg); }\n\n.socials .social-youtube {\n    background-image: url(/assets/icons/social/icon-youtube.svg); }\n\n.l-footer__links a {\n  display: block;\n  margin-bottom: 10%;\n  text-decoration: underline; }\n\n.l-footer__links a:last-child {\n    margin-bottom: 0; }\n"
 
 /***/ }),
 
@@ -1437,7 +1453,7 @@ var FooterComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"l-services\" [hidden]=\"!isVisible\">\n  <input type=\"button\" class=\"close\" (click)=\"handleToggleFullServices()\" />\n  <div class=\"inner\">\n    <div class=\"l-services__header\">\n      <div class=\"title\">\n        Каталог сервисов\n      </div>\n      <div class=\"search\">\n        <input #searchRef type=\"text\" placeholder=\"Поиск по каталогу\" />\n      </div>\n    </div>\n    <div class=\"l-services__body\">\n      <div class=\"category\">\n        Отображаемые сервисы\n      </div>\n      <div class=\"list\">\n        <div class=\"item\" *ngFor=\"let item of visible | serviceTempateFilter: filter\">\n          <app-tile [service]=\"item\"></app-tile>\n          <div class=\"control\" *ngIf=\"item.isCustom\">\n            <label class=\"switch\">\n              <input type=\"checkbox\" (click)=\"toggleLike(item)\">\n              <span class=\"slider round\"></span>\n            </label>\n            <label class=\"switch-label\">Открепить</label>\n          </div>\n        </div>\n      </div>\n      <div class=\"category\">\n        Доступные сервисы\n      </div>\n      <div class=\"list other\">\n        <div class=\"item\" *ngFor=\"let item of invisible | serviceTempateFilter: filter\">\n          <app-tile [service]=\"item\"></app-tile>\n          <div class=\"control\" *ngIf=\"item.isCustom\">\n            <label class=\"switch\">\n              <input type=\"checkbox\" checked (click)=\"toggleLike(item)\">\n              <span class=\"slider round\"></span>\n            </label>\n            <label class=\"switch-label\">Закрепить</label>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+module.exports = "<div class=\"l-services\" [hidden]=\"!isVisible\">\n  <input type=\"button\" class=\"close\" (click)=\"handleToggleFullServices()\" />\n  <div class=\"inner\">\n    <div class=\"l-services__header\">\n      <div class=\"title\">\n        Каталог сервисов\n      </div>\n      <div class=\"search\">\n        <input #searchRef type=\"text\" placeholder=\"Поиск по каталогу\" />\n      </div>\n    </div>\n    <div class=\"l-services__body\">\n      <div class=\"category\">\n        Отображаемые сервисы\n      </div>\n      <div class=\"list\">\n        <div class=\"item\" *ngFor=\"let item of visible | serviceTempateFilter: filter\">\n          <app-tile [service]=\"item\"></app-tile>\n          <div class=\"control\" *ngIf=\"item.isCustom && !item.isRequired\">\n            <label class=\"switch\">\n              <input type=\"checkbox\" [disabled]=\"isLoading\" (click)=\"toggleLike(item)\">\n              <span class=\"slider round\"></span>\n            </label>\n            <label class=\"switch-label\">Открепить</label>\n          </div>\n        </div>\n      </div>\n      <div class=\"category\">\n        Доступные сервисы\n      </div>\n      <div class=\"list other\">\n        <div class=\"item\" *ngFor=\"let item of invisible | serviceTempateFilter: filter\">\n          <app-tile [service]=\"item\"></app-tile>\n          <div class=\"control\" *ngIf=\"item.isCustom\">\n            <label class=\"switch\">\n              <input type=\"checkbox\" checked (click)=\"toggleLike(item)\">\n              <span class=\"slider round\"></span>\n            </label>\n            <label class=\"switch-label\">Закрепить</label>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -1496,6 +1512,7 @@ var FullServicesPageComponent = /** @class */ (function () {
         this.invisible = null;
         this.filter = '';
         this.subscription = null;
+        this.isLoading = false;
     }
     FullServicesPageComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -1534,6 +1551,7 @@ var FullServicesPageComponent = /** @class */ (function () {
                 }
                 return false;
             });
+            _this.isLoading = false;
         });
     };
     FullServicesPageComponent.prototype.ngAfterViewInit = function () {
@@ -1553,6 +1571,8 @@ var FullServicesPageComponent = /** @class */ (function () {
     };
     FullServicesPageComponent.prototype.toggleLike = function (item, isLike) {
         var _this = this;
+        this.isLoading = true;
+        this.toggleItem(item);
         var userId = this.sharepointService.getCurrentUserContext().userId;
         if (item.ratedByIds.indexOf(userId) < 0) {
             this.serviceTemplatesService.addRating({ id: item.id }, 5)
@@ -1576,6 +1596,16 @@ var FullServicesPageComponent = /** @class */ (function () {
                 this.serviceTemplatesService.removeLike({ id: item.id })
                     .subscribe(function () { return _this.load(); });
             }
+        }
+    };
+    FullServicesPageComponent.prototype.toggleItem = function (item) {
+        if (this.visible.some(function (v) { return v.id === item.id; })) {
+            this.visible = this.visible.filter(function (v) { return v.id !== item.id; });
+            this.invisible.push(item);
+        }
+        else {
+            this.invisible = this.invisible.filter(function (v) { return v.id !== item.id; });
+            this.visible.push(item);
         }
     };
     __decorate([
@@ -1607,7 +1637,7 @@ var FullServicesPageComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"header\" id=\"js-app-header\">\n  <div class=\"header-inner\">\n    <div class=\"user-thumb\">\n      <app-user-thumb\n        [photo]=\"photo\"\n        [route]=\"route\"\n        [active]=\"reason == null || reason === ''\"\n      ></app-user-thumb>\n    </div>\n    <div\n      class=\"logotype\"\n      [ngStyle]=\"{\n        'background-image': (logotype != null && globalNavigationType!=0) ? 'url(' + logotype + ')' : null\n      }\"\n    >\n      <a href=\"#\" (click)=\"goToRoot()\">Главная</a>\n    </div>\n    <div class=\"controls\">\n      <div class=\"control\">\n        <input\n          type=\"button\"\n          title=\"Поиск по порталу\"\n          (click)=\"handleToggleSearch()\"\n          class=\"btn-search small\"\n        />\n      </div>\n      <div\n        class=\"control notification new\"\n        [class.is-opened]=\"activityFeedIsVisible\"\n        style=\"display:none\"\n      >\n        <!--Класс .new добавляет счетчик-->\n        <div (click)=\"handleToggleActivityFeed()\">\n          <input type=\"button\" class=\"btn-notification small\" />\n          <div class=\"counter\">5</div>\n        </div>\n        <div class=\"activity-feed-block\" *ngIf=\"activityFeedIsVisible\">\n          <app-activity-feed></app-activity-feed>\n        </div>\n      </div>\n      <div class=\"control location\" [class.is-opened]=\"isLocationVisible\">\n        <input\n          type=\"button\"\n          title=\"Выбор локации\"\n          (click)=\"toggleLocation()\"\n          class=\"btn-location small\"\n        />\n        <div class=\"location-picker\" *ngIf=\"isLocationVisible\">\n          <app-location-picker></app-location-picker>\n        </div>\n      </div>\n      <div class=\"control\">\n        <input\n          type=\"button\"\n          title=\"Карта портала\"\n          (click)=\"handleToggleSiteMap()\"\n          class=\"btn-hamburger small\"\n        />\n      </div>\n      <div class=\"control\">\n        <input\n          type=\"button\"\n          title=\"Каталог сервисов\"\n          (click)=\"handleToggleFullServices()\"\n          class=\"btn-services small\"\n        />\n      </div>\n      <div class=\"control\" style=\"display:none\">\n        <input\n          type=\"button\"\n          (click)=\"handleToggleSidebar()\"\n          class=\"btn-services small\"\n        />\n      </div>\n    </div>\n  </div>\n  <div class=\"search\" *ngIf=\"searchIsVisible\">\n    <app-search (toggleSearch)=\"handleToggleSearch()\"></app-search>\n  </div>\n</div>\n"
+module.exports = "<div class=\"header\" id=\"js-app-header\">\n  <div class=\"header-inner\">\n    <div class=\"user-thumb\">\n      <app-user-thumb\n        [photo]=\"photo\"\n        [route]=\"route\"\n        [active]=\"reason == null || reason === ''\"\n      ></app-user-thumb>\n    </div>\n    <div\n      class=\"logotype\"\n      [ngStyle]=\"{\n        'background-image': (logotype != null && globalNavigationType!=0) ? 'url(' + logotype + ')' : null\n      }\"\n    >\n      <a href=\"#\" (click)=\"goToRoot()\">Главная</a>\n    </div>\n    <div class=\"info\" *ngIf=\"isCurrentUserNotFound\">\n      Пользователь не найден в базе\n    </div>\n    <div class=\"controls\">\n      <div class=\"control\">\n        <input\n          type=\"button\"\n          title=\"Поиск по порталу\"\n          (click)=\"handleToggleSearch()\"\n          class=\"btn-search small\"\n        />\n      </div>\n      <div\n        class=\"control notification new\"\n        [class.is-opened]=\"activityFeedIsVisible\"\n        style=\"display:none\"\n      >\n        <!--Класс .new добавляет счетчик-->\n        <div (click)=\"handleToggleActivityFeed()\">\n          <input type=\"button\" class=\"btn-notification small\" />\n          <div class=\"counter\">5</div>\n        </div>\n        <div class=\"activity-feed-block\" *ngIf=\"activityFeedIsVisible\">\n          <app-activity-feed></app-activity-feed>\n        </div>\n      </div>\n      <div class=\"control location\" [class.is-opened]=\"isLocationVisible\">\n        <input\n          type=\"button\"\n          title=\"Выбор локации\"\n          (click)=\"toggleLocation()\"\n          class=\"btn-location small\"\n        />\n        <div class=\"location-picker\" *ngIf=\"isLocationVisible\">\n          <app-location-picker></app-location-picker>\n        </div>\n      </div>\n      <div class=\"control\">\n        <input\n          type=\"button\"\n          title=\"Карта портала\"\n          (click)=\"handleToggleSiteMap()\"\n          class=\"btn-hamburger small\"\n        />\n      </div>\n      <div class=\"control\">\n        <input\n          type=\"button\"\n          title=\"Каталог сервисов\"\n          (click)=\"handleToggleFullServices()\"\n          class=\"btn-services small\"\n        />\n      </div>\n      <div class=\"control\" style=\"display:none\">\n        <input\n          type=\"button\"\n          (click)=\"handleToggleSidebar()\"\n          class=\"btn-services small\"\n        />\n      </div>\n    </div>\n  </div>\n  <div class=\"search\" *ngIf=\"searchIsVisible\">\n    <app-search (toggleSearch)=\"handleToggleSearch()\"></app-search>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -1618,7 +1648,7 @@ module.exports = "<div class=\"header\" id=\"js-app-header\">\n  <div class=\"he
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.header {\n  height: 100px;\n  background-color: #fff;\n  position: relative;\n  border-bottom: 1px solid rgba(149, 152, 154, 0.15);\n  box-sizing: border-box; }\n\n.header .header-inner {\n    display: table;\n    table-layout: fixed;\n    width: 100%;\n    border-collapse: collapse;\n    height: 100%;\n    box-sizing: border-box;\n    max-width: 2048px; }\n\n.user-thumb {\n  height: 99px;\n  background-color: #FFFFFF;\n  width: 100px;\n  display: table-cell;\n  vertical-align: middle;\n  box-sizing: border-box;\n  overflow: hidden;\n  text-align: center; }\n\n.logotype,\n.controls {\n  display: table-cell;\n  vertical-align: middle;\n  box-sizing: border-box; }\n\n.logotype {\n  width: 400px;\n  height: 100%;\n  font-size: 0;\n  background-repeat: no-repeat;\n  background-position: left 25px center;\n  background-size: auto 45px;\n  background-image: url(\"/assets/logotype.svg\"); }\n\n.logotype a {\n    display: inline-block;\n    width: 100%;\n    height: 100%; }\n\n.controls {\n  text-align: right;\n  padding-right: 30px;\n  font-size: 0; }\n\n.controls .control {\n    display: inline-block;\n    vertical-align: middle;\n    box-sizing: border-box;\n    width: 60px;\n    position: relative;\n    text-align: center; }\n\n.controls .control.location {\n      position: relative; }\n\n.controls .control.location.is-opened .btn-location {\n        z-index: 10;\n        position: relative;\n        background-image: url(\"/assets/icons/icon-header-location-white.svg\"); }\n\n.controls .control.notification {\n      position: relative; }\n\n.controls .control.notification.new .counter {\n        display: block;\n        z-index: 10; }\n\n.controls .control.notification.is-opened .btn-notification {\n        z-index: 10;\n        position: relative;\n        background-image: url(\"/assets/icons/icon-header-notification-white.svg\"); }\n\n.controls .control.notification .counter {\n        display: none;\n        position: absolute;\n        top: -5px;\n        right: 7px;\n        width: 20px;\n        height: 20px;\n        background-color: #EB113B;\n        border-radius: 100%;\n        text-align: center;\n        color: #FFF;\n        font-size: 14px;\n        line-height: 20px;\n        cursor: pointer; }\n\n.controls .control input[type=\"button\"] {\n      padding: 0;\n      margin: 0;\n      border: 0;\n      min-width: 0;\n      background-color: transparent;\n      cursor: pointer; }\n\n.controls .control input[type=\"button\"]:focus {\n        outline: none; }\n\n.controls .control input[type=\"button\"].btn-search {\n        background-image: url(\"/assets/icons/icon-header-search.svg\"); }\n\n.controls .control input[type=\"button\"].btn-notification {\n        background-image: url(\"/assets/icons/icon-header-notification.svg\"); }\n\n.controls .control input[type=\"button\"].btn-location {\n        background-image: url(\"/assets/icons/icon-header-location.svg\"); }\n\n.controls .control input[type=\"button\"].btn-hamburger {\n        background-image: url(\"/assets/icons/icon-header-hamburger.svg\"); }\n\n.controls .control input[type=\"button\"].btn-services {\n        background-image: url(\"/assets/icons/icon-header-services.svg\"); }\n\n.search {\n  position: absolute;\n  left: 0;\n  top: 0;\n  right: 0;\n  bottom: 0; }\n"
+module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.header {\n  height: 100px;\n  background-color: #fff;\n  position: relative;\n  border-bottom: 1px solid rgba(149, 152, 154, 0.15);\n  box-sizing: border-box; }\n\n.header .header-inner {\n    display: table;\n    table-layout: fixed;\n    width: 100%;\n    border-collapse: collapse;\n    height: 100%;\n    box-sizing: border-box;\n    max-width: 2048px; }\n\n.header .info {\n    text-transform: uppercase;\n    color: #768692; }\n\n.user-thumb {\n  height: 99px;\n  background-color: #FFFFFF;\n  width: 100px;\n  display: table-cell;\n  vertical-align: middle;\n  box-sizing: border-box;\n  overflow: hidden;\n  text-align: center; }\n\n.logotype,\n.controls {\n  display: table-cell;\n  vertical-align: middle;\n  box-sizing: border-box; }\n\n.logotype {\n  width: 400px;\n  height: 100%;\n  font-size: 0;\n  background-repeat: no-repeat;\n  background-position: left 25px center;\n  background-size: auto 45px;\n  background-image: url(\"/assets/logotype.svg\"); }\n\n.logotype a {\n    display: inline-block;\n    width: 100%;\n    height: 100%; }\n\n.controls {\n  text-align: right;\n  padding-right: 30px;\n  font-size: 0; }\n\n.controls .control {\n    display: inline-block;\n    vertical-align: middle;\n    box-sizing: border-box;\n    width: 60px;\n    position: relative;\n    text-align: center; }\n\n.controls .control.location {\n      position: relative; }\n\n.controls .control.location.is-opened .btn-location {\n        z-index: 10;\n        position: relative;\n        background-image: url(\"/assets/icons/icon-header-location-white.svg\"); }\n\n.controls .control.notification {\n      position: relative; }\n\n.controls .control.notification.new .counter {\n        display: block;\n        z-index: 10; }\n\n.controls .control.notification.is-opened .btn-notification {\n        z-index: 10;\n        position: relative;\n        background-image: url(\"/assets/icons/icon-header-notification-white.svg\"); }\n\n.controls .control.notification .counter {\n        display: none;\n        position: absolute;\n        top: -5px;\n        right: 7px;\n        width: 20px;\n        height: 20px;\n        background-color: #EB113B;\n        border-radius: 100%;\n        text-align: center;\n        color: #FFF;\n        font-size: 14px;\n        line-height: 20px;\n        cursor: pointer; }\n\n.controls .control input[type=\"button\"] {\n      padding: 0;\n      margin: 0;\n      border: 0;\n      min-width: 0;\n      background-color: transparent;\n      cursor: pointer; }\n\n.controls .control input[type=\"button\"]:focus {\n        outline: none; }\n\n.controls .control input[type=\"button\"].btn-search {\n        background-image: url(\"/assets/icons/icon-header-search.svg\"); }\n\n.controls .control input[type=\"button\"].btn-notification {\n        background-image: url(\"/assets/icons/icon-header-notification.svg\"); }\n\n.controls .control input[type=\"button\"].btn-location {\n        background-image: url(\"/assets/icons/icon-header-location.svg\"); }\n\n.controls .control input[type=\"button\"].btn-hamburger {\n        background-image: url(\"/assets/icons/icon-header-hamburger.svg\"); }\n\n.controls .control input[type=\"button\"].btn-services {\n        background-image: url(\"/assets/icons/icon-header-services.svg\"); }\n\n.search {\n  position: absolute;\n  left: 0;\n  top: 0;\n  right: 0;\n  bottom: 0; }\n"
 
 /***/ }),
 
@@ -1673,6 +1703,7 @@ var HeaderComponent = /** @class */ (function () {
         this.activityFeedIsVisible = false;
         this.globalNavigationType = src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_2__["GlobalNavigationType"].Company;
         this.companyChangeSubscribe = null;
+        this.isCurrentUserNotFound = false;
     }
     HeaderComponent.prototype.handleToggleActivityFeed = function () {
         this.sidebarService.handleToggleActivity();
@@ -1718,6 +1749,9 @@ var HeaderComponent = /** @class */ (function () {
                 _this.photo = employee.photo;
                 _this.route = employee.profileRoute;
                 _this.reason = employee.reason;
+            }
+            else {
+                _this.isCurrentUserNotFound = true;
             }
         });
         this.companyChangeSubscribe = this.companiesService.companyChangeEvent.subscribe(function (c) {
@@ -1985,7 +2019,7 @@ var LeftMenuControlComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ul id=\"nav\" class=\"m-vertical-menu\" [class.is-sticky]=\"sticky\" #menuRef>\n  <li class=\"m-vertical-menu__item\"\n    *ngFor=\"let item of links\" [class.active]=\"item.active\" [routerLink]=\"item.path\">\n    <a title=\"{{item.title}}\" class=\"m-vertical-menu__item-link\" [style.backgroundImage]=\"'url('+ getRelativePath() + '/PortalPages/' + item.icon +')'\">\n      {{item.title}}\n      <div class=\"notification\" *ngIf=\"item.notifications\">\n        {{item.notifications}}\n      </div>\n    </a>\n  </li>\n</ul>\n"
+module.exports = "<ul id=\"nav\" class=\"m-vertical-menu\" [class.is-sticky]=\"sticky\" #menuRef>\n  <li\n    class=\"m-vertical-menu__item\"\n    *ngFor=\"let item of links\"\n    [class.active]=\"item.active\"\n  >\n    <a\n      title=\"{{ item.title }}\"\n      class=\"m-vertical-menu__item-link\"\n      href=\"{{ item.url }}\"\n      [style.backgroundImage]=\"\n        'url(' + getRelativePath() + '/PortalPages/' + item.icon + ')'\n      \"\n    >\n      {{ item.title }}\n      <div class=\"notification\" *ngIf=\"item.notifications\">\n        {{ item.notifications }}\n      </div>\n    </a>\n  </li>\n</ul>\n"
 
 /***/ }),
 
@@ -2051,6 +2085,7 @@ var LeftMenuComponent = /** @class */ (function () {
             {
                 title: 'Холдинг',
                 path: ['/company'],
+                url: '',
                 icon: 'assets/icons/icon-menu-company.svg',
                 active: false,
                 globalNavigationType: src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_7__["GlobalNavigationType"].Company
@@ -2058,6 +2093,7 @@ var LeftMenuComponent = /** @class */ (function () {
             {
                 title: this.enterprise,
                 path: ['/enterprise'],
+                url: '',
                 icon: 'assets/icons/icon-menu-enterprise.svg',
                 active: false,
                 globalNavigationType: src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_7__["GlobalNavigationType"].Enterprise
@@ -2065,6 +2101,7 @@ var LeftMenuComponent = /** @class */ (function () {
             {
                 title: 'Личный профиль',
                 path: ['/personal'],
+                url: '',
                 icon: 'assets/icons/icon-menu-personal.svg',
                 active: false,
                 globalNavigationType: src_app_services_sidebar_sidebar_service__WEBPACK_IMPORTED_MODULE_7__["GlobalNavigationType"].Personal,
@@ -2102,13 +2139,26 @@ var LeftMenuComponent = /** @class */ (function () {
     LeftMenuComponent.prototype.getRelativePath = function () {
         return this.sharepointService.getCurrentUserContext().webServerRelativeUrl;
     };
+    LeftMenuComponent.prototype.prepareLinks = function () {
+        var _this = this;
+        this.links.forEach(function (l) {
+            l.url = _this.sharepointService.getAbsoluteUrl() + "/PortalPages/home.aspx#" + l.path[0];
+            if (l.child && l.child.length > 0) {
+                l.child.forEach(function (c) {
+                    c.url = _this.sharepointService.getAbsoluteUrl() + "/PortalPages/home.aspx#" + c.path[0];
+                });
+            }
+        });
+    };
     LeftMenuComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.prepareLinks();
         this.companiesService.companyChangeEvent
             .subscribe(function (c) {
             var id = c && c.id || null;
             var e = _this.links.filter(function (l) { return l.title === _this.enterprise; })[0];
-            e.path = ['/enterprise', id];
+            e.path = ["/enterprise/" + id];
+            _this.prepareLinks();
         });
         this.companiesService.getCurrentCompany();
         this.router.events.forEach(function (event) {
@@ -2340,7 +2390,7 @@ var NotFoundComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"l-tiles\" *ngIf=\"services && services.length\">\n  <a class=\"l-tile\" *ngFor=\"let service of services\">\n    <ng-container [ngSwitch]=\"service.title\">\n      <ng-container *ngSwitchCase=\"'Опросы'\">\n        <app-tile-polls [service]=\"service\"></app-tile-polls>\n      </ng-container>\n      <ng-container *ngSwitchDefault>\n        <app-tile [service]=\"service\"></app-tile>\n      </ng-container>\n    </ng-container>\n  </a>\n</div>\n"
+module.exports = "<ng-container *ngIf=\"!loading\">\n  <div class=\"l-tiles\" *ngIf=\"services && services.length\">\n    <a class=\"l-tile\" *ngFor=\"let service of services\">\n      <ng-container [ngSwitch]=\"service.title\">\n        <ng-container *ngSwitchCase=\"'Опросы'\">\n          <app-tile-polls [service]=\"service\"></app-tile-polls>\n        </ng-container>\n        <ng-container *ngSwitchDefault>\n          <app-tile [service]=\"service\"></app-tile>\n        </ng-container>\n      </ng-container>\n    </a>\n  </div>\n</ng-container>\n<ng-container *ngIf=\"loading\">\n  <div class=\"tiles-container\">\n    <div class=\"tile\">\n      <div class=\"content\">\n        <div class=\"skeleton-lines\">\n          <div class=\"skeleton-line\"></div>\n          <div class=\"skeleton-line\"></div>\n        </div>\n      </div>\n    </div>\n    <div class=\"tile\">\n      <div class=\"content\">\n        <div class=\"skeleton-lines\">\n          <div class=\"skeleton-line\"></div>\n          <div class=\"skeleton-line\"></div>\n        </div>\n      </div>\n    </div>\n    <div class=\"tile\">\n      <div class=\"content\">\n        <div class=\"skeleton-lines\">\n          <div class=\"skeleton-line\"></div>\n          <div class=\"skeleton-line\"></div>\n        </div>\n      </div>\n    </div>\n    <div class=\"tile\">\n      <div class=\"content\">\n        <div class=\"skeleton-lines\">\n          <div class=\"skeleton-line\"></div>\n          <div class=\"skeleton-line\"></div>\n        </div>\n      </div>\n    </div>\n  </div>\n</ng-container>\n"
 
 /***/ }),
 
@@ -2351,7 +2401,7 @@ module.exports = "<div class=\"l-tiles\" *ngIf=\"services && services.length\">\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".l-tiles {\n  font-size: 0; }\n\n.l-tile {\n  display: inline-block;\n  width: 50%;\n  height: 125px;\n  border-top: 1px solid #fff;\n  border-right: 1px solid transparent;\n  background-color: #768692;\n  box-sizing: border-box;\n  vertical-align: top; }\n\n.l-tile:nth-child(2n) {\n    border-left: 1px solid #fff;\n    border-right: none; }\n\n.l-tile:nth-child(-n+2) {\n    border-top: none; }\n\n.l-tile:last-child {\n    margin-bottom: 15%; }\n\n.l-tiles-loading {\n  height: 100vh; }\n"
+module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.skeleton-line {\n  height: 16px;\n  width: 45%;\n  background: linear-gradient(-90deg, rgba(230, 230, 230, 0.5) 0%, rgba(230, 230, 230, 0.7) 50%, #e6e6e6 100%);\n  background-size: 400% 400%;\n  -webkit-animation: pulse 1.5s infinite;\n          animation: pulse 1.5s infinite; }\n\n.skeleton-line.header {\n    height: 25px;\n    width: 75%; }\n\n.skeleton-line.small {\n    height: 14px; }\n\n.skeleton-line + .skeleton-line {\n    width: 65%;\n    margin-top: 5px; }\n\n.skeleton-line + .skeleton-line + .skeleton-line {\n      width: 80%; }\n\n@-webkit-keyframes pulse {\n  0% {\n    background-position: 0% 0%; }\n  100% {\n    background-position: -135% 0%; } }\n\n@keyframes pulse {\n  0% {\n    background-position: 0% 0%; }\n  100% {\n    background-position: -135% 0%; } }\n\n.skeleton-animation {\n  background: linear-gradient(-90deg, #efefef 0%, #fcfcfc 50%, #e5e5e5 100%);\n  background-size: 400% 400%;\n  -webkit-animation: pulse 1.5s infinite;\n          animation: pulse 1.5s infinite; }\n\n@keyframes pulse {\n  0% {\n    background-position: 0% 0%; }\n  100% {\n    background-position: -135% 0%; } }\n\n.skeleton-lines + .skeleton-lines {\n  margin-top: 15px; }\n\n.skeleton-lines + .skeleton-button {\n  margin-top: 25px; }\n\n.skeleton-button {\n  width: 115px;\n  height: 35px;\n  border-radius: 1px; }\n\n.l-tiles {\n  font-size: 0; }\n\n.l-tile {\n  display: inline-block;\n  width: 50%;\n  height: 125px;\n  border-top: 1px solid #fff;\n  border-right: 1px solid transparent;\n  background-color: #768692;\n  box-sizing: border-box;\n  vertical-align: top; }\n\n.l-tile:nth-child(2n) {\n    border-left: 1px solid #fff;\n    border-right: none; }\n\n.l-tile:nth-child(-n+2) {\n    border-top: none; }\n\n.l-tile:last-child {\n    margin-bottom: 15%; }\n\n.l-tiles-loading {\n  height: 100vh; }\n\n.tiles-container {\n  margin: 0 -0.5px; }\n\n.tiles-container .tile {\n    width: 50%;\n    display: inline-block;\n    vertical-align: top;\n    padding: 0 0.5px;\n    box-sizing: border-box;\n    margin-bottom: 1px; }\n\n.tiles-container .tile .content {\n      height: 125px;\n      padding: 10px;\n      box-sizing: border-box;\n      background-color: #fff; }\n\n.tiles-container .tile .content .skeleton-lines {\n        margin-top: 65px; }\n"
 
 /***/ }),
 
@@ -2411,8 +2461,8 @@ var PortalServicesComponent = /** @class */ (function () {
                 icon: 'assets/icons/icon-service-black.svg',
                 image: 'assets/banners/banner-tile.png',
                 iconHover: 'assets/icons/icon-service-white.svg',
-                link: this.sharepointService.getCurrentUserContext().webServerRelativeUrl
-                    + '/PortalPages/home.aspx#/birthdays'
+                link: this.sharepointService.getCurrentUserContext().webServerRelativeUrl +
+                    '/PortalPages/home.aspx#/birthdays'
             },
             {
                 id: 4,
@@ -2428,8 +2478,8 @@ var PortalServicesComponent = /** @class */ (function () {
                 icon: 'assets/icons/icon-service-black.svg',
                 image: 'assets/banners/banner-tile.png',
                 iconHover: 'assets/icons/icon-service-white.svg',
-                link: this.sharepointService.getCurrentUserContext().webServerRelativeUrl
-                    + '/PortalPages/home.aspx#/polls'
+                link: this.sharepointService.getCurrentUserContext().webServerRelativeUrl +
+                    '/PortalPages/home.aspx#/polls'
             },
             {
                 id: 6,
@@ -2445,19 +2495,30 @@ var PortalServicesComponent = /** @class */ (function () {
                 icon: 'assets/icons/icon-service-black.svg',
                 image: 'assets/banners/banner-tile.png',
                 iconHover: 'assets/icons/icon-service-white.svg',
-                link: this.sharepointService.getCurrentUserContext().webServerRelativeUrl
-                    + '/PortalPages/home.aspx#/phonebook'
+                link: this.sharepointService.getCurrentUserContext().webServerRelativeUrl +
+                    '/PortalPages/home.aspx#/phonebook'
             }
         ];
+        this.loading = true;
     }
     PortalServicesComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.serviceTemplatesService.getVisibleItems()
-            .subscribe(function (services) { return _this.services = services; });
+        this.serviceTemplatesService
+            .getVisibleItems()
+            .subscribe(function (services) {
+            _this.services = services;
+            _this.loading = false;
+        });
         this.sidebarService.toggleFullServices.subscribe(function (isVisible) {
             if (!isVisible) {
-                _this.serviceTemplatesService.getVisibleItems()
-                    .subscribe(function (services) { return _this.zone.run(function () { _this.services = services; }); });
+                _this.serviceTemplatesService
+                    .getVisibleItems()
+                    .subscribe(function (services) {
+                    return _this.zone.run(function () {
+                        _this.services = services;
+                        _this.loading = false;
+                    });
+                });
             }
         });
     };
@@ -3198,7 +3259,8 @@ var ImagesService = /** @class */ (function () {
     function ImagesService() {
     }
     ImagesService.prototype.prepareBackgroundUrl = function (link) {
-        return link && link.replace(/\(/gi, '\\(').replace(/\)/gi, '\\)').replace(/%/gi, '%25').replace(/ /gi, '%20') || null;
+        // return link && link.replace(/\(/gi, '\\(').replace(/\)/gi, '\\)').replace(/%/gi, '%25').replace(/ /gi, '%20') || null;
+        return link && link.replace(/\(/gi, '\\(').replace(/\)/gi, '\\)').replace(/'/gi, '\\\'') || null;
     };
     ImagesService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
@@ -3384,6 +3446,9 @@ var ListItemsService = /** @class */ (function () {
         }
         else {
             path += 'items/';
+        }
+        if (params.urlPostfix) {
+            path += params.urlPostfix;
         }
         var httpParams = new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpParams"]();
         if (params.select) {
@@ -4362,6 +4427,9 @@ var SettingsService = /** @class */ (function (_super) {
     SettingsService.prototype.getHelpLink = function () {
         return this.getItemByCode('HELP-LINK');
     };
+    SettingsService.prototype.getAdminEmail = function () {
+        return this.getItemByCode('ADMIN-EMAIL');
+    };
     SettingsService.prototype.getRssLink = function () {
         return this.getItemByCode('RSS-LINK');
     };
@@ -5213,7 +5281,7 @@ module.exports = "<input type=\"button\" [class.is-visible]=\"isVisible\" (click
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\ninput[type=\"button\"] {\n  -webkit-transform: scale(0);\n      -ms-transform: scale(0);\n          transform: scale(0);\n  padding: 0;\n  margin: 0;\n  border: 0;\n  background-color: #768692;\n  width: 50px;\n  height: 50px;\n  border-radius: 3px;\n  background-repeat: no-repeat;\n  background-position: center;\n  background-size: 60% auto;\n  background-image: url(\"/assets/icons/icon-big-arrow-left-white.svg\");\n  position: fixed;\n  right: 25px;\n  bottom: 25%;\n  z-index: 100; }\n\ninput[type=\"button\"]:hover {\n    background-color: #6b7984; }\n\ninput[type=\"button\"].is-visible {\n    -webkit-transform: scale(1) rotate(90deg);\n        -ms-transform: scale(1) rotate(90deg);\n            transform: scale(1) rotate(90deg); }\n"
+module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\ninput[type=\"button\"] {\n  -webkit-transform: scale(0);\n      -ms-transform: scale(0);\n          transform: scale(0);\n  padding: 0;\n  margin: 0;\n  border: 0;\n  background-color: #EB113B;\n  width: 50px;\n  height: 50px;\n  border-radius: 3px;\n  background-repeat: no-repeat;\n  background-position: center;\n  background-size: 60% auto;\n  background-image: url(\"/assets/icons/icon-big-arrow-left-white.svg\");\n  position: fixed;\n  right: 25px;\n  bottom: 25%;\n  z-index: 100; }\n\ninput[type=\"button\"]:hover {\n    background-color: #db0b35; }\n\ninput[type=\"button\"].is-visible {\n    -webkit-transform: scale(1) rotate(90deg);\n        -ms-transform: scale(1) rotate(90deg);\n            transform: scale(1) rotate(90deg); }\n"
 
 /***/ }),
 
@@ -6820,6 +6888,141 @@ var RadioGroupComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/shared/report-error/report-error.component.html":
+/*!*****************************************************************!*\
+  !*** ./src/app/shared/report-error/report-error.component.html ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"wrapper\" *ngIf=\"isOpen\">\n  <div class=\"modal\">\n    <div class=\"modal-inner\">\n      <div class=\"content\">\n        <div class=\"head\">\n          <div class=\"icon\"></div>\n          <div class=\"text\">\n            <span>\n              Сообщение об ошибке\n              <div class=\"close\">\n                <input type=\"button\" class=\"btn-close-gray-bold\" (click)=\"closeModal()\">\n              </div>\n            </span>\n            Воспользуйтесь формой, чтобы сообщить об ошибке в личном профиле.\n          </div>\n        </div>\n        <div class=\"body\">\n          <form\n            class=\"body-inner\"\n            #form=\"ngForm\"\n            novalidate\n            (ngSubmit)=\"onSubmit(form)\"\n          >\n            <div class=\"field\">\n              <div class=\"field-header\">\n                <div class=\"title\">\n                  Напишите сообщение:\n                </div>\n                <label class=\"error\" for=\"text\"></label>\n              </div>\n              <div class=\"field-body\">\n                <textarea\n                  placeholder=\"Текст сообщения\"\n                  [(ngModel)]=\"reportText\"\n                  id=\"text\"\n                  name=\"text\"\n                  required\n                  #text=\"ngModel\"\n                ></textarea>\n              </div>\n            </div>\n            <div class=\"controls\">\n              <div class=\"text\">\n                Отправляя сообщение вы соглашаетесь с политикой обработки\n                персональных данных.\n              </div>\n              <div class=\"button\">\n                <input type=\"submit\" value=\"Отправить\" [class.disabled]=\"form?.invalid\" />\n              </div>\n            </div>\n          </form>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/shared/report-error/report-error.component.scss":
+/*!*****************************************************************!*\
+  !*** ./src/app/shared/report-error/report-error.component.scss ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.wrapper {\n  position: fixed;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  background-color: rgba(5, 5, 5, 0.5);\n  overflow-y: auto;\n  z-index: 99999; }\n\n.modal {\n  display: table;\n  table-layout: fixed;\n  width: 100%;\n  height: 100%;\n  border-collapse: collapse; }\n\n.modal-inner {\n  display: table-cell;\n  vertical-align: middle; }\n\n.content {\n  width: 45%;\n  background-color: #fff;\n  overflow: hidden;\n  margin: 0 auto; }\n\n.content .head {\n    height: 170px;\n    box-sizing: border-box;\n    background-color: #DEDFE0;\n    position: relative;\n    display: table;\n    table-layout: fixed;\n    width: 100%; }\n\n.content .head .text,\n    .content .head .icon {\n      display: table-cell;\n      vertical-align: middle; }\n\n.content .head .text {\n      font-size: 22px;\n      color: #050505;\n      padding-right: 40px; }\n\n@media screen and (max-width: 1440px) {\n        .content .head .text {\n          padding-right: 20px;\n          font-size: 16px; } }\n\n.content .head .text span {\n        display: block;\n        font-size: 34px;\n        font-weight: 600;\n        margin-bottom: 5px;\n        position: relative; }\n\n@media screen and (max-width: 1440px) {\n          .content .head .text span {\n            font-size: 26px; } }\n\n.content .head .text .close {\n        position: absolute;\n        top: -20px;\n        right: -5px; }\n\n.content .head .icon {\n      width: 175px;\n      background-size: 85px 85px;\n      background-repeat: no-repeat;\n      background-position: center;\n      background-image: url(/assets/icons/icon-report-error.svg); }\n\n.content .body {\n    padding: 30px 0;\n    box-sizing: border-box; }\n\n.content .body .body-inner {\n      max-width: 600px;\n      margin: 0 auto; }\n\n@media screen and (max-width: 1440px) {\n        .content .body .body-inner {\n          max-width: 450px; } }\n\n.controls {\n  display: table;\n  width: 100%;\n  border-collapse: collapse;\n  table-layout: fixed; }\n\n.controls .text {\n    color: #898888;\n    font-size: 14px;\n    width: 60%;\n    display: table-cell;\n    vertical-align: middle; }\n\n.controls .button {\n    width: 40%;\n    padding-left: 30px;\n    box-sizing: border-box;\n    display: table-cell;\n    vertical-align: middle;\n    text-align: right; }\n\n.controls .button input {\n      width: 100%; }\n\n.field-header {\n  margin-bottom: 5px; }\n\n.field-header .title {\n    font-size: 22px;\n    color: #050505; }\n\n.field-body {\n  margin-bottom: 25px; }\n\n.field-body textarea {\n    min-height: 265px;\n    border: 1px solid #BCBCBC;\n    resize: none;\n    width: 100%;\n    box-sizing: border-box;\n    font-size: 22px;\n    padding: 15px; }\n\n.field-body textarea::-webkit-input-placeholder {\n      color: #898888;\n      font-size: 22px; }\n\n.field-body textarea::-ms-input-placeholder {\n      color: #898888;\n      font-size: 22px; }\n\n.field-body textarea::placeholder {\n      color: #898888;\n      font-size: 22px; }\n"
+
+/***/ }),
+
+/***/ "./src/app/shared/report-error/report-error.component.ts":
+/*!***************************************************************!*\
+  !*** ./src/app/shared/report-error/report-error.component.ts ***!
+  \***************************************************************/
+/*! exports provided: ReportErrorComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ReportErrorComponent", function() { return ReportErrorComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _pnp_sp__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @pnp/sp */ "./node_modules/@pnp/sp/dist/sp.es5.js");
+/* harmony import */ var src_app_shared_services_notifications_notifications_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/shared/services/notifications/notifications.service */ "./src/app/shared/services/notifications/notifications.service.ts");
+/* harmony import */ var src_app_services_settings_settings_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/settings/settings.service */ "./src/app/services/settings/settings.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var ReportErrorComponent = /** @class */ (function () {
+    function ReportErrorComponent(notificationsService, settingService) {
+        this.notificationsService = notificationsService;
+        this.settingService = settingService;
+        this.isOpen = false;
+        this.close = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
+        this.reportText = null;
+        this.loading = false;
+        this.formValid = true;
+    }
+    ReportErrorComponent.prototype.closeModal = function () {
+        this.reportText = null;
+        this.close.emit();
+    };
+    ReportErrorComponent.prototype.onSubmit = function (form) {
+        if (form.valid) {
+            this.formValid = true;
+            this.sendMessage();
+        }
+        else if (!form.valid) {
+            this.formValid = false;
+            return;
+        }
+    };
+    ReportErrorComponent.prototype.sendEmail = function (from, to) {
+        var _this = this;
+        var props = {
+            From: from,
+            To: [to],
+            Subject: 'Сообщение об ошибке.',
+            Body: "\u0412\u0430\u043C \u043F\u043E\u0441\u0442\u0443\u043F\u0438\u043B\u043E \u0441\u043E\u043E\u0431\u0449\u0435\u043D\u0438\u0435 \u043E\u0431 \u043E\u0448\u0438\u0431\u043A\u0435 \u043E\u0442 " + from + " <br /> <br /> " + this.reportText
+        };
+        _pnp_sp__WEBPACK_IMPORTED_MODULE_1__["sp"].utility.sendEmail(props).then(function (resolve) {
+            _this.loading = false;
+            _this.notificationsService.success('Сообщение отправлено');
+            _this.closeModal();
+        }).catch(function (reject) {
+            _this.loading = false;
+            _this.notificationsService.error("\u0421\u043E\u043E\u0431\u0449\u0435\u043D\u0438\u0435 \u043D\u0435 \u043E\u0442\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u043E.");
+            _this.closeModal();
+        });
+    };
+    ReportErrorComponent.prototype.sendMessage = function () {
+        var _this = this;
+        this.loading = true;
+        _pnp_sp__WEBPACK_IMPORTED_MODULE_1__["sp"].utility.getCurrentUserEmailAddresses().then(function (from) {
+            if (from) {
+                _this.settingService.getAdminEmail().subscribe(function (to) {
+                    if (to) {
+                        _this.sendEmail(from, to);
+                    }
+                    else {
+                        _this.notificationsService.warning('В списке Настройки портала не указан email адрес администратора.');
+                    }
+                });
+            }
+            else {
+                _this.notificationsService.error('Сообщение не отправлено. Не удалось определить ваш email');
+            }
+        });
+    };
+    ReportErrorComponent.prototype.ngOnInit = function () {
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Boolean)
+    ], ReportErrorComponent.prototype, "isOpen", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])(),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"])
+    ], ReportErrorComponent.prototype, "close", void 0);
+    ReportErrorComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-report-error',
+            template: __webpack_require__(/*! ./report-error.component.html */ "./src/app/shared/report-error/report-error.component.html"),
+            styles: [__webpack_require__(/*! ./report-error.component.scss */ "./src/app/shared/report-error/report-error.component.scss")]
+        }),
+        __metadata("design:paramtypes", [src_app_shared_services_notifications_notifications_service__WEBPACK_IMPORTED_MODULE_2__["NotificationsService"], src_app_services_settings_settings_service__WEBPACK_IMPORTED_MODULE_3__["SettingsService"]])
+    ], ReportErrorComponent);
+    return ReportErrorComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/shared/services/notifications/notifications.service.ts":
 /*!************************************************************************!*\
   !*** ./src/app/shared/services/notifications/notifications.service.ts ***!
@@ -7075,7 +7278,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _iframe_video_iframe_video_pipe_transform__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./iframe-video/iframe-video.pipe-transform */ "./src/app/shared/iframe-video/iframe-video.pipe-transform.ts");
 /* harmony import */ var _sp_user_sp_user_component__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./sp-user/sp-user.component */ "./src/app/shared/sp-user/sp-user.component.ts");
 /* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
-/* harmony import */ var _skeleton_loading_skeleton_loading_component__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./skeleton-loading/skeleton-loading.component */ "./src/app/shared/skeleton-loading/skeleton-loading.component.ts");
+/* harmony import */ var _report_error_report_error_component__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./report-error/report-error.component */ "./src/app/shared/report-error/report-error.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -7154,7 +7357,7 @@ var SharedModule = /** @class */ (function () {
                 _user_thumb_user_thumb_component__WEBPACK_IMPORTED_MODULE_26__["UserThumbComponent"],
                 _iframe_video_iframe_video_pipe_transform__WEBPACK_IMPORTED_MODULE_30__["IFrameVideoPipe"],
                 _sp_user_sp_user_component__WEBPACK_IMPORTED_MODULE_31__["SpUserComponent"],
-                _skeleton_loading_skeleton_loading_component__WEBPACK_IMPORTED_MODULE_33__["SkeletonLoadingComponent"]
+                _report_error_report_error_component__WEBPACK_IMPORTED_MODULE_33__["ReportErrorComponent"]
             ],
             imports: [
                 _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
@@ -7195,82 +7398,11 @@ var SharedModule = /** @class */ (function () {
                 _user_thumb_user_thumb_component__WEBPACK_IMPORTED_MODULE_26__["UserThumbComponent"],
                 _iframe_video_iframe_video_pipe_transform__WEBPACK_IMPORTED_MODULE_30__["IFrameVideoPipe"],
                 _sp_user_sp_user_component__WEBPACK_IMPORTED_MODULE_31__["SpUserComponent"],
-                _skeleton_loading_skeleton_loading_component__WEBPACK_IMPORTED_MODULE_33__["SkeletonLoadingComponent"]
+                _report_error_report_error_component__WEBPACK_IMPORTED_MODULE_33__["ReportErrorComponent"]
             ]
         })
     ], SharedModule);
     return SharedModule;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/shared/skeleton-loading/skeleton-loading.component.html":
-/*!*************************************************************************!*\
-  !*** ./src/app/shared/skeleton-loading/skeleton-loading.component.html ***!
-  \*************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"loading\">\n  <div class=\"container\" [ngSwitch]=\"module\">\n    <ng-container *ngSwitchCase=\"'services'\">\n      <div class=\"block\" *ngFor=\"let item of getArray(10)\">\n        <div class=\"content pulse\"></div>\n      </div>\n    </ng-container>\n    <ng-container *ngSwitchCase=\"'banners'\">\n      <div class=\"banner\">\n        <div class=\"lines\">\n          <div class=\"line pulse\"></div>\n          <div class=\"line pulse\"></div>\n        </div>\n        <div class=\"lines\">\n          <div class=\"line pulse\"></div>\n          <div class=\"line pulse\"></div>\n          <div class=\"line pulse\"></div>\n        </div>\n        <div class=\"button pulse\"></div>\n      </div>\n    </ng-container>\n    <ng-container *ngSwitchDefault>\n      <div class=\"block\">\n        <div class=\"content\"></div>\n      </div>\n    </ng-container>\n  </div>\n</div>\n"
-
-/***/ }),
-
-/***/ "./src/app/shared/skeleton-loading/skeleton-loading.component.scss":
-/*!*************************************************************************!*\
-  !*** ./src/app/shared/skeleton-loading/skeleton-loading.component.scss ***!
-  \*************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "#s4-bodyContainer {\n  padding: 0; }\n\n@-webkit-keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n@keyframes shine-avatar {\n  0% {\n    background-position: -30px; }\n  40%,\n  100% {\n    background-position: 210px; } }\n\n.pulse {\n  background: linear-gradient(-90deg, #efefef 0%, #fcfcfc 50%, #efefef 100%);\n  background-size: 400% 400%;\n  -webkit-animation: pulse 2s ease-in-out infinite;\n          animation: pulse 2s ease-in-out infinite; }\n\n@-webkit-keyframes pulse {\n  0% {\n    background-position: 0% 0%; }\n  100% {\n    background-position: -135% 0%; } }\n\n@keyframes pulse {\n  0% {\n    background-position: 0% 0%; }\n  100% {\n    background-position: -135% 0%; } }\n\n.loading {\n  border: 3px solid #efefef;\n  border-radius: 3px;\n  background-color: #fff;\n  padding: 15px;\n  height: 100%;\n  box-sizing: border-box; }\n\n.loading .container {\n    margin: 0 -5px;\n    font-size: 0; }\n\n.loading .container .block {\n      width: 50%;\n      display: inline-block;\n      vertical-align: top;\n      padding: 0 5px;\n      box-sizing: border-box;\n      position: relative;\n      margin-bottom: 10px; }\n\n.loading .container .block:before {\n        display: block;\n        content: \" \";\n        width: 100%;\n        padding-bottom: 100%; }\n\n.loading .container .block > .content {\n        position: absolute;\n        top: 0;\n        left: 0;\n        right: 0;\n        bottom: 0; }\n\n.loading .container .block .content {\n        left: 5px;\n        right: 5px;\n        background-color: #e7edf1; }\n\n.banner {\n  height: 100%;\n  padding: 25px;\n  box-sizing: border-box; }\n\n.lines + .lines {\n  margin-top: 15px; }\n\n.lines + .button {\n  margin-top: 25px; }\n\n.line {\n  height: 16px;\n  width: 45%;\n  border-radius: 1px; }\n\n.line + .line {\n    width: 55%;\n    margin-top: 5px; }\n\n.line + .line + .line {\n      width: 65%; }\n\n.button {\n  width: 120px;\n  height: 50px;\n  border-radius: 1px; }\n"
-
-/***/ }),
-
-/***/ "./src/app/shared/skeleton-loading/skeleton-loading.component.ts":
-/*!***********************************************************************!*\
-  !*** ./src/app/shared/skeleton-loading/skeleton-loading.component.ts ***!
-  \***********************************************************************/
-/*! exports provided: SkeletonLoadingComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SkeletonLoadingComponent", function() { return SkeletonLoadingComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-var SkeletonLoadingComponent = /** @class */ (function () {
-    function SkeletonLoadingComponent() {
-        this.module = 'default';
-    }
-    SkeletonLoadingComponent.prototype.getArray = function (i) {
-        return new Array(i);
-    };
-    SkeletonLoadingComponent.prototype.ngOnInit = function () {
-    };
-    __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
-        __metadata("design:type", String)
-    ], SkeletonLoadingComponent.prototype, "module", void 0);
-    SkeletonLoadingComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-skeleton-loading',
-            template: __webpack_require__(/*! ./skeleton-loading.component.html */ "./src/app/shared/skeleton-loading/skeleton-loading.component.html"),
-            styles: [__webpack_require__(/*! ./skeleton-loading.component.scss */ "./src/app/shared/skeleton-loading/skeleton-loading.component.scss")]
-        }),
-        __metadata("design:paramtypes", [])
-    ], SkeletonLoadingComponent);
-    return SkeletonLoadingComponent;
 }());
 
 
@@ -8949,6 +9081,19 @@ var SpEmployeesService = /** @class */ (function (_super) {
     SpEmployeesService.prototype.getEmployeeByLogin = function (login) {
         return this.getItems({ filter: "slLogin eq '" + login + "'" }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (employees) { return employees.length > 0 ? employees[0] : null; }));
     };
+    SpEmployeesService.prototype.getEmployeeByLogins = function (logins) {
+        var filter = '';
+        for (var i = 0; i < logins.length; i++) {
+            var login = '\'' + logins[i] + '\'';
+            if (i === logins.length - 1) {
+                filter += login;
+            }
+            else {
+                filter += login + ' or slLogin eq ';
+            }
+        }
+        return this.getItems({ filter: "(slLogin eq " + filter + ")" });
+    };
     SpEmployeesService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
         __metadata("design:paramtypes", [src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_4__["SharepointService"],
@@ -8973,11 +9118,12 @@ var SpEmployeesService = /** @class */ (function (_super) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WsEmployeesService", function() { return WsEmployeesService; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _employees_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./employees.service */ "./src/app/staff/services/employees/employees.service.ts");
-/* harmony import */ var _msal_settings_msal_settings_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../msal-settings/msal-settings.service */ "./src/app/staff/services/msal-settings/msal-settings.service.ts");
-/* harmony import */ var _adal_settings_adal_settings_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../adal-settings/adal-settings.service */ "./src/app/staff/services/adal-settings/adal-settings.service.ts");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _employees_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./employees.service */ "./src/app/staff/services/employees/employees.service.ts");
+/* harmony import */ var _msal_settings_msal_settings_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../msal-settings/msal-settings.service */ "./src/app/staff/services/msal-settings/msal-settings.service.ts");
+/* harmony import */ var _adal_settings_adal_settings_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../adal-settings/adal-settings.service */ "./src/app/staff/services/adal-settings/adal-settings.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8987,6 +9133,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -9010,7 +9157,7 @@ var WsEmployeesService = /** @class */ (function () {
                 'Authorization': 'Bearer ' + this.adalSettingsService.getToken(),
                 'SharePointUrl': this.msalSettingsService.getPortalUrl(),
             },
-        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) { return _this.convertListItemToEntity(response); }));
+        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) { return _this.convertListItemToEntity(response); }));
     };
     WsEmployeesService.prototype.convertListItemToEntity = function (item) {
         var entity = {
@@ -9062,7 +9209,7 @@ var WsEmployeesService = /** @class */ (function () {
                 'Authorization': 'Bearer ' + this.adalSettingsService.getToken(),
                 'SharePointUrl': this.msalSettingsService.getPortalUrl(),
             },
-        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) {
+        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) {
             var items = [];
             response.forEach(function (e) { return items.push(_this.convertListItemToEntity(e)); });
             return { items: items, hasNext: false, getNext: function () { return _this.search(searchText, departmentId, isFavorite, size + 1, page); } };
@@ -9085,7 +9232,7 @@ var WsEmployeesService = /** @class */ (function () {
                 'Authorization': 'Bearer ' + this.adalSettingsService.getToken(),
                 'SharePointUrl': this.msalSettingsService.getPortalUrl(),
             },
-        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) {
+        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) {
             var items = [];
             response.forEach(function (e) { return items.push(_this.convertListItemToEntity(e)); });
             return { items: items, hasNext: false, getNext: function () { return _this.getPagedByMonthBirthday(month, index + 1, size); } };
@@ -9111,7 +9258,7 @@ var WsEmployeesService = /** @class */ (function () {
                 'Authorization': 'Bearer ' + this.adalSettingsService.getToken(),
                 'SharePointUrl': this.msalSettingsService.getPortalUrl(),
             },
-        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) {
+        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) {
             var items = [];
             response.forEach(function (e) { return items.push(_this.convertListItemToEntity(e)); });
             return { items: items, hasNext: false, getNext: function () { return _this.getPagedByRange(startMonthNumber, endMonthNumber, startDayNumber, endDayNumber, index + 1, size); } };
@@ -9127,7 +9274,7 @@ var WsEmployeesService = /** @class */ (function () {
                 'Authorization': 'Bearer ' + this.adalSettingsService.getToken(),
                 'SharePointUrl': this.msalSettingsService.getPortalUrl(),
             },
-        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) { }));
+        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) { }));
     };
     WsEmployeesService.prototype.removeFavorite = function (id) {
         return this.http.post(this.msalSettingsService.getEmployeesRemoveFavorites(), {
@@ -9139,7 +9286,7 @@ var WsEmployeesService = /** @class */ (function () {
                 'Authorization': 'Bearer ' + this.adalSettingsService.getToken(),
                 'SharePointUrl': this.msalSettingsService.getPortalUrl(),
             },
-        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) { }));
+        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) { }));
     };
     WsEmployeesService.prototype.getEmployeeById = function (id) {
         var _this = this;
@@ -9152,7 +9299,7 @@ var WsEmployeesService = /** @class */ (function () {
                 'Authorization': 'Bearer ' + this.adalSettingsService.getToken(),
                 'SharePointUrl': this.msalSettingsService.getPortalUrl(),
             },
-        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) { return _this.convertListItemToEntity(response); }));
+        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) { return _this.convertListItemToEntity(response); }));
     };
     WsEmployeesService.prototype.getEmployeeByLogin = function (login) {
         var _this = this;
@@ -9165,14 +9312,17 @@ var WsEmployeesService = /** @class */ (function () {
                 'Authorization': 'Bearer ' + this.adalSettingsService.getToken(),
                 'SharePointUrl': this.msalSettingsService.getPortalUrl(),
             },
-        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) { return _this.convertListItemToEntity(response); }));
+        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) { return _this.convertListItemToEntity(response); }));
+    };
+    WsEmployeesService.prototype.getEmployeeByLogins = function (logins) {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])([]);
     };
     WsEmployeesService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
-        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"],
-            _employees_service__WEBPACK_IMPORTED_MODULE_3__["EmployeesService"],
-            _msal_settings_msal_settings_service__WEBPACK_IMPORTED_MODULE_4__["MsalSettingsService"],
-            _adal_settings_adal_settings_service__WEBPACK_IMPORTED_MODULE_5__["AdalSettingsService"]])
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"],
+            _employees_service__WEBPACK_IMPORTED_MODULE_4__["EmployeesService"],
+            _msal_settings_msal_settings_service__WEBPACK_IMPORTED_MODULE_5__["MsalSettingsService"],
+            _adal_settings_adal_settings_service__WEBPACK_IMPORTED_MODULE_6__["AdalSettingsService"]])
     ], WsEmployeesService);
     return WsEmployeesService;
 }());
@@ -9197,6 +9347,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 /* harmony import */ var src_app_services_settings_settings_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/services/settings/settings.service */ "./src/app/services/settings/settings.service.ts");
 /* harmony import */ var src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/services/sharepoint/sharepoint.service */ "./src/app/services/sharepoint/sharepoint.service.ts");
+/* harmony import */ var ngx_cookie_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-cookie-service */ "./node_modules/ngx-cookie-service/index.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_6__);
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -9213,30 +9366,46 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 // import { LogLevel } from 'msal';
 
 
+
+
 function loggerCallback(logLevel, message, piiEnabled) {
     console.log(message);
 }
 var MsalSettingsService = /** @class */ (function () {
-    function MsalSettingsService(settingsService, sharepointService) {
+    function MsalSettingsService(settingsService, sharepointService, cookieService) {
         this.settingsService = settingsService;
         this.sharepointService = sharepointService;
+        this.cookieService = cookieService;
         this.staffMode = 'WS';
         this.staffUrl = 'https://mi-rest.16.public.spellabs.com';
         this.clientId = '284a8245-a2c9-4f9a-a7c0-b465cdfac817';
         this.authority = 'https://login.microsoftonline.com/e98c4dc1-e150-4953-af1c-81be576b0e53';
         this.scope = 'https://spellabs.onmicrosoft.com/c390d8a1-9a86-49fa-acb0-3161e632b626/user_impersonation';
         this.portalUrl = 'https://spellabs.sharepoint.com/sites/metalloinvest';
+        this.cookieTitle = 'msal-settings';
     }
     MsalSettingsService.prototype.load = function () {
         var _this = this;
-        return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["forkJoin"])([
-            this.settingsService.getStaffMode(),
-            this.settingsService.getStaffUrl(),
-            this.settingsService.getStaffClientId(),
-            this.settingsService.getStaffAuthority(),
-            this.settingsService.getStaffScope(),
-            this.settingsService.getPortalUrl()
-        ]).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (results) {
+        var request = null;
+        if (this.cookieService.check(this.cookieTitle)) {
+            request = Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["of"])(JSON.parse(this.cookieService.get(this.cookieTitle)));
+        }
+        else {
+            request = Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["forkJoin"])([
+                this.settingsService.getStaffMode(),
+                this.settingsService.getStaffUrl(),
+                this.settingsService.getStaffClientId(),
+                this.settingsService.getStaffAuthority(),
+                this.settingsService.getStaffScope(),
+                this.settingsService.getPortalUrl()
+            ]).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (results) {
+                var expires = moment__WEBPACK_IMPORTED_MODULE_6__();
+                expires.add(1, 'M');
+                _this.cookieService.set(_this.cookieTitle, JSON.stringify(results), expires.toDate());
+                return results;
+            }));
+        }
+        return request.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (results) {
             if (results[0] != null) {
                 _this.staffMode = results[0];
             }
@@ -9328,9 +9497,758 @@ var MsalSettingsService = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
             providedIn: 'root'
         }),
-        __metadata("design:paramtypes", [src_app_services_settings_settings_service__WEBPACK_IMPORTED_MODULE_3__["SettingsService"], src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_4__["SharepointService"]])
+        __metadata("design:paramtypes", [src_app_services_settings_settings_service__WEBPACK_IMPORTED_MODULE_3__["SettingsService"],
+            src_app_services_sharepoint_sharepoint_service__WEBPACK_IMPORTED_MODULE_4__["SharepointService"],
+            ngx_cookie_service__WEBPACK_IMPORTED_MODULE_5__["CookieService"]])
     ], MsalSettingsService);
     return MsalSettingsService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/staff/services/thanks-counters/sp-thanks-counters.service.ts":
+/*!******************************************************************************!*\
+  !*** ./src/app/staff/services/thanks-counters/sp-thanks-counters.service.ts ***!
+  \******************************************************************************/
+/*! exports provided: SpThanksCountersService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SpThanksCountersService", function() { return SpThanksCountersService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_services_list_items_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/list-items-service */ "./src/app/services/list-items-service.ts");
+/* harmony import */ var _thanks_counters_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./thanks-counters.service */ "./src/app/staff/services/thanks-counters/thanks-counters.service.ts");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var SpThanksCountersService = /** @class */ (function (_super) {
+    __extends(SpThanksCountersService, _super);
+    function SpThanksCountersService(thanksCountersService) {
+        var _this = _super.call(this) || this;
+        _this.thanksCountersService = thanksCountersService;
+        return _this;
+    }
+    SpThanksCountersService.prototype.getListRelativePath = function () {
+        return '';
+    };
+    SpThanksCountersService.prototype.getListTitle = function () {
+        return 'Счетчики благодарностей';
+    };
+    SpThanksCountersService.prototype.getSelect = function () {
+        return "Id,Title, slToUser/Id, slToUser/UserName, slToUser/EMail, slToUser/Title,\n    slThanksTypeLookup/Title, slThanksTypeLookup/Id, slCount, slPositionName";
+    };
+    SpThanksCountersService.prototype.getExpand = function () {
+        return 'slThanksTypeLookup, slToUser';
+    };
+    SpThanksCountersService.prototype.getOrderBy = function () {
+        return [['slCount', false], ['Created', false]];
+    };
+    SpThanksCountersService.prototype.getTop = function () {
+        return 10;
+    };
+    SpThanksCountersService.prototype.getCachingOptions = function () {
+        return null;
+    };
+    SpThanksCountersService.prototype.convertListItemToEntity = function (item) {
+        var thanksCounters = {
+            id: item.Id,
+            title: item.Title,
+            thanksTypeId: null,
+            thanksTypeTitle: null,
+            toUserId: null,
+            toUserTitle: null,
+            toUserLogin: null,
+            toUserEmail: null,
+            toUserPhoto: null,
+            count: item.slCount,
+            positionName: item.slPositionName
+        };
+        if (item.slThanksTypeLookup) {
+            thanksCounters.thanksTypeId = item.slThanksTypeLookup.Id;
+            thanksCounters.thanksTypeTitle = item.slThanksTypeLookup.Title;
+        }
+        if (item.slToUser) {
+            thanksCounters.toUserId = item.slToUser.Id;
+            thanksCounters.toUserTitle = item.slToUser.Title;
+            thanksCounters.toUserLogin = item.slToUser.UserName;
+            thanksCounters.toUserEmail = item.slToUser.EMail,
+                thanksCounters.toUserPhoto = "/_layouts/15/userphoto.aspx?size=M&username=" + item.slToUser.UserName;
+        }
+        return thanksCounters;
+    };
+    SpThanksCountersService.prototype.convertEntityToListItem = function (entity) {
+        return {
+            Id: entity.id,
+            Title: entity.title,
+            slThanksTypeLookupId: entity.thanksTypeId,
+            slToUserId: entity.toUserId,
+            slCount: entity.count,
+            slPositionName: entity.positionName
+        };
+    };
+    SpThanksCountersService.prototype.getMockItems = function () {
+        return [];
+    };
+    SpThanksCountersService.prototype.isMock = function () {
+        return false;
+    };
+    SpThanksCountersService.prototype.getThanksCounter = function (ueserId, typeId) {
+        var filter = "slToUserId eq '" + ueserId + "' and slThanksTypeLookupId eq '" + typeId + "'";
+        if (typeId === undefined) {
+            filter = "slToUserId eq '" + ueserId + "' and slThanksTypeLookup/Id eq null";
+        }
+        return this.getItems({
+            filter: filter,
+            top: 1
+        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["flatMap"])(function (thanksCounter) { return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])(thanksCounter[0]); }));
+    };
+    SpThanksCountersService.prototype.getRatingToUser = function (id) {
+        return this.getItems({
+            filter: "slToUserId eq " + id + " and slThanksTypeLookup/Id ne null",
+            top: 5000
+        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["flatMap"])(function (thanksCounter) { return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["of"])(thanksCounter); }));
+    };
+    SpThanksCountersService.prototype.getRating = function () {
+        return this.getItemsPaged({
+            filter: "slThanksTypeLookup/Id eq null",
+            orderBy: [['slCount', false], ['Created', false]],
+            top: 10
+        });
+    };
+    SpThanksCountersService.prototype.getRatingByUserIds = function (ids) {
+        var filter = '';
+        for (var i = 0; i < ids.length; i++) {
+            if (i === ids.length - 1) {
+                filter += ids[i];
+            }
+            else {
+                filter += ids[i] + ' or slToUserId eq ';
+            }
+        }
+        return this.getItems({
+            filter: "(slToUserId eq " + filter + " ) and slThanksTypeLookup/Id ne null",
+            top: 5000
+        });
+    };
+    SpThanksCountersService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_thanks_counters_service__WEBPACK_IMPORTED_MODULE_2__["ThanksCountersService"]])
+    ], SpThanksCountersService);
+    return SpThanksCountersService;
+}(src_app_services_list_items_service__WEBPACK_IMPORTED_MODULE_1__["ListItemsService"]));
+
+
+
+/***/ }),
+
+/***/ "./src/app/staff/services/thanks-counters/thanks-counters.service.ts":
+/*!***************************************************************************!*\
+  !*** ./src/app/staff/services/thanks-counters/thanks-counters.service.ts ***!
+  \***************************************************************************/
+/*! exports provided: ThanksCountersService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ThanksCountersService", function() { return ThanksCountersService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var ThanksCountersService = /** @class */ (function () {
+    function ThanksCountersService() {
+    }
+    ThanksCountersService.prototype.processEntity = function (entity) {
+    };
+    ThanksCountersService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        })
+    ], ThanksCountersService);
+    return ThanksCountersService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/staff/services/thanks-counters/ws-thanks-counters.service.ts":
+/*!******************************************************************************!*\
+  !*** ./src/app/staff/services/thanks-counters/ws-thanks-counters.service.ts ***!
+  \******************************************************************************/
+/*! exports provided: WsThanksCountersService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WsThanksCountersService", function() { return WsThanksCountersService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _msal_settings_msal_settings_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../msal-settings/msal-settings.service */ "./src/app/staff/services/msal-settings/msal-settings.service.ts");
+/* harmony import */ var _adal_settings_adal_settings_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../adal-settings/adal-settings.service */ "./src/app/staff/services/adal-settings/adal-settings.service.ts");
+/* harmony import */ var _thanks_counters_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./thanks-counters.service */ "./src/app/staff/services/thanks-counters/thanks-counters.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var WsThanksCountersService = /** @class */ (function () {
+    function WsThanksCountersService(http, thanksCountersService, msalSettingsService, adalSettingsService) {
+        this.http = http;
+        this.thanksCountersService = thanksCountersService;
+        this.msalSettingsService = msalSettingsService;
+        this.adalSettingsService = adalSettingsService;
+    }
+    WsThanksCountersService.prototype.getRatingToUser = function (id) {
+        throw new Error('Method not implemented.');
+    };
+    WsThanksCountersService.prototype.getRating = function () {
+        throw new Error('Method not implemented.');
+    };
+    WsThanksCountersService.prototype.getRatingByUserIds = function (ids) {
+        throw new Error('Method not implemented.');
+    };
+    WsThanksCountersService.prototype.createItem = function (item) {
+        throw new Error('Method not implemented.');
+    };
+    WsThanksCountersService.prototype.updateItem = function (item) {
+        throw new Error('Method not implemented.');
+    };
+    WsThanksCountersService.prototype.getThanksCounter = function (toUserId, thanksTypeId) {
+        throw new Error('Method not implemented.');
+    };
+    WsThanksCountersService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"],
+            _thanks_counters_service__WEBPACK_IMPORTED_MODULE_4__["ThanksCountersService"],
+            _msal_settings_msal_settings_service__WEBPACK_IMPORTED_MODULE_2__["MsalSettingsService"],
+            _adal_settings_adal_settings_service__WEBPACK_IMPORTED_MODULE_3__["AdalSettingsService"]])
+    ], WsThanksCountersService);
+    return WsThanksCountersService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/staff/services/thanks-types/sp-thanks-types.service.ts":
+/*!************************************************************************!*\
+  !*** ./src/app/staff/services/thanks-types/sp-thanks-types.service.ts ***!
+  \************************************************************************/
+/*! exports provided: SpThanksTypesService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SpThanksTypesService", function() { return SpThanksTypesService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_services_list_items_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/services/list-items-service */ "./src/app/services/list-items-service.ts");
+/* harmony import */ var _thanks_types_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./thanks-types.service */ "./src/app/staff/services/thanks-types/thanks-types.service.ts");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var SpThanksTypesService = /** @class */ (function (_super) {
+    __extends(SpThanksTypesService, _super);
+    function SpThanksTypesService(thanksTypesService) {
+        var _this = _super.call(this) || this;
+        _this.thanksTypesService = thanksTypesService;
+        return _this;
+    }
+    SpThanksTypesService.prototype.getListRelativePath = function () {
+        return '';
+    };
+    SpThanksTypesService.prototype.getListTitle = function () {
+        return 'Типы благодарностей';
+    };
+    SpThanksTypesService.prototype.getSelect = function () {
+        return 'Id,Title,slIcon';
+    };
+    SpThanksTypesService.prototype.getExpand = function () {
+        return null;
+    };
+    SpThanksTypesService.prototype.getOrderBy = function () {
+        return [['Created', false]];
+    };
+    SpThanksTypesService.prototype.getTop = function () {
+        return 5000;
+    };
+    SpThanksTypesService.prototype.getCachingOptions = function () {
+        return null;
+    };
+    SpThanksTypesService.prototype.convertListItemToEntity = function (item) {
+        var thanksTypes = {
+            id: item.Id,
+            title: item.Title,
+            icon: item.slIcon
+        };
+        return thanksTypes;
+    };
+    SpThanksTypesService.prototype.convertEntityToListItem = function (entity) {
+        throw new Error('Method not implemented.');
+    };
+    SpThanksTypesService.prototype.getMockItems = function () {
+        return [];
+    };
+    SpThanksTypesService.prototype.isMock = function () {
+        return false;
+    };
+    SpThanksTypesService.prototype.getThanksTypes = function () {
+        return this.getItems();
+    };
+    SpThanksTypesService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_thanks_types_service__WEBPACK_IMPORTED_MODULE_2__["ThanksTypesService"]])
+    ], SpThanksTypesService);
+    return SpThanksTypesService;
+}(src_app_services_list_items_service__WEBPACK_IMPORTED_MODULE_1__["ListItemsService"]));
+
+
+
+/***/ }),
+
+/***/ "./src/app/staff/services/thanks-types/thanks-types.service.ts":
+/*!*********************************************************************!*\
+  !*** ./src/app/staff/services/thanks-types/thanks-types.service.ts ***!
+  \*********************************************************************/
+/*! exports provided: ThanksTypesService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ThanksTypesService", function() { return ThanksTypesService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var ThanksTypesService = /** @class */ (function () {
+    function ThanksTypesService() {
+    }
+    ThanksTypesService.prototype.processEntity = function (entity) {
+    };
+    ThanksTypesService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        })
+    ], ThanksTypesService);
+    return ThanksTypesService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/staff/services/thanks-types/ws-thanks-types.service.ts":
+/*!************************************************************************!*\
+  !*** ./src/app/staff/services/thanks-types/ws-thanks-types.service.ts ***!
+  \************************************************************************/
+/*! exports provided: WsThanksTypesService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WsThanksTypesService", function() { return WsThanksTypesService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _msal_settings_msal_settings_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../msal-settings/msal-settings.service */ "./src/app/staff/services/msal-settings/msal-settings.service.ts");
+/* harmony import */ var _thanks_types_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./thanks-types.service */ "./src/app/staff/services/thanks-types/thanks-types.service.ts");
+/* harmony import */ var _adal_settings_adal_settings_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../adal-settings/adal-settings.service */ "./src/app/staff/services/adal-settings/adal-settings.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var WsThanksTypesService = /** @class */ (function () {
+    function WsThanksTypesService(http, thanksTypesService, msalSettingsService, adalSettingsService) {
+        this.http = http;
+        this.thanksTypesService = thanksTypesService;
+        this.msalSettingsService = msalSettingsService;
+        this.adalSettingsService = adalSettingsService;
+    }
+    WsThanksTypesService.prototype.getItems = function () {
+        throw new Error('Method not implemented.');
+    };
+    WsThanksTypesService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"],
+            _thanks_types_service__WEBPACK_IMPORTED_MODULE_3__["ThanksTypesService"],
+            _msal_settings_msal_settings_service__WEBPACK_IMPORTED_MODULE_2__["MsalSettingsService"],
+            _adal_settings_adal_settings_service__WEBPACK_IMPORTED_MODULE_4__["AdalSettingsService"]])
+    ], WsThanksTypesService);
+    return WsThanksTypesService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/staff/services/thanks/sp-thanks.service.ts":
+/*!************************************************************!*\
+  !*** ./src/app/staff/services/thanks/sp-thanks.service.ts ***!
+  \************************************************************/
+/*! exports provided: SpThanksService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SpThanksService", function() { return SpThanksService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var src_app_services_list_items_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/services/list-items-service */ "./src/app/services/list-items-service.ts");
+/* harmony import */ var _thanks_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./thanks.service */ "./src/app/staff/services/thanks/thanks.service.ts");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+var SpThanksService = /** @class */ (function (_super) {
+    __extends(SpThanksService, _super);
+    function SpThanksService(thanksService) {
+        var _this = _super.call(this) || this;
+        _this.thanksService = thanksService;
+        return _this;
+    }
+    SpThanksService.prototype.getListRelativePath = function () {
+        return '/Lists/slThanks';
+    };
+    SpThanksService.prototype.getListTitle = function () {
+        return 'Благодарности';
+    };
+    SpThanksService.prototype.getSelect = function () {
+        return "Id, Title, Author/Id, Author/Name, Author/Title, Author/EMail, Author/UserName, Created,\n    slThanksTypeLookup/Id, slThanksTypeLookup/Title,\n    slToUser/Id, slToUser/UserName, slToUser/EMail, slToUser/Title, slComment";
+    };
+    SpThanksService.prototype.getExpand = function () {
+        return 'slThanksTypeLookup, slToUser, Author';
+    };
+    SpThanksService.prototype.getOrderBy = function () {
+        return [['Created', false]];
+    };
+    SpThanksService.prototype.getTop = function () {
+        return 5000;
+    };
+    SpThanksService.prototype.getCachingOptions = function () {
+        return null;
+    };
+    SpThanksService.prototype.convertListItemToEntity = function (item) {
+        var dateMoment = moment__WEBPACK_IMPORTED_MODULE_1__(item.Created);
+        var thanks = {
+            id: item.Id,
+            title: item.Title,
+            created: new Date(item.Created),
+            dateFromNow: dateMoment.fromNow(),
+            dateTitle: dateMoment.calendar(null, {
+                sameDay: function (now) {
+                    var dateTitle = '[Сегодня]';
+                    if (dateMoment.isAfter(moment__WEBPACK_IMPORTED_MODULE_1__(now).subtract(1, 'hour'))) {
+                        dateTitle = 'Только что';
+                    }
+                    if (dateMoment.isAfter(moment__WEBPACK_IMPORTED_MODULE_1__(now).subtract(2, 'hour')) &&
+                        dateMoment.isBefore(moment__WEBPACK_IMPORTED_MODULE_1__(now).subtract(1, 'hour'))) {
+                        dateTitle = 'Час назад';
+                    }
+                    return dateTitle;
+                },
+                nextDay: '[Завтра]',
+                nextWeek: 'D MMMM',
+                lastDay: '[Вчера]',
+                lastWeek: 'D MMMM',
+                sameElse: 'D MMMM'
+            }),
+            fromUserId: null,
+            fromUserTitle: null,
+            fromUserLogin: null,
+            fromUserEmail: null,
+            fromUserPhoto: null,
+            toUserId: null,
+            toUserTitle: null,
+            toUserLogin: null,
+            toUserEmail: null,
+            toUserPhoto: null,
+            thanksTypeId: null,
+            thanksTypeTitle: null,
+            comment: item.slComment
+        };
+        if (item.slThanksTypeLookup) {
+            thanks.thanksTypeId = item.slThanksTypeLookup.Id;
+            thanks.thanksTypeTitle = item.slThanksTypeLookup.Title;
+        }
+        if (item.slToUser) {
+            thanks.toUserId = item.slToUser.Id;
+            thanks.toUserTitle = item.slToUser.Title;
+            thanks.toUserLogin = item.slToUser.UserName;
+            (thanks.toUserEmail = item.slToUser.EMail),
+                (thanks.toUserPhoto = "/_layouts/15/userphoto.aspx?size=M&username=" + item.slToUser.UserName);
+        }
+        if (item.Author) {
+            thanks.fromUserId = item.Author.Id;
+            thanks.fromUserTitle = item.Author.Title;
+            thanks.fromUserLogin = item.Author.UserName;
+            thanks.fromUserEmail = item.Author.EMail;
+            thanks.fromUserPhoto = "/_layouts/15/userphoto.aspx?size=M&username=" + item.Author.UserName;
+        }
+        return thanks;
+    };
+    SpThanksService.prototype.convertEntityToListItem = function (entity) {
+        return {
+            Id: entity.id,
+            Title: entity.title,
+            slThanksTypeLookupId: entity.thanksTypeId,
+            slToUserId: entity.toUserId,
+            slComment: entity.comment
+        };
+    };
+    SpThanksService.prototype.getMockItems = function () {
+        return [];
+    };
+    SpThanksService.prototype.isMock = function () {
+        return false;
+    };
+    SpThanksService.prototype.getThanksCreatedByUserId = function (id) {
+        var date = new Date();
+        var start = new Date(date.getFullYear(), date.getMonth(), 1).toISOString();
+        var end = new Date(date.getFullYear(), date.getMonth() + 1, 0).toISOString();
+        return this.getItems({
+            filter: "(Author/Id eq " + id + ") and Created ge datetime'" + start + "' and Created le datetime'" + end + "'",
+            top: 5000,
+            orderBy: [['Created', false]]
+        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["flatMap"])(function (thanks) { return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["of"])(thanks); }));
+    };
+    SpThanksService.prototype.getLastThanks = function (top) {
+        return this.getItems({
+            top: top,
+            orderBy: [['Created', false]]
+        }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["flatMap"])(function (thanks) { return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["of"])(thanks); }));
+    };
+    SpThanksService.prototype.getByPeriod = function (start, end, webId) {
+        return this.getItemsPaged({
+            filter: "Created ge datetime'" + start + "' and Created le datetime'" + end + "'",
+            orderBy: [['Created', false]],
+            top: 15,
+            webId: webId
+        });
+    };
+    SpThanksService.prototype.getThanksCreatedToUserId = function (userId) {
+        return this.getItems({ filter: "slToUser/Id eq '" + userId + "'" });
+    };
+    SpThanksService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_thanks_service__WEBPACK_IMPORTED_MODULE_3__["ThanksService"]])
+    ], SpThanksService);
+    return SpThanksService;
+}(src_app_services_list_items_service__WEBPACK_IMPORTED_MODULE_2__["ListItemsService"]));
+
+
+
+/***/ }),
+
+/***/ "./src/app/staff/services/thanks/thanks.service.ts":
+/*!*********************************************************!*\
+  !*** ./src/app/staff/services/thanks/thanks.service.ts ***!
+  \*********************************************************/
+/*! exports provided: ThanksService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ThanksService", function() { return ThanksService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var ThanksService = /** @class */ (function () {
+    function ThanksService() {
+    }
+    ThanksService.prototype.processEntity = function (entity) {
+    };
+    ThanksService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        })
+    ], ThanksService);
+    return ThanksService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/staff/services/thanks/ws-thanks.service.ts":
+/*!************************************************************!*\
+  !*** ./src/app/staff/services/thanks/ws-thanks.service.ts ***!
+  \************************************************************/
+/*! exports provided: WsThanksService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WsThanksService", function() { return WsThanksService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _msal_settings_msal_settings_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../msal-settings/msal-settings.service */ "./src/app/staff/services/msal-settings/msal-settings.service.ts");
+/* harmony import */ var _adal_settings_adal_settings_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../adal-settings/adal-settings.service */ "./src/app/staff/services/adal-settings/adal-settings.service.ts");
+/* harmony import */ var _thanks_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./thanks.service */ "./src/app/staff/services/thanks/thanks.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var WsThanksService = /** @class */ (function () {
+    function WsThanksService(http, thanksService, msalSettingsService, adalSettingsService) {
+        this.http = http;
+        this.thanksService = thanksService;
+        this.msalSettingsService = msalSettingsService;
+        this.adalSettingsService = adalSettingsService;
+    }
+    WsThanksService.prototype.getByPeriod = function (start, end) {
+        throw new Error('Method not implemented.');
+    };
+    WsThanksService.prototype.getThanksCreatedByUserId = function (userId) {
+        throw new Error('Method not implemented.');
+    };
+    WsThanksService.prototype.getLastThanks = function (top) {
+        throw new Error('Method not implemented.');
+    };
+    WsThanksService.prototype.getThanksCreatedToUserId = function (userId) {
+        throw new Error('Method not implemented.');
+    };
+    WsThanksService.prototype.createItem = function (item) {
+        throw new Error('Method not implemented.');
+    };
+    WsThanksService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"],
+            _thanks_service__WEBPACK_IMPORTED_MODULE_4__["ThanksService"],
+            _msal_settings_msal_settings_service__WEBPACK_IMPORTED_MODULE_2__["MsalSettingsService"],
+            _adal_settings_adal_settings_service__WEBPACK_IMPORTED_MODULE_3__["AdalSettingsService"]])
+    ], WsThanksService);
+    return WsThanksService;
 }());
 
 
@@ -9363,6 +10281,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_departments_sp_departments_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./services/departments/sp-departments.service */ "./src/app/staff/services/departments/sp-departments.service.ts");
 /* harmony import */ var _services_adal_settings_adal_settings_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./services/adal-settings/adal-settings.service */ "./src/app/staff/services/adal-settings/adal-settings.service.ts");
 /* harmony import */ var _shared_services_notifications_notifications_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../shared/services/notifications/notifications.service */ "./src/app/shared/services/notifications/notifications.service.ts");
+/* harmony import */ var _services_thanks_ws_thanks_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./services/thanks/ws-thanks.service */ "./src/app/staff/services/thanks/ws-thanks.service.ts");
+/* harmony import */ var _services_thanks_sp_thanks_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./services/thanks/sp-thanks.service */ "./src/app/staff/services/thanks/sp-thanks.service.ts");
+/* harmony import */ var _services_thanks_counters_ws_thanks_counters_service__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./services/thanks-counters/ws-thanks-counters.service */ "./src/app/staff/services/thanks-counters/ws-thanks-counters.service.ts");
+/* harmony import */ var _services_thanks_counters_sp_thanks_counters_service__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./services/thanks-counters/sp-thanks-counters.service */ "./src/app/staff/services/thanks-counters/sp-thanks-counters.service.ts");
+/* harmony import */ var _services_thanks_types_ws_thanks_types_service__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./services/thanks-types/ws-thanks-types.service */ "./src/app/staff/services/thanks-types/ws-thanks-types.service.ts");
+/* harmony import */ var _services_thanks_types_sp_thanks_types_service__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./services/thanks-types/sp-thanks-types.service */ "./src/app/staff/services/thanks-types/sp-thanks-types.service.ts");
+/* harmony import */ var _services_thanks_thanks_service__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./services/thanks/thanks.service */ "./src/app/staff/services/thanks/thanks.service.ts");
+/* harmony import */ var _services_thanks_counters_thanks_counters_service__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./services/thanks-counters/thanks-counters.service */ "./src/app/staff/services/thanks-counters/thanks-counters.service.ts");
+/* harmony import */ var _services_thanks_types_thanks_types_service__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./services/thanks-types/thanks-types.service */ "./src/app/staff/services/thanks-types/thanks-types.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -9374,6 +10301,15 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 // import { MSAL_CONFIG, MsalService } from '@azure/msal-angular/dist/msal.service';
 // import { MsalInterceptor, MsalModule } from '@azure/msal-angular';
+
+
+
+
+
+
+
+
+
 
 
 
@@ -9438,6 +10374,33 @@ var StaffModule = /** @class */ (function () {
                             : new _services_departments_sp_departments_service__WEBPACK_IMPORTED_MODULE_12__["SpDepartmentsService"](departmentsService));
                     },
                     deps: [_services_msal_settings_msal_settings_service__WEBPACK_IMPORTED_MODULE_7__["MsalSettingsService"], _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"], _services_departments_departments_service__WEBPACK_IMPORTED_MODULE_10__["DepartmentsService"], _services_adal_settings_adal_settings_service__WEBPACK_IMPORTED_MODULE_13__["AdalSettingsService"]],
+                },
+                {
+                    provide: 'ThanksFactory',
+                    useFactory: function (msalSettingsService, http, thanksService, sharepointService, adalSettingsService) {
+                        return (msalSettingsService.isWebService()
+                            ? new _services_thanks_ws_thanks_service__WEBPACK_IMPORTED_MODULE_15__["WsThanksService"](http, thanksService, msalSettingsService, adalSettingsService)
+                            : new _services_thanks_sp_thanks_service__WEBPACK_IMPORTED_MODULE_16__["SpThanksService"](thanksService));
+                    },
+                    deps: [_services_msal_settings_msal_settings_service__WEBPACK_IMPORTED_MODULE_7__["MsalSettingsService"], _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"], _services_thanks_thanks_service__WEBPACK_IMPORTED_MODULE_21__["ThanksService"], _services_adal_settings_adal_settings_service__WEBPACK_IMPORTED_MODULE_13__["AdalSettingsService"]],
+                },
+                {
+                    provide: 'ThanksCountersFactory',
+                    useFactory: function (msalSettingsService, http, thanksCountersService, sharepointService, adalSettingsService) {
+                        return (msalSettingsService.isWebService()
+                            ? new _services_thanks_counters_ws_thanks_counters_service__WEBPACK_IMPORTED_MODULE_17__["WsThanksCountersService"](http, thanksCountersService, msalSettingsService, adalSettingsService)
+                            : new _services_thanks_counters_sp_thanks_counters_service__WEBPACK_IMPORTED_MODULE_18__["SpThanksCountersService"](thanksCountersService));
+                    },
+                    deps: [_services_msal_settings_msal_settings_service__WEBPACK_IMPORTED_MODULE_7__["MsalSettingsService"], _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"], _services_thanks_counters_thanks_counters_service__WEBPACK_IMPORTED_MODULE_22__["ThanksCountersService"], _services_adal_settings_adal_settings_service__WEBPACK_IMPORTED_MODULE_13__["AdalSettingsService"]],
+                },
+                {
+                    provide: 'ThanksTypesFactory',
+                    useFactory: function (msalSettingsService, http, thanksTypesService, sharepointService, adalSettingsService) {
+                        return (msalSettingsService.isWebService()
+                            ? new _services_thanks_types_ws_thanks_types_service__WEBPACK_IMPORTED_MODULE_19__["WsThanksTypesService"](http, thanksTypesService, msalSettingsService, adalSettingsService)
+                            : new _services_thanks_types_sp_thanks_types_service__WEBPACK_IMPORTED_MODULE_20__["SpThanksTypesService"](thanksTypesService));
+                    },
+                    deps: [_services_msal_settings_msal_settings_service__WEBPACK_IMPORTED_MODULE_7__["MsalSettingsService"], _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"], _services_thanks_types_thanks_types_service__WEBPACK_IMPORTED_MODULE_23__["ThanksTypesService"], _services_adal_settings_adal_settings_service__WEBPACK_IMPORTED_MODULE_13__["AdalSettingsService"]],
                 },
                 _birthdays_services_employees_birthdays_resolver__WEBPACK_IMPORTED_MODULE_4__["BirthdaysResolver"],
                 _services_employees_employees_service__WEBPACK_IMPORTED_MODULE_6__["EmployeesService"],

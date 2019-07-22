@@ -1,3 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="23.173" height="22.365" viewBox="0 0 23.173 22.365">
-  <path id="icon-personal-thanks-2" d="M12.209,22.816S-6.169,8.678,3.193,1.937c5.4-3.885,8.929,1.077,8.929,1.077s3.511-4.962,8.907-1.077c9.362,6.74-8.821,20.879-8.821,20.879" transform="translate(-0.535 -0.451)" fill="#ee2737" fill-rule="evenodd"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="55.91" height="55.91" viewBox="0 0 55.91 55.91">
+  <g id="icon-personal-thanks-2" transform="translate(-5234 -2933)">
+    <circle id="Ellipse_1607" data-name="Ellipse 1607" cx="27.955" cy="27.955" r="27.955" transform="translate(5234 2933)" fill="rgba(222,223,224,0)"/>
+    <g id="Group_18494" data-name="Group 18494" transform="translate(5247 2943.906)">
+      <g id="Group_1" data-name="Group 1" transform="translate(0 0)">
+        <g id="Group_111" data-name="Group 111" transform="translate(0 0)">
+          <g id="Ellipse_4" data-name="Ellipse 4" transform="translate(0 2.186)" fill="none" stroke="#06070c" stroke-width="1">
+            <circle cx="15.178" cy="15.178" r="15.178" stroke="none"/>
+            <circle cx="15.178" cy="15.178" r="14.678" fill="none"/>
+          </g>
+          <path id="Path_126" data-name="Path 126" d="M366.348,287.576h7.393" transform="translate(-354.725 -287.576)" fill="none" stroke="#06070c" stroke-width="1"/>
+          <path id="Path_127" data-name="Path 127" d="M0,0H6.53" transform="translate(24.481 2.133) rotate(45)" fill="none" stroke="#06070c" stroke-width="1"/>
+          <path id="Path_128" data-name="Path 128" d="M363.478,297.692l6.542,9.267,5.317-4.588" transform="translate(-354.123 -288.638)" fill="none" stroke="#06070c" stroke-width="1"/>
+        </g>
+      </g>
+    </g>
+  </g>
 </svg>
