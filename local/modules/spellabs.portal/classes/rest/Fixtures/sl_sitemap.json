@@ -9,13 +9,94 @@
         "XML_ID": "6e52544e-47c4-4366-8a84-b99cdf3398d1"
     },
     {
+        "NAME": "Структура и система управления",
+        "SORT": "2",
+        "PROPERTY_VALUES": {
+            "SL_URL": "http://test.bitrix.dev10.spellabs.com:8080/PortalPages/home.aspx#/orgstructure",
+            "SL_SITEMAP_CATEGORIES_LOOKUP": "73d5c43a-8587-4562-9727-9d3a7786a391"
+        },
+        "XML_ID": "6e52544e-47c4-4366-8a84-b99cdf3398a1"
+    },
+    {
+        "NAME": "Фотогалерея",
+        "SORT": "3",
+        "PROPERTY_VALUES": {
+            "SL_URL": "http://test.bitrix.dev10.spellabs.com:8080/PortalPages/home.aspx#/photogallery",
+            "SL_SITEMAP_CATEGORIES_LOOKUP": "73d5c43a-8587-4562-9727-9d3a7786a391"
+        },
+        "XML_ID": "6e52544e-47c4-4366-8a84-b99cdf3398a2"
+    },
+    {
+        "NAME": "Вопросы и предложения",
+        "SORT": "4",
+        "PROPERTY_VALUES": {
+            "SL_URL": "#",
+            "SL_SITEMAP_CATEGORIES_LOOKUP": "73d5c43a-8587-4562-9727-9d3a7786a391"
+        },
+        "XML_ID": "6e52544e-47c4-4366-8a84-b99cdf3398a3"
+    },
+    {
+        "NAME": "Форма обратной связи",
+        "SORT": "5",
+        "PROPERTY_VALUES": {
+            "SL_URL": "#",
+            "SL_SITEMAP_CATEGORIES_LOOKUP": "73d5c43a-8587-4562-9727-9d3a7786a391"
+        },
+        "XML_ID": "6e52544e-47c4-4366-8a84-b99cdf3398a4"
+    },
+    {
+        "NAME": "Внешний портал Металлоинвест",
+        "SORT": "6",
+        "PROPERTY_VALUES": {
+            "SL_URL": "http://www.metalloinvest.com/",
+            "SL_SITEMAP_CATEGORIES_LOOKUP": "73d5c43a-8587-4562-9727-9d3a7786a391"
+        },
+        "XML_ID": "6e52544e-47c4-4366-8a84-b99cdf3398a5"
+    },
+    {
         "NAME": "Персональные данные",
         "SORT": "1",
         "PROPERTY_VALUES": {
-            "SL_URL": "http://test.bitrix.dev10.spellabs.com:8080/PortalPages/home.aspx#/personal",
+            "SL_URL": "#",
             "SL_SITEMAP_CATEGORIES_LOOKUP": "73d5c43a-8587-4562-9727-9d3a7786a393"
         },
         "XML_ID": "6e52544e-47c4-4366-8a84-b99cdf3398d2"
+    },
+    {
+        "NAME": "Мой департамент",
+        "SORT": "2",
+        "PROPERTY_VALUES": {
+            "SL_URL": "#",
+            "SL_SITEMAP_CATEGORIES_LOOKUP": "73d5c43a-8587-4562-9727-9d3a7786a393"
+        },
+        "XML_ID": "6e52544e-47c4-4366-8a84-b99cdf3398b1"
+    },
+    {
+        "NAME": "Мои задачи",
+        "SORT": "3",
+        "PROPERTY_VALUES": {
+            "SL_URL": "#",
+            "SL_SITEMAP_CATEGORIES_LOOKUP": "73d5c43a-8587-4562-9727-9d3a7786a393"
+        },
+        "XML_ID": "6e52544e-47c4-4366-8a84-b99cdf3398b2"
+    },
+    {
+        "NAME": "Мои заявки",
+        "SORT": "4",
+        "PROPERTY_VALUES": {
+            "SL_URL": "http://test.bitrix.dev10.spellabs.com:8080/PortalPages/home.aspx#/requests",
+            "SL_SITEMAP_CATEGORIES_LOOKUP": "73d5c43a-8587-4562-9727-9d3a7786a393"
+        },
+        "XML_ID": "6e52544e-47c4-4366-8a84-b99cdf3398b3"
+    },
+    {
+        "NAME": "Опросы",
+        "SORT": "5",
+        "PROPERTY_VALUES": {
+            "SL_URL": "http://test.bitrix.dev10.spellabs.com:8080/PortalPages/home.aspx#/polls",
+            "SL_SITEMAP_CATEGORIES_LOOKUP": "73d5c43a-8587-4562-9727-9d3a7786a393"
+        },
+        "XML_ID": "6e52544e-47c4-4366-8a84-b99cdf3398b4"
     },
     {
         "NAME": "Дни рождения",
@@ -27,14 +108,31 @@
         "XML_ID": "6e52544e-47c4-4366-8a84-b99cdf3398d3"
     },
     {
-        "NAME": "Приказы",
-        "SORT": "1",
+        "NAME": "Телефонный справочник",
+        "SORT": "2",
+        "PROPERTY_VALUES": {
+            "SL_URL": "http://test.bitrix.dev10.spellabs.com:8080/PortalPages/home.aspx#/phonebook",
+            "SL_SITEMAP_CATEGORIES_LOOKUP": "73d5c43a-8587-4562-9727-9d3a7786a392"
+        },
+        "XML_ID": "6e52544e-47c4-4366-8a84-b99cdf3398e1"
+    },
+    {
+        "NAME": "Новые сотрудники",
+        "SORT": "3",
         "PROPERTY_VALUES": {
             "SL_URL": "#",
-            "SL_SITEMAP_CATEGORIES_LOOKUP": "73d5c43a-8587-4562-9727-9d3a7786a395"
-        }
-        ,
-        "XML_ID": "6e52544e-47c4-4366-8a84-b99cdf3398d4"
+            "SL_SITEMAP_CATEGORIES_LOOKUP": "73d5c43a-8587-4562-9727-9d3a7786a392"
+        },
+        "XML_ID": "6e52544e-47c4-4366-8a84-b99cdf3398e2"
+    },
+    {
+        "NAME": "Благодарности",
+        "SORT": "4",
+        "PROPERTY_VALUES": {
+            "SL_URL": "#",
+            "SL_SITEMAP_CATEGORIES_LOOKUP": "73d5c43a-8587-4562-9727-9d3a7786a392"
+        },
+        "XML_ID": "6e52544e-47c4-4366-8a84-b99cdf3398e3"
     },
     {
         "NAME": "Заявка на пропуск",
@@ -46,12 +144,76 @@
         "XML_ID": "6e52544e-47c4-4366-8a84-b99cdf3398d5"
     },
     {
+        "NAME": "Заявка на автотранспорт",
+        "SORT": "2",
+        "PROPERTY_VALUES": {
+            "SL_URL": "#",
+            "SL_SITEMAP_CATEGORIES_LOOKUP": "73d5c43a-8587-4562-9727-9d3a7786a394"
+        },
+        "XML_ID": "6e52544e-47c4-4366-8a84-b99cdf3398f1"
+    },
+    {
+        "NAME": "Заявка в IT-службу",
+        "SORT": "3",
+        "PROPERTY_VALUES": {
+            "SL_URL": "#",
+            "SL_SITEMAP_CATEGORIES_LOOKUP": "73d5c43a-8587-4562-9727-9d3a7786a394"
+        },
+        "XML_ID": "6e52544e-47c4-4366-8a84-b99cdf3398f2"
+    },
+    {
+        "NAME": "Центр заявок",
+        "SORT": "4",
+        "PROPERTY_VALUES": {
+            "SL_URL": "#",
+            "SL_SITEMAP_CATEGORIES_LOOKUP": "73d5c43a-8587-4562-9727-9d3a7786a394"
+        },
+        "XML_ID": "6e52544e-47c4-4366-8a84-b99cdf3398f3"
+    },
+    {
+        "NAME": "Приказы",
+        "SORT": "1",
+        "PROPERTY_VALUES": {
+            "SL_URL": "#",
+            "SL_SITEMAP_CATEGORIES_LOOKUP": "73d5c43a-8587-4562-9727-9d3a7786a395"
+        }
+        ,
+        "XML_ID": "6e52544e-47c4-4366-8a84-b99cdf3398q1"
+    },
+    {
         "NAME": "Инструкции",
         "SORT": "2",
         "PROPERTY_VALUES": {
             "SL_URL": "#",
             "SL_SITEMAP_CATEGORIES_LOOKUP": "73d5c43a-8587-4562-9727-9d3a7786a395"
         },
-        "XML_ID": "6e52544e-47c4-4366-8a84-b99cdf3398d6"
+        "XML_ID": "6e52544e-47c4-4366-8a84-b99cdf3398q2"
+    },
+    {
+        "NAME": "Регламенты",
+        "SORT": "3",
+        "PROPERTY_VALUES": {
+            "SL_URL": "#",
+            "SL_SITEMAP_CATEGORIES_LOOKUP": "73d5c43a-8587-4562-9727-9d3a7786a395"
+        },
+        "XML_ID": "6e52544e-47c4-4366-8a84-b99cdf3398q3"
+    },
+    {
+        "NAME": "Доверенности",
+        "SORT": "4",
+        "PROPERTY_VALUES": {
+            "SL_URL": "#",
+            "SL_SITEMAP_CATEGORIES_LOOKUP": "73d5c43a-8587-4562-9727-9d3a7786a395"
+        },
+        "XML_ID": "6e52544e-47c4-4366-8a84-b99cdf3398q4"
+    },
+    {
+        "NAME": "Реквизиты юр. лиц",
+        "SORT": "5",
+        "PROPERTY_VALUES": {
+            "SL_URL": "#",
+            "SL_SITEMAP_CATEGORIES_LOOKUP": "73d5c43a-8587-4562-9727-9d3a7786a395"
+        },
+        "XML_ID": "6e52544e-47c4-4366-8a84-b99cdf3398q5"
     }
 ]
