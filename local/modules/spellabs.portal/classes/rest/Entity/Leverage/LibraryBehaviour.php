@@ -113,8 +113,6 @@ trait LibraryBehaviour
             {
                 $this->placeExpandedValues($element);
                 
-                
-                
                 $element['Name'] = $element['~NAME'];
                 
                 $this->adaptResult($element);
@@ -131,8 +129,6 @@ trait LibraryBehaviour
             } else {
                 $result = $arElements[0];
             }
-            
-            //$result = $arElements;
         }
         
         return $result;

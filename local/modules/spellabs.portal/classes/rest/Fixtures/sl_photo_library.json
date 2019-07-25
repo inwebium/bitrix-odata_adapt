@@ -1,0 +1,74 @@
+[
+    {
+        "NAME": "Альбом 0",
+        "IS_SECTION": true,
+        "PICTURE": "https://placekitten.com/800/600?image=8",
+        "DESCRIPTION": "Lorem ipsum dolor sit amet",
+        "CHILDREN": [
+            {
+                "NAME": "Фото 1",
+                "PROPERTY_VALUES": {
+                    "SL_SERVER_RELATIVE_URL": [
+                        "https://placekitten.com/800/600?image=1"
+                    ]
+                }
+            },
+            {
+                "NAME": "Фото 2",
+                "PROPERTY_VALUES": {
+                    "SL_SERVER_RELATIVE_URL": [
+                        "https://placekitten.com/800/600?image=2"
+                    ]
+                }
+            },
+            {
+                "NAME": "Фото 3",
+                "PROPERTY_VALUES": {
+                    "SL_SERVER_RELATIVE_URL": [
+                        "https://placekitten.com/800/600?image=3"
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "NAME": "Альбом 1",
+        "IS_SECTION": true,
+        "PICTURE": "https://placekitten.com/800/600?image=9",
+        "DESCRIPTION": "Lorem ipsum dolor sit amet, consectetur adipisicing elit",
+        "CHILDREN": [
+            {
+                "NAME": "Фото 4",
+                "PROPERTY_VALUES": {
+                    "SL_SERVER_RELATIVE_URL": [
+                        "https://placekitten.com/800/600?image=4"
+                    ]
+                }
+            },
+            {
+                "NAME": "Фото 5",
+                "PROPERTY_VALUES": {
+                    "SL_SERVER_RELATIVE_URL": [
+                        "https://placekitten.com/800/600?image=5"
+                    ]
+                }
+            },
+            {
+                "NAME": "Фото 6",
+                "PROPERTY_VALUES": {
+                    "SL_SERVER_RELATIVE_URL": [
+                        "https://placekitten.com/800/600?image=6"
+                    ]
+                }
+            },
+            {
+                "NAME": "Фото 7",
+                "PROPERTY_VALUES": {
+                    "SL_SERVER_RELATIVE_URL": [
+                        "https://placekitten.com/800/600?image=7"
+                    ]
+                }
+            }
+        ]
+    }
+]

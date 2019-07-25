@@ -1,8 +1,27 @@
 [
     {
-        "NAME": "Металлоинвест. Годовой отчет 2017",
+        "NAME": "Видео 1",
         "PROPERTY_VALUES": {
-            "SL_VIDEO_URL": "https://spellabs.sharepoint.com/sites/metalloinvest/Shared%20Documents/video/MI_itogi.mp4"
+            "SL_VIDEO_URL": "https://spellabs.sharepoint.com/sites/metalloinvest/Shared%20Documents/video/01.mp4"
+        }
+    },
+    {
+        "NAME": "Видео 2",
+        "PROPERTY_VALUES": {
+            "SL_VIDEO_URL": "https://spellabs.sharepoint.com/sites/metalloinvest/Shared%20Documents/video/soc_pr_MI_usmanov_putin.mp4"
+        }
+    },
+    {
+        "NAME": "Видео 3",
+        "PROPERTY_VALUES": {
+            "SL_VIDEO_URL": "https://spellabs.sharepoint.com/sites/metalloinvest/Shared%20Documents/video/turtle_mp4.mp4"
+        }
+    },
+    {
+        "NAME": "Ссылка на ютуб",
+        "PROPERTY_VALUES": {
+            "SL_VIDEO_URL": "https://www.youtube.com/embed/YZfkaAYbXNA",
+            "SL_IS_IFRAME": "true"
         }
     }
 ]

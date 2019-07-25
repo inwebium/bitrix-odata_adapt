@@ -713,8 +713,20 @@
         },
         "PICTURE": {
             "XML_ID": "slAlbumCover",
-            "RETURNS": "String",
+            "RETURNS": "FileUrl",
             "FIELD_ENTITY": "SECTION_FIELD"
-        }
+        },
+        "SL_SERVER_RELATIVE_URL": {
+			"XML_ID": "ServerRelativeUrl",
+			"NAME": "Файл",
+			"ACTIVE": "Y",
+			"IS_REQUIRED": "Y",
+			"SORT": 10000,
+			"PROPERTY_TYPE": "F",
+			"MULTIPLE": "N",
+			"FILE_TYPE": "",
+			"SEARCHABLE": "N",
+			"FILTRABLE": "N"
+		}
     }
 }

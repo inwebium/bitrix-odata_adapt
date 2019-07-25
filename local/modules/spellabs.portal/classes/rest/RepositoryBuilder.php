@@ -1,6 +1,9 @@
 <?php
 namespace Spellabs\Portal\Rest;
 
+/**
+ * Заполняет репозиторий классами rest-сущностей
+ */
 class RepositoryBuilder
 {
     /**
@@ -17,7 +20,12 @@ class RepositoryBuilder
     {
         return $this->installerPath;
     }
-
+    
+    /**
+     * 
+     * @param type $installerPath
+     * @return $this
+     */
     public function setInstallerPath($installerPath)
     {
         $this->installerPath = $installerPath;
@@ -54,20 +62,52 @@ class RepositoryBuilder
                 $iblockCode
             );
             
+            // Определим в качестве чего выступает ИБ (список или библиотека)
+            $entityBehaviour = 'ListBehaviour';
+            
+            if (!empty($iblockParams['BEHAVIOUR'])) {
+                $entityBehaviour = $iblockParams['BEHAVIOUR'] . 'Behaviour';
+            }
+            
             $arIblockProps = [];
             $constructorAdditionals = '';
-            $fieldInitString = "\t\t\$this->fieldsCollection\n";
             
-            foreach ($arIblocksProps[$iblockCode] as $propertyCode => $arProperty)
-            {
+            $fieldInitString = "";
+            
+            if ($entityBehaviour == 'LibraryBehaviour') {
+                $arIblocksProps[$iblockCode]['SL_SERVER_RELATIVE_URL'] = [
+                    'XML_ID' => 'ServerRelativeUrl',
+                    'FIELD_ENTITY' => 'PROPERTY',
+                    'RETURNS' => 'FileUrl'
+                ];
+                
+                $contentTypes = $this->getContentTypes($iblockCode);
+                $constructorAdditionals .= "\n\t\t\$this->contentTypes = [\n";
+                
+                foreach ($contentTypes as $for => $arContentTypes) {
+                    $constructorAdditionals .= $this->stringifyContentTypes($arContentTypes, $for);    
+                }
+                
+                $constructorAdditionals .= "\n\t\t];";  
+                
+                $fieldInitString .= $this->stringifySectionFields($arIblocksProps[$iblockCode]);
+            }
+            
+            $fieldInitString .= "\t\t\$this->fieldsCollection\n";
+            
+            foreach ($arIblocksProps[$iblockCode] as $propertyCode => $arProperty) {
+                if ($arProperty['FIELD_ENTITY'] == 'SECTION_FIELD') {
+                    continue;
+                }
+                
                 $propertyType = $this->determinePropertyType($arProperty);
                 $fieldEntity = 'PROPERTY';
-                
+                    
                 if (
                     isset($arProperty['FIELD_ENTITY']) && 
                     in_array(
                         $arProperty['FIELD_ENTITY'], 
-                        ['PROPERTY', 'FIELD', 'USERFIELD', 'SECTION_FIELD']
+                        ['PROPERTY', 'FIELD', 'USERFIELD']
                     )
                 ) {
                     $fieldEntity = $arProperty['FIELD_ENTITY'];
@@ -82,30 +122,12 @@ class RepositoryBuilder
                     "\t\t\t\t\t'" . $fieldEntity . "',\n" .
                     "\t\t\t\t)\n" . 
                     "\t\t\t)\n";
-                
+
                 $this->generateRepositoryFields($arProperty, $propertyCode);
                 $arIblockProps[$arProperty['XML_ID']] = $propertyCode;
             }
             
             $fieldInitString .= "\t\t;\n";
-            
-            // Определим в качестве чего выступает ИБ (список или библиотека)
-            $entityBehaviour = 'ListBehaviour';
-            
-            if (!empty($iblockParams['BEHAVIOUR'])) {
-                $entityBehaviour = $iblockParams['BEHAVIOUR'] . 'Behaviour';
-            }
-            
-            if ($entityBehaviour == 'LibraryBehaviour') {
-                $contentTypes = $this->getContentTypes($iblockCode);
-                $constructorAdditionals .= "\n\t\t\$this->contentTypes = [\n";
-                
-                foreach ($contentTypes as $for => $arContentTypes) {
-                    $constructorAdditionals .= $this->stringifyContentTypes($arContentTypes, $for);    
-                }
-                
-                $constructorAdditionals .= "\n\t\t];";
-            }
             
             // Заполняем шаблон
             $repository
@@ -214,8 +236,8 @@ class RepositoryBuilder
         $result = "";
         
         foreach ($arContentTypes as $key => $arContentType) {
-            $result .= "\t\t\tnew \Spellabs\Portal\Rest\Entity\ContentType(" .
-                $arContentType['id'] . ", '" .
+            $result .= "\t\t\tnew \Spellabs\Portal\Rest\Entity\ContentType('" .
+                $arContentType['id'] . "', '" .
                 $arContentType['name'] . "', '" .
                 $for . "'),\n";
             
@@ -228,19 +250,29 @@ class RepositoryBuilder
     {
         $result = "";
         
-        $result .= "\t\t\$this->sectionFieldsCollection = [";
+        $result .= "\t\t\$this->sectionFieldsCollection = new \Spellabs\Portal\Rest\FieldsCollection(\n";
+        $result .= "\t\t\t[\n";
         
-        foreach ($sectionFieldsArray as $key => $arSectionField) {
-            $result .= "\t\t\tnew Field('', '',);";
+        foreach ($sectionFieldsArray as $propertyCode => $arProperty) {
+            if (
+                isset($arProperty['FIELD_ENTITY']) && 
+                in_array(
+                    $arProperty['FIELD_ENTITY'], 
+                    ['SECTION_FIELD']
+                )
+            ) {
+                $propertyType = $this->determinePropertyType($arProperty);
+                $result .= "\t\t\t\tnew Field(\n" . 
+                    "\t\t\t\t\t'" . $propertyCode . "',\n" .
+                    "\t\t\t\t\t'" . $arProperty['XML_ID'] . "',\n" . 
+                    "\t\t\t\t\tType\\" . $propertyType . "::class,\n" . 
+                    "\t\t\t\t\t'" . $arProperty['FIELD_ENTITY'] . "',\n" .
+                    "\t\t\t\t),\n";
+            }
         }
         
-        $result .= "\t\t];";
-        
-        $result .= "\$this->sectionFieldsCollection";
-        
-        foreach ($sectionFieldsArray as $key => $sectionField) {
-            //$sectionField = ;
-        }
+        $result .= "\t\t\t]\n";
+        $result .= "\t\t);\n";
         
         return $result;
     }

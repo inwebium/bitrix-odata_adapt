@@ -317,126 +317,10 @@ class spellabs_portal extends \CModule
         
         $dir = scandir($this->GetPath() . '/../classes/rest/Fixtures');
         
-        // В первом проходе заполним элементы
-        foreach ($dir as $key => $item)
-        {
-            $iblockCode = pathinfo($item)['filename'];
-            
-            $createdIblock = Spellabs\Portal\Rest\IblockUtils::getIblockBy(
-                'code', 
-                $iblockCode
-            );
-            
-            $elements = json_decode(
-                file_get_contents(
-                    $this->GetPath() . '/../classes/rest/Fixtures/' . $item
-                ), 
-                true
-            );
-
-            foreach ($elements as $key => $elementFields)
-            {
-                $this->fillFixtureAttachments(
-                    $elementFields['PROPERTY_VALUES'],
-                    $createdIblock['ID']
-                );
-                $elementFields['IBLOCK_ID'] = $createdIblock['ID'];
-
-                // если задана "картинка анонса"
-                if (!empty($elementFields['PREVIEW_PICTURE'])) {
-                    // если начинается с http
-                    if (strpos($elementFields['PREVIEW_PICTURE'], 'http') === 0) {
-                        $remotePathinfo = pathinfo($elementFields['PREVIEW_PICTURE']);
-                        $elementFields['PREVIEW_PICTURE'] = CFile::MakeFileArray(
-                            $elementFields['PREVIEW_PICTURE']
-                        );
-                        
-                        if (empty($remotePathinfo['extension'])) {
-                            rename(
-                                $elementFields['PREVIEW_PICTURE']['tmp_name'],
-                                $elementFields['PREVIEW_PICTURE']['tmp_name'] . '.jpg'
-                            );
-                            
-                            $elementFields['PREVIEW_PICTURE']['tmp_name'] = 
-                                $elementFields['PREVIEW_PICTURE']['tmp_name'] . '.jpg';
-                            
-                            $elementFields['PREVIEW_PICTURE']['name'] = 
-                                $elementFields['PREVIEW_PICTURE']['name'] . '.jpg';
-                            
-                        }
-                        
-                        
-                    } elseif (file_exists( // есть такой файл в "поставке"
-                        $this->GetPath() . '/../classes/rest/Fixtures/attachments/' . $elementFields['PREVIEW_PICTURE']
-                    )) {
-                        $elementFields['PREVIEW_PICTURE'] = CFile::MakeFileArray(
-                            $this->GetPath() . '/../classes/rest/Fixtures/attachments/' . $elementFields['PREVIEW_PICTURE']
-                        );
-                    }
-                }
-
-                // если задана "детальная картинка" и есть такой файл
-                if (!empty($elementFields['DETAIL_PICTURE'])) {
-                    if (strpos($elementFields['DETAIL_PICTURE'], 'http') === 0) {
-                        $elementFields['DETAIL_PICTURE'] = CFile::MakeFileArray(
-                            $elementFields['DETAIL_PICTURE']
-                        );
-                    } elseif (file_exists(
-                        $this->GetPath() . '/../classes/rest/Fixtures/attachments/' . $elementFields['DETAIL_PICTURE']
-                    )) {
-                        $elementFields['PREVIEW_PICTURE'] = CFile::MakeFileArray(
-                            $this->GetPath() . '/../classes/rest/Fixtures/attachments/' . $elementFields['DETAIL_PICTURE']
-                        );
-                    }
-                }
-
-                $newIblockElement = new CIBlockElement;
-                if (!$createdId = $newIblockElement->Add($elementFields, false, true, true)) {
-                    echo "\nError creating fixture: " . $newIblockElement->LAST_ERROR . "\n";
-                }
-            }
-        }
-        
+        // В первом проходе заполним-создадим элементы
+        $this->createJsonElements($dir);
         // Во втором проходе заполним привязки
-        foreach ($dir as $key => $item)
-        {
-            $iblockCode = pathinfo($item)['filename'];
-            
-            $createdIblock = Spellabs\Portal\Rest\IblockUtils::getIblockBy(
-                'code', 
-                $iblockCode
-            );
-            
-            $elements = json_decode(
-                file_get_contents($this->GetPath() . '/../classes/rest/Fixtures/' . $item), true
-            );
-            
-            foreach ($elements as $key => $elementFields)
-            {
-                $currentElement = Spellabs\Portal\Rest\IblockUtils::getElement(
-                    [
-                        'IBLOCK_ID' => $createdIblock['ID'],
-                        'XML_ID' => $elementFields['XML_ID']
-                    ]
-                );
-                // привязки создавать для элементов с указанными свойствами и XML_ID
-                if (
-                    !empty($elementFields['PROPERTY_VALUES']) && 
-                    !empty($elementFields['XML_ID'])
-                ) {
-                    $this->fillFixtureLookups(
-                        $elementFields['PROPERTY_VALUES'], 
-                        $createdIblock['ID']
-                    );
-                    
-                    CIBlockElement::SetPropertyValuesEx(
-                        $currentElement['ID'], 
-                        $createdIblock['ID'], 
-                        $elementFields['PROPERTY_VALUES']
-                    );
-                }
-            }
-        }
+        $this->createJsonLookups($dir);
     }
     
     /**
@@ -485,11 +369,13 @@ class spellabs_portal extends \CModule
                     }
                 } else {
                     
+                    $filename = $propertyValue[0];
+                        
                     if (strpos($filename, 'http') === 0) {
                         $attachmentFile = CFile::MakeFileArray($filename);
                         $attachmentsProperty['n0'] = ['VALUE' => $attachmentFile];
                     } else {
-                        $filePath = $this->GetPath() . '/../classes/rest/Fixtures/attachments/' . $propertyValue[0];
+                        $filePath = $this->GetPath() . '/../classes/rest/Fixtures/attachments/' . $filename;
                         
                         if (file_exists($filePath)) {
                             $attachmentFile = CFile::MakeFileArray($filePath);
@@ -707,5 +593,318 @@ class spellabs_portal extends \CModule
             "\t\t\t\t\t'" . $entity . "',\n" .
             "\t\t\t\t)\n" . 
             "\t\t\t)\n";
+    }
+    
+    /**
+     * Создает элементы из массива json файлов (в rest/Fixtures они)
+     * 
+     * @param type $arFiles
+     */
+    private function createJsonElements($arFiles)
+    {
+        foreach ($arFiles as $key => $file) {
+            // код инфоблока == имя файла
+            $iblockCode = pathinfo($file)['filename'];
+            
+            // Получаем инфо о созданном ранее инфоблоке по его коду
+            $createdIblock = Spellabs\Portal\Rest\IblockUtils::getIblockBy(
+                'code', 
+                $iblockCode
+            );
+            
+            // Получаем массив из json файла
+            $jsonElements = json_decode(
+                file_get_contents(
+                    $this->GetPath() . '/../classes/rest/Fixtures/' . $file
+                ), 
+                true
+            );
+            
+            $this->createElements($jsonElements, $createdIblock['ID']);
+        }
+    }
+    
+    /**
+     * Создаст элементы и разделы из массива подготовленных элементов
+     * (такие лежат в rest/Fixtures/... поинфоблочно)
+     * 
+     * @param array $arElements
+     * @param int $iblockId
+     */
+    private function createElements($arElements, $iblockId, $sectionId = 0)
+    {
+        // Перебираем элементы из json
+        foreach ($arElements as $key => $elementFields) {
+            // если в json элемент указан как раздел
+            if ($elementFields['IS_SECTION']) {
+                // сразу удалим за дальнейшей ненадобностью
+                unset($elementFields['IS_SECTION']);
+                // создать раздел
+                $this->createSection($elementFields, $iblockId, $sectionId);
+            } else {
+                // удалим за ненадобностью
+                unset($elementFields['IS_SECTION']);
+                // удалим за неправильностью-невозможностью
+                unset($elementFields['CHILDREN']);
+                // создать элемент
+                $this->createElement($elementFields, $iblockId, $sectionId);
+            }
+        }
+    }
+    
+    /**
+     * Создаст элемент из подготовленного массива. Картинки анонса и детальную
+     * (ключи PREVIEW_PICTURE и DETAIL_PICTURE соответственно) подготовит сам
+     * 
+     * @param array $elementFields
+     * @param int $iblockId
+     */
+    private function createElement($elementFields, $iblockId, $sectionId = 0)
+    {
+        // заполним значения свойств-файлов
+        $this->fillFixtureAttachments(
+            $elementFields['PROPERTY_VALUES'],
+            $iblockId
+        );
+        
+        $elementFields['PROPERTY_VALUES'] = 
+            $this->preparePropertyValues(
+                $elementFields['PROPERTY_VALUES'], 
+                $iblockId
+            );
+        // заполним id инфоблока из полученноой выше инфо о нем
+        $elementFields['IBLOCK_ID'] = $iblockId;
+        
+        // если параметр $sectionId есть истина
+        if ($sectionId) {
+            // добавим привязку к разделу $sectionId
+            $elementFields['IBLOCK_SECTION_ID'] = $sectionId;
+        }
+
+        // если задана "картинка анонса"
+        if (!empty($elementFields['PREVIEW_PICTURE'])) {
+            // если начинается с http
+            if (strpos($elementFields['PREVIEW_PICTURE'], 'http') === 0) {
+                $remotePathinfo = pathinfo($elementFields['PREVIEW_PICTURE']);
+                $elementFields['PREVIEW_PICTURE'] = CFile::MakeFileArray(
+                    $elementFields['PREVIEW_PICTURE']
+                );
+
+                if (empty($remotePathinfo['extension'])) {
+                    rename(
+                        $elementFields['PREVIEW_PICTURE']['tmp_name'],
+                        $elementFields['PREVIEW_PICTURE']['tmp_name'] . '.jpg'
+                    );
+
+                    $elementFields['PREVIEW_PICTURE']['tmp_name'] = 
+                        $elementFields['PREVIEW_PICTURE']['tmp_name'] . '.jpg';
+
+                    $elementFields['PREVIEW_PICTURE']['name'] = 
+                        $elementFields['PREVIEW_PICTURE']['name'] . '.jpg';
+
+                }
+
+
+            } elseif (file_exists( // есть такой файл
+                $this->GetPath() . '/../classes/rest/Fixtures/attachments/' . $elementFields['PREVIEW_PICTURE']
+            )) {
+                $elementFields['PREVIEW_PICTURE'] = CFile::MakeFileArray(
+                    $this->GetPath() . '/../classes/rest/Fixtures/attachments/' . $elementFields['PREVIEW_PICTURE']
+                );
+            }
+        }
+
+        // если задана "детальная картинка" и есть такой файл
+        if (!empty($elementFields['DETAIL_PICTURE'])) {
+            if (strpos($elementFields['DETAIL_PICTURE'], 'http') === 0) {
+                $elementFields['DETAIL_PICTURE'] = CFile::MakeFileArray(
+                    $elementFields['DETAIL_PICTURE']
+                );
+            } elseif (file_exists(
+                $this->GetPath() . '/../classes/rest/Fixtures/attachments/' . $elementFields['DETAIL_PICTURE']
+            )) {
+                $elementFields['PREVIEW_PICTURE'] = CFile::MakeFileArray(
+                    $this->GetPath() . '/../classes/rest/Fixtures/attachments/' . $elementFields['DETAIL_PICTURE']
+                );
+            }
+        }
+
+        // Собственно добавляем элемент инфоблока
+        $newIblockElement = new CIBlockElement;
+
+        if (!$createdId = $newIblockElement->Add($elementFields, false, true, true)) {
+            echo "\nError creating fixture: " . $newIblockElement->LAST_ERROR . "\n";
+        }
+    }
+    
+    /**
+     * Создаст раздел из подготовленного массива. Картинку подготовит сам 
+     * (ключ PICTURE для разделов)
+     * 
+     * @param array $sectionFields
+     * @param int $iblockId
+     */
+    private function createSection($sectionFields, $iblockId, $sectionId = 0)
+    {
+        $newIblockSection = new CIBlockSection;
+        $sectionFields['IBLOCK_ID'] = $iblockId;
+    
+        // если параметр $sectionId есть истина
+        if ($sectionId) {
+            // добавим привязку к разделу $sectionId
+            $elementFields['IBLOCK_SECTION_ID'] = $sectionId;
+        }
+        
+        // если задана "картинка"
+        if (!empty($sectionFields['PICTURE'])) {
+            // если начинается с http
+            if (strpos($sectionFields['PICTURE'], 'http') === 0) {
+                $remotePathinfo = pathinfo($sectionFields['PICTURE']);
+                $sectionFields['PICTURE'] = CFile::MakeFileArray(
+                    $sectionFields['PICTURE']
+                );
+
+                if (empty($remotePathinfo['extension'])) {
+                    rename(
+                        $sectionFields['PICTURE']['tmp_name'],
+                        $sectionFields['PICTURE']['tmp_name'] . '.jpg'
+                    );
+
+                    $sectionFields['PICTURE']['tmp_name'] = 
+                        $sectionFields['PICTURE']['tmp_name'] . '.jpg';
+
+                    $sectionFields['PICTURE']['name'] = 
+                        $sectionFields['PICTURE']['name'] . '.jpg';
+
+                }
+
+
+            } elseif (file_exists( // есть такой файл
+                $this->GetPath() . '/../classes/rest/Fixtures/attachments/' . $sectionFields['PICTURE']
+            )) {
+                $sectionFields['PICTURE'] = CFile::MakeFileArray(
+                    $this->GetPath() . '/../classes/rest/Fixtures/attachments/' . $sectionFields['PICTURE']
+                );
+            }
+        }
+        
+        if (!$createdId = $newIblockSection->Add($sectionFields, true, true, true)) {
+            echo "\nError creating section-fixture: " . $newIblockSection->LAST_ERROR . "\n";
+        } else {
+            // коли указаны потомки у раздела
+            if (!empty($sectionFields['CHILDREN'])) {
+                // пущай создатуться они, к разделу сему привязанные
+                $this->createElements($sectionFields['CHILDREN'], $iblockId, $createdId);
+            }
+        }
+    }
+    
+    /**
+     * Задаст лукапы элементов (очевидно заранее созданных по файлам rest/Fixtures)
+     * 
+     * @param array $arFiles
+     */
+    private function createJsonLookups($arFiles)
+    {
+        foreach ($arFiles as $key => $arFile) {
+            // код инфоблока == имя файла
+            $iblockCode = pathinfo($arFile)['filename'];
+            
+            // Получаем инфо о созданном ранее инфоблоке по его коду
+            $createdIblock = Spellabs\Portal\Rest\IblockUtils::getIblockBy(
+                'code', 
+                $iblockCode
+            );
+            
+            $jsonElements = json_decode(
+                file_get_contents($this->GetPath() . '/../classes/rest/Fixtures/' . $arFile), true
+            );
+            
+            foreach ($jsonElements as $key => $elementFields) {
+                // Получаем раннее созданный элемент по инфо из json (по XML_ID)
+                $currentElement = Spellabs\Portal\Rest\IblockUtils::getElement(
+                    [
+                        'IBLOCK_ID' => $createdIblock['ID'],
+                        'XML_ID' => $elementFields['XML_ID']
+                    ]
+                );
+                // привязки создавать для элементов с указанными свойствами и XML_ID
+                if (
+                    !empty($elementFields['PROPERTY_VALUES']) && 
+                    !empty($elementFields['XML_ID'])
+                ) {
+                    
+                    $this->fillFixtureLookups(
+                        $elementFields['PROPERTY_VALUES'], 
+                        $createdIblock['ID']
+                    );
+                    
+                    CIBlockElement::SetPropertyValuesEx(
+                        $currentElement['ID'], 
+                        $createdIblock['ID'], 
+                        $elementFields['PROPERTY_VALUES']
+                    );
+                }
+            }
+        }
+    }
+    
+    /**
+     * Подготовит значения элемента PROPERTY_VALUES для добавления элемента 
+     * инфоблока. На данный момент пока необходимо только для свойств-списков (L)
+     * 
+     * @param array $propertyValues
+     * @param int $iblockId
+     * @return array
+     */
+    private function preparePropertyValues($propertyValues, $iblockId)
+    {
+        foreach ($propertyValues as $propertyCode => $value) {
+            $propertyResult = CIBlockProperty::GetList(
+                ['ID' => 'DESC'],
+                ['IBLOCK_ID' => $iblockId, 'CODE' => $propertyCode]
+            );
+            
+            if ($arProperty = $propertyResult->GetNext()) {
+                switch ($arProperty['PROPERTY_TYPE']) {
+                    case 'S':
+                        // TODO: ?
+                    case 'N':
+                        // TODO: ?
+                    case 'F':
+                        // TODO: ?
+                        break;
+                    case 'L':
+                        // находим значение из свойства-списка
+                        $enumVariantResult = CIBlockPropertyEnum::GetList(
+                            ['ID' => 'DESC'], 
+                            [
+                                'CODE' => $propertyCode, 
+                                'IBLOCK_ID' => $iblockId,
+                                'EXTERNAL_ID' => $value
+                            ]
+                        );
+                        
+                        if ($arProperty['MULTIPLE'] == 'Y' && is_array($value)) {
+                            while ($arEnumVariant = $enumVariantResult->GetNext()) {
+                                $propertyValues[$propertyCode][array_search($arEnumVariant['XML_ID'], $value)] = 
+                                    $arEnumVariant['ID']
+                                ;
+                            }
+                        } else {
+                            if ($arEnumVariant = $enumVariantResult->GetNext()) {
+                                $propertyValues[$propertyCode] = [
+                                    'VALUE' => $arEnumVariant['ID']
+                                ];
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        
+        return $propertyValues;
     }
 }
