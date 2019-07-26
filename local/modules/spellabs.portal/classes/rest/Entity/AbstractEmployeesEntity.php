@@ -157,7 +157,7 @@ abstract class AbstractEmployeesEntity extends AbstractRestApiEntity
         return $this;
     }
     
-        /**
+    /**
      * Заменяет expanded поля в select на битриксовые аналоги
      * 
      * @param type $fieldCode
@@ -197,6 +197,13 @@ abstract class AbstractEmployeesEntity extends AbstractRestApiEntity
         //die();
     }
     
+    /**
+     * Т.к. у нас тут битрикс, а его api неоднородное, то есть такие вот методы.
+     * Этот подготовит $arSelect подходящий для CUser::GetList
+     * 
+     * @param type $arSelect
+     * @return type
+     */
     public function separateSelect($arSelect)
     {
         $select = [];
@@ -230,8 +237,7 @@ abstract class AbstractEmployeesEntity extends AbstractRestApiEntity
         if (isset($this->getExpandedValues()[$element['ID']])) {
             //var_dump($this->getExpandedValues()[$element['ID']]);
             
-            foreach ($this->getExpandedValues()[$element['ID']] as $propertyCode => $arValue)
-            {
+            foreach ($this->getExpandedValues()[$element['ID']] as $propertyCode => $arValue) {
                 $element[$propertyCode] = $arValue;
             }
         }

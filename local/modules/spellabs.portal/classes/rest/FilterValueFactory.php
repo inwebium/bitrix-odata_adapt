@@ -10,6 +10,10 @@ class FilterValueFactory
      * @var array 
      */
     private $types = [
+        'SubstringFilterValue' => [
+            'pattern' => "/substring\s?'(.*)'/",
+            'groupAsParameter' => 1,
+        ],
         'EnumerationFilterValue' => [
             'pattern' => "/\(.+\)/",
             'groupAsParameter' => 1,
@@ -26,7 +30,7 @@ class FilterValueFactory
     
     public function __construct()
     {
-        ;
+        ; // ¯\_(ツ)_/¯
     }
     
     /**

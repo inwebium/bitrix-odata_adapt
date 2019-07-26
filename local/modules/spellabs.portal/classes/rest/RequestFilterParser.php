@@ -34,6 +34,7 @@ class RequestFilterParser
             else
             {
                 $pattern = "/(([\w\/]+)\[(\w{2})\]=(\d+|'[^']+'|\w+\s?(?:'[^']+')?|\(.*?\)))|(,|;|$)/";
+                //$pattern = "/(([\w\/]+)\[(\w+?)\]=(\d+|'[^']+'|\w+\s?(?:'[^']+')?|\(.*?\)))|(,|;|$)/";
                 $matches = [];
                 preg_match_all($pattern, $child, $matches, PREG_SET_ORDER);
                 
@@ -212,6 +213,8 @@ class RequestFilterParser
      */
     public function odataAdaptation($filterString)
     {
+        $this->adaptOdataFunctions($filterString);
+        
         $filterString = str_replace([' and ', ' or '], [';', ','], $filterString);
         $comparisonsSearch = [
             ' ne ', 
@@ -235,7 +238,37 @@ class RequestFilterParser
             $comparisonsReplacement, 
             $filterString
         );
-        
+
         return $filterString;
+    }
+    
+    public function adaptOdataFunctions(&$filterString)
+    {
+        // тут тоже можно в нормальное ооп расширить
+        $functionsPatterns = [
+            "/substringof\('([^']+)'\s?,\s?([\w\/]+)\)/" => [
+                'operator' => 'eq',
+                'fieldNameIndex' => 2,
+                'valueIndex' => 1,
+                'functionName' => 'substring'
+            ]
+        ];
+        
+        foreach ($functionsPatterns as $pattern => $replaceMap) {
+            $matches = [];
+            
+            $filterString = preg_replace_callback(
+                $pattern, 
+                function($matches) use ($replaceMap) {
+                    return 
+                        $matches[$replaceMap['fieldNameIndex']] . '[' . 
+                        $replaceMap['operator'] . ']=' . 
+                        $replaceMap['functionName']. ' \'' .
+                        $matches[$replaceMap['valueIndex']] . '\''
+                    ;
+                }, 
+                $filterString
+            );
+        }
     }
 }
