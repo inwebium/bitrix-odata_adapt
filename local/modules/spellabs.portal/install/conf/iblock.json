@@ -833,6 +833,15 @@
         "PERMISSIONS": {
             "1": "X",
             "2": "R"
+        },
+        "LIKEABLE": {
+            "IS_LIKEABLE": true,
+            "IBLOCK": {
+                "CODE": "sl_videos_views",
+                "NAME": "Просмотры видео",
+                "XML_ID": "slVideosViews",
+                "LOOKUP": "slVideoLookup"
+            }
         }
     }
 }

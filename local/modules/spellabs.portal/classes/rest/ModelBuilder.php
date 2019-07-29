@@ -91,10 +91,13 @@ class ModelBuilder
         foreach ($arIblocksParams as $iblockCode => $iblockParams) {
             $newIblock = new \CIBlock;
             
+            $likeableParams = [];
             // удалим придуманные ключи от греха подальше
-            if (!empty($iblockParams['BEHAVIOUR'])) {
-                unset($iblockParams['BEHAVIOUR']);
+            if (!empty($iblockParams['LIKEABLE'])) {
+                $likeableParams = $iblockParams['LIKEABLE']['IBLOCK'];
+                unset($iblockParams['LIKEABLE']);
             }
+            unset($iblockParams['BEHAVIOUR']);
             
             $iblockParams['CODE'] = $iblockCode;
             
@@ -111,10 +114,14 @@ class ModelBuilder
 
             if (!$result) {
                 $DB->Rollback();
-                echo "\nERROR (CreateIblocks): " . $newIblock->LAST_ERROR . "\n\n";
+                echo "\nERROR (CreateIblocks, IB code = " . $iblockParams['CODE'] . "): " . $newIblock->LAST_ERROR . "\n\n";
             } else {
                 $DB->Commit();
                 \CIBlock::SetPermission($result, $arPermissions);
+                
+                if (!empty($likeableParams)) {
+                    $this->buildLikeableModel($likeableParams, $iblockParams, $result);
+                }
             }
         }
         
@@ -326,5 +333,73 @@ class ModelBuilder
         );
         
         return intval(IblockUtils::getIblockBy('CODE', $iblockCode)['ID']);
+    }
+    
+    private function buildLikeableModel($likeableParams, $originIblockParams, $originIblockId)
+    {
+        global $DB;
+        $newIblock = new \CIBlock;
+
+        // Параметры будут такие же как у оригинального инфоблока
+        $iblockParams = $originIblockParams;
+        // Разве что убедимся, что некоторые парметры без изысков
+        $iblockParams['LIST_MODE'] = "C";
+		$iblockParams['RIGHTS_MODE'] = "S";
+		$iblockParams['WORKFLOW'] = "N";
+		$iblockParams['BIZPROC'] = "N";
+		$iblockParams['VERSION'] = 2;
+		$iblockParams['SORT']++;
+        // Установим параметры из ключа LIKEABLE
+        $iblockParams['CODE'] = $likeableParams['CODE'];
+        $iblockParams['NAME'] = $likeableParams['NAME'];
+        $iblockParams['XML_ID'] = $likeableParams['XML_ID'];
+        
+        if (empty($iblockParams['IBLOCK_TYPE_ID'])) {
+            $iblockParams['IBLOCK_TYPE_ID'] = 'spellabs';
+        }
+
+        $arPermissions = $iblockParams['PERMISSIONS'];
+        unset($iblockParams['PERMISSIONS']);
+            
+        //Создаем инфоблок под лайки
+        $DB->StartTransaction();
+        $result = $newIblock->Add($iblockParams);
+
+        if (!$result) {
+            $DB->Rollback();
+            echo "\nERROR (buildLikeableModel, IB code = " . $iblockParams['CODE'] . "): " . $newIblock->LAST_ERROR . "\n\n";
+        } else {
+            $DB->Commit();
+            \CIBlock::SetPermission($result, $arPermissions);
+
+            // В созданном инфоблоке под лайки создаем нужные свойства
+            $newProperty = new \CIBlockProperty;
+            // Массив параметров свойства
+            $propertyParams = [
+                'CODE' => strtoupper(trim(preg_replace("/((?:^|[A-Z])[a-z]+)/", "_$1", $likeableParams['LOOKUP']), '_')),
+                'IBLOCK_ID' => $result,
+                'XML_ID' => $likeableParams['LOOKUP'],
+                'NAME' => $likeableParams['LOOKUP'],
+                'ACTIVE' => 'Y',
+                'IS_REQUIRED' => 'Y',
+                'SORT' => 1,
+                'PROPERTY_TYPE' => 'E',
+                'LINK_IBLOCK_CODE' => $originIblockParams['CODE'], // TODO: fix
+                'MULTIPLE' => 'N',
+                'SEARCHABLE' => 'N',
+                'FILTRABLE' => 'Y'
+            ];
+
+            $DB->StartTransaction();
+
+            $result = $newProperty->Add($propertyParams);
+
+            if (!$result) {
+                $DB->Rollback();
+                echo "\nERROR (CreateProperties): " . $newProperty->LAST_ERROR . "\n\n";
+            } else {
+                $DB->Commit();
+            }
+        }
     }
 }
